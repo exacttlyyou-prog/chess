@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
   body {
     @apply bg-stake-black text-white font-sans;
     margin: 0;
