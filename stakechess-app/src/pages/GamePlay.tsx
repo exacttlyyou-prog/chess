@@ -2,25 +2,25 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-// Chess pieces unicode
-const pieces = {
-  white: {
-    king: '♔',
-    queen: '♕',
-    rook: '♖',
-    bishop: '♗',
-    knight: '♘',
-    pawn: '♙',
-  },
-  black: {
-    king: '♚',
-    queen: '♛',
-    rook: '♜',
-    bishop: '♝',
-    knight: '♞',
-    pawn: '♟',
-  },
-};
+// Chess pieces unicode (for future use)
+// const pieces = {
+//   white: {
+//     king: '♔',
+//     queen: '♕',
+//     rook: '♖',
+//     bishop: '♗',
+//     knight: '♘',
+//     pawn: '♙',
+//   },
+//   black: {
+//     king: '♚',
+//     queen: '♛',
+//     rook: '♜',
+//     bishop: '♝',
+//     knight: '♞',
+//     pawn: '♟',
+//   },
+// };
 
 // Initial board position
 const initialBoard = [
@@ -38,7 +38,7 @@ export default function GamePlay() {
   const navigate = useNavigate();
   const [timeWhite, setTimeWhite] = useState(180); // 3 minutes in seconds
   const [timeBlack, setTimeBlack] = useState(180);
-  const [currentTurn, setCurrentTurn] = useState<'white' | 'black'>('white');
+  const [currentTurn] = useState<'white' | 'black'>('white');
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
