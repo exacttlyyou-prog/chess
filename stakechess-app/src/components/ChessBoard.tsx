@@ -80,6 +80,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
   const [validMoves, setValidMoves] = useState<{ row: number; col: number }[]>([]);
   const [currentTurn, setCurrentTurn] = useState<PieceColor>('white');
   const [lastMove, setLastMove] = useState<{ from: { row: number; col: number }; to: { row: number; col: number } } | null>(null);
+  const [capturedPieces, setCapturedPieces] = useState<{ white: PieceType[]; black: PieceType[] }>({ white: [], black: [] });
 
   const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
     const piece = board[row][col].piece;
@@ -216,6 +217,16 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
       if (isValidMove) {
         // Make the move
         const newBoard = board.map(r => r.map(sq => ({ ...sq, piece: sq.piece ? { ...sq.piece } : null })));
+
+        // Check if capturing a piece
+        const capturedPiece = newBoard[row][col].piece;
+        if (capturedPiece) {
+          setCapturedPieces(prev => ({
+            ...prev,
+            [capturedPiece.color]: [...prev[capturedPiece.color], capturedPiece.type]
+          }));
+        }
+
         newBoard[row][col].piece = newBoard[selectedSquare.row][selectedSquare.col].piece;
         newBoard[selectedSquare.row][selectedSquare.col].piece = null;
 
@@ -261,8 +272,24 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           <div className="w-3 h-3 rounded-full bg-gray-400" />
           <span className="font-semibold text-gray-300">Черные</span>
         </div>
-        <div className={`text-2xl font-mono font-bold ${currentTurn === 'black' ? 'text-stake-red' : 'text-gray-400'}`}>
-          {Math.floor(blackTime / 60)}:{(blackTime % 60).toString().padStart(2, '0')}
+        <div className="flex items-center gap-3">
+          {/* Captured white pieces */}
+          <div className="flex items-center gap-1">
+            {capturedPieces.white.map((pieceType, index) => (
+              <motion.div
+                key={`${pieceType}-${index}`}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                className="text-white/70 text-xl"
+              >
+                {PIECE_SYMBOLS.white[pieceType]}
+              </motion.div>
+            ))}
+          </div>
+          <div className={`text-2xl font-mono font-bold ${currentTurn === 'black' ? 'text-stake-red' : 'text-gray-400'}`}>
+            {Math.floor(blackTime / 60)}:{(blackTime % 60).toString().padStart(2, '0')}
+          </div>
         </div>
       </div>
 
@@ -307,14 +334,13 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         relative aspect-square flex items-center justify-center text-4xl sm:text-5xl
                         transition-all duration-300
                         ${isDark
-                          ? 'bg-gradient-to-br from-emerald-900/40 to-emerald-950/60'
-                          : 'bg-gradient-to-br from-amber-50/15 to-amber-100/10'}
+                          ? 'bg-gradient-to-br from-stone-700/25 to-stone-800/35'
+                          : 'bg-gradient-to-br from-stone-100/20 to-white/10'}
                         ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_20px_rgba(255,23,68,0.3)]' : ''}
                         ${validMove ? 'bg-gradient-to-br from-stake-red/40 to-stake-red/20' : ''}
                         ${highlight ? 'bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 shadow-[inset_0_0_15px_rgba(234,179,8,0.4)]' : ''}
                         hover:brightness-110
                       `}
-                      whileHover={{ scale: piece ? 1.05 : 1 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       {validMove && !piece && (
@@ -336,7 +362,6 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                           initial={{ scale: 0, rotate: -180 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                          whileHover={{ scale: 1.1, y: -2 }}
                           className={`
                             select-none cursor-pointer relative z-10
                             ${piece.color === 'white'
@@ -362,8 +387,24 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           <div className="w-3 h-3 rounded-full bg-white" />
           <span className="font-semibold">Белые</span>
         </div>
-        <div className={`text-2xl font-mono font-bold ${currentTurn === 'white' ? 'text-stake-red' : 'text-gray-400'}`}>
-          {Math.floor(whiteTime / 60)}:{(whiteTime % 60).toString().padStart(2, '0')}
+        <div className="flex items-center gap-3">
+          {/* Captured black pieces */}
+          <div className="flex items-center gap-1">
+            {capturedPieces.black.map((pieceType, index) => (
+              <motion.div
+                key={`${pieceType}-${index}`}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                className="text-gray-800/80 text-xl"
+              >
+                {PIECE_SYMBOLS.black[pieceType]}
+              </motion.div>
+            ))}
+          </div>
+          <div className={`text-2xl font-mono font-bold ${currentTurn === 'white' ? 'text-stake-red' : 'text-gray-400'}`}>
+            {Math.floor(whiteTime / 60)}:{(whiteTime % 60).toString().padStart(2, '0')}
+          </div>
         </div>
       </div>
     </div>
