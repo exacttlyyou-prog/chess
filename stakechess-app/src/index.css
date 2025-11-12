@@ -147,6 +147,11 @@
     transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  .glass-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
+  }
+
   .glass-input {
     @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl px-5 py-4 outline-none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -155,6 +160,12 @@
   .glass-input:focus {
     @apply border-stake-red/50 bg-white/[0.06];
     box-shadow: 0 0 0 4px rgba(255, 23, 68, 0.08);
+    outline: none;
+  }
+
+  .glass-input:focus-visible {
+    outline: 2px solid rgba(255, 23, 68, 0.6);
+    outline-offset: 2px;
   }
 
   /* Premium button styles */
@@ -187,9 +198,19 @@
       0 2px 6px rgba(0, 0, 0, 0.35);
   }
 
+  .btn-primary:focus-visible {
+    outline: 3px solid rgba(255, 23, 68, 0.6);
+    outline-offset: 3px;
+  }
+
   /* Secondary button with refined glass */
   .btn-secondary {
     @apply glass-button font-semibold;
+  }
+
+  .btn-secondary:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
   }
 
   /* Refined text gradient */
@@ -304,6 +325,13 @@
     transform: translateY(-1px);
   }
 
+  /* Global focus-visible styles for accessibility */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
+  }
+
   /* Premium ripple effect for button feedback */
   .ripple-container {
     position: relative;
@@ -387,4 +415,16 @@
   .space-8 { @apply p-16; }   /* 64px */
   .space-10 { @apply p-20; }  /* 80px */
   .space-12 { @apply p-24; }  /* 96px */
+
+  /* Accessibility: Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
