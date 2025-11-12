@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { User, Handshake, Flag, Settings } from 'lucide-react';
 
 // Chess pieces unicode (for future use)
 // const pieces = {
@@ -72,17 +73,17 @@ export default function GamePlay() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex flex-col">
       {/* Opponent Info */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="p-4"
       >
-        <div className="glass-card p-4 flex items-center justify-between">
+        <div className="glass-card p-6 flex items-center justify-between shadow-depth">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center text-2xl">
-              👤
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center">
+              <User className="w-6 h-6 text-stake-red" />
             </div>
             <div>
               <p className="font-semibold">Соперник</p>
@@ -108,7 +109,7 @@ export default function GamePlay() {
           className="w-full max-w-md"
         >
           {/* Board container with glassmorphism frame */}
-          <div className="glass-card p-4">
+          <div className="glass-card p-6 shadow-depth-lg">
             <div className="aspect-square grid grid-cols-8 gap-0 rounded-lg overflow-hidden shadow-2xl">
               {initialBoard.map((row, rowIndex) =>
                 row.map((piece, colIndex) => {
@@ -152,7 +153,7 @@ export default function GamePlay() {
         transition={{ delay: 0.3 }}
         className="p-4"
       >
-        <div className="glass-card p-4 flex items-center justify-between">
+        <div className="glass-card p-6 flex items-center justify-between shadow-depth">
           <div
             className={`text-left ${
               currentTurn === 'white' ? 'text-stake-red' : ''
@@ -165,8 +166,8 @@ export default function GamePlay() {
               <p className="font-semibold text-right">Вы</p>
               <p className="text-sm text-gray-400 text-right">Рейтинг: 1450</p>
             </div>
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white/30 to-white/10 flex items-center justify-center text-2xl">
-              👤
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white/30 to-white/10 flex items-center justify-center">
+              <User className="w-6 h-6 text-white" />
             </div>
           </div>
         </div>
@@ -182,21 +183,24 @@ export default function GamePlay() {
         <div className="flex gap-3">
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="btn-secondary flex-1"
+            className="btn-secondary flex-1 flex items-center justify-center gap-2"
           >
-            ⚙ Меню
+            <Settings className="w-4 h-4" />
+            <span>Меню</span>
           </button>
           <button
             onClick={handleDraw}
-            className="btn-secondary flex-1"
+            className="btn-secondary flex-1 flex items-center justify-center gap-2"
           >
-            🤝 Ничья
+            <Handshake className="w-4 h-4" />
+            <span>Ничья</span>
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/30 flex-1"
+            className="glass-button !bg-red-500/20 !border-red-500/30 flex-1 flex items-center justify-center gap-2"
           >
-            🏳 Сдаться
+            <Flag className="w-4 h-4" />
+            <span>Сдаться</span>
           </button>
         </div>
       </motion.div>

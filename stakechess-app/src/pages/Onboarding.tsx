@@ -69,7 +69,7 @@ export default function Onboarding() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center p-6"
+        className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex items-center justify-center p-6"
       >
         <motion.div
           initial={{ scale: 0.9, y: 20 }}
@@ -83,7 +83,7 @@ export default function Onboarding() {
             <p className="text-gray-400">Начни свой путь в шахматах</p>
           </div>
 
-          <div className="glass-card p-8 space-y-4">
+          <div className="glass-card p-8 space-y-4 shadow-depth-lg">
             <input
               type="tel"
               placeholder="Номер телефона"
@@ -131,7 +131,7 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex flex-col">
       {/* Header */}
       <div className="p-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold">
@@ -177,7 +177,8 @@ export default function Onboarding() {
                       onError={(e) => {
                         // Fallback to icon if image fails to load
                         e.currentTarget.style.display = 'none';
-                        e.currentTarget.nextElementSibling.style.display = 'block';
+                        const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'block';
                       }}
                     />
                     <div className="text-8xl" style={{ display: 'none' }}>

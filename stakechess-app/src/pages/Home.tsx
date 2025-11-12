@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Zap, Bot, Trophy, Users, User, Flame, Home as HomeIcon } from 'lucide-react';
 
 const quickActions = [
-  { id: 'quick', title: 'Быстрая игра', icon: '⚡', path: '/game-mode' },
-  { id: 'ai', title: 'Игра с AI', icon: '🤖', path: '/play' },
-  { id: 'tournament', title: 'Турниры', icon: '🏆', path: '/game-mode' },
-  { id: 'friends', title: 'С другом', icon: '👥', path: '/game-mode' },
+  { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
+  { id: 'ai', title: 'Игра с AI', Icon: Bot, path: '/play' },
+  { id: 'tournament', title: 'Турниры', Icon: Trophy, path: '/game-mode' },
+  { id: 'friends', title: 'С другом', Icon: Users, path: '/game-mode' },
 ];
 
 const widgets = [
@@ -19,13 +20,13 @@ const widgets = [
     type: 'achievement',
     title: 'Новое достижение!',
     subtitle: '5 побед подряд',
-    badge: '🔥',
+    badge: 'flame',
   },
   {
     type: 'friends',
     title: 'Друзья онлайн',
     subtitle: '3 игрока',
-    avatars: ['👤', '👤', '👤'],
+    avatars: ['user', 'user', 'user'],
   },
 ];
 
@@ -33,23 +34,23 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black">
+    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern">
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="p-6 pb-4"
+        className="p-8 pb-4"
       >
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-3xl font-bold mb-1">Привет, Игрок 👋</h1>
+            <h1 className="text-3xl font-bold mb-1">Привет, Игрок</h1>
             <p className="text-gray-400">Рейтинг: 1450 • Онлайн</p>
           </div>
           <button
             onClick={() => navigate('/profile')}
             className="glass-button !px-4 !py-3"
           >
-            <span className="text-2xl">👤</span>
+            <User className="w-6 h-6" />
           </button>
         </div>
 
@@ -58,7 +59,7 @@ export default function Home() {
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="glass-card p-6 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/30"
+          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/30 shadow-red-glow"
         >
           <div className="flex justify-between items-center mb-4">
             <div>
@@ -88,7 +89,7 @@ export default function Home() {
       </motion.div>
 
       {/* Quick Actions */}
-      <div className="px-6 mb-6">
+      <div className="px-8 mb-6">
         <h3 className="text-lg font-semibold mb-4">Быстрые действия</h3>
         <div className="grid grid-cols-2 gap-4">
           {quickActions.map((action, index) => (
@@ -100,9 +101,9 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate(action.path)}
-              className="glass-card p-6 text-center hover:bg-white/10 transition-all"
+              className="glass-card p-8 text-center hover:bg-white/10 transition-all shadow-depth"
             >
-              <div className="text-4xl mb-2">{action.icon}</div>
+              <action.Icon className="w-10 h-10 mx-auto mb-2 text-stake-red" strokeWidth={1.5} />
               <p className="font-semibold">{action.title}</p>
             </motion.button>
           ))}
@@ -110,7 +111,7 @@ export default function Home() {
       </div>
 
       {/* Widgets */}
-      <div className="px-6 pb-6">
+      <div className="px-8 pb-8">
         <h3 className="text-lg font-semibold mb-4">Актуально</h3>
         <div className="space-y-4">
           {widgets.map((widget, index) => (
@@ -119,7 +120,7 @@ export default function Home() {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 + index * 0.1 }}
-              className="glass-card p-4 hover:bg-white/10 transition-all cursor-pointer"
+              className="glass-card p-6 hover:bg-white/10 transition-all cursor-pointer shadow-depth"
               onClick={() => navigate('/game-mode')}
             >
               <div className="flex justify-between items-center">
@@ -131,15 +132,19 @@ export default function Home() {
                   {widget.participants && (
                     <p className="text-gray-400 text-sm">{widget.participants}</p>
                   )}
-                  {widget.badge && <span className="text-3xl">{widget.badge}</span>}
+                  {widget.badge && (
+                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 rounded-full">
+                      <Flame className="w-6 h-6 text-stake-red" />
+                    </div>
+                  )}
                   {widget.avatars && (
                     <div className="flex -space-x-2">
-                      {widget.avatars.map((avatar, i) => (
+                      {widget.avatars.map((_, i) => (
                         <div
                           key={i}
                           className="w-8 h-8 rounded-full bg-stake-gray flex items-center justify-center border-2 border-stake-black-light"
                         >
-                          {avatar}
+                          <User className="w-4 h-4 text-gray-400" />
                         </div>
                       ))}
                     </div>
@@ -159,21 +164,21 @@ export default function Home() {
         className="fixed bottom-0 left-0 right-0 glass border-t border-white/10 p-4 flex justify-around"
       >
         <button className="flex flex-col items-center gap-1 text-stake-red">
-          <span className="text-2xl">🏠</span>
+          <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Главная</span>
         </button>
         <button
           onClick={() => navigate('/game-mode')}
           className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
         >
-          <span className="text-2xl">⚡</span>
+          <Zap className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Играть</span>
         </button>
         <button
           onClick={() => navigate('/profile')}
           className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
         >
-          <span className="text-2xl">👤</span>
+          <User className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Профиль</span>
         </button>
       </motion.div>
