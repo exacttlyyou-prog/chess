@@ -268,53 +268,90 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
 
       {/* Chess Board */}
       <div className="glass-card p-4 sm:p-6">
-        <div className="aspect-square max-w-xl mx-auto">
-          <div className="grid grid-cols-8 gap-0 w-full h-full border-2 border-white/20 rounded-xl overflow-hidden shadow-depth-lg">
-            {board.map((row, rowIndex) =>
-              row.map((square, colIndex) => {
-                const isDark = (rowIndex + colIndex) % 2 === 1;
-                const piece = square.piece;
-                const selected = isSquareSelected(rowIndex, colIndex);
-                const validMove = isValidMove(rowIndex, colIndex);
-                const highlight = isLastMove(rowIndex, colIndex);
+        <div className="aspect-square max-w-xl mx-auto relative">
+          {/* Board container with coordinates */}
+          <div className="relative">
+            {/* Rank labels (1-8) on the left */}
+            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-500 font-mono">
+              {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
+                <div key={rank} className="h-[12.5%] flex items-center">
+                  {rank}
+                </div>
+              ))}
+            </div>
 
-                return (
-                  <motion.button
-                    key={`${rowIndex}-${colIndex}`}
-                    onClick={() => handleSquareClick(rowIndex, colIndex)}
-                    className={`
-                      relative aspect-square flex items-center justify-center text-4xl sm:text-5xl
-                      transition-all duration-200
-                      ${isDark ? 'bg-black/40' : 'bg-white/10'}
-                      ${selected ? 'ring-4 ring-stake-red ring-inset' : ''}
-                      ${validMove ? 'bg-stake-red/30' : ''}
-                      ${highlight ? 'bg-yellow-500/20' : ''}
-                      hover:bg-white/20
-                    `}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {validMove && !piece && (
-                      <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-stake-red/60" />
-                    )}
-                    {validMove && piece && (
-                      <div className="absolute inset-0 border-4 border-stake-red/60 rounded-full m-1" />
-                    )}
-                    {piece && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className={`
-                          select-none cursor-pointer
-                          ${piece.color === 'white' ? 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]' : 'text-gray-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.3)]'}
-                        `}
-                      >
-                        {PIECE_SYMBOLS[piece.color][piece.type]}
-                      </motion.div>
-                    )}
-                  </motion.button>
-                );
-              })
-            )}
+            {/* File labels (a-h) on the bottom */}
+            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-500 font-mono">
+              {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
+                <div key={file} className="w-[12.5%] flex justify-center">
+                  {file}
+                </div>
+              ))}
+            </div>
+
+            {/* Main board */}
+            <div className="grid grid-cols-8 gap-0 w-full h-full rounded-2xl overflow-hidden shadow-depth-lg border-2 border-white/10">
+              {board.map((row, rowIndex) =>
+                row.map((square, colIndex) => {
+                  const isDark = (rowIndex + colIndex) % 2 === 1;
+                  const piece = square.piece;
+                  const selected = isSquareSelected(rowIndex, colIndex);
+                  const validMove = isValidMove(rowIndex, colIndex);
+                  const highlight = isLastMove(rowIndex, colIndex);
+
+                  return (
+                    <motion.button
+                      key={`${rowIndex}-${colIndex}`}
+                      onClick={() => handleSquareClick(rowIndex, colIndex)}
+                      className={`
+                        relative aspect-square flex items-center justify-center text-4xl sm:text-5xl
+                        transition-all duration-300
+                        ${isDark
+                          ? 'bg-gradient-to-br from-emerald-900/40 to-emerald-950/60'
+                          : 'bg-gradient-to-br from-amber-50/15 to-amber-100/10'}
+                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_20px_rgba(255,23,68,0.3)]' : ''}
+                        ${validMove ? 'bg-gradient-to-br from-stake-red/40 to-stake-red/20' : ''}
+                        ${highlight ? 'bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 shadow-[inset_0_0_15px_rgba(234,179,8,0.4)]' : ''}
+                        hover:brightness-110
+                      `}
+                      whileHover={{ scale: piece ? 1.05 : 1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {validMove && !piece && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="w-4 h-4 rounded-full bg-stake-red shadow-lg shadow-stake-red/50"
+                        />
+                      )}
+                      {validMove && piece && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute inset-0 border-4 border-stake-red rounded-full m-1 shadow-lg shadow-stake-red/30"
+                        />
+                      )}
+                      {piece && (
+                        <motion.div
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                          whileHover={{ scale: 1.1, y: -2 }}
+                          className={`
+                            select-none cursor-pointer relative z-10
+                            ${piece.color === 'white'
+                              ? 'text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] [text-shadow:_0_0_20px_rgba(255,255,255,0.3)]'
+                              : 'text-gray-900 drop-shadow-[0_3px_8px_rgba(255,255,255,0.4)] [text-shadow:_0_0_15px_rgba(0,0,0,0.5)]'}
+                          `}
+                        >
+                          {PIECE_SYMBOLS[piece.color][piece.type]}
+                        </motion.div>
+                      )}
+                    </motion.button>
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
       </div>
