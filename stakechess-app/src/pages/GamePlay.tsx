@@ -94,7 +94,7 @@ export default function GamePlay() {
           </button>
           <div className="glass-card px-4 py-2 flex items-center gap-2">
             <Clock className="w-4 h-4 text-stake-red" />
-            <span className="text-sm font-semibold">Блиц 3+2</span>
+            <span className="text-body-sm font-semibold">Блиц 3+2</span>
           </div>
         </motion.div>
 
@@ -152,12 +152,12 @@ export default function GamePlay() {
         transition={{ delay: 0.3 }}
         className="hidden lg:block w-80 bg-gradient-to-b from-black/40 to-black/60 border-l border-white/10 p-6"
       >
-        <h3 className="text-xl font-bold mb-6 tracking-tight">История ходов</h3>
+        <h4 className="mb-6">История ходов</h4>
 
         <div className="glass-card p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-400">Ход</span>
-            <span className="text-sm text-gray-400">Время</span>
+            <span className="text-body-sm text-gray-400">Ход</span>
+            <span className="text-body-sm text-gray-400">Время</span>
           </div>
         </div>
 
@@ -169,7 +169,7 @@ export default function GamePlay() {
           <div className="space-y-1 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-hide py-2">
             {moveHistory.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
-                <p className="text-sm">Ходов пока нет</p>
+                <p className="text-body-sm">Ходов пока нет</p>
               </div>
             ) : (
               moveHistory.map((move, index) => {
@@ -222,7 +222,7 @@ export default function GamePlay() {
             className="glass-card p-8 w-full max-w-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-2xl font-bold mb-6 tracking-tight">Меню игры</h3>
+            <h3 className="mb-6">Меню игры</h3>
             <div className="space-y-3">
               <button className="btn-secondary w-full !py-4 text-left px-6">
                 <div className="flex items-center gap-3">

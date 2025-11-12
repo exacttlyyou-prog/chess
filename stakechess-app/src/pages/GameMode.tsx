@@ -82,12 +82,12 @@ export default function GameMode() {
         >
           <ArrowLeft className="w-6 h-6" />
         </button>
-        <h1 className="text-3xl font-bold tracking-tight">Выбор режима</h1>
+        <h1 className="!text-3xl">Выбор режима</h1>
       </motion.div>
 
       {/* Tabs */}
       <div className="px-8 mb-8">
-        <div className="glass rounded-2xl p-1.5 flex gap-2">
+        <div className="glass rounded-2xl p-2 flex gap-2">
           <button
             onClick={() => setActiveTab('play')}
             className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
@@ -115,7 +115,7 @@ export default function GameMode() {
         <>
           {/* Game Modes */}
           <div className="px-8 mb-8">
-            <h3 className="text-base font-semibold text-gray-400 mb-4 tracking-tight">Режим игры</h3>
+            <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
             <div className="grid grid-cols-2 gap-4">
               {gameModes.map((mode, index) => (
                 <motion.button
@@ -139,8 +139,8 @@ export default function GameMode() {
                   } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
                     <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
                   </div>
-                  <h4 className="font-bold text-base mb-1">{mode.title}</h4>
-                  <p className="text-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
+                  <h6 className="mb-1">{mode.title}</h6>
+                  <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                 </motion.button>
               ))}
@@ -154,7 +154,7 @@ export default function GameMode() {
             transition={{ delay: 0.2 }}
             className="px-8 mb-6"
           >
-            <h3 className="text-sm font-semibold text-gray-400 mb-3">Выбор соперника</h3>
+            <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
             <div className="space-y-3">
               <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
                 <div className="flex items-center gap-3">
@@ -162,8 +162,8 @@ export default function GameMode() {
                     <Shuffle className="w-6 h-6 text-stake-red" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold mb-1">Случайный соперник</p>
-                    <p className="text-sm text-gray-400">Рейтинг: 1400 - 1500</p>
+                    <h6 className="!text-base mb-1">Случайный соперник</h6>
+                    <p className="text-body-sm text-gray-400">Рейтинг: 1400 - 1500</p>
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
@@ -174,8 +174,8 @@ export default function GameMode() {
                     <Bot className="w-6 h-6 text-stake-red" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold mb-1">Играть с AI</p>
-                    <p className="text-sm text-gray-400">Тренировочный режим</p>
+                    <h6 className="!text-base mb-1">Играть с AI</h6>
+                    <p className="text-body-sm text-gray-400">Тренировочный режим</p>
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
@@ -222,8 +222,8 @@ export default function GameMode() {
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-xl font-bold mb-2 tracking-tight">{tournament.title}</h3>
-                    <p className="text-sm text-gray-400 font-medium">{tournament.time}</p>
+                    <h4 className="mb-2">{tournament.title}</h4>
+                    <p className="text-body-sm text-gray-400 font-medium">{tournament.time}</p>
                   </div>
                   <div className="text-right bg-gradient-to-br from-stake-red/20 to-stake-red/5 px-4 py-3 rounded-2xl">
                     <p className="text-stake-red font-bold text-lg">{tournament.ratingPoints}</p>
@@ -232,12 +232,12 @@ export default function GameMode() {
                 </div>
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">Участники</p>
-                    <p className="font-semibold text-base">{tournament.players}</p>
+                    <p className="text-body-sm text-gray-400 mb-1">Участники</p>
+                    <h6 className="!text-base">{tournament.players}</h6>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">Формат</p>
-                    <p className="font-semibold text-base">{tournament.entry}</p>
+                    <p className="text-body-sm text-gray-400 mb-1">Формат</p>
+                    <h6 className="!text-base">{tournament.entry}</h6>
                   </div>
                 </div>
                 <button className="btn-primary w-full">

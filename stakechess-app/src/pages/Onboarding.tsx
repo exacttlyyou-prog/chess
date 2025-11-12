@@ -80,10 +80,10 @@ export default function Onboarding() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
-            <h1 className="text-5xl font-bold mb-2">
+            <h1 className="mb-2">
               <span className="text-gradient">StakeChess</span>
             </h1>
-            <p className="text-gray-400">Начни свой путь в шахматах</p>
+            <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
           </div>
 
           <div className="glass-card p-8 space-y-4 shadow-depth-lg">
@@ -230,7 +230,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                className="!text-display md:!text-6xl mb-6 leading-tight"
               >
                 {slides[currentSlide].title}
               </motion.h2>
@@ -238,7 +238,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-xl md:text-2xl text-gray-300 leading-relaxed"
+                className="text-body-lg md:text-2xl text-gray-300"
               >
                 {slides[currentSlide].description}
               </motion.p>

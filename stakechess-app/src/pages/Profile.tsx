@@ -68,7 +68,7 @@ export default function Profile() {
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-2xl font-bold">Профиль</h1>
+        <h1 className="!text-3xl">Профиль</h1>
       </motion.div>
 
       {/* Profile Header */}
@@ -82,14 +82,14 @@ export default function Profile() {
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-4">
             <User className="w-12 h-12 text-stake-red" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Игрок</h2>
+          <h2 className="!text-3xl mb-2">Игрок</h2>
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-sm text-gray-400">Рейтинг</p>
+              <p className="text-body-sm text-gray-400">Рейтинг</p>
               <p className="text-2xl font-bold text-gradient">{stats.rating}</p>
             </div>
             <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-sm text-gray-400">Побед подряд</p>
+              <p className="text-body-sm text-gray-400">Побед подряд</p>
               <div className="flex items-center justify-center gap-1">
                 <p className="text-2xl font-bold text-stake-red">{stats.streak}</p>
                 <Flame className="w-5 h-5 text-stake-red" />
@@ -104,7 +104,7 @@ export default function Profile() {
 
       {/* Tabs */}
       <div className="px-8 mb-6">
-        <div className="glass rounded-xl p-1 flex gap-2">
+        <div className="glass rounded-xl p-2 flex gap-2">
           <button
             onClick={() => setActiveTab('stats')}
             className={`flex-1 py-3 rounded-lg font-semibold transition-all ${
@@ -136,25 +136,25 @@ export default function Profile() {
         >
           {/* Win Rate */}
           <div className="glass-card p-8 shadow-depth">
-            <h3 className="text-lg font-semibold mb-4">Общая статистика</h3>
+            <h5 className="mb-4">Общая статистика</h5>
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <p className="text-3xl font-bold text-green-400">{stats.wins}</p>
-                <p className="text-sm text-gray-400">Побед</p>
+                <p className="text-body-sm text-gray-400">Побед</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-red-400">{stats.losses}</p>
-                <p className="text-sm text-gray-400">Поражений</p>
+                <p className="text-body-sm text-gray-400">Поражений</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-gray-400">{stats.draws}</p>
-                <p className="text-sm text-gray-400">Ничьих</p>
+                <p className="text-body-sm text-gray-400">Ничьих</p>
               </div>
             </div>
             <div className="glass p-4 rounded-xl">
               <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-400">Процент побед</span>
-                <span className="text-sm font-semibold">{winRate}%</span>
+                <span className="text-body-sm text-gray-400">Процент побед</span>
+                <span className="text-body-sm font-semibold">{winRate}%</span>
               </div>
               <div className="w-full bg-stake-gray rounded-full h-2">
                 <div
@@ -167,7 +167,7 @@ export default function Profile() {
 
           {/* Rating History */}
           <div className="glass-card p-8 shadow-depth">
-            <h3 className="text-lg font-semibold mb-4">История рейтинга</h3>
+            <h5 className="mb-4">История рейтинга</h5>
             <div className="relative h-40">
               {/* Simple line chart visualization */}
               <svg className="w-full h-full" viewBox="0 0 300 100">
@@ -235,7 +235,7 @@ export default function Profile() {
 
           {/* Performance by Mode */}
           <div className="glass-card p-8 shadow-depth">
-            <h3 className="text-lg font-semibold mb-4">По режимам</h3>
+            <h5 className="mb-4">По режимам</h5>
             <div className="space-y-3">
               {[
                 { mode: 'Блиц', rating: 1450, games: 120, Icon: Zap },
@@ -251,8 +251,8 @@ export default function Profile() {
                       <item.Icon className="w-5 h-5 text-stake-red" />
                     </div>
                     <div>
-                      <p className="font-semibold">{item.mode}</p>
-                      <p className="text-sm text-gray-400">{item.games} партий</p>
+                      <h6 className="!text-base">{item.mode}</h6>
+                      <p className="text-body-sm text-gray-400">{item.games} партий</p>
                     </div>
                   </div>
                   <p className="text-xl font-bold text-gradient">{item.rating}</p>
@@ -282,7 +282,7 @@ export default function Profile() {
                 <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
                   <achievement.Icon className="w-8 h-8 text-stake-red" strokeWidth={1.5} />
                 </div>
-                <h4 className="font-semibold mb-1 text-sm">{achievement.title}</h4>
+                <h6 className="!text-sm mb-1">{achievement.title}</h6>
                 <p className="text-xs text-gray-400">{achievement.description}</p>
                 {achievement.unlocked && (
                   <div className="mt-2 flex items-center justify-center gap-1 text-xs text-stake-red font-semibold">
@@ -305,19 +305,19 @@ export default function Profile() {
       >
         <button
           onClick={() => navigate('/home')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
         >
           <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Главная</span>
         </button>
         <button
           onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
         >
           <Zap className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Играть</span>
         </button>
-        <button className="flex flex-col items-center gap-1 text-stake-red">
+        <button className="flex flex-col items-center gap-1 text-stake-red min-h-[44px]">
           <User className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Профиль</span>
         </button>

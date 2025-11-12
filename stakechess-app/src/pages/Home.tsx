@@ -87,8 +87,8 @@ export default function Home() {
       >
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-3xl font-bold mb-1">Привет, Игрок</h1>
-            <p className="text-gray-400">Рейтинг: 1450 • Онлайн</p>
+            <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
+            <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
           </div>
           <button
             onClick={() => navigate('/profile')}
@@ -118,25 +118,25 @@ export default function Home() {
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <p className="text-sm text-gray-400 mb-2">Текущий рейтинг</p>
-                <h2 className="text-5xl font-bold text-gradient tracking-tight">1450</h2>
+                <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
+                <h2 className="!text-display-sm text-gradient">1450</h2>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-400 mb-2">Прогресс</p>
+                <p className="text-body-sm text-gray-400 mb-2">Прогресс</p>
                 <p className="text-3xl font-bold text-green-400">+50</p>
               </div>
             </div>
-            <div className="flex gap-6 text-sm">
+            <div className="flex gap-6">
               <div>
-                <p className="text-gray-500 mb-1">Побед</p>
+                <p className="text-body-sm text-gray-500 mb-1">Побед</p>
                 <p className="text-white font-semibold text-lg">128</p>
               </div>
               <div>
-                <p className="text-gray-500 mb-1">Поражений</p>
+                <p className="text-body-sm text-gray-500 mb-1">Поражений</p>
                 <p className="text-gray-400 font-semibold text-lg">94</p>
               </div>
               <div>
-                <p className="text-gray-500 mb-1">Ничьих</p>
+                <p className="text-body-sm text-gray-500 mb-1">Ничьих</p>
                 <p className="text-gray-400 font-semibold text-lg">23</p>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default function Home() {
       >
         <div className="px-8 mb-3 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <h3 className="text-sm font-semibold text-gray-400 tracking-tight">Игры идут сейчас</h3>
+          <h6 className="!text-sm text-gray-400">Игры идут сейчас</h6>
         </div>
         <div className="relative">
           <motion.div
@@ -188,7 +188,7 @@ export default function Home() {
 
       {/* Quick Actions */}
       <div className="px-8 mb-8">
-        <h3 className="text-xl font-semibold mb-6 tracking-tight">Быстрые действия</h3>
+        <h3 className="!text-xl mb-6">Быстрые действия</h3>
         <div className="grid grid-cols-2 gap-4">
           {quickActions.map((action, index) => (
             <motion.button
@@ -212,7 +212,7 @@ export default function Home() {
 
       {/* Recent Games Carousel */}
       <div className="px-8 mb-8">
-        <h3 className="text-xl font-semibold mb-6 tracking-tight">Недавние партии</h3>
+        <h3 className="!text-xl mb-6">Недавние партии</h3>
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
           {recentGames.map((game, index) => (
             <motion.div
@@ -247,15 +247,15 @@ export default function Home() {
                 </div>
 
                 {/* Opponent */}
-                <h4 className="font-bold text-lg mb-2">{game.opponent}</h4>
+                <h5 className="mb-2">{game.opponent}</h5>
 
                 {/* Game info */}
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-gray-400">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-body-sm text-gray-400">
                     <span>Режим</span>
                     <span className="text-white font-medium">{game.mode}</span>
                   </div>
-                  <div className="flex justify-between text-gray-400">
+                  <div className="flex justify-between text-body-sm text-gray-400">
                     <span>Ходов</span>
                     <span className="text-white font-medium">{game.moves}</span>
                   </div>
@@ -269,7 +269,7 @@ export default function Home() {
 
       {/* Widgets */}
       <div className="px-8 pb-28">
-        <h3 className="text-xl font-semibold mb-6 tracking-tight">Актуально</h3>
+        <h3 className="!text-xl mb-6">Актуально</h3>
         <div className="space-y-4">
           {widgets.map((widget, index) => (
             <motion.div
@@ -284,12 +284,12 @@ export default function Home() {
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-semibold mb-2 text-base">{widget.title}</h4>
-                  <p className="text-sm text-gray-400">{widget.subtitle}</p>
+                  <h6 className="mb-2">{widget.title}</h6>
+                  <p className="text-body-sm text-gray-400">{widget.subtitle}</p>
                 </div>
                 <div className="text-right flex items-center gap-3">
                   {widget.participants && (
-                    <p className="text-gray-400 text-sm font-medium">{widget.participants}</p>
+                    <p className="text-gray-400 text-body-sm font-medium">{widget.participants}</p>
                   )}
                   {widget.badge && (
                     <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-2xl">
@@ -323,7 +323,7 @@ export default function Home() {
         className="fixed bottom-0 left-0 right-0 glass border-t border-white/[0.08] px-6 py-4 flex justify-around backdrop-blur-2xl"
         style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
       >
-        <button className="flex flex-col items-center gap-2 text-stake-red">
+        <button className="flex flex-col items-center gap-2 text-stake-red min-h-[44px]">
           <div className="bg-stake-red/10 p-2 rounded-xl">
             <HomeIcon className="w-6 h-6" strokeWidth={2} />
           </div>
@@ -331,7 +331,7 @@ export default function Home() {
         </button>
         <button
           onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
         >
           <div className="p-2">
             <Zap className="w-6 h-6" strokeWidth={2} />
@@ -340,7 +340,7 @@ export default function Home() {
         </button>
         <button
           onClick={() => navigate('/profile')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
         >
           <div className="p-2">
             <User className="w-6 h-6" strokeWidth={2} />
