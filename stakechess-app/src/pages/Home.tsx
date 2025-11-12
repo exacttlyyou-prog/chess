@@ -9,6 +9,36 @@ const quickActions = [
   { id: 'friends', title: 'С другом', Icon: Users, path: '/game-mode' },
 ];
 
+const recentGames = [
+  {
+    id: 1,
+    opponent: 'Мастер_1450',
+    result: 'win',
+    mode: 'Блиц 3+2',
+    image: '/images/pieces/king-crown.png',
+    moves: 32,
+    date: '2 часа назад',
+  },
+  {
+    id: 2,
+    opponent: 'Стратег_99',
+    result: 'loss',
+    mode: 'Рапид 10+0',
+    image: '/images/pieces/queen-luxury.png',
+    moves: 45,
+    date: '5 часов назад',
+  },
+  {
+    id: 3,
+    opponent: 'Тактик_2000',
+    result: 'draw',
+    mode: 'Классика',
+    image: '/images/pieces/knight-neon.png',
+    moves: 68,
+    date: 'Вчера',
+  },
+];
+
 const widgets = [
   {
     type: 'tournament',
@@ -125,6 +155,63 @@ export default function Home() {
               </div>
               <p className="font-semibold text-base">{action.title}</p>
             </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Recent Games Carousel */}
+      <div className="px-8 mb-8">
+        <h3 className="text-xl font-semibold mb-6 tracking-tight">Недавние партии</h3>
+        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+          {recentGames.map((game, index) => (
+            <motion.div
+              key={game.id}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
+              whileHover={{ scale: 1.02, y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              className="glass-card min-w-[280px] p-6 cursor-pointer shadow-depth relative overflow-hidden snap-start"
+              onClick={() => navigate('/play')}
+            >
+              {/* Background image */}
+              <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none">
+                <img
+                  src={game.image}
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              <div className="relative z-10">
+                {/* Result badge */}
+                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl mb-4 text-xs font-semibold ${
+                  game.result === 'win'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                    : game.result === 'loss'
+                    ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                    : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                }`}>
+                  {game.result === 'win' ? 'Победа' : game.result === 'loss' ? 'Поражение' : 'Ничья'}
+                </div>
+
+                {/* Opponent */}
+                <h4 className="font-bold text-lg mb-2">{game.opponent}</h4>
+
+                {/* Game info */}
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between text-gray-400">
+                    <span>Режим</span>
+                    <span className="text-white font-medium">{game.mode}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-400">
+                    <span>Ходов</span>
+                    <span className="text-white font-medium">{game.moves}</span>
+                  </div>
+                  <div className="text-gray-500 text-xs mt-3">{game.date}</div>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
