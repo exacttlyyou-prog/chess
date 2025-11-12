@@ -256,14 +256,14 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         </div>
         <div className="flex items-center gap-3">
           {/* Captured white pieces */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {capturedPieces.white.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
-                className="w-7 h-7 drop-shadow-md"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.03, ease: [0.4, 0, 0.2, 1] }}
+                className="w-6 h-6"
               >
                 <ChessPiece type={pieceType} color="white" className="w-full h-full" />
               </motion.div>
@@ -291,7 +291,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           {/* Board container with coordinates */}
           <div className="relative">
             {/* Rank labels (1-8) on the left */}
-            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-400 font-mono font-semibold tracking-wide">
+            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
               {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
                 <div key={rank} className="h-[12.5%] flex items-center">
                   {rank}
@@ -300,7 +300,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             </div>
 
             {/* File labels (a-h) on the bottom */}
-            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-400 font-mono font-semibold tracking-wide">
+            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
                 <div key={file} className="w-[12.5%] flex justify-center">
                   {file}
@@ -308,33 +308,44 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
               ))}
             </div>
 
-            {/* Main board */}
-            <div className="grid grid-cols-8 gap-0 w-full h-full rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4),0_16px_64px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.1)_inset] border border-white/15">
-              {board.map((row, rowIndex) =>
-                row.map((square, colIndex) => {
-                  const isDark = (rowIndex + colIndex) % 2 === 1;
-                  const piece = square.piece;
-                  const selected = isSquareSelected(rowIndex, colIndex);
-                  const validMove = isValidMove(rowIndex, colIndex);
-                  const highlight = isLastMove(rowIndex, colIndex);
+            {/* Main board - transparent with grid lines */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden" style={{
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) inset'
+            }}>
+              {/* Grid lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 800" preserveAspectRatio="none">
+                <defs>
+                  <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1"/>
+                  </pattern>
+                </defs>
+                <rect width="800" height="800" fill="url(#grid)" />
+              </svg>
 
-                  return (
-                    <button
-                      key={`${rowIndex}-${colIndex}`}
-                      onClick={() => handleSquareClick(rowIndex, colIndex)}
-                      className={`
-                        relative aspect-square flex items-center justify-center text-4xl sm:text-5xl
-                        transition-all duration-200
-                        ${isDark
-                          ? 'bg-gradient-to-br from-stone-700/30 to-stone-800/40'
-                          : 'bg-gradient-to-br from-stone-100/25 to-white/15'}
-                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_32px_rgba(255,23,68,0.5)] animate-pulse' : ''}
-                        ${validMove ? 'bg-gradient-to-br from-stake-red/45 to-stake-red/25' : ''}
-                        ${highlight ? 'bg-gradient-to-br from-yellow-500/35 to-yellow-600/25 shadow-[inset_0_0_28px_rgba(234,179,8,0.5)] animate-[pulse_2s_ease-in-out_infinite]' : ''}
-                        hover:brightness-115 hover:shadow-[0_0_8px_rgba(255,255,255,0.1)]
-                        active:brightness-105
-                      `}
-                    >
+              <div className="grid grid-cols-8 gap-0 w-full h-full">
+                {board.map((row, rowIndex) =>
+                  row.map((square, colIndex) => {
+                    const isDark = (rowIndex + colIndex) % 2 === 1;
+                    const piece = square.piece;
+                    const selected = isSquareSelected(rowIndex, colIndex);
+                    const validMove = isValidMove(rowIndex, colIndex);
+                    const highlight = isLastMove(rowIndex, colIndex);
+
+                    return (
+                      <button
+                        key={`${rowIndex}-${colIndex}`}
+                        onClick={() => handleSquareClick(rowIndex, colIndex)}
+                        className={`
+                          relative aspect-square flex items-center justify-center
+                          transition-all duration-300 ease-out
+                          ${isDark ? 'bg-black/20' : 'bg-white/5'}
+                          ${selected ? 'bg-stake-red/30 shadow-[inset_0_0_24px_rgba(255,23,68,0.4)] ring-2 ring-inset ring-stake-red/60' : ''}
+                          ${validMove ? 'bg-stake-red/20' : ''}
+                          ${highlight ? 'bg-yellow-500/20 shadow-[inset_0_0_16px_rgba(234,179,8,0.3)]' : ''}
+                          hover:bg-white/10
+                        `}
+                        style={{ willChange: 'background-color' }}
+                      >
                       {validMove && !piece && (
                         <motion.div
                           initial={{ scale: 0, opacity: 0 }}
@@ -366,18 +377,19 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         />
                       )}
                       {piece && (
-                        <div className="w-full h-full p-2 relative group">
+                        <div className="w-full h-full p-2 relative group" style={{ willChange: 'transform' }}>
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className="w-full h-full select-none cursor-pointer relative z-10 transition-all duration-200 group-hover:brightness-110 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+                            className="w-full h-full select-none cursor-pointer relative z-10 transition-all duration-300 ease-out group-hover:scale-110"
                           />
                         </div>
                       )}
-                    </button>
-                  );
-                })
-              )}
+                      </button>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -391,14 +403,14 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         </div>
         <div className="flex items-center gap-3">
           {/* Captured black pieces */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {capturedPieces.black.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ opacity: 0, y: -10, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
-                className="w-7 h-7 drop-shadow-md"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.03, ease: [0.4, 0, 0.2, 1] }}
+                className="w-6 h-6"
               >
                 <ChessPiece type={pieceType} color="black" className="w-full h-full" />
               </motion.div>
