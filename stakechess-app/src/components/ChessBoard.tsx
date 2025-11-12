@@ -278,10 +278,10 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             {capturedPieces.white.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                className="text-white/70 text-xl"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="text-white/80 text-xl drop-shadow-md"
               >
                 {PIECE_SYMBOLS.white[pieceType]}
               </motion.div>
@@ -327,21 +327,21 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                   const highlight = isLastMove(rowIndex, colIndex);
 
                   return (
-                    <motion.button
+                    <button
                       key={`${rowIndex}-${colIndex}`}
                       onClick={() => handleSquareClick(rowIndex, colIndex)}
                       className={`
                         relative aspect-square flex items-center justify-center text-4xl sm:text-5xl
-                        transition-all duration-300
+                        transition-all duration-200
                         ${isDark
-                          ? 'bg-gradient-to-br from-stone-700/25 to-stone-800/35'
-                          : 'bg-gradient-to-br from-stone-100/20 to-white/10'}
-                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_20px_rgba(255,23,68,0.3)]' : ''}
-                        ${validMove ? 'bg-gradient-to-br from-stake-red/40 to-stake-red/20' : ''}
-                        ${highlight ? 'bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 shadow-[inset_0_0_15px_rgba(234,179,8,0.4)]' : ''}
-                        hover:brightness-110
+                          ? 'bg-gradient-to-br from-stone-700/30 to-stone-800/40'
+                          : 'bg-gradient-to-br from-stone-100/25 to-white/15'}
+                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_24px_rgba(255,23,68,0.4)]' : ''}
+                        ${validMove ? 'bg-gradient-to-br from-stake-red/45 to-stake-red/25' : ''}
+                        ${highlight ? 'bg-gradient-to-br from-yellow-500/35 to-yellow-600/25 shadow-[inset_0_0_18px_rgba(234,179,8,0.5)]' : ''}
+                        hover:brightness-115
+                        active:brightness-105
                       `}
-                      whileTap={{ scale: 0.95 }}
                     >
                       {validMove && !piece && (
                         <motion.div
@@ -359,20 +359,20 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                       )}
                       {piece && (
                         <motion.div
-                          initial={{ scale: 0, rotate: -180 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
                           className={`
                             select-none cursor-pointer relative z-10
                             ${piece.color === 'white'
-                              ? 'text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] [text-shadow:_0_0_20px_rgba(255,255,255,0.3)]'
-                              : 'text-gray-900 drop-shadow-[0_3px_8px_rgba(255,255,255,0.4)] [text-shadow:_0_0_15px_rgba(0,0,0,0.5)]'}
+                              ? 'text-white drop-shadow-[0_6px_16px_rgba(0,0,0,1)] [text-shadow:_0_0_24px_rgba(255,255,255,0.4),_0_0_8px_rgba(255,255,255,0.2)]'
+                              : 'text-gray-900 drop-shadow-[0_5px_12px_rgba(255,255,255,0.5)] [text-shadow:_0_0_18px_rgba(0,0,0,0.6),_0_0_6px_rgba(0,0,0,0.3)]'}
                           `}
                         >
                           {PIECE_SYMBOLS[piece.color][piece.type]}
                         </motion.div>
                       )}
-                    </motion.button>
+                    </button>
                   );
                 })
               )}
@@ -393,10 +393,10 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             {capturedPieces.black.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                className="text-gray-800/80 text-xl"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="text-gray-900/90 text-xl drop-shadow-md"
               >
                 {PIECE_SYMBOLS.black[pieceType]}
               </motion.div>

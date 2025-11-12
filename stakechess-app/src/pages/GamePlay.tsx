@@ -59,12 +59,24 @@ export default function GamePlay() {
   };
 
   return (
+    <div className="relative min-h-screen flex overflow-hidden">
+      {/* Premium Background */}
+      <div className="fixed inset-0 z-0">
+        <img
+          src="/images/backgrounds/board-depth.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40" />
+      </div>
+
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.05 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex"
+      className="relative z-10 flex flex-1"
     >
       {/* Left Panel - Chess Board */}
       <div className="flex-1 flex flex-col p-4 md:p-8">
@@ -224,5 +236,6 @@ export default function GamePlay() {
         </motion.div>
       )}
     </motion.div>
+    </div>
   );
 }
