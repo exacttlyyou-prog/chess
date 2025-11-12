@@ -7,16 +7,37 @@ const slides = [
     title: 'Играй без границ',
     description: 'Классические шахматы и быстрые партии с игроками со всего мира',
     icon: '♟',
+    image: '/images/onboarding/slide-1-play.png', // TODO: добавить визуал
   },
   {
     title: 'Следи за прогрессом',
     description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
     icon: '📈',
+    image: '/images/onboarding/slide-2-progress.png', // TODO: добавить визуал
   },
   {
     title: 'Участвуй в турнирах',
     description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
     icon: '🏆',
+    image: '/images/onboarding/slide-3-tournament.png', // TODO: добавить визуал
+  },
+  {
+    title: 'Найди друзей',
+    description: 'Играй с друзьями, общайся и создавай команду для турниров',
+    icon: '👥',
+    image: '/images/onboarding/slide-4-community.png', // TODO: добавить визуал
+  },
+  {
+    title: 'Тренируйся с AI',
+    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
+    icon: '🤖',
+    image: '/images/onboarding/slide-5-ai.png', // TODO: добавить визуал
+  },
+  {
+    title: 'Готов начать?',
+    description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
+    icon: '🎯',
+    image: '/images/onboarding/slide-6-start.png', // TODO: добавить визуал
   },
 ];
 
@@ -136,16 +157,38 @@ export default function Onboarding() {
               transition={{ duration: 0.3 }}
               className="text-center"
             >
+              {/* Visual / Image */}
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring' }}
-                className="text-9xl mb-8"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+                className="mb-8 flex justify-center"
               >
-                {slides[currentSlide].icon}
+                <div className="relative w-64 h-64 flex items-center justify-center">
+                  {/* Background glow */}
+                  <div className="absolute inset-0 bg-stake-red/20 rounded-full blur-3xl" />
+
+                  {/* Image or fallback icon */}
+                  <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                    <img
+                      src={slides[currentSlide].image}
+                      alt={slides[currentSlide].title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to icon if image fails to load
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling.style.display = 'block';
+                      }}
+                    />
+                    <div className="text-8xl" style={{ display: 'none' }}>
+                      {slides[currentSlide].icon}
+                    </div>
+                  </div>
+                </div>
               </motion.div>
-              <h2 className="text-4xl font-bold mb-4">{slides[currentSlide].title}</h2>
-              <p className="text-xl text-gray-400">{slides[currentSlide].description}</p>
+
+              <h2 className="text-4xl font-bold mb-4 px-4">{slides[currentSlide].title}</h2>
+              <p className="text-xl text-gray-400 px-6">{slides[currentSlide].description}</p>
             </motion.div>
           </AnimatePresence>
         </div>
