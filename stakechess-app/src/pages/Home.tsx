@@ -34,7 +34,13 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern"
+    >
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
@@ -204,6 +210,6 @@ export default function Home() {
           <span className="text-xs font-medium">Профиль</span>
         </button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

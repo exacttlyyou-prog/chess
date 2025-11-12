@@ -59,7 +59,13 @@ export default function GamePlay() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1.05 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex"
+    >
       {/* Left Panel - Chess Board */}
       <div className="flex-1 flex flex-col p-4 md:p-8">
         {/* Header */}
@@ -217,6 +223,6 @@ export default function GamePlay() {
           </motion.div>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

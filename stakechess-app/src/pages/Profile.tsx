@@ -49,7 +49,13 @@ export default function Profile() {
   const winRate = Math.round((stats.wins / stats.totalGames) * 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-20">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-20"
+    >
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
@@ -316,6 +322,6 @@ export default function Profile() {
           <span className="text-xs">Профиль</span>
         </button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
