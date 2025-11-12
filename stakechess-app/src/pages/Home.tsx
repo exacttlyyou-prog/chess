@@ -9,6 +9,14 @@ const quickActions = [
   { id: 'friends', title: 'С другом', Icon: Users, path: '/game-mode' },
 ];
 
+const liveGames = [
+  { id: 1, white: 'Гроссмейстер_89', black: 'ТактикПро', viewers: 234 },
+  { id: 2, white: 'Мастер_Блица', black: 'Шахматный_Король', viewers: 189 },
+  { id: 3, white: 'Стратег_2100', black: 'Защитник_1900', viewers: 156 },
+  { id: 4, white: 'Атакующий', black: 'Позиционник', viewers: 98 },
+  { id: 5, white: 'Молния_Ход', black: 'Терпеливый', viewers: 67 },
+];
+
 const recentGames = [
   {
     id: 1,
@@ -133,6 +141,48 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+      </motion.div>
+
+      {/* Live Games Ticker */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="mb-8 overflow-hidden"
+      >
+        <div className="px-8 mb-3 flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <h3 className="text-sm font-semibold text-gray-400 tracking-tight">Игры идут сейчас</h3>
+        </div>
+        <div className="relative">
+          <motion.div
+            className="flex gap-3"
+            animate={{ x: [0, -1000] }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          >
+            {[...liveGames, ...liveGames].map((game, index) => (
+              <div
+                key={`${game.id}-${index}`}
+                className="glass-card px-4 py-3 flex items-center gap-3 min-w-[300px] cursor-pointer hover:bg-white/10 transition-all"
+                onClick={() => navigate('/play')}
+              >
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <span className="text-sm font-medium truncate">{game.white}</span>
+                  <span className="text-gray-500 text-xs">vs</span>
+                  <span className="text-sm font-medium truncate">{game.black}</span>
+                </div>
+                <div className="flex items-center gap-1 text-gray-400 text-xs">
+                  <User className="w-3 h-3" />
+                  <span>{game.viewers}</span>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Quick Actions */}
