@@ -1,43 +1,38 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Send, User } from 'lucide-react';
 
 const slides = [
   {
     title: 'Играй без границ',
     description: 'Классические шахматы и быстрые партии с игроками со всего мира',
-    icon: '♟',
-    image: '/images/onboarding/slide-1-play.png', // TODO: добавить визуал
+    image: '/images/heroes/growth-path.png',
   },
   {
     title: 'Следи за прогрессом',
     description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
-    icon: '📈',
-    image: '/images/onboarding/slide-2-progress.png', // TODO: добавить визуал
+    image: '/images/heroes/stats-growth.png',
   },
   {
     title: 'Участвуй в турнирах',
     description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
-    icon: '🏆',
-    image: '/images/onboarding/slide-3-tournament.png', // TODO: добавить визуал
+    image: '/images/achievements/tournament-cup.png',
   },
   {
     title: 'Найди друзей',
     description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    icon: '👥',
-    image: '/images/onboarding/slide-4-community.png', // TODO: добавить визуал
+    image: '/images/pieces/pair-classic.png',
   },
   {
     title: 'Тренируйся с AI',
     description: 'Улучшай навыки с искусственным интеллектом любого уровня',
-    icon: '🤖',
-    image: '/images/onboarding/slide-5-ai.png', // TODO: добавить визуал
+    image: '/images/heroes/ai-network.png',
   },
   {
     title: 'Готов начать?',
     description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
-    icon: '🎯',
-    image: '/images/onboarding/slide-6-start.png', // TODO: добавить визуал
+    image: '/images/heroes/progress-stairs.png',
   },
 ];
 
@@ -105,11 +100,11 @@ export default function Onboarding() {
 
             <div className="space-y-3">
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <span>📱</span>
+                <Send size={18} />
                 <span>Telegram</span>
               </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <span>👤</span>
+                <User size={18} />
                 <span>VK ID</span>
               </button>
             </div>
@@ -168,22 +163,13 @@ export default function Onboarding() {
                   {/* Background glow */}
                   <div className="absolute inset-0 bg-stake-red/20 rounded-full blur-3xl" />
 
-                  {/* Image or fallback icon */}
-                  <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                  {/* Image container */}
+                  <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 shadow-depth-lg">
                     <img
                       src={slides[currentSlide].image}
                       alt={slides[currentSlide].title}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        // Fallback to icon if image fails to load
-                        e.currentTarget.style.display = 'none';
-                        const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (fallback) fallback.style.display = 'block';
-                      }}
                     />
-                    <div className="text-8xl" style={{ display: 'none' }}>
-                      {slides[currentSlide].icon}
-                    </div>
                   </div>
                 </div>
               </motion.div>

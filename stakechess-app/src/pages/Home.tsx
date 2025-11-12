@@ -54,86 +54,101 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Stats Card */}
+        {/* Stats Card with Hero Image */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/30 shadow-red-glow"
+          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/30 shadow-red-glow relative overflow-hidden"
         >
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-sm text-gray-400 mb-1">Текущий рейтинг</p>
-              <h2 className="text-4xl font-bold text-gradient">1450</h2>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-400 mb-1">Прогресс</p>
-              <p className="text-2xl font-bold text-green-400">+50</p>
-            </div>
+          {/* Background chess piece */}
+          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none">
+            <img
+              src="/images/pieces/king-crown.png"
+              alt=""
+              className="w-full h-full object-contain"
+            />
           </div>
-          <div className="flex gap-4 text-sm">
-            <div>
-              <p className="text-gray-500">Побед</p>
-              <p className="text-white font-semibold">128</p>
+
+          <div className="relative z-10">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <p className="text-sm text-gray-400 mb-2">Текущий рейтинг</p>
+                <h2 className="text-5xl font-bold text-gradient tracking-tight">1450</h2>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-400 mb-2">Прогресс</p>
+                <p className="text-3xl font-bold text-green-400">+50</p>
+              </div>
             </div>
-            <div>
-              <p className="text-gray-500">Поражений</p>
-              <p className="text-gray-400 font-semibold">94</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Ничьих</p>
-              <p className="text-gray-400 font-semibold">23</p>
+            <div className="flex gap-6 text-sm">
+              <div>
+                <p className="text-gray-500 mb-1">Побед</p>
+                <p className="text-white font-semibold text-lg">128</p>
+              </div>
+              <div>
+                <p className="text-gray-500 mb-1">Поражений</p>
+                <p className="text-gray-400 font-semibold text-lg">94</p>
+              </div>
+              <div>
+                <p className="text-gray-500 mb-1">Ничьих</p>
+                <p className="text-gray-400 font-semibold text-lg">23</p>
+              </div>
             </div>
           </div>
         </motion.div>
       </motion.div>
 
       {/* Quick Actions */}
-      <div className="px-8 mb-6">
-        <h3 className="text-lg font-semibold mb-4">Быстрые действия</h3>
+      <div className="px-8 mb-8">
+        <h3 className="text-xl font-semibold mb-6 tracking-tight">Быстрые действия</h3>
         <div className="grid grid-cols-2 gap-4">
           {quickActions.map((action, index) => (
             <motion.button
               key={action.id}
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2 + index * 0.05 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              transition={{ delay: 0.2 + index * 0.05, type: 'spring' }}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => navigate(action.path)}
-              className="glass-card p-8 text-center hover:bg-white/10 transition-all shadow-depth"
+              className="glass-card p-8 text-center shadow-depth hover-lift"
             >
-              <action.Icon className="w-10 h-10 mx-auto mb-2 text-stake-red" strokeWidth={1.5} />
-              <p className="font-semibold">{action.title}</p>
+              <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <action.Icon className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              </div>
+              <p className="font-semibold text-base">{action.title}</p>
             </motion.button>
           ))}
         </div>
       </div>
 
       {/* Widgets */}
-      <div className="px-8 pb-8">
-        <h3 className="text-lg font-semibold mb-4">Актуально</h3>
+      <div className="px-8 pb-28">
+        <h3 className="text-xl font-semibold mb-6 tracking-tight">Актуально</h3>
         <div className="space-y-4">
           {widgets.map((widget, index) => (
             <motion.div
               key={index}
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 + index * 0.1 }}
-              className="glass-card p-6 hover:bg-white/10 transition-all cursor-pointer shadow-depth"
+              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.98 }}
+              className="glass-card p-6 cursor-pointer shadow-depth hover-lift"
               onClick={() => navigate('/game-mode')}
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-semibold mb-1">{widget.title}</h4>
+                  <h4 className="font-semibold mb-2 text-base">{widget.title}</h4>
                   <p className="text-sm text-gray-400">{widget.subtitle}</p>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex items-center gap-3">
                   {widget.participants && (
-                    <p className="text-gray-400 text-sm">{widget.participants}</p>
+                    <p className="text-gray-400 text-sm font-medium">{widget.participants}</p>
                   )}
                   {widget.badge && (
-                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 rounded-full">
+                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-2xl">
                       <Flame className="w-6 h-6 text-stake-red" />
                     </div>
                   )}
@@ -142,7 +157,7 @@ export default function Home() {
                       {widget.avatars.map((_, i) => (
                         <div
                           key={i}
-                          className="w-8 h-8 rounded-full bg-stake-gray flex items-center justify-center border-2 border-stake-black-light"
+                          className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border-2 border-stake-black-light"
                         >
                           <User className="w-4 h-4 text-gray-400" />
                         </div>
@@ -161,25 +176,32 @@ export default function Home() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="fixed bottom-0 left-0 right-0 glass border-t border-white/10 p-4 flex justify-around"
+        className="fixed bottom-0 left-0 right-0 glass border-t border-white/[0.08] px-6 py-4 flex justify-around backdrop-blur-2xl"
+        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
       >
-        <button className="flex flex-col items-center gap-1 text-stake-red">
-          <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Главная</span>
+        <button className="flex flex-col items-center gap-2 text-stake-red">
+          <div className="bg-stake-red/10 p-2 rounded-xl">
+            <HomeIcon className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Главная</span>
         </button>
         <button
           onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all"
         >
-          <Zap className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Играть</span>
+          <div className="p-2">
+            <Zap className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Играть</span>
         </button>
         <button
           onClick={() => navigate('/profile')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all"
         >
-          <User className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Профиль</span>
+          <div className="p-2">
+            <User className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Профиль</span>
         </button>
       </motion.div>
     </div>
