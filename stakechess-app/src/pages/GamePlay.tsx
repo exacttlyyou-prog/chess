@@ -79,7 +79,7 @@ export default function GamePlay() {
       className="relative z-10 flex flex-1"
     >
       {/* Left Panel - Chess Board */}
-      <div className="flex-1 flex flex-col p-4 md:p-8">
+      <div className="flex-1 flex flex-col px-4 md:px-8 pt-2 pb-4 md:pb-8">
         {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
@@ -123,24 +123,24 @@ export default function GamePlay() {
         >
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2"
+            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Settings className="w-5 h-5" />
-            <span>Меню</span>
+            <span className="font-semibold">Меню</span>
           </button>
           <button
             onClick={handleDraw}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2"
+            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Handshake className="w-5 h-5" />
-            <span>Ничья</span>
+            <span className="font-semibold">Ничья</span>
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/30 flex-1 flex items-center justify-center gap-2 hover:!bg-red-500/30"
+            className="glass-button !bg-red-500/20 !border-red-500/40 flex-1 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
           >
-            <Flag className="w-5 h-5" />
-            <span>Сдаться</span>
+            <Flag className="w-5 h-5 text-red-400" />
+            <span className="text-red-300">Сдаться</span>
           </button>
         </motion.div>
       </div>
@@ -161,29 +161,49 @@ export default function GamePlay() {
           </div>
         </div>
 
-        <div className="space-y-2 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-hide">
-          {moveHistory.length === 0 ? (
-            <div className="text-center py-12 text-gray-500">
-              <p className="text-sm">Ходов пока нет</p>
-            </div>
-          ) : (
-            moveHistory.map((move, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="glass-card p-3 flex items-center justify-between hover:bg-white/10 transition-all"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-gray-500 w-8">
-                    {Math.floor(index / 2) + 1}.
-                  </span>
-                  <span className="font-semibold">{move.notation}</span>
-                </div>
-                <span className="text-xs font-mono text-gray-400">{move.time}</span>
-              </motion.div>
-            ))
-          )}
+        <div className="relative">
+          {/* Scroll fade indicators */}
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-10" />
+
+          <div className="space-y-1 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-hide py-2">
+            {moveHistory.length === 0 ? (
+              <div className="text-center py-12 text-gray-500">
+                <p className="text-sm">Ходов пока нет</p>
+              </div>
+            ) : (
+              moveHistory.map((move, index) => {
+                const isLatestMove = index === moveHistory.length - 1;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className={`p-3 flex items-center justify-between transition-all rounded-lg ${
+                      isLatestMove
+                        ? 'bg-stake-red/15 border border-stake-red/30 shadow-[0_0_12px_rgba(255,23,68,0.2)]'
+                        : index % 2 === 0
+                        ? 'bg-white/5 hover:bg-white/10'
+                        : 'bg-transparent hover:bg-white/5'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono font-semibold text-gray-400 w-8 tabular-nums">
+                        {Math.floor(index / 2) + 1}.
+                      </span>
+                      <span className={`font-semibold tracking-wide ${isLatestMove ? 'text-white' : 'text-gray-200'}`}>
+                        {move.notation}
+                      </span>
+                    </div>
+                    <span className={`text-xs font-mono tabular-nums ${isLatestMove ? 'text-gray-300' : 'text-gray-400'}`}>
+                      {move.time}
+                    </span>
+                  </motion.div>
+                );
+              })
+            )}
+          </div>
         </div>
       </motion.div>
 

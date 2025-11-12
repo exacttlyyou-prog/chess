@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, User } from 'lucide-react';
@@ -40,6 +40,14 @@ export default function Onboarding() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
+
+  // Preload all images
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
 
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
@@ -130,11 +138,12 @@ export default function Onboarding() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           className="absolute inset-0 z-0"
+          style={{ willChange: 'opacity, transform' }}
         >
           {/* Fullscreen Background Image */}
           <img
@@ -149,7 +158,7 @@ export default function Onboarding() {
 
           {/* Animated particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(12)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-white rounded-full"
@@ -178,7 +187,7 @@ export default function Onboarding() {
       {/* Content Overlay */}
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
-        <div className="p-8 flex justify-between items-center">
+        <div className="px-8 pt-2 pb-4 flex justify-between items-center">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -252,8 +261,8 @@ export default function Onboarding() {
                 onClick={() => setCurrentSlide(index)}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 bg-stake-red shadow-lg shadow-stake-red/50'
-                    : 'w-2 bg-white/30 hover:bg-white/50'
+                    ? 'w-12 bg-stake-red shadow-[0_0_16px_rgba(255,23,68,0.6),0_4px_12px_rgba(255,23,68,0.4)]'
+                    : 'w-2 bg-white/30 hover:bg-white/50 hover:shadow-[0_0_8px_rgba(255,255,255,0.3)]'
                 }`}
               />
             ))}
@@ -262,13 +271,13 @@ export default function Onboarding() {
           {/* Navigation Buttons */}
           <div className="flex gap-4">
             {currentSlide > 0 && (
-              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5">
+              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
                 Назад
               </button>
             )}
             <button
               onClick={nextSlide}
-              className="btn-primary flex-1 !py-5 text-lg font-bold"
+              className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
             >
               {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
             </button>

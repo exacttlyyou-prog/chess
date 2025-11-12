@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import ChessPiece from './ChessPiece';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -13,25 +14,6 @@ interface Square {
   piece: Piece | null;
   position: { row: number; col: number };
 }
-
-const PIECE_SYMBOLS: Record<PieceColor, Record<PieceType, string>> = {
-  white: {
-    king: '♔',
-    queen: '♕',
-    rook: '♖',
-    bishop: '♗',
-    knight: '♘',
-    pawn: '♙',
-  },
-  black: {
-    king: '♚',
-    queen: '♛',
-    rook: '♜',
-    bishop: '♝',
-    knight: '♞',
-    pawn: '♟',
-  },
-};
 
 const createInitialBoard = (): Square[][] => {
   const board: Square[][] = [];
@@ -274,20 +256,30 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         </div>
         <div className="flex items-center gap-3">
           {/* Captured white pieces */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {capturedPieces.white.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="text-white/80 text-xl drop-shadow-md"
+                initial={{ opacity: 0, y: -10, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
+                className="w-7 h-7 drop-shadow-md"
               >
-                {PIECE_SYMBOLS.white[pieceType]}
+                <ChessPiece type={pieceType} color="white" className="w-full h-full" />
               </motion.div>
             ))}
           </div>
-          <div className={`text-2xl font-mono font-bold ${currentTurn === 'black' ? 'text-stake-red' : 'text-gray-400'}`}>
+          <div
+            className={`text-2xl font-mono font-bold tabular-nums tracking-tight transition-all duration-300 ${
+              currentTurn === 'black'
+                ? blackTime < 10
+                  ? 'text-red-500 animate-pulse drop-shadow-[0_0_12px_rgba(239,68,68,0.8)]'
+                  : blackTime < 30
+                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite] drop-shadow-[0_0_8px_rgba(255,23,68,0.6)]'
+                  : 'text-stake-red drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]'
+                : 'text-gray-400'
+            }`}
+          >
             {Math.floor(blackTime / 60)}:{(blackTime % 60).toString().padStart(2, '0')}
           </div>
         </div>
@@ -299,7 +291,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           {/* Board container with coordinates */}
           <div className="relative">
             {/* Rank labels (1-8) on the left */}
-            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-500 font-mono">
+            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-400 font-mono font-semibold tracking-wide">
               {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
                 <div key={rank} className="h-[12.5%] flex items-center">
                   {rank}
@@ -308,7 +300,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             </div>
 
             {/* File labels (a-h) on the bottom */}
-            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-500 font-mono">
+            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-400 font-mono font-semibold tracking-wide">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
                 <div key={file} className="w-[12.5%] flex justify-center">
                   {file}
@@ -317,7 +309,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             </div>
 
             {/* Main board */}
-            <div className="grid grid-cols-8 gap-0 w-full h-full rounded-2xl overflow-hidden shadow-depth-lg border-2 border-white/10">
+            <div className="grid grid-cols-8 gap-0 w-full h-full rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4),0_16px_64px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.1)_inset] border border-white/15">
               {board.map((row, rowIndex) =>
                 row.map((square, colIndex) => {
                   const isDark = (rowIndex + colIndex) % 2 === 1;
@@ -336,41 +328,51 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         ${isDark
                           ? 'bg-gradient-to-br from-stone-700/30 to-stone-800/40'
                           : 'bg-gradient-to-br from-stone-100/25 to-white/15'}
-                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_24px_rgba(255,23,68,0.4)]' : ''}
+                        ${selected ? 'ring-4 ring-stake-red ring-inset shadow-[inset_0_0_32px_rgba(255,23,68,0.5)] animate-pulse' : ''}
                         ${validMove ? 'bg-gradient-to-br from-stake-red/45 to-stake-red/25' : ''}
-                        ${highlight ? 'bg-gradient-to-br from-yellow-500/35 to-yellow-600/25 shadow-[inset_0_0_18px_rgba(234,179,8,0.5)]' : ''}
-                        hover:brightness-115
+                        ${highlight ? 'bg-gradient-to-br from-yellow-500/35 to-yellow-600/25 shadow-[inset_0_0_28px_rgba(234,179,8,0.5)] animate-[pulse_2s_ease-in-out_infinite]' : ''}
+                        hover:brightness-115 hover:shadow-[0_0_8px_rgba(255,255,255,0.1)]
                         active:brightness-105
                       `}
                     >
                       {validMove && !piece && (
                         <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{
+                            scale: [1, 1.15, 1],
+                            opacity: [0.9, 1, 0.9]
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: 'easeInOut'
+                          }}
                           className="w-4 h-4 rounded-full bg-stake-red shadow-lg shadow-stake-red/50"
                         />
                       )}
                       {validMove && piece && (
                         <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute inset-0 border-4 border-stake-red rounded-full m-1 shadow-lg shadow-stake-red/30"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{
+                            scale: [1, 1.05, 1],
+                            opacity: [0.8, 1, 0.8]
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: 'easeInOut'
+                          }}
+                          className="absolute inset-0 border-4 border-stake-red rounded-full m-1 shadow-lg shadow-stake-red/40"
                         />
                       )}
                       {piece && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className={`
-                            select-none cursor-pointer relative z-10
-                            ${piece.color === 'white'
-                              ? 'text-white drop-shadow-[0_6px_16px_rgba(0,0,0,1)] [text-shadow:_0_0_24px_rgba(255,255,255,0.4),_0_0_8px_rgba(255,255,255,0.2)]'
-                              : 'text-gray-900 drop-shadow-[0_5px_12px_rgba(255,255,255,0.5)] [text-shadow:_0_0_18px_rgba(0,0,0,0.6),_0_0_6px_rgba(0,0,0,0.3)]'}
-                          `}
-                        >
-                          {PIECE_SYMBOLS[piece.color][piece.type]}
-                        </motion.div>
+                        <div className="w-full h-full p-2 relative group">
+                          <ChessPiece
+                            type={piece.type}
+                            color={piece.color}
+                            className="w-full h-full select-none cursor-pointer relative z-10 transition-all duration-200 group-hover:brightness-110 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+                          />
+                        </div>
                       )}
                     </button>
                   );
@@ -389,20 +391,30 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         </div>
         <div className="flex items-center gap-3">
           {/* Captured black pieces */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {capturedPieces.black.map((pieceType, index) => (
               <motion.div
                 key={`${pieceType}-${index}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="text-gray-900/90 text-xl drop-shadow-md"
+                initial={{ opacity: 0, y: -10, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
+                className="w-7 h-7 drop-shadow-md"
               >
-                {PIECE_SYMBOLS.black[pieceType]}
+                <ChessPiece type={pieceType} color="black" className="w-full h-full" />
               </motion.div>
             ))}
           </div>
-          <div className={`text-2xl font-mono font-bold ${currentTurn === 'white' ? 'text-stake-red' : 'text-gray-400'}`}>
+          <div
+            className={`text-2xl font-mono font-bold tabular-nums tracking-tight transition-all duration-300 ${
+              currentTurn === 'white'
+                ? whiteTime < 10
+                  ? 'text-red-500 animate-pulse drop-shadow-[0_0_12px_rgba(239,68,68,0.8)]'
+                  : whiteTime < 30
+                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite] drop-shadow-[0_0_8px_rgba(255,23,68,0.6)]'
+                  : 'text-stake-red drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]'
+                : 'text-gray-400'
+            }`}
+          >
             {Math.floor(whiteTime / 60)}:{(whiteTime % 60).toString().padStart(2, '0')}
           </div>
         </div>

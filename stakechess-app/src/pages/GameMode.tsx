@@ -74,7 +74,7 @@ export default function GameMode() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="p-8 flex items-center gap-4"
+        className="px-8 pt-2 pb-4 flex items-center gap-4"
       >
         <button
           onClick={() => navigate('/home')}

@@ -83,7 +83,7 @@ export default function Home() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="p-8 pb-4"
+        className="px-8 pt-2 pb-4"
       >
         <div className="flex justify-between items-start mb-6">
           <div>
@@ -103,7 +103,8 @@ export default function Home() {
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/30 shadow-red-glow relative overflow-hidden"
+          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden"
+          whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
         >
           {/* Background chess piece */}
           <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none">
@@ -159,7 +160,7 @@ export default function Home() {
             className="flex gap-3"
             animate={{ x: [0, -1000] }}
             transition={{
-              duration: 30,
+              duration: 25,
               repeat: Infinity,
               ease: 'linear',
             }}
