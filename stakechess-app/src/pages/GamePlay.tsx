@@ -1,46 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Handshake, Flag, Settings } from 'lucide-react';
+import { Handshake, Flag, Settings, ArrowLeft, Clock } from 'lucide-react';
+import ChessBoard from '../components/ChessBoard';
 
-// Chess pieces unicode (for future use)
-// const pieces = {
-//   white: {
-//     king: '♔',
-//     queen: '♕',
-//     rook: '♖',
-//     bishop: '♗',
-//     knight: '♘',
-//     pawn: '♙',
-//   },
-//   black: {
-//     king: '♚',
-//     queen: '♛',
-//     rook: '♜',
-//     bishop: '♝',
-//     knight: '♞',
-//     pawn: '♟',
-//   },
-// };
-
-// Initial board position
-const initialBoard = [
-  ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-  ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-  ['', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', ''],
-  ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-  ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'],
-];
+interface Move {
+  from: { row: number; col: number };
+  to: { row: number; col: number };
+  piece: string;
+  notation: string;
+  time: string;
+}
 
 export default function GamePlay() {
   const navigate = useNavigate();
   const [timeWhite, setTimeWhite] = useState(180); // 3 minutes in seconds
   const [timeBlack, setTimeBlack] = useState(180);
-  const [currentTurn] = useState<'white' | 'black'>('white');
+  const [currentTurn, setCurrentTurn] = useState<'white' | 'black'>('white');
   const [showMenu, setShowMenu] = useState(false);
+  const [moveHistory, setMoveHistory] = useState<Move[]>([]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -54,10 +32,18 @@ export default function GamePlay() {
     return () => clearInterval(timer);
   }, [currentTurn]);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  const handleMove = (from: { row: number; col: number }, to: { row: number; col: number }) => {
+    setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
+
+    // Add move to history (simplified notation)
+    const move: Move = {
+      from,
+      to,
+      piece: '',
+      notation: `${String.fromCharCode(97 + from.col)}${8 - from.row}-${String.fromCharCode(97 + to.col)}${8 - to.row}`,
+      time: `${Math.floor((currentTurn === 'white' ? timeWhite : timeBlack) / 60)}:${((currentTurn === 'white' ? timeWhite : timeBlack) % 60).toString().padStart(2, '0')}`
+    };
+    setMoveHistory([...moveHistory, move]);
   };
 
   const handleResign = () => {
@@ -73,135 +59,113 @@ export default function GamePlay() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex flex-col">
-      {/* Opponent Info */}
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="p-4"
-      >
-        <div className="glass-card p-6 flex items-center justify-between shadow-depth">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center">
-              <User className="w-6 h-6 text-stake-red" />
-            </div>
-            <div>
-              <p className="font-semibold">Соперник</p>
-              <p className="text-sm text-gray-400">Рейтинг: 1480</p>
-            </div>
-          </div>
-          <div
-            className={`text-right ${
-              currentTurn === 'black' ? 'text-stake-red' : ''
-            }`}
-          >
-            <p className="text-2xl font-bold font-mono">{formatTime(timeBlack)}</p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Chess Board */}
-      <div className="flex-1 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex">
+      {/* Left Panel - Chess Board */}
+      <div className="flex-1 flex flex-col p-4 md:p-8">
+        {/* Header */}
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="w-full max-w-md"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="mb-4 flex items-center gap-4"
         >
-          {/* Board container with glassmorphism frame */}
-          <div className="glass-card p-6 shadow-depth-lg">
-            <div className="aspect-square grid grid-cols-8 gap-0 rounded-lg overflow-hidden shadow-2xl">
-              {initialBoard.map((row, rowIndex) =>
-                row.map((piece, colIndex) => {
-                  const isLight = (rowIndex + colIndex) % 2 === 0;
-                  return (
-                    <motion.div
-                      key={`${rowIndex}-${colIndex}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 + (rowIndex * 8 + colIndex) * 0.005 }}
-                      className={`flex items-center justify-center text-4xl cursor-pointer transition-all hover:brightness-110 ${
-                        isLight
-                          ? 'bg-gray-300'
-                          : 'bg-stake-gray-light'
-                      }`}
-                    >
-                      {piece}
-                    </motion.div>
-                  );
-                })
-              )}
-            </div>
-          </div>
-
-          {/* Captured Pieces */}
-          <div className="mt-4 flex justify-between px-2">
-            <div className="flex gap-1 text-xl opacity-70">
-              {['♟', '♞', '♝'].map((p, i) => (
-                <span key={i}>{p}</span>
-              ))}
-            </div>
-            <div className="text-stake-red font-bold">+2</div>
+          <button
+            onClick={() => navigate('/game-mode')}
+            className="glass-button !px-4 !py-3"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+          <div className="glass-card px-4 py-2 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-stake-red" />
+            <span className="text-sm font-semibold">Блиц 3+2</span>
           </div>
         </motion.div>
-      </div>
 
-      {/* Player Info */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="p-4"
-      >
-        <div className="glass-card p-6 flex items-center justify-between shadow-depth">
-          <div
-            className={`text-left ${
-              currentTurn === 'white' ? 'text-stake-red' : ''
-            }`}
-          >
-            <p className="text-2xl font-bold font-mono">{formatTime(timeWhite)}</p>
+        {/* Chess Board Component */}
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="flex-1 flex items-center"
+        >
+          <div className="w-full">
+            <ChessBoard
+              onMove={handleMove}
+              whiteTime={timeWhite}
+              blackTime={timeBlack}
+            />
           </div>
-          <div className="flex items-center gap-3">
-            <div>
-              <p className="font-semibold text-right">Вы</p>
-              <p className="text-sm text-gray-400 text-right">Рейтинг: 1450</p>
-            </div>
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white/30 to-white/10 flex items-center justify-center">
-              <User className="w-6 h-6 text-white" />
-            </div>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Game Controls */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="p-4 pb-6"
-      >
-        <div className="flex gap-3">
+        {/* Game Controls */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mt-4 flex gap-3"
+        >
           <button
             onClick={() => setShowMenu(!showMenu)}
             className="btn-secondary flex-1 flex items-center justify-center gap-2"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-5 h-5" />
             <span>Меню</span>
           </button>
           <button
             onClick={handleDraw}
             className="btn-secondary flex-1 flex items-center justify-center gap-2"
           >
-            <Handshake className="w-4 h-4" />
+            <Handshake className="w-5 h-5" />
             <span>Ничья</span>
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/30 flex-1 flex items-center justify-center gap-2"
+            className="glass-button !bg-red-500/20 !border-red-500/30 flex-1 flex items-center justify-center gap-2 hover:!bg-red-500/30"
           >
-            <Flag className="w-4 h-4" />
+            <Flag className="w-5 h-5" />
             <span>Сдаться</span>
           </button>
+        </motion.div>
+      </div>
+
+      {/* Right Panel - Move History (Desktop) */}
+      <motion.div
+        initial={{ x: 20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="hidden lg:block w-80 bg-gradient-to-b from-black/40 to-black/60 border-l border-white/10 p-6"
+      >
+        <h3 className="text-xl font-bold mb-6 tracking-tight">История ходов</h3>
+
+        <div className="glass-card p-4 mb-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-gray-400">Ход</span>
+            <span className="text-sm text-gray-400">Время</span>
+          </div>
+        </div>
+
+        <div className="space-y-2 max-h-[calc(100vh-240px)] overflow-y-auto scrollbar-hide">
+          {moveHistory.length === 0 ? (
+            <div className="text-center py-12 text-gray-500">
+              <p className="text-sm">Ходов пока нет</p>
+            </div>
+          ) : (
+            moveHistory.map((move, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="glass-card p-3 flex items-center justify-between hover:bg-white/10 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-gray-500 w-8">
+                    {Math.floor(index / 2) + 1}.
+                  </span>
+                  <span className="font-semibold">{move.notation}</span>
+                </div>
+                <span className="text-xs font-mono text-gray-400">{move.time}</span>
+              </motion.div>
+            ))
+          )}
         </div>
       </motion.div>
 
@@ -217,29 +181,35 @@ export default function GamePlay() {
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
-            className="glass-card p-6 w-full max-w-sm"
+            className="glass-card p-8 w-full max-w-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-xl font-bold mb-4">Меню игры</h3>
+            <h3 className="text-2xl font-bold mb-6 tracking-tight">Меню игры</h3>
             <div className="space-y-3">
-              <button className="btn-secondary w-full">
-                Настройки доски
+              <button className="btn-secondary w-full !py-4 text-left px-6">
+                <div className="flex items-center gap-3">
+                  <Settings className="w-5 h-5" />
+                  <span>Настройки доски</span>
+                </div>
               </button>
-              <button className="btn-secondary w-full">
-                История ходов
-              </button>
-              <button className="btn-secondary w-full">
-                Анализ позиции
+              <button className="btn-secondary w-full !py-4 text-left px-6">
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5" />
+                  <span>История ходов</span>
+                </div>
               </button>
               <button
                 onClick={() => navigate('/home')}
-                className="glass-button w-full !bg-red-500/20 !border-red-500/30"
+                className="glass-button w-full !bg-red-500/20 !border-red-500/30 !py-4 text-left px-6 hover:!bg-red-500/30"
               >
-                Выйти из игры
+                <div className="flex items-center gap-3">
+                  <Flag className="w-5 h-5" />
+                  <span>Выйти из игры</span>
+                </div>
               </button>
               <button
                 onClick={() => setShowMenu(false)}
-                className="btn-secondary w-full"
+                className="btn-primary w-full !py-4"
               >
                 Продолжить
               </button>
@@ -247,16 +217,6 @@ export default function GamePlay() {
           </motion.div>
         </motion.div>
       )}
-
-      {/* Game Mode Info */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 z-10"
-      >
-        <p className="text-sm text-gray-400 text-center">Блиц 3+2</p>
-      </motion.div>
     </div>
   );
 }

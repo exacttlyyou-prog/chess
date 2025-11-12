@@ -126,89 +126,130 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex flex-col">
-      {/* Header */}
-      <div className="p-6 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">
-          <span className="text-gradient">StakeChess</span>
-        </h1>
-        <button
-          onClick={() => navigate('/home')}
-          className="text-gray-400 hover:text-white transition-colors text-sm"
+    <div className="relative min-h-screen overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="absolute inset-0"
         >
-          Пропустить
-        </button>
-      </div>
+          {/* Fullscreen Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={slides[currentSlide].image}
+              alt={slides[currentSlide].title}
+              className="w-full h-full object-cover"
+            />
+            {/* Dark overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+            {/* Red accent gradient */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/20 via-transparent to-transparent" />
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Slides */}
-      <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
+      {/* Content Overlay */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+        {/* Header */}
+        <div className="p-8 flex justify-between items-center">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-3xl font-bold"
+          >
+            <span className="text-gradient">StakeChess</span>
+          </motion.h1>
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={() => navigate('/home')}
+            className="glass-button !px-6 !py-3 text-white/80 hover:text-white font-medium"
+          >
+            Пропустить
+          </motion.button>
+        </div>
+
+        {/* Main Content - Text Overlay */}
+        <div className="flex-1 flex flex-col justify-end p-8 pb-32">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.3 }}
-              className="text-center"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="max-w-2xl"
             >
-              {/* Visual / Image */}
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                className="mb-8 flex justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mb-4"
               >
-                <div className="relative w-64 h-64 flex items-center justify-center">
-                  {/* Background glow */}
-                  <div className="absolute inset-0 bg-stake-red/20 rounded-full blur-3xl" />
-
-                  {/* Image container */}
-                  <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 shadow-depth-lg">
-                    <img
-                      src={slides[currentSlide].image}
-                      alt={slides[currentSlide].title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
+                <span className="inline-block glass-button !px-4 !py-2 text-sm font-semibold text-stake-red">
+                  {currentSlide + 1} / {slides.length}
+                </span>
               </motion.div>
-
-              <h2 className="text-4xl font-bold mb-4 px-4">{slides[currentSlide].title}</h2>
-              <p className="text-xl text-gray-400 px-6">{slides[currentSlide].description}</p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+              >
+                {slides[currentSlide].title}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-xl md:text-2xl text-gray-300 leading-relaxed"
+              >
+                {slides[currentSlide].description}
+              </motion.p>
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <div className="p-6 pb-12">
-        {/* Dots */}
-        <div className="flex justify-center gap-2 mb-8">
-          {slides.map((_, index) => (
+        {/* Bottom Navigation */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="p-8 space-y-6"
+        >
+          {/* Progress Dots */}
+          <div className="flex justify-center gap-3">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all duration-500 ${
+                  index === currentSlide
+                    ? 'w-12 bg-stake-red shadow-lg shadow-stake-red/50'
+                    : 'w-2 bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex gap-4">
+            {currentSlide > 0 && (
+              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5">
+                Назад
+              </button>
+            )}
             <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'w-8 bg-stake-red'
-                  : 'w-2 bg-white/20 hover:bg-white/40'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-4">
-          {currentSlide > 0 && (
-            <button onClick={prevSlide} className="btn-secondary flex-1">
-              Назад
+              onClick={nextSlide}
+              className="btn-primary flex-1 !py-5 text-lg font-bold"
+            >
+              {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
             </button>
-          )}
-          <button onClick={nextSlide} className="btn-primary flex-1">
-            {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
-          </button>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
