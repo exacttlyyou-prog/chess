@@ -195,8 +195,8 @@ export default function Home() {
               onClick={() => navigate(action.path)}
               className="glass-card p-8 text-center shadow-depth hover-lift"
             >
-              <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <action.Icon className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              <div className="bg-gradient-to-br from-stake-red/30 via-stake-red/20 to-purple-600/20 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(239,49,36,0.3)]">
+                <action.Icon className="w-7 h-7 text-stake-red" strokeWidth={2.5} />
               </div>
               <p className="font-semibold text-base">{action.title}</p>
             </motion.button>
