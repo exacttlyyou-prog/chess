@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ChessPiece from './ChessPiece';
+import CaptureAnimation from './CaptureAnimation';
+import CheckIndicator from './CheckIndicator';
+import CheckmateModal from './CheckmateModal';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -63,6 +66,12 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
   const [currentTurn, setCurrentTurn] = useState<PieceColor>('white');
   const [lastMove, setLastMove] = useState<{ from: { row: number; col: number }; to: { row: number; col: number } } | null>(null);
   const [capturedPieces, setCapturedPieces] = useState<{ white: PieceType[]; black: PieceType[] }>({ white: [], black: [] });
+
+  // Hero moment states
+  const [captureAnimations, setCaptureAnimations] = useState<Array<{ id: number; position: { x: number; y: number }; pieceColor: PieceColor }>>([]);
+  const [kingInCheck] = useState<{ row: number; col: number } | null>(null); // TODO: implement check detection logic
+  const [isCheckmate, setIsCheckmate] = useState(false);
+  const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
 
   const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
     const piece = board[row][col].piece;
@@ -203,6 +212,21 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         // Check if capturing a piece
         const capturedPiece = newBoard[row][col].piece;
         if (capturedPiece) {
+          // Trigger capture animation
+          const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
+          if (boardRect) {
+            const squareSize = boardRect.width / 8;
+            const animationId = Date.now();
+            setCaptureAnimations(prev => [...prev, {
+              id: animationId,
+              position: {
+                x: boardRect.left + (col + 0.5) * squareSize,
+                y: boardRect.top + (row + 0.5) * squareSize,
+              },
+              pieceColor: capturedPiece.color,
+            }]);
+          }
+
           setCapturedPieces(prev => ({
             ...prev,
             [capturedPiece.color]: [...prev[capturedPiece.color], capturedPiece.type]
@@ -322,7 +346,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                 <rect width="800" height="800" fill="url(#grid)" />
               </svg>
 
-              <div className="grid grid-cols-8 gap-0 w-full h-full">
+              <div className="chess-board-grid grid grid-cols-8 gap-0 w-full h-full">
                 {board.map((row, rowIndex) =>
                   row.map((square, colIndex) => {
                     const isDark = (rowIndex + colIndex) % 2 === 1;
@@ -431,6 +455,43 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           </div>
         </div>
       </div>
+
+      {/* Capture animations */}
+      {captureAnimations.map(animation => (
+        <CaptureAnimation
+          key={animation.id}
+          position={animation.position}
+          pieceColor={animation.pieceColor}
+          onComplete={() => {
+            setCaptureAnimations(prev => prev.filter(a => a.id !== animation.id));
+          }}
+        />
+      ))}
+
+      {/* Check indicator */}
+      {kingInCheck && (
+        <CheckIndicator position={kingInCheck} />
+      )}
+
+      {/* Checkmate modal */}
+      <CheckmateModal
+        isOpen={isCheckmate}
+        winner={checkmateWinner}
+        isPlayerWinner={checkmateWinner === 'white'}
+        ratingChange={checkmateWinner === 'white' ? 15 : -15}
+        onClose={() => {
+          setIsCheckmate(false);
+          setCheckmateWinner(null);
+        }}
+        onRematch={() => {
+          setBoard(createInitialBoard());
+          setIsCheckmate(false);
+          setCheckmateWinner(null);
+          setCapturedPieces({ white: [], black: [] });
+          setCurrentTurn('white');
+          setLastMove(null);
+        }}
+      />
     </div>
   );
 }
