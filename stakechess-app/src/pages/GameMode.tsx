@@ -56,11 +56,15 @@ const tournaments = [
 export default function GameMode() {
   const navigate = useNavigate();
   const [selectedMode, setSelectedMode] = useState('blitz');
+  const [selectedOpponent, setSelectedOpponent] = useState('random');
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
 
   const handlePlay = () => {
-    navigate('/play');
+    navigate('/matchmaking');
   };
+
+  const selectedModeData = gameModes.find(m => m.id === selectedMode);
+  const opponentLabel = selectedOpponent === 'random' ? 'Случайный' : 'AI';
 
   return (
     <motion.div
@@ -68,7 +72,7 @@ export default function GameMode() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-20"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-32"
     >
       {/* Header */}
       <motion.div
@@ -156,43 +160,49 @@ export default function GameMode() {
           >
             <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <motion.button
+                onClick={() => setSelectedOpponent('random')}
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+                className={`glass-card p-6 w-full text-left transition-all shadow-depth ${
+                  selectedOpponent === 'random' ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow' : 'hover:bg-white/10'
+                }`}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
+                  <div className={`bg-gradient-to-br ${
+                    selectedOpponent === 'random' ? 'from-stake-red/30 to-stake-red/10' : 'from-stake-red/20 to-stake-red/5'
+                  } p-3 rounded-xl`}>
                     <Shuffle className="w-6 h-6 text-stake-red" />
                   </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Случайный соперник</h6>
                     <p className="text-body-sm text-gray-400">Рейтинг: 1400 - 1500</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-gray-500" />
+                  {selectedOpponent === 'random' && <ArrowRight className="w-5 h-5 text-stake-red" />}
                 </div>
-              </button>
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              </motion.button>
+              <motion.button
+                onClick={() => setSelectedOpponent('ai')}
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+                className={`glass-card p-6 w-full text-left transition-all shadow-depth ${
+                  selectedOpponent === 'ai' ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow' : 'hover:bg-white/10'
+                }`}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
+                  <div className={`bg-gradient-to-br ${
+                    selectedOpponent === 'ai' ? 'from-stake-red/30 to-stake-red/10' : 'from-stake-red/20 to-stake-red/5'
+                  } p-3 rounded-xl`}>
                     <Bot className="w-6 h-6 text-stake-red" />
                   </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Играть с AI</h6>
                     <p className="text-body-sm text-gray-400">Тренировочный режим</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-gray-500" />
+                  {selectedOpponent === 'ai' && <ArrowRight className="w-5 h-5 text-stake-red" />}
                 </div>
-              </button>
+              </motion.button>
             </div>
-          </motion.div>
-
-          {/* Play Button */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-8"
-          >
-            <button onClick={handlePlay} className="btn-primary w-full">
-              Начать игру
-            </button>
           </motion.div>
         </>
       ) : (
@@ -248,6 +258,30 @@ export default function GameMode() {
           ))}
         </motion.div>
       )}
+
+      {/* Sticky Play Button - Always Visible */}
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 30 }}
+        className="fixed bottom-0 left-0 right-0 p-6 glass border-t border-white/[0.08] backdrop-blur-2xl z-50"
+        style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
+      >
+        <motion.button
+          onClick={handlePlay}
+          className="btn-primary w-full !py-5 flex items-center justify-center gap-3"
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Zap className="w-6 h-6" strokeWidth={2.5} />
+          <div className="text-left">
+            <div className="text-xl font-bold">Начать игру</div>
+            <div className="text-xs opacity-90">
+              {selectedModeData?.title} • {opponentLabel}
+            </div>
+          </div>
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
