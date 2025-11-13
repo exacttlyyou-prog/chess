@@ -108,43 +108,77 @@
 
   .glass-card {
     @apply bg-gradient-to-br from-white/[0.06] to-white/[0.02] backdrop-blur-xl border border-white/[0.10] rounded-3xl;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
     will-change: transform;
+    position: relative;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .glass-card:hover::before {
+    opacity: 1;
   }
 
   .glass-card:hover {
-    @apply border-white/[0.18] from-white/[0.08] to-white/[0.04];
-    transform: translateY(-2px);
+    @apply border-white/[0.20] from-white/[0.09] to-white/[0.04];
+    transform: translateY(-3px) scale(1.005);
     box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.4),
-      0 2px 8px rgba(0, 0, 0, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      0 12px 32px rgba(0, 0, 0, 0.45),
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.1) inset;
   }
 
   .glass-card:active {
-    transform: translateY(0);
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-1px) scale(0.998);
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
   }
 
   .glass-button {
     @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl px-6 py-3.5;
     min-height: 44px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     will-change: transform;
+    position: relative;
+  }
+
+  .glass-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .glass-button:hover::before {
+    opacity: 1;
   }
 
   .glass-button:hover {
-    @apply bg-white/[0.12] border-white/[0.16];
-    transform: scale(1.02) translateY(-1px);
+    @apply bg-white/[0.14] border-white/[0.20];
+    transform: scale(1.03) translateY(-2px);
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.25),
-      0 2px 6px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.14) inset;
+      0 6px 20px rgba(0, 0, 0, 0.3),
+      0 3px 10px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.12) inset;
   }
 
   .glass-button:active {
-    transform: scale(0.98);
-    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.97);
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
   }
 
   .glass-button:focus-visible {
@@ -171,31 +205,47 @@
   /* Premium button styles */
   .btn-primary {
     @apply bg-gradient-to-r from-stake-red to-stake-red-dark text-white font-semibold px-8 py-4 rounded-2xl;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow:
-      0 4px 16px rgba(239, 49, 36, 0.25),
-      0 2px 4px rgba(0, 0, 0, 0.3),
-      0 0 1px rgba(255, 255, 255, 0.2) inset;
+      0 4px 20px rgba(239, 49, 36, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.25) inset;
     will-change: transform;
     position: relative;
     overflow: hidden;
   }
 
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
   .btn-primary:hover {
-    transform: scale(1.02) translateY(-1px);
+    transform: scale(1.03) translateY(-2px);
     box-shadow:
-      0 8px 24px rgba(239, 49, 36, 0.5),
-      0 4px 12px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.25) inset;
-    background: linear-gradient(to right, #F24D3E, #C22719);
+      0 12px 32px rgba(239, 49, 36, 0.5),
+      0 6px 16px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+    background: linear-gradient(to right, #F24D3E, #EF3124);
   }
 
   .btn-primary:active {
-    transform: scale(0.98);
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.97) translateY(0);
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
     box-shadow:
-      0 4px 12px rgba(239, 49, 36, 0.4),
-      0 2px 6px rgba(0, 0, 0, 0.35);
+      0 2px 12px rgba(239, 49, 36, 0.4),
+      0 1px 4px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(0, 0, 0, 0.2) inset;
   }
 
   .btn-primary:focus-visible {
