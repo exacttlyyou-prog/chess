@@ -145,13 +145,13 @@ export default function GameMode() {
                       : ''
                   }`}
                 >
-                  {/* Background Hero Image */}
-                  <div className="absolute right-0 bottom-0 w-24 h-24 opacity-10 pointer-events-none overflow-hidden">
+                  {/* Background Hero Image - properly sized */}
+                  <div className="absolute right-0 bottom-0 w-32 h-32 opacity-15 pointer-events-none overflow-hidden">
                     <img
                       src={mode.image}
                       alt=""
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover scale-110"
                     />
                   </div>
 
