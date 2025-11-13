@@ -104,7 +104,7 @@ export default function PostGameAnalysis() {
             <ArrowLeft className="w-6 h-6" />
           </button>
           <div>
-            <h1 className="!text-3xl">Анализ партии</h1>
+            <h1 className="!text-4xl !font-black !tracking-tighter">Анализ партии</h1>
             <p className="text-body-sm text-gray-400">Разбор ключевых моментов</p>
           </div>
         </motion.div>

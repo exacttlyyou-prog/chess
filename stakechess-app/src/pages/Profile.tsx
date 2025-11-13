@@ -68,7 +68,7 @@ export default function Profile() {
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="!text-3xl">Профиль</h1>
+        <h1 className="!text-4xl !font-black !tracking-tighter">Профиль</h1>
       </motion.div>
 
       {/* Profile Header */}

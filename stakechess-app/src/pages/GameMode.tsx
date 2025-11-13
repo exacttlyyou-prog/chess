@@ -95,7 +95,7 @@ export default function GameMode() {
         >
           <ArrowLeft className="w-6 h-6" />
         </button>
-        <h1 className="!text-3xl">Выбор режима</h1>
+        <h1 className="!text-4xl !font-black !tracking-tighter">Выбор режима</h1>
       </motion.div>
 
       {/* Tabs */}

@@ -126,7 +126,7 @@ export default function Feed() {
             <ArrowLeft className="w-6 h-6" />
           </button>
           <div>
-            <h1 className="!text-2xl">Лента игроков</h1>
+            <h1 className="!text-4xl !font-black !tracking-tighter">Лента игроков</h1>
             <p className="text-body-sm text-gray-400">Следи за достижениями сообщества</p>
           </div>
         </div>
