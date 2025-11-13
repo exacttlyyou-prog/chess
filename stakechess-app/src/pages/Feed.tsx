@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, MessageCircle, TrendingUp, Trophy, Zap, Crown, Target } from 'lucide-react';
+import { ArrowLeft, Heart, MessageCircle, Trophy, Zap, Crown } from 'lucide-react';
 
 interface Post {
   id: number;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, User } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 const slides = [
   {

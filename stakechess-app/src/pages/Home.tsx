@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Home as HomeIcon, TrendingUp, Clock } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Home as HomeIcon, TrendingUp } from 'lucide-react';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
