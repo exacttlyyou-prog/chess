@@ -71,18 +71,18 @@ export default function Matchmaking() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black overflow-hidden">
-      {/* Background Image - Hourglass for time/waiting */}
+    <div className="fixed inset-0 z-50 bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black speed-lines-overlay overflow-hidden">
+      {/* Background Image - Motion Blur for speed/excitement */}
       <motion.div
         initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 0.15, scale: 1 }}
+        animate={{ opacity: 0.2, scale: 1 }}
         className="absolute inset-0"
       >
         <img
-          src="/images/0_0 - 2025-11-13T233757.268.png"
+          src="/images/перебивка1.png"
           alt=""
           className="w-full h-full object-cover"
-          style={{ filter: 'blur(20px)' }}
+          style={{ filter: 'blur(15px)' }}
         />
       </motion.div>
 
