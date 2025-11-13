@@ -22,7 +22,7 @@ const slides = [
   {
     title: 'Готов начать?',
     description: 'Присоединяйся к тысячам игроков прямо сейчас',
-    image: '/images/0_0 (85).png', // Pawn + Crown - transformation moment
+    image: '/images/0_2 (1).png', // Global connection - perfect for "join thousands"
   },
 ];
 
@@ -102,7 +102,7 @@ export default function Onboarding() {
                 <span>Telegram</span>
               </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <img src="/alfa-id.svg" alt="Alfa ID" className="w-5 h-5" />
+                <img src="/alfa-id.svg" alt="Alfa ID" className="w-10 h-10" />
                 <span>Alfa ID</span>
               </button>
             </div>

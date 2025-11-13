@@ -62,8 +62,15 @@ export default function GameMode() {
   const [selectedMode, setSelectedMode] = useState('blitz');
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
 
-  const handlePlay = () => {
-    navigate('/matchmaking'); // New CJM flow: matchmaking → play → result → analysis
+  const handleModeSelect = (modeId: string) => {
+    setSelectedMode(modeId);
+    // Start game immediately on mode selection
+    navigate('/matchmaking');
+  };
+
+  const handleOpponentSelect = () => {
+    // Start game immediately on opponent selection
+    navigate('/matchmaking');
   };
 
   return (
@@ -129,7 +136,7 @@ export default function GameMode() {
                   transition={{ delay: index * 0.05, type: 'spring' }}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedMode(mode.id)}
+                  onClick={() => handleModeSelect(mode.id)}
                   className={`glass-card p-6 text-left transition-all shadow-depth relative overflow-hidden ${
                     selectedMode === mode.id
                       ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
@@ -169,9 +176,9 @@ export default function GameMode() {
             transition={{ delay: 0.2 }}
             className="px-8 mb-6"
           >
-            <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
+            <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника (опционально)</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button onClick={handleOpponentSelect} className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth hover-lift">
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Shuffle className="w-6 h-6 text-stake-red" />
@@ -183,7 +190,7 @@ export default function GameMode() {
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
               </button>
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button onClick={handleOpponentSelect} className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth hover-lift">
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Bot className="w-6 h-6 text-stake-red" />
@@ -196,18 +203,6 @@ export default function GameMode() {
                 </div>
               </button>
             </div>
-          </motion.div>
-
-          {/* Play Button */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-8"
-          >
-            <button onClick={handlePlay} className="btn-primary w-full">
-              Начать игру
-            </button>
           </motion.div>
         </>
       ) : (
