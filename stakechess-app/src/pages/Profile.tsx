@@ -82,7 +82,7 @@ export default function Profile() {
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-4">
             <User className="w-12 h-12 text-stake-red" />
           </div>
-          <h2 className="!text-3xl mb-2">Игрок</h2>
+          <h2 className="!text-5xl !font-extrabold !tracking-tighter mb-2">Игрок</h2>
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="glass px-4 py-2 rounded-lg">
               <p className="text-body-sm text-gray-400">Рейтинг</p>

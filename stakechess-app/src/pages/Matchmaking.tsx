@@ -208,7 +208,7 @@ export default function Matchmaking() {
                 <div className="mb-6">
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <span className="text-3xl">{opponent.country}</span>
-                    <h3 className="!text-2xl">{opponent.name}</h3>
+                    <h3 className="!text-3xl !font-bold !tracking-tight">{opponent.name}</h3>
                   </div>
                 </div>
 

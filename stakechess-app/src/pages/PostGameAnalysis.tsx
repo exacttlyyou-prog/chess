@@ -184,7 +184,7 @@ export default function PostGameAnalysis() {
 
         {/* Key Moments */}
         <div className="px-8 mb-8">
-          <h3 className="!text-xl mb-4">Ключевые моменты</h3>
+          <h3 className="!text-2xl !font-bold !tracking-tight mb-4">Ключевые моменты</h3>
           <div className="space-y-4">
             {mockAnalysis.map((moment, index) => {
               const config = getMomentConfig(moment.type);

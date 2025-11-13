@@ -95,25 +95,25 @@ export default function Home() {
             <div className="flex justify-between items-center mb-8">
               <div>
                 <p className="text-sm text-gray-400 mb-3 font-semibold uppercase tracking-wider">Текущий рейтинг</p>
-                <h2 className="!text-7xl !font-black !tracking-tighter text-gradient">1450</h2>
+                <h2 className="!text-7xl !font-black !tracking-tighter text-gradient tabular-nums">1450</h2>
               </div>
               <div className="text-right">
                 <p className="text-sm text-gray-400 mb-3 font-semibold uppercase tracking-wider">Прогресс</p>
-                <p className="text-5xl font-black text-green-400">+50</p>
+                <p className="text-5xl font-black text-green-400 tabular-nums">+50</p>
               </div>
             </div>
             <div className="flex gap-6">
               <div>
                 <p className="text-body-sm text-gray-500 mb-1">Побед</p>
-                <p className="text-white font-semibold text-lg">128</p>
+                <p className="text-white font-semibold text-lg tabular-nums">128</p>
               </div>
               <div>
                 <p className="text-body-sm text-gray-500 mb-1">Поражений</p>
-                <p className="text-gray-400 font-semibold text-lg">94</p>
+                <p className="text-gray-400 font-semibold text-lg tabular-nums">94</p>
               </div>
               <div>
                 <p className="text-body-sm text-gray-500 mb-1">Ничьих</p>
-                <p className="text-gray-400 font-semibold text-lg">23</p>
+                <p className="text-gray-400 font-semibold text-lg tabular-nums">23</p>
               </div>
             </div>
           </div>
@@ -161,15 +161,15 @@ export default function Home() {
             <div className="grid grid-cols-3 gap-4 mb-8">
               <div className="glass p-4 rounded-2xl">
                 <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Игроков</p>
-                <p className="text-2xl font-black">156/256</p>
+                <p className="text-2xl font-black tabular-nums">156/256</p>
               </div>
               <div className="glass p-4 rounded-2xl">
                 <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Призовой</p>
-                <p className="text-2xl font-black text-green-400">50K ₽</p>
+                <p className="text-2xl font-black text-green-400 tabular-nums">50K ₽</p>
               </div>
               <div className="glass p-4 rounded-2xl">
                 <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Старт</p>
-                <p className="text-2xl font-black text-stake-red">2:15:00</p>
+                <p className="text-2xl font-black text-stake-red tabular-nums">2:15:00</p>
               </div>
             </div>
 
@@ -252,7 +252,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between text-body-sm text-gray-400">
                     <span>Ходов</span>
-                    <span className="text-white font-medium">{game.moves}</span>
+                    <span className="text-white font-medium tabular-nums">{game.moves}</span>
                   </div>
                   <div className="text-gray-500 text-xs mt-3">{game.date}</div>
                 </div>
