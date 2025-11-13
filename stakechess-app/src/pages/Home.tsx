@@ -52,7 +52,7 @@ export default function Home() {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black"
     >
       {/* Header */}
       <motion.div
@@ -128,26 +128,13 @@ export default function Home() {
         className="px-8 mb-8"
       >
         <div
-          className="relative glass-card p-8 shadow-depth-lg overflow-hidden cursor-pointer group widescreen-bg"
+          className="relative glass-card p-8 shadow-depth-lg overflow-hidden cursor-pointer group bg-gradient-to-br from-stake-red/20 via-stake-red/10 to-transparent"
           onClick={() => navigate('/game-mode')}
-          style={{ backgroundBlendMode: 'overlay' }}
         >
-          {/* Foreground Trophy Image */}
-          <div className="absolute inset-0 opacity-25 group-hover:opacity-35 transition-all duration-500 overflow-hidden">
-            <img
-              src="/images/0_0 (85).png"
-              alt="Tournament"
-              className="w-full h-full object-cover scale-115 group-hover:scale-120 transition-transform duration-700"
-            />
-          </div>
-
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-stake-red/40 via-transparent to-black/60" />
-
           {/* Content */}
           <div className="relative z-10">
             <div className="flex items-start justify-between mb-4">
-              <div>
+              <div className="flex-1">
                 <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4">
                   <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
                   <span className="text-sm font-bold text-green-400 uppercase tracking-wide">Идёт сейчас</span>
@@ -155,7 +142,14 @@ export default function Home() {
                 <h3 className="!text-4xl !font-black !tracking-tighter mb-3">Турнир выходного дня</h3>
                 <p className="text-lg text-gray-200 font-medium">Участвуй и выигрывай призы</p>
               </div>
-              <Trophy className="w-12 h-12 text-stake-red" />
+              {/* Trophy image in squircle */}
+              <div className="ml-4 w-28 h-28 rounded-3xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 flex-shrink-0">
+                <img
+                  src="/images/0_0 (85).png"
+                  alt="Tournament"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mb-8">

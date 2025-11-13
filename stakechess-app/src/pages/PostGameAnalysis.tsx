@@ -79,7 +79,7 @@ export default function PostGameAnalysis() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-20"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-20"
     >
       {/* Background Image */}
       <div className="fixed inset-0 z-0 opacity-5">
