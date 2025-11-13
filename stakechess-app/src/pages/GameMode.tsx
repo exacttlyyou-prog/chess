@@ -10,6 +10,7 @@ const gameModes = [
     time: '3 + 2',
     description: '3 минуты на партию + 2 сек за ход',
     Icon: Zap,
+    image: '/images/0_0 (67).png', // Knight + laser (speed!)
   },
   {
     id: 'rapid',
@@ -17,6 +18,7 @@ const gameModes = [
     time: '10 + 0',
     description: '10 минут на партию',
     Icon: Activity,
+    image: '/images/0_3.png', // Balanced pair
   },
   {
     id: 'bullet',
@@ -24,6 +26,7 @@ const gameModes = [
     time: '1 + 0',
     description: '1 минута на партию',
     Icon: Wind,
+    image: '/images/0_0 (66).png', // Knight + trails (extreme speed!)
   },
   {
     id: 'classic',
@@ -31,6 +34,7 @@ const gameModes = [
     time: '30 + 0',
     description: '30 минут на партию',
     Icon: Clock,
+    image: '/images/0_2 (1).png', // King + Bishop (elegance)
   },
 ];
 
@@ -59,7 +63,7 @@ export default function GameMode() {
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
 
   const handlePlay = () => {
-    navigate('/play');
+    navigate('/matchmaking'); // New CJM flow: matchmaking → play → result → analysis
   };
 
   return (
@@ -126,22 +130,33 @@ export default function GameMode() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedMode(mode.id)}
-                  className={`glass-card p-6 text-left transition-all shadow-depth ${
+                  className={`glass-card p-6 text-left transition-all shadow-depth relative overflow-hidden ${
                     selectedMode === mode.id
                       ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
                       : ''
                   }`}
                 >
-                  <div className={`bg-gradient-to-br ${
-                    selectedMode === mode.id
-                      ? 'from-stake-red/30 to-stake-red/10'
-                      : 'from-stake-red/20 to-stake-red/5'
-                  } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                  {/* Background Hero Image */}
+                  <div className="absolute right-0 bottom-0 w-24 h-24 opacity-10 pointer-events-none">
+                    <img
+                      src={mode.image}
+                      alt=""
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <h6 className="mb-1">{mode.title}</h6>
-                  <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
+
+                  <div className="relative z-10">
+                    <div className={`bg-gradient-to-br ${
+                      selectedMode === mode.id
+                        ? 'from-stake-red/30 to-stake-red/10'
+                        : 'from-stake-red/20 to-stake-red/5'
+                    } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
+                      <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                    </div>
+                    <h6 className="mb-1">{mode.title}</h6>
+                    <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
+                    <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
+                  </div>
                 </motion.button>
               ))}
             </div>

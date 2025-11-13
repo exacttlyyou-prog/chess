@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Flame, Home as HomeIcon } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Home as HomeIcon } from 'lucide-react';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
@@ -9,13 +9,7 @@ const quickActions = [
   { id: 'friends', title: 'С другом', Icon: Users, path: '/game-mode' },
 ];
 
-const liveGames = [
-  { id: 1, white: 'Гроссмейстер_89', black: 'ТактикПро', viewers: 234 },
-  { id: 2, white: 'Мастер_Блица', black: 'Шахматный_Король', viewers: 189 },
-  { id: 3, white: 'Стратег_2100', black: 'Защитник_1900', viewers: 156 },
-  { id: 4, white: 'Атакующий', black: 'Позиционник', viewers: 98 },
-  { id: 5, white: 'Молния_Ход', black: 'Терпеливый', viewers: 67 },
-];
+// Removed liveGames - too distracting, low value (Jony Ive: less is more)
 
 const recentGames = [
   {
@@ -23,7 +17,7 @@ const recentGames = [
     opponent: 'Мастер_1450',
     result: 'win',
     mode: 'Блиц 3+2',
-    image: '/images/pieces/king-crown.png',
+    image: '/images/0_0 (85).png', // Pawn + crown (victory/promotion)
     moves: 32,
     date: '2 часа назад',
   },
@@ -32,7 +26,7 @@ const recentGames = [
     opponent: 'Стратег_99',
     result: 'loss',
     mode: 'Рапид 10+0',
-    image: '/images/pieces/queen-luxury.png',
+    image: '/images/0_1 (1).png', // Shattered king (defeat)
     moves: 45,
     date: '5 часов назад',
   },
@@ -41,32 +35,13 @@ const recentGames = [
     opponent: 'Тактик_2000',
     result: 'draw',
     mode: 'Классика',
-    image: '/images/pieces/knight-neon.png',
+    image: '/images/0_3.png', // Balanced pair (draw)
     moves: 68,
     date: 'Вчера',
   },
 ];
 
-const widgets = [
-  {
-    type: 'tournament',
-    title: 'Турнир выходного дня',
-    subtitle: 'Старт через 2:15:00',
-    participants: '128 игроков',
-  },
-  {
-    type: 'achievement',
-    title: 'Новое достижение!',
-    subtitle: '5 побед подряд',
-    badge: 'flame',
-  },
-  {
-    type: 'friends',
-    title: 'Друзья онлайн',
-    subtitle: '3 игрока',
-    avatars: ['user', 'user', 'user'],
-  },
-];
+// Removed widgets - redundant, simplifying (Jony Ive approach)
 
 export default function Home() {
   const navigate = useNavigate();
@@ -142,48 +117,6 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
-      </motion.div>
-
-      {/* Live Games Ticker */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15 }}
-        className="mb-8 overflow-hidden"
-      >
-        <div className="px-8 mb-3 flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <h6 className="!text-sm text-gray-400">Игры идут сейчас</h6>
-        </div>
-        <div className="relative">
-          <motion.div
-            className="flex gap-3"
-            animate={{ x: [0, -1000] }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {[...liveGames, ...liveGames].map((game, index) => (
-              <div
-                key={`${game.id}-${index}`}
-                className="glass-card px-4 py-3 flex items-center gap-3 min-w-[300px] cursor-pointer hover:bg-white/10 transition-all"
-                onClick={() => navigate('/play')}
-              >
-                <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <span className="text-sm font-medium truncate">{game.white}</span>
-                  <span className="text-gray-500 text-xs">vs</span>
-                  <span className="text-sm font-medium truncate">{game.black}</span>
-                </div>
-                <div className="flex items-center gap-1 text-gray-400 text-xs">
-                  <User className="w-3 h-3" />
-                  <span>{game.viewers}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
       </motion.div>
 
       {/* Quick Actions */}
@@ -267,53 +200,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Widgets */}
-      <div className="px-8 pb-28">
-        <h3 className="!text-xl mb-6">Актуально</h3>
-        <div className="space-y-4">
-          {widgets.map((widget, index) => (
-            <motion.div
-              key={index}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              className="glass-card p-6 cursor-pointer shadow-depth hover-lift"
-              onClick={() => navigate('/game-mode')}
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h6 className="mb-2">{widget.title}</h6>
-                  <p className="text-body-sm text-gray-400">{widget.subtitle}</p>
-                </div>
-                <div className="text-right flex items-center gap-3">
-                  {widget.participants && (
-                    <p className="text-gray-400 text-body-sm font-medium">{widget.participants}</p>
-                  )}
-                  {widget.badge && (
-                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-2xl">
-                      <Flame className="w-6 h-6 text-stake-red" />
-                    </div>
-                  )}
-                  {widget.avatars && (
-                    <div className="flex -space-x-2">
-                      {widget.avatars.map((_, i) => (
-                        <div
-                          key={i}
-                          className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border-2 border-stake-black-light"
-                        >
-                          <User className="w-4 h-4 text-gray-400" />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      {/* Spacer for bottom nav */}
+      <div className="h-28" />
 
       {/* Bottom Navigation */}
       <motion.div

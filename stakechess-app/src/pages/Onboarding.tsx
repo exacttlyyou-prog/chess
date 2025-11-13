@@ -5,34 +5,24 @@ import { Send, User } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Играй без границ',
-    description: 'Классические шахматы и быстрые партии с игроками со всего мира',
-    image: '/images/heroes/growth-path.png',
+    title: 'Путь к мастерству',
+    description: 'От первого хода до гроссмейстера — каждая партия делает тебя сильнее',
+    image: '/images/0_0 (74).png', // Stairs with pawns - ICONIC!
   },
   {
-    title: 'Следи за прогрессом',
-    description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
-    image: '/images/heroes/stats-growth.png',
+    title: 'Турниры и победы',
+    description: 'Соревнуйся с лучшими, завоёвывай трофеи и становись чемпионом',
+    image: '/images/0_0 (76).png', // Trophy + King
   },
   {
-    title: 'Участвуй в турнирах',
-    description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
-    image: '/images/achievements/tournament-cup.png',
-  },
-  {
-    title: 'Найди друзей',
-    description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    image: '/images/pieces/pair-classic.png',
-  },
-  {
-    title: 'Тренируйся с AI',
-    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
-    image: '/images/heroes/ai-network.png',
+    title: 'Играй с друзьями',
+    description: 'Создавай команду, находи партнёров и сражайтесь вместе',
+    image: '/images/0_3.png', // King + Rook pair (partnership)
   },
   {
     title: 'Готов начать?',
-    description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
-    image: '/images/heroes/progress-stairs.png',
+    description: 'Присоединяйся к тысячам игроков и начни свою легенду',
+    image: '/images/0_0 (85).png', // Pawn + Crown (transformation!)
   },
 ];
 
