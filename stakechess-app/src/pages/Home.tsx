@@ -60,10 +60,10 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-4"
       >
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-start mb-8">
           <div>
-            <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
-            <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
+            <h1 className="!text-4xl !font-black !tracking-tighter mb-2">Привет, Игрок</h1>
+            <p className="text-base text-gray-400 font-medium">Рейтинг: 1450 • Онлайн</p>
           </div>
           <button
             onClick={() => navigate('/profile')}
@@ -92,14 +92,14 @@ export default function Home() {
           </div>
 
           <div className="relative z-10">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-8">
               <div>
-                <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
-                <h2 className="!text-display-sm text-gradient">1450</h2>
+                <p className="text-sm text-gray-400 mb-3 font-semibold uppercase tracking-wider">Текущий рейтинг</p>
+                <h2 className="!text-7xl !font-black !tracking-tighter text-gradient">1450</h2>
               </div>
               <div className="text-right">
-                <p className="text-body-sm text-gray-400 mb-2">Прогресс</p>
-                <p className="text-3xl font-bold text-green-400">+50</p>
+                <p className="text-sm text-gray-400 mb-3 font-semibold uppercase tracking-wider">Прогресс</p>
+                <p className="text-5xl font-black text-green-400">+50</p>
               </div>
             </div>
             <div className="flex gap-6">
@@ -148,28 +148,28 @@ export default function Home() {
           <div className="relative z-10">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <div className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-3">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-xs font-semibold text-green-400">Идёт сейчас</span>
+                <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4">
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-sm font-bold text-green-400 uppercase tracking-wide">Идёт сейчас</span>
                 </div>
-                <h3 className="!text-3xl mb-2">Турнир выходного дня</h3>
-                <p className="text-body text-gray-300">Участвуй и выигрывай призы</p>
+                <h3 className="!text-4xl !font-black !tracking-tighter mb-3">Турнир выходного дня</h3>
+                <p className="text-lg text-gray-200 font-medium">Участвуй и выигрывай призы</p>
               </div>
               <Trophy className="w-12 h-12 text-stake-red" />
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="glass p-3 rounded-xl">
-                <p className="text-xs text-gray-400 mb-1">Игроков</p>
-                <p className="text-lg font-bold">156/256</p>
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              <div className="glass p-4 rounded-2xl">
+                <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Игроков</p>
+                <p className="text-2xl font-black">156/256</p>
               </div>
-              <div className="glass p-3 rounded-xl">
-                <p className="text-xs text-gray-400 mb-1">Призовой</p>
-                <p className="text-lg font-bold text-green-400">50K ₽</p>
+              <div className="glass p-4 rounded-2xl">
+                <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Призовой</p>
+                <p className="text-2xl font-black text-green-400">50K ₽</p>
               </div>
-              <div className="glass p-3 rounded-xl">
-                <p className="text-xs text-gray-400 mb-1">Старт</p>
-                <p className="text-lg font-bold text-stake-red">2:15:00</p>
+              <div className="glass p-4 rounded-2xl">
+                <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">Старт</p>
+                <p className="text-2xl font-black text-stake-red">2:15:00</p>
               </div>
             </div>
 
@@ -182,7 +182,7 @@ export default function Home() {
 
       {/* Quick Actions */}
       <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Быстрые действия</h3>
+        <h3 className="!text-3xl !font-bold mb-6">Быстрые действия</h3>
         <div className="grid grid-cols-2 gap-4">
           {quickActions.map((action, index) => (
             <motion.button
@@ -206,7 +206,7 @@ export default function Home() {
 
       {/* Recent Games Carousel */}
       <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Недавние партии</h3>
+        <h3 className="!text-3xl !font-bold mb-6">Недавние партии</h3>
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
           {recentGames.map((game, index) => (
             <motion.div
