@@ -17,7 +17,7 @@ const recentGames = [
     opponent: 'Мастер_1450',
     result: 'win',
     mode: 'Блиц 3+2',
-    image: '/images/0_0 (85).png', // Pawn + crown (victory/promotion)
+    image: '/images/0_0 (88).png', // Pawn with crown - victory/promotion
     moves: 32,
     date: '2 часа назад',
   },
@@ -26,7 +26,7 @@ const recentGames = [
     opponent: 'Стратег_99',
     result: 'loss',
     mode: 'Рапид 10+0',
-    image: '/images/0_1 (1).png', // Shattered king (defeat)
+    image: '/images/0_1 (1).png', // Shattered king - defeat
     moves: 45,
     date: '5 часов назад',
   },
@@ -35,7 +35,7 @@ const recentGames = [
     opponent: 'Тактик_2000',
     result: 'draw',
     mode: 'Классика',
-    image: '/images/0_3.png', // Balanced pair (draw)
+    image: '/images/0_1 (2).png', // King & Queen pair - balanced/draw
     moves: 68,
     date: 'Вчера',
   },
@@ -75,11 +75,12 @@ export default function Home() {
 
         {/* Stats Card with Hero Image */}
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden"
-          whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
+          initial={{ scale: 0.95, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, type: 'spring', stiffness: 100 }}
+          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/25 to-transparent border-stake-red/50 shadow-[0_0_48px_rgba(255,23,68,0.4),0_12px_32px_rgba(0,0,0,0.5)] relative overflow-hidden"
+          whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.4, type: 'spring', stiffness: 300 } }}
+          style={{ transformStyle: 'preserve-3d' }}
         >
           {/* Background chess piece */}
           <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none overflow-hidden">
@@ -132,11 +133,11 @@ export default function Home() {
           style={{ backgroundBlendMode: 'overlay' }}
         >
           {/* Foreground Trophy Image */}
-          <div className="absolute inset-0 opacity-15 group-hover:opacity-25 transition-opacity overflow-hidden">
+          <div className="absolute inset-0 opacity-25 group-hover:opacity-35 transition-all duration-500 overflow-hidden">
             <img
-              src="/images/0_0 (76).png"
+              src="/images/0_0 (85).png"
               alt="Tournament"
-              className="w-full h-full object-cover scale-110"
+              className="w-full h-full object-cover scale-115 group-hover:scale-120 transition-transform duration-700"
             />
           </div>
 
@@ -223,6 +224,7 @@ export default function Home() {
                 <img
                   src={game.image}
                   alt=""
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>

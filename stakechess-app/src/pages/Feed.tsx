@@ -28,8 +28,8 @@ const feedData: Post[] = [
     id: 1,
     user: { name: 'Гроссмейстер_89', rating: 2100, avatar: '/images/0_0 (99).png' },
     type: 'victory',
-    content: 'Эпическая победа в блиц-турнире! 🔥',
-    image: '/images/0_0 (76).png',
+    content: 'Выиграл турнир! Тактическая подготовка сыграла решающую роль — отработанные паттерны вилок и связок дали преимущество в эндшпиле',
+    image: '/images/0_0 (72).png',
     stats: { opponent: 'ТактикПро_1950', moves: 38, accuracy: 94 },
     likes: 24,
     comments: 5,
@@ -39,8 +39,8 @@ const feedData: Post[] = [
     id: 2,
     user: { name: 'Мастер_Блица', rating: 1850, avatar: '/images/0_0 (67).png' },
     type: 'achievement',
-    content: 'Получил достижение "Молния" - 100 побед в пуле!',
-    image: '/images/0_0 (66).png',
+    content: 'Прорыв! Впервые довёл пешку до превращения в ферзя с идеальным тайминг-решением. Работайте над расчётом пешечных эндшпилей!',
+    image: '/images/0_0 (88).png',
     likes: 42,
     comments: 8,
     timestamp: '5 часов назад',
@@ -49,8 +49,8 @@ const feedData: Post[] = [
     id: 3,
     user: { name: 'Стратег_2100', rating: 2100, avatar: '/images/0_2 (1).png' },
     type: 'streak',
-    content: 'Серия из 10 побед подряд! Кто следующий? 💪',
-    image: '/images/0_0 (85).png',
+    content: 'Серия из 10 побед! Секрет — постоянный анализ партий и работа над ошибками. Каждое поражение — это урок',
+    image: '/images/0_0 (95).png',
     likes: 67,
     comments: 12,
     timestamp: '1 день назад',
@@ -59,7 +59,8 @@ const feedData: Post[] = [
     id: 4,
     user: { name: 'ЗащитникКороля', rating: 1650, avatar: '/images/0_3.png' },
     type: 'victory',
-    content: 'Первая победа над 1900+ рейтингом!',
+    content: 'Победа над 1900+! Использовал стратегию контроля центра и пространственного преимущества. Важно думать на 3-4 хода вперёд',
+    image: '/images/0_0 (90).png',
     stats: { opponent: 'Атакующий_1920', moves: 52, accuracy: 87 },
     likes: 31,
     comments: 6,
@@ -194,6 +195,7 @@ export default function Feed() {
                     <img
                       src={post.image}
                       alt=""
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>

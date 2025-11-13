@@ -21,8 +21,8 @@ const slides = [
   },
   {
     title: 'Готов начать?',
-    description: 'Присоединяйся к тысячам игроков прямо сейчас',
-    image: '/images/0_2 (1).png', // Global connection - perfect for "join thousands"
+    description: 'Твой путь к вершине шахматного мастерства начинается здесь',
+    image: '/images/0_0 (77).png', // Stairway with pieces - perfect metaphor for journey!
   },
 ];
 

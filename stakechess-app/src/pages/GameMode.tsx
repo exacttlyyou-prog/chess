@@ -148,6 +148,7 @@ export default function GameMode() {
                     <img
                       src={mode.image}
                       alt=""
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -225,6 +226,7 @@ export default function GameMode() {
                 <img
                   src="/images/achievements/tournament-cup.png"
                   alt=""
+                  loading="lazy"
                   className="w-full h-full object-contain"
                 />
               </div>
