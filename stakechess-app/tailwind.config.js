@@ -7,20 +7,36 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Brand colors from official brandbook
         'stake-black': {
-          DEFAULT: '#0A0A0A',
-          light: '#121212',
-          medium: '#1E1E1E',
+          DEFAULT: '#2A2C2F',      // Official brand dark
+          light: '#35373A',        // Slightly lighter variant
+          dark: '#1F2123',         // Deeper variant
         },
         'stake-red': {
-          DEFAULT: '#FF1744',
-          dark: '#D50000',
-          light: '#FF5252',
+          DEFAULT: '#EF3124',      // Official brand red
+          dark: '#C22719',         // Darker variant
+          light: '#F24D3E',        // Lighter variant
+          glow: 'rgba(239, 49, 36, 0.25)', // For shadows/glows
         },
-        'stake-gray': {
-          DEFAULT: '#2A2A2A',
-          light: '#424242',
-          dark: '#181818',
+        'stake-white': '#FFFFFF',  // Official white
+
+        // Extended palette (use sparingly per brandbook)
+        'accent': {
+          green: {
+            light: '#A8F000',
+            DEFAULT: '#31E300',
+            teal: '#00F064',
+          },
+          cyan: {
+            DEFAULT: '#00E8F0',
+            blue: '#17A0E5',
+          },
+          blue: {
+            DEFAULT: '#266FFF',
+            purple: '#6A4DFF',
+          },
+          purple: '#9933FF',
         },
       },
       fontFamily: {
