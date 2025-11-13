@@ -185,8 +185,8 @@ export default function Matchmaking() {
                 transition={{ type: 'spring', duration: 0.6 }}
                 className="mb-6"
               >
-                <div className="glass px-6 py-2 rounded-full inline-flex items-center gap-2 bg-green-500/20 border-green-500/30">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <div className="glass px-6 py-2 rounded-full inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 via-blue-500/15 to-green-500/20 border-green-500/30 shadow-[0_0_24px_rgba(34,197,94,0.3)]">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
                   <span className="text-green-400 font-semibold">Соперник найден!</span>
                 </div>
               </motion.div>
@@ -200,8 +200,8 @@ export default function Matchmaking() {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Avatar */}
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-6 border-4 border-stake-red/20">
-                  <User className="w-12 h-12 text-stake-red" strokeWidth={1.5} />
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500/30 via-blue-500/25 to-stake-red/20 flex items-center justify-center mx-auto mb-6 border-4 border-purple-500/30 shadow-[0_0_32px_rgba(168,85,247,0.4)]">
+                  <User className="w-12 h-12 text-purple-300" strokeWidth={1.5} />
                 </div>
 
                 {/* Name & Country */}

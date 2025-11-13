@@ -79,8 +79,8 @@ export default function Profile() {
         className="px-8 mb-6"
       >
         <div className="glass-card p-8 text-center shadow-depth-lg">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-4">
-            <User className="w-12 h-12 text-stake-red" />
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500/30 via-blue-500/25 to-stake-red/15 flex items-center justify-center mx-auto mb-4 border-4 border-purple-500/20 shadow-[0_0_32px_rgba(168,85,247,0.3)]">
+            <User className="w-12 h-12 text-purple-300" />
           </div>
           <h2 className="!text-5xl !font-extrabold !tracking-tighter mb-2">Игрок</h2>
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -279,8 +279,8 @@ export default function Profile() {
                   !achievement.unlocked ? 'opacity-50 grayscale' : ''
                 }`}
               >
-                <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                  <achievement.Icon className="w-8 h-8 text-stake-red" strokeWidth={1.5} />
+                <div className="bg-gradient-to-br from-purple-500/30 via-blue-500/20 to-stake-red/10 p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center border-2 border-purple-500/20">
+                  <achievement.Icon className="w-8 h-8 text-purple-300" strokeWidth={1.5} />
                 </div>
                 <h6 className="!text-sm mb-1">{achievement.title}</h6>
                 <p className="text-xs text-gray-400">{achievement.description}</p>

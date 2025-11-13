@@ -167,7 +167,7 @@ export default function Feed() {
             >
               {/* User Header */}
               <div className="flex items-start gap-4 mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/15 via-blue-500/10 to-white/5 flex items-center justify-center overflow-hidden border border-purple-500/20">
                   <img
                     src={post.user.avatar}
                     alt={post.user.name}
@@ -190,7 +190,7 @@ export default function Feed() {
 
               {/* Image */}
               {post.image && (
-                <div className="relative mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-white/5 to-white/2 border border-white/10">
+                <div className="relative mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-white/2 border border-purple-500/15">
                   <div className="aspect-video relative">
                     <img
                       src={post.image}

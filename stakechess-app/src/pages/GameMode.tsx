@@ -158,10 +158,10 @@ export default function GameMode() {
                   <div className="relative z-10">
                     <div className={`bg-gradient-to-br ${
                       selectedMode === mode.id
-                        ? 'from-stake-red/30 to-stake-red/10'
-                        : 'from-stake-red/20 to-stake-red/5'
+                        ? 'from-purple-500/30 via-blue-500/20 to-stake-red/15 border-2 border-purple-500/30 shadow-[0_0_16px_rgba(168,85,247,0.4)]'
+                        : 'from-purple-500/15 via-blue-500/10 to-stake-red/5 border border-purple-500/15'
                     } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                      <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                      <mode.Icon className={selectedMode === mode.id ? "w-6 h-6 text-purple-300" : "w-6 h-6 text-purple-400/70"} strokeWidth={2} />
                     </div>
                     <h6 className="mb-1">{mode.title}</h6>
                     <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
@@ -183,8 +183,8 @@ export default function GameMode() {
             <div className="space-y-3">
               <button onClick={handleOpponentSelect} className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth hover-lift">
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Shuffle className="w-6 h-6 text-stake-red" />
+                  <div className="bg-gradient-to-br from-purple-500/25 via-blue-500/15 to-stake-red/10 p-3 rounded-xl border border-purple-500/20">
+                    <Shuffle className="w-6 h-6 text-purple-300" />
                   </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Случайный соперник</h6>
@@ -195,8 +195,8 @@ export default function GameMode() {
               </button>
               <button onClick={handleOpponentSelect} className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth hover-lift">
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Bot className="w-6 h-6 text-stake-red" />
+                  <div className="bg-gradient-to-br from-purple-500/25 via-blue-500/15 to-stake-red/10 p-3 rounded-xl border border-purple-500/20">
+                    <Bot className="w-6 h-6 text-purple-300" />
                   </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Играть с AI</h6>
