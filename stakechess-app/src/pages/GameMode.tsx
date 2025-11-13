@@ -144,11 +144,11 @@ export default function GameMode() {
                   }`}
                 >
                   {/* Background Hero Image */}
-                  <div className="absolute right-0 bottom-0 w-24 h-24 opacity-10 pointer-events-none">
+                  <div className="absolute right-0 bottom-0 w-24 h-24 opacity-10 pointer-events-none overflow-hidden">
                     <img
                       src={mode.image}
                       alt=""
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
                   </div>
 

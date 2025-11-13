@@ -82,11 +82,11 @@ export default function Home() {
           whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
         >
           {/* Background chess piece */}
-          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none">
+          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none overflow-hidden">
             <img
               src="/images/pieces/king-crown.png"
               alt=""
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -127,20 +127,21 @@ export default function Home() {
         className="px-8 mb-8"
       >
         <div
-          className="relative glass-card p-8 shadow-depth-lg overflow-hidden cursor-pointer group"
+          className="relative glass-card p-8 shadow-depth-lg overflow-hidden cursor-pointer group widescreen-bg"
           onClick={() => navigate('/game-mode')}
+          style={{ backgroundBlendMode: 'overlay' }}
         >
-          {/* Background Image */}
-          <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
+          {/* Foreground Trophy Image */}
+          <div className="absolute inset-0 opacity-15 group-hover:opacity-25 transition-opacity overflow-hidden">
             <img
               src="/images/0_0 (76).png"
               alt="Tournament"
-              className="w-full h-full object-contain scale-125"
+              className="w-full h-full object-cover scale-110"
             />
           </div>
 
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-stake-red/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-stake-red/40 via-transparent to-black/60" />
 
           {/* Content */}
           <div className="relative z-10">
@@ -218,11 +219,11 @@ export default function Home() {
               onClick={() => navigate('/play')}
             >
               {/* Background image */}
-              <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none">
+              <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none overflow-hidden">
                 <img
                   src={game.image}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
 

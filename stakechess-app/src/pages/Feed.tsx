@@ -190,11 +190,11 @@ export default function Feed() {
               {/* Image */}
               {post.image && (
                 <div className="relative mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-white/5 to-white/2 border border-white/10">
-                  <div className="aspect-video flex items-center justify-center p-8">
+                  <div className="aspect-video relative">
                     <img
                       src={post.image}
                       alt=""
-                      className="max-h-full max-w-full object-contain"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
                 </div>
