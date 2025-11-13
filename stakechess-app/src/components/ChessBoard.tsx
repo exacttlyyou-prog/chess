@@ -69,34 +69,47 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
 
   // Hero moment states
   const [captureAnimations, setCaptureAnimations] = useState<Array<{ id: number; position: { x: number; y: number }; pieceColor: PieceColor }>>([]);
-  const [kingInCheck] = useState<{ row: number; col: number } | null>(null); // TODO: implement check detection logic
+  const [kingInCheck, setKingInCheck] = useState<{ row: number; col: number } | null>(null);
   const [isCheckmate, setIsCheckmate] = useState(false);
   const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
 
-  const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
-    const piece = board[row][col].piece;
-    if (!piece || piece.color !== currentTurn) return [];
+  // Helper function to find king position
+  const findKing = (boardState: Square[][], color: PieceColor): { row: number; col: number } | null => {
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const piece = boardState[row][col].piece;
+        if (piece && piece.type === 'king' && piece.color === color) {
+          return { row, col };
+        }
+      }
+    }
+    return null;
+  };
+
+  // Helper function to get all possible moves for a piece (without check validation)
+  const getPossibleMoves = (boardState: Square[][], row: number, col: number): { row: number; col: number }[] => {
+    const piece = boardState[row][col].piece;
+    if (!piece) return [];
 
     const moves: { row: number; col: number }[] = [];
 
-    // Simplified move validation (just basic moves, not checking for check/checkmate)
     switch (piece.type) {
       case 'pawn': {
         const direction = piece.color === 'white' ? -1 : 1;
         const startRow = piece.color === 'white' ? 6 : 1;
 
         // Forward move
-        if (!board[row + direction]?.[col]?.piece) {
+        if (boardState[row + direction]?.[col] && !boardState[row + direction][col].piece) {
           moves.push({ row: row + direction, col });
           // Double move from start
-          if (row === startRow && !board[row + 2 * direction]?.[col]?.piece) {
+          if (row === startRow && !boardState[row + 2 * direction]?.[col]?.piece) {
             moves.push({ row: row + 2 * direction, col });
           }
         }
 
         // Captures
         [-1, 1].forEach(offset => {
-          const targetPiece = board[row + direction]?.[col + offset]?.piece;
+          const targetPiece = boardState[row + direction]?.[col + offset]?.piece;
           if (targetPiece && targetPiece.color !== piece.color) {
             moves.push({ row: row + direction, col: col + offset });
           }
@@ -104,14 +117,13 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
         break;
       }
       case 'rook': {
-        // Horizontal and vertical moves
         const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
         directions.forEach(([dRow, dCol]) => {
           for (let i = 1; i < 8; i++) {
             const newRow = row + dRow * i;
             const newCol = col + dCol * i;
             if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
+            const targetPiece = boardState[newRow][newCol].piece;
             if (!targetPiece) {
               moves.push({ row: newRow, col: newCol });
             } else {
@@ -133,7 +145,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           const newRow = row + dRow;
           const newCol = col + dCol;
           if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
+            const targetPiece = boardState[newRow][newCol].piece;
             if (!targetPiece || targetPiece.color !== piece.color) {
               moves.push({ row: newRow, col: newCol });
             }
@@ -148,7 +160,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             const newRow = row + dRow * i;
             const newCol = col + dCol * i;
             if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
+            const targetPiece = boardState[newRow][newCol].piece;
             if (!targetPiece) {
               moves.push({ row: newRow, col: newCol });
             } else {
@@ -168,7 +180,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             const newRow = row + dRow * i;
             const newCol = col + dCol * i;
             if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
+            const targetPiece = boardState[newRow][newCol].piece;
             if (!targetPiece) {
               moves.push({ row: newRow, col: newCol });
             } else {
@@ -187,7 +199,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           const newRow = row + dRow;
           const newCol = col + dCol;
           if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
+            const targetPiece = boardState[newRow][newCol].piece;
             if (!targetPiece || targetPiece.color !== piece.color) {
               moves.push({ row: newRow, col: newCol });
             }
@@ -198,6 +210,63 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
     }
 
     return moves;
+  };
+
+  // Helper function to check if a square is under attack by a specific color
+  const isSquareUnderAttack = (boardState: Square[][], row: number, col: number, byColor: PieceColor): boolean => {
+    // Check all pieces of the attacking color
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const piece = boardState[r][c].piece;
+        if (piece && piece.color === byColor) {
+          const possibleMoves = getPossibleMoves(boardState, r, c);
+          if (possibleMoves.some(move => move.row === row && move.col === col)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  };
+
+  // Helper function to check if a king is in check
+  const isKingInCheckState = (boardState: Square[][], color: PieceColor): boolean => {
+    const kingPos = findKing(boardState, color);
+    if (!kingPos) return false;
+
+    const opponentColor: PieceColor = color === 'white' ? 'black' : 'white';
+    return isSquareUnderAttack(boardState, kingPos.row, kingPos.col, opponentColor);
+  };
+
+  // Helper function to check if a move would leave the king in check
+  const wouldMoveCauseCheck = (from: { row: number; col: number }, to: { row: number; col: number }): boolean => {
+    // Create a copy of the board to simulate the move
+    const tempBoard = board.map(r => r.map(sq => ({ ...sq, piece: sq.piece ? { ...sq.piece } : null })));
+
+    const movingPiece = tempBoard[from.row][from.col].piece;
+    if (!movingPiece) return true; // Invalid move
+
+    // Simulate the move
+    tempBoard[to.row][to.col].piece = movingPiece;
+    tempBoard[from.row][from.col].piece = null;
+
+    // Check if this move leaves the king in check
+    return isKingInCheckState(tempBoard, movingPiece.color);
+  };
+
+  const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
+    const piece = board[row][col].piece;
+    if (!piece || piece.color !== currentTurn) return [];
+
+    // Get all possible moves for this piece
+    const possibleMoves = getPossibleMoves(board, row, col);
+
+    // Filter out moves that would leave the king in check
+    const validMoves = possibleMoves.filter(move => {
+      return !wouldMoveCauseCheck({ row, col }, move);
+    });
+
+    return validMoves;
   };
 
   const handleSquareClick = (row: number, col: number) => {
@@ -238,7 +307,17 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
 
         setBoard(newBoard);
         setLastMove({ from: selectedSquare, to: { row, col } });
-        setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
+
+        const nextTurn = currentTurn === 'white' ? 'black' : 'white';
+        setCurrentTurn(nextTurn);
+
+        // Check if the opponent's king is now in check
+        const opponentKingPos = findKing(newBoard, nextTurn);
+        if (opponentKingPos && isKingInCheckState(newBoard, nextTurn)) {
+          setKingInCheck(opponentKingPos);
+        } else {
+          setKingInCheck(null);
+        }
 
         if (onMove) {
           onMove(selectedSquare, { row, col });
