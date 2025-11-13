@@ -60,13 +60,15 @@ export default function GamePlay() {
 
   return (
     <div className="relative min-h-screen flex overflow-hidden">
-      {/* Premium Background */}
+      {/* Premium Background - Single Layer */}
       <div className="fixed inset-0 z-0">
+        {/* Board glow effect - atmospheric lighting under the board */}
         <img
-          src="/images/backgrounds/board-depth.png"
+          src="/images/backgrounds/board-glow.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen"
         />
+        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40" />
       </div>

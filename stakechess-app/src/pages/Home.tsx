@@ -78,16 +78,16 @@ export default function Home() {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 0.1, type: 'spring', stiffness: 100 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/25 to-transparent border-stake-red/50 shadow-[0_0_48px_rgba(255,23,68,0.4),0_12px_32px_rgba(0,0,0,0.5)] relative overflow-hidden"
+          className="glass-card p-8 mb-6 bg-gradient-to-br from-purple-600/15 via-blue-600/10 to-transparent border-white/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden"
           whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.4, type: 'spring', stiffness: 300 } }}
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {/* Background chess piece */}
-          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none overflow-hidden">
+          {/* Background chess piece - properly sized and positioned */}
+          <div className="absolute right-0 bottom-0 w-64 h-64 opacity-12 pointer-events-none overflow-hidden">
             <img
               src="/images/pieces/king-crown.png"
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-110"
             />
           </div>
 
@@ -219,13 +219,13 @@ export default function Home() {
               className="glass-card min-w-[280px] p-6 cursor-pointer shadow-depth relative overflow-hidden snap-start"
               onClick={() => navigate('/play')}
             >
-              {/* Background image */}
-              <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none overflow-hidden">
+              {/* Background image - larger and more visible */}
+              <div className="absolute right-0 bottom-0 w-40 h-40 opacity-15 pointer-events-none overflow-hidden">
                 <img
                   src={game.image}
                   alt=""
                   loading="lazy"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover scale-110"
                 />
               </div>
 

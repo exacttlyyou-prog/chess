@@ -242,7 +242,7 @@ export default function Matchmaking() {
               initial={{ opacity: 0, scale: 1.5 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
-              className="text-center"
+              className="text-center flex items-center justify-center min-h-[300px]"
             >
               <motion.div
                 key={countdown}
@@ -250,12 +250,12 @@ export default function Matchmaking() {
                 animate={{ scale: 1, rotate: 0 }}
                 exit={{ scale: 2, opacity: 0 }}
                 transition={{ type: 'spring', duration: 0.5 }}
-                className="relative"
+                className="relative flex items-center justify-center"
               >
-                <div className="absolute inset-0 blur-3xl">
-                  <div className="w-64 h-64 mx-auto rounded-full bg-stake-red/40" />
+                <div className="absolute inset-0 flex items-center justify-center blur-3xl pointer-events-none">
+                  <div className="w-72 h-72 rounded-full bg-stake-red/40" />
                 </div>
-                <h1 className="relative text-[180px] font-bold text-gradient leading-none">
+                <h1 className="relative text-[180px] font-bold text-gradient leading-none select-none">
                   {countdown}
                 </h1>
               </motion.div>

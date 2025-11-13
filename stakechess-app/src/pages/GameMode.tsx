@@ -46,6 +46,7 @@ const tournaments = [
     ratingPoints: '+50 рейтинга',
     players: '128/256',
     entry: 'Открытый',
+    image: '/images/0_0 (85).png', // Trophy with chess pieces
   },
   {
     id: 2,
@@ -54,6 +55,7 @@ const tournaments = [
     ratingPoints: '+25 рейтинга',
     players: '45/100',
     entry: 'Открытый',
+    image: '/images/0_0 (72).png', // Podium - daily competition
   },
 ];
 
@@ -221,13 +223,13 @@ export default function GameMode() {
               transition={{ delay: index * 0.1, type: 'spring' }}
               className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
             >
-              {/* Background chess piece */}
-              <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              {/* Background trophy image - larger and more visible */}
+              <div className="absolute right-0 bottom-0 w-56 h-56 opacity-15 pointer-events-none overflow-hidden">
                 <img
-                  src="/images/achievements/tournament-cup.png"
+                  src={tournament.image}
                   alt=""
                   loading="lazy"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover scale-110"
                 />
               </div>
 
