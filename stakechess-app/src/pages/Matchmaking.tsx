@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Users, Trophy, Check } from 'lucide-react';
+import { Users, Trophy, Check } from 'lucide-react';
 
 const opponents = [
   { name: 'Мастер_1450', rating: 1450, avatar: '♔' },
