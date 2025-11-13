@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Home as HomeIcon } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Home as HomeIcon, TrendingUp, Clock } from 'lucide-react';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
@@ -119,6 +119,65 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
+      {/* HERO CTA - Tournament Banner */}
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.15 }}
+        className="px-8 mb-8"
+      >
+        <div
+          className="relative glass-card p-8 shadow-depth-lg overflow-hidden cursor-pointer group"
+          onClick={() => navigate('/game-mode')}
+        >
+          {/* Background Image */}
+          <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
+            <img
+              src="/images/0_0 (76).png"
+              alt="Tournament"
+              className="w-full h-full object-contain scale-125"
+            />
+          </div>
+
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-stake-red/30 via-transparent to-transparent" />
+
+          {/* Content */}
+          <div className="relative z-10">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <div className="inline-flex items-center gap-2 glass px-3 py-1.5 rounded-full mb-3">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs font-semibold text-green-400">Идёт сейчас</span>
+                </div>
+                <h3 className="!text-3xl mb-2">Турнир выходного дня</h3>
+                <p className="text-body text-gray-300">Участвуй и выигрывай призы</p>
+              </div>
+              <Trophy className="w-12 h-12 text-stake-red" />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="glass p-3 rounded-xl">
+                <p className="text-xs text-gray-400 mb-1">Игроков</p>
+                <p className="text-lg font-bold">156/256</p>
+              </div>
+              <div className="glass p-3 rounded-xl">
+                <p className="text-xs text-gray-400 mb-1">Призовой</p>
+                <p className="text-lg font-bold text-green-400">50K ₽</p>
+              </div>
+              <div className="glass p-3 rounded-xl">
+                <p className="text-xs text-gray-400 mb-1">Старт</p>
+                <p className="text-lg font-bold text-stake-red">2:15:00</p>
+              </div>
+            </div>
+
+            <button className="btn-primary w-full group-hover:scale-[1.02] transition-transform">
+              Участвовать →
+            </button>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Quick Actions */}
       <div className="px-8 mb-8">
         <h3 className="!text-xl mb-6">Быстрые действия</h3>
@@ -216,6 +275,15 @@ export default function Home() {
             <HomeIcon className="w-6 h-6" strokeWidth={2} />
           </div>
           <span className="text-xs font-medium">Главная</span>
+        </button>
+        <button
+          onClick={() => navigate('/feed')}
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
+        >
+          <div className="p-2">
+            <TrendingUp className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Лента</span>
         </button>
         <button
           onClick={() => navigate('/game-mode')}

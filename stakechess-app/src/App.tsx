@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 // Lazy load routes for code splitting
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const Home = lazy(() => import('./pages/Home'));
+const Feed = lazy(() => import('./pages/Feed'));
 const GameMode = lazy(() => import('./pages/GameMode'));
 const Matchmaking = lazy(() => import('./pages/Matchmaking'));
 const GamePlay = lazy(() => import('./pages/GamePlay'));
@@ -20,6 +21,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/game-mode" element={<GameMode />} />
         <Route path="/matchmaking" element={<Matchmaking />} />
         <Route path="/play" element={<GamePlay />} />

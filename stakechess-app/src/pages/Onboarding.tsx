@@ -7,22 +7,22 @@ const slides = [
   {
     title: 'Путь к мастерству',
     description: 'От первого хода до гроссмейстера — каждая партия делает тебя сильнее',
-    image: '/images/0_0 (74).png', // Stairs with pawns - ICONIC!
+    image: '/images/0_0 (80).png', // Growth graph + pieces - PERFECT for progression!
+  },
+  {
+    title: 'Играй с AI',
+    description: 'Тренируйся с искусственным интеллектом любого уровня сложности',
+    image: '/images/0_0 (90).png', // AI network - RED neural connections
   },
   {
     title: 'Турниры и победы',
-    description: 'Соревнуйся с лучшими, завоёвывай трофеи и становись чемпионом',
-    image: '/images/0_0 (76).png', // Trophy + King
-  },
-  {
-    title: 'Играй с друзьями',
-    description: 'Создавай команду, находи партнёров и сражайтесь вместе',
-    image: '/images/0_3.png', // King + Rook pair (partnership)
+    description: 'Участвуй в турнирах и завоёвывай трофеи',
+    image: '/images/0_0 (76).png', // Trophy + King - ACTUAL trophy!
   },
   {
     title: 'Готов начать?',
-    description: 'Присоединяйся к тысячам игроков и начни свою легенду',
-    image: '/images/0_0 (85).png', // Pawn + Crown (transformation!)
+    description: 'Присоединяйся к тысячам игроков прямо сейчас',
+    image: '/images/0_0 (85).png', // Pawn + Crown - transformation moment
   },
 ];
 
@@ -102,8 +102,8 @@ export default function Onboarding() {
                 <span>Telegram</span>
               </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <User size={18} />
-                <span>VK ID</span>
+                <img src="/alfa-id.svg" alt="Alfa ID" className="w-5 h-5" />
+                <span>Alfa ID</span>
               </button>
             </div>
 
