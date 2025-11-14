@@ -8,9 +8,9 @@ export default {
     extend: {
       colors: {
         'stake-black': {
-          DEFAULT: '#0A0A0A',
-          light: '#141414',
-          medium: '#1F1F1F',
+          DEFAULT: '#121212',
+          light: '#1a1a1a',
+          medium: '#252525',
         },
         'stake-red': {
           DEFAULT: '#ef3124', // Primary brand accent

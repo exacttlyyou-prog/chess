@@ -2,15 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Zap, Bot, Trophy, User, Flame, Crown } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
-import LiveGameCard from '../components/LiveGameCard';
 import { useToast } from '../contexts/ToastContext';
-
-const quickActions = [
-  { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode', desc: 'Блиц 3+2' },
-  { id: 'ai', title: 'Модели шахматистов', Icon: Bot, path: '/select-ai', desc: 'Играй с AI стилями' },
-  { id: 'tournament', title: 'Турниры', Icon: Trophy, path: '/tournaments', desc: 'Призовые партии' },
-  { id: 'premium', title: 'King Premium', Icon: Crown, path: '/premium', desc: 'Получить -50%' },
-];
 
 const liveGames = [
   {
@@ -107,9 +99,9 @@ export default function Home() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-2 pb-4"
+        className="px-8 pt-2 pb-6"
       >
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-start mb-8">
           <div>
             <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
             <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
@@ -122,16 +114,100 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Stats Card with Hero Image */}
+        {/* Quick Actions - ГЛАВНЫЕ И ПЕРВЫЕ */}
+        <h2 className="!text-2xl mb-6 text-gradient">Начать игру</h2>
+        <div className="grid grid-cols-1 gap-4 mb-6">
+          {/* Главная кнопка - Играть с AI */}
+          <motion.button
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.1, type: 'spring' }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
+              navigate('/select-ai');
+            }}
+            className="glass-card p-8 text-left shadow-[0_0_32px_rgba(239,49,36,0.3),0_8px_24px_rgba(0,0,0,0.4)] bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10 flex items-center gap-6">
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-[0_0_24px_rgba(239,49,36,0.5)]">
+                <Bot className="w-10 h-10 text-white" strokeWidth={2.5} />
+              </div>
+              <div className="flex-1">
+                <h3 className="!text-2xl mb-2">Модели шахматистов</h3>
+                <p className="text-body text-gray-400">Играй с AI стилями легенд шахмат</p>
+              </div>
+            </div>
+          </motion.button>
+
+          {/* Другие игровые опции */}
+          <div className="grid grid-cols-2 gap-4">
+            <motion.button
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.15, type: 'spring' }}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => navigate('/game-mode')}
+              className="glass-card p-6 text-center shadow-depth hover-lift"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
+                <Zap className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              </div>
+              <p className="font-semibold text-base mb-1">Быстрая игра</p>
+              <p className="text-xs text-gray-400">Блиц 3+2</p>
+            </motion.button>
+
+            <motion.button
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, type: 'spring' }}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => navigate('/tournaments')}
+              className="glass-card p-6 text-center shadow-depth hover-lift"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
+                <Trophy className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              </div>
+              <p className="font-semibold text-base mb-1">Турниры</p>
+              <p className="text-xs text-gray-400">Призовые партии</p>
+            </motion.button>
+          </div>
+
+          {/* Premium отдельно */}
+          <motion.button
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.25, type: 'spring' }}
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/premium')}
+            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden"
+          >
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center">
+                <Crown className="w-6 h-6 text-yellow-400" strokeWidth={2} />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-base mb-0.5">King Premium</p>
+                <p className="text-xs text-gray-400">Получить -50%</p>
+              </div>
+            </div>
+          </motion.button>
+        </div>
+
+        {/* Stats Card - компактнее */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden"
+          transition={{ delay: 0.3 }}
+          className="glass-card p-6 bg-gradient-to-br from-white/[0.06] to-white/[0.02] relative overflow-hidden"
           whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
         >
-          {/* Background chess piece */}
-          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-10 pointer-events-none">
+          <div className="absolute right-0 bottom-0 w-32 h-32 opacity-5 pointer-events-none">
             <img
               src="/images/pieces/king-crown.png"
               alt=""
@@ -140,9 +216,9 @@ export default function Home() {
           </div>
 
           <div className="relative z-10">
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-stake-red/50 shadow-[0_0_16px_rgba(255,23,68,0.4)]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-stake-red/50">
                   <img
                     src="/images/heroes/ai-network.png"
                     alt="Player"
@@ -150,109 +226,33 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
-                  <h2 className="!text-display-sm text-gradient">1450</h2>
+                  <p className="text-xs text-gray-400">Текущий рейтинг</p>
+                  <p className="text-3xl font-bold text-gradient">1450</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-body-sm text-gray-400 mb-2">Прогресс</p>
-                <p className="text-3xl font-bold text-green-400">+50</p>
+                <p className="text-xs text-gray-400">Прогресс</p>
+                <p className="text-2xl font-bold text-green-400">+50</p>
               </div>
             </div>
-            <div className="flex gap-6">
-              <div>
-                <p className="text-body-sm text-gray-500 mb-1">Побед</p>
-                <p className="text-white font-semibold text-lg">128</p>
+            <div className="flex gap-6 text-center">
+              <div className="flex-1">
+                <p className="text-xs text-gray-500 mb-0.5">Побед</p>
+                <p className="text-white font-semibold">128</p>
               </div>
-              <div>
-                <p className="text-body-sm text-gray-500 mb-1">Поражений</p>
-                <p className="text-gray-400 font-semibold text-lg">94</p>
+              <div className="flex-1">
+                <p className="text-xs text-gray-500 mb-0.5">Поражений</p>
+                <p className="text-gray-400 font-semibold">94</p>
               </div>
-              <div>
-                <p className="text-body-sm text-gray-500 mb-1">Ничьих</p>
-                <p className="text-gray-400 font-semibold text-lg">23</p>
+              <div className="flex-1">
+                <p className="text-xs text-gray-500 mb-0.5">Ничьих</p>
+                <p className="text-gray-400 font-semibold">23</p>
               </div>
             </div>
           </div>
         </motion.div>
       </motion.div>
 
-      {/* Live Games */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15 }}
-        className="px-8 mb-8"
-      >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
-            <h3 className="!text-xl">Игры в прямом эфире</h3>
-          </div>
-          <span className="text-sm text-gray-400">{liveGames.length} партий</span>
-        </div>
-        <div className="grid gap-4">
-          {liveGames.map((game, index) => (
-            <motion.div
-              key={game.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + index * 0.1 }}
-            >
-              <LiveGameCard
-                game={game}
-                onWatch={() => {
-                  success('Подключаемся к партии', 'Загрузка трансляции...');
-                  setTimeout(() => navigate('/play'), 1500);
-                }}
-                variant={index === 0 ? 'dynamic' : index === 1 ? 'glass' : 'default'}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Quick Actions */}
-      <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Быстрые действия</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {quickActions.map((action, index) => {
-            const isSpecial = action.id === 'premium';
-            return (
-              <motion.button
-                key={action.id}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2 + index * 0.05, type: 'spring' }}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => {
-                  if (action.id === 'ai') {
-                    info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
-                  }
-                  navigate(action.path);
-                }}
-                className={`glass-card p-6 text-center shadow-depth hover-lift relative overflow-hidden ${
-                  isSpecial ? 'border-2 border-yellow-500/30' : ''
-                }`}
-              >
-                {isSpecial && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10" />
-                )}
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 ${
-                  isSpecial
-                    ? 'bg-gradient-to-br from-yellow-400/20 to-orange-500/20'
-                    : 'bg-gradient-to-br from-stake-red/20 to-stake-red/5'
-                }`}>
-                  <action.Icon className={`w-7 h-7 ${isSpecial ? 'text-yellow-400' : 'text-stake-red'}`} strokeWidth={2} />
-                </div>
-                <p className="font-semibold text-base mb-1">{action.title}</p>
-                <p className="text-xs text-gray-400">{action.desc}</p>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
 
       {/* Recent Games Carousel */}
       <div className="px-8 mb-8">
@@ -312,7 +312,7 @@ export default function Home() {
       </div>
 
       {/* Widgets */}
-      <div className="px-8 pb-28">
+      <div className="px-8 mb-8">
         <h3 className="!text-xl mb-6">Актуально</h3>
         <div className="space-y-4">
           {widgets.map((widget, index) => (
@@ -358,6 +358,59 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* Live Games - компактные и внизу */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="px-8 pb-28"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+            <h4 className="!text-base text-gray-400">Эфиры</h4>
+          </div>
+          <span className="text-xs text-gray-500">{liveGames.length}</span>
+        </div>
+        <div className="space-y-3">
+          {liveGames.slice(0, 2).map((game, index) => (
+            <motion.button
+              key={game.id}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.55 + index * 0.05 }}
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                success('Подключаемся к партии', 'Загрузка трансляции...');
+                setTimeout(() => navigate('/play'), 1500);
+              }}
+              className="glass-card p-4 w-full text-left hover-lift"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-semibold truncate">{game.whitePlayer.name}</span>
+                    <span className="text-xs text-gray-500">{game.whitePlayer.rating}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold truncate">{game.blackPlayer.name}</span>
+                    <span className="text-xs text-gray-500">{game.blackPlayer.rating}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end gap-1">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                    <User className="w-3 h-3" />
+                    <span>{game.viewers}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">{game.timeControl}</span>
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
 
       <BottomNav />
     </motion.div>
