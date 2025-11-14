@@ -9,6 +9,7 @@ import { ParticleEffect } from './ParticleEffect';
 import type { ChessSquare } from '../hooks/useChess';
 import { useSound } from '../hooks/useSound';
 import { useBoardSettings } from '../contexts/BoardSettingsContext';
+import { useDragAndDrop } from '../hooks/useDragAndDrop';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -110,6 +111,17 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
   const { settings } = useBoardSettings();
   const boardTheme = settings.theme;
 
+  // Drag and drop
+  const {
+    handleDragStart,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    handleDragEnd,
+    isDragging,
+    isDragOver,
+  } = useDragAndDrop();
+
   const currentTurn: PieceColor = game.turn() === 'w' ? 'white' : 'black';
 
   // Update board when position changes
@@ -141,6 +153,127 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
     return moves.map(move => squareToRowCol(move.to as ChessSquare));
   };
 
+  // Execute a move (used by both click and drag-and-drop)
+  const executeMove = (fromRow: number, fromCol: number, toRow: number, toCol: number) => {
+    const from = rowColToSquare(fromRow, fromCol);
+    const to = rowColToSquare(toRow, toCol);
+
+    // Get the piece being moved for animation
+    const movingPiece = board[fromRow][fromCol].piece;
+
+    // Get move info for sound detection
+    const capturedPiece = board[toRow][toCol].piece;
+
+    // Start piece animation
+    if (movingPiece) {
+      setAnimatingPiece({
+        piece: movingPiece,
+        from: { row: fromRow, col: fromCol },
+        to: { row: toRow, col: toCol },
+      });
+
+      // Clear animation after it completes
+      const animationDuration = settings.animationSpeed === 'instant' ? 0
+        : settings.animationSpeed === 'fast' ? 150
+        : settings.animationSpeed === 'normal' ? 300
+        : 600;
+
+      setTimeout(() => {
+        setAnimatingPiece(null);
+      }, animationDuration + 100);
+    }
+
+    // Make the move to check for special conditions
+    const testGame = new Chess(game.fen());
+    const moveResult = testGame.move({ from, to });
+
+    // Play appropriate sound
+    if (moveResult) {
+      const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
+      const squareSize = boardRect ? boardRect.width / 8 : 0;
+      const particleX = boardRect ? boardRect.left + (toCol + 0.5) * squareSize : 0;
+      const particleY = boardRect ? boardRect.top + (toRow + 0.5) * squareSize : 0;
+
+      if (moveResult.flags.includes('k') || moveResult.flags.includes('q')) {
+        // Castling
+        playSound('castle');
+      } else if (moveResult.flags.includes('p')) {
+        // Promotion - add particle effect
+        playSound('promote');
+        if (boardRect && settings.particleIntensity !== 'off') {
+          const effectId = Date.now();
+          setParticleEffects(prev => [...prev, {
+            id: effectId,
+            x: particleX,
+            y: particleY,
+            type: 'promote',
+            trigger: true,
+          }]);
+        }
+      } else if (testGame.inCheck()) {
+        // Check - add particle effect
+        playSound('check');
+        if (boardRect && settings.particleIntensity !== 'off') {
+          const effectId = Date.now();
+          setParticleEffects(prev => [...prev, {
+            id: effectId,
+            x: particleX,
+            y: particleY,
+            type: 'check',
+            trigger: true,
+          }]);
+        }
+      } else if (capturedPiece) {
+        // Capture
+        playSound('capture');
+      } else {
+        // Regular move
+        playSound('move');
+      }
+    }
+
+    // Check if capturing a piece
+    if (capturedPiece) {
+      // Trigger capture animation
+      const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
+      if (boardRect) {
+        const squareSize = boardRect.width / 8;
+        const animationId = Date.now();
+        setCaptureAnimations(prev => [...prev, {
+          id: animationId,
+          position: {
+            x: boardRect.left + (toCol + 0.5) * squareSize,
+            y: boardRect.top + (toRow + 0.5) * squareSize,
+          },
+          pieceColor: capturedPiece.color,
+        }]);
+
+        // Add particle effect for capture
+        if (settings.particleIntensity !== 'off') {
+          const effectId = Date.now() + 1;
+          setParticleEffects(prev => [...prev, {
+            id: effectId,
+            x: boardRect.left + (toCol + 0.5) * squareSize,
+            y: boardRect.top + (toRow + 0.5) * squareSize,
+            type: 'capture',
+            trigger: true,
+          }]);
+        }
+      }
+
+      setCapturedPieces(prev => ({
+        ...prev,
+        [capturedPiece.color]: [...prev[capturedPiece.color], capturedPiece.type]
+      }));
+    }
+
+    setLastMove({ from: { row: fromRow, col: fromCol }, to: { row: toRow, col: toCol } });
+
+    if (onMove) {
+      onMove(from, to);
+    }
+  };
+
   const handleSquareClick = (row: number, col: number) => {
     if (!isPlayerTurn) return; // Prevent moves during AI turn
 
@@ -149,121 +282,7 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
       const isValidMoveClick = validMoves.some(move => move.row === row && move.col === col);
 
       if (isValidMoveClick) {
-        const from = rowColToSquare(selectedSquare.row, selectedSquare.col);
-        const to = rowColToSquare(row, col);
-
-        // Get the piece being moved for animation
-        const movingPiece = board[selectedSquare.row][selectedSquare.col].piece;
-
-        // Get move info for sound detection
-        const capturedPiece = board[row][col].piece;
-
-        // Start piece animation
-        if (movingPiece) {
-          setAnimatingPiece({
-            piece: movingPiece,
-            from: selectedSquare,
-            to: { row, col },
-          });
-
-          // Clear animation after it completes
-          const animationDuration = settings.animationSpeed === 'instant' ? 0
-            : settings.animationSpeed === 'fast' ? 150
-            : settings.animationSpeed === 'normal' ? 300
-            : 600;
-
-          setTimeout(() => {
-            setAnimatingPiece(null);
-          }, animationDuration + 100);
-        }
-
-        // Make the move to check for special conditions
-        const testGame = new Chess(game.fen());
-        const moveResult = testGame.move({ from, to });
-
-        // Play appropriate sound
-        if (moveResult) {
-          const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
-          const squareSize = boardRect ? boardRect.width / 8 : 0;
-          const particleX = boardRect ? boardRect.left + (col + 0.5) * squareSize : 0;
-          const particleY = boardRect ? boardRect.top + (row + 0.5) * squareSize : 0;
-
-          if (moveResult.flags.includes('k') || moveResult.flags.includes('q')) {
-            // Castling
-            playSound('castle');
-          } else if (moveResult.flags.includes('p')) {
-            // Promotion - add particle effect
-            playSound('promote');
-            if (boardRect) {
-              const effectId = Date.now();
-              setParticleEffects(prev => [...prev, {
-                id: effectId,
-                x: particleX,
-                y: particleY,
-                type: 'promote',
-                trigger: true,
-              }]);
-            }
-          } else if (testGame.inCheck()) {
-            // Check - add particle effect
-            playSound('check');
-            if (boardRect) {
-              const effectId = Date.now();
-              setParticleEffects(prev => [...prev, {
-                id: effectId,
-                x: particleX,
-                y: particleY,
-                type: 'check',
-                trigger: true,
-              }]);
-            }
-          } else if (capturedPiece) {
-            // Capture
-            playSound('capture');
-          } else {
-            // Regular move
-            playSound('move');
-          }
-        }
-
-        // Check if capturing a piece
-        if (capturedPiece) {
-          // Trigger capture animation
-          const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
-          if (boardRect) {
-            const squareSize = boardRect.width / 8;
-            const animationId = Date.now();
-            setCaptureAnimations(prev => [...prev, {
-              id: animationId,
-              position: {
-                x: boardRect.left + (col + 0.5) * squareSize,
-                y: boardRect.top + (row + 0.5) * squareSize,
-              },
-              pieceColor: capturedPiece.color,
-            }]);
-
-            // Add particle effect for capture
-            const effectId = Date.now() + 1;
-            setParticleEffects(prev => [...prev, {
-              id: effectId,
-              x: boardRect.left + (col + 0.5) * squareSize,
-              y: boardRect.top + (row + 0.5) * squareSize,
-              type: 'capture',
-              trigger: true,
-            }]);
-          }
-
-          setCapturedPieces(prev => ({
-            ...prev,
-            [capturedPiece.color]: [...prev[capturedPiece.color], capturedPiece.type]
-          }));
-        }
-
-        setLastMove({ from: selectedSquare, to: { row, col } });
-
-        if (onMove) {
-          onMove(from, to);
-        }
+        executeMove(selectedSquare.row, selectedSquare.col, row, col);
       }
 
       setSelectedSquare(null);
@@ -275,6 +294,24 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
         setSelectedSquare({ row, col });
         setValidMoves(getValidMoves(row, col));
       }
+    }
+  };
+
+  const handleSquareDrop = (e: React.DragEvent, row: number, col: number) => {
+    if (!isPlayerTurn) return;
+
+    const result = handleDrop(e, { row, col });
+    if (!result) return;
+
+    // Check if this is a valid move
+    const piece = board[result.from.row][result.from.col].piece;
+    if (!piece || piece.color !== currentTurn) return;
+
+    const moves = getValidMoves(result.from.row, result.from.col);
+    const isValid = moves.some(move => move.row === result.to.row && move.col === result.to.col);
+
+    if (isValid) {
+      executeMove(result.from.row, result.from.col, result.to.row, result.to.col);
     }
   };
 
@@ -384,6 +421,9 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                       <button
                         key={`${rowIndex}-${colIndex}`}
                         onClick={() => handleSquareClick(rowIndex, colIndex)}
+                        onDragOver={(e) => handleDragOver(e, { row: rowIndex, col: colIndex })}
+                        onDragLeave={handleDragLeave}
+                        onDrop={(e) => handleSquareDrop(e, rowIndex, colIndex)}
                         className="relative aspect-square flex items-center justify-center transition-all ease-out"
                         style={{
                           backgroundColor: selected
@@ -392,6 +432,8 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                             ? boardTheme.colors.highlight
                             : highlight && settings.highlightLastMove
                             ? boardTheme.colors.lastMove
+                            : isDragOver({ row: rowIndex, col: colIndex })
+                            ? boardTheme.colors.highlight
                             : isDark
                             ? boardTheme.colors.dark
                             : boardTheme.colors.light,
@@ -434,15 +476,24 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                         />
                       )}
                       {piece && (
-                        <div className="w-full h-full p-2 relative">
+                        <div
+                          className="w-full h-full p-2 relative"
+                          draggable={piece.color === currentTurn && isPlayerTurn}
+                          onDragStart={(e) => piece.color === currentTurn && isPlayerTurn && handleDragStart(e, { row: rowIndex, col: colIndex })}
+                          onDragEnd={handleDragEnd}
+                        >
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className={`w-full h-full select-none cursor-pointer relative z-10 ${
+                            className={`w-full h-full select-none cursor-${piece.color === currentTurn && isPlayerTurn ? 'grab' : 'default'} relative z-10 ${
                               animatingPiece &&
                               animatingPiece.from.row === rowIndex &&
                               animatingPiece.from.col === colIndex
                                 ? 'opacity-0'
+                                : ''
+                            } ${
+                              isDragging({ row: rowIndex, col: colIndex })
+                                ? 'opacity-40'
                                 : ''
                             }`}
                           />
