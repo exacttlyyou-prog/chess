@@ -72,7 +72,7 @@ export default function Onboarding() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex items-center justify-center p-6"
+        className="min-h-screen bg-black flex items-center justify-center p-6"
       >
         <motion.div
           initial={{ scale: 0.9, y: 20 }}
@@ -81,16 +81,16 @@ export default function Onboarding() {
         >
           <div className="text-center mb-8">
             <h1 className="mb-2">
-              <span className="text-gradient">StakeChess</span>
+              <span className="bg-gradient-to-r from-white to-[#FF1744] bg-clip-text text-transparent">StakeChess</span>
             </h1>
-            <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
+            <p className="text-base text-gray-500">Начни свой путь в шахматах</p>
           </div>
 
-          <div className="glass-card p-8 space-y-4 shadow-depth-lg">
+          <div className="card-elevated p-8 space-y-4">
             <input
               type="tel"
               placeholder="Номер телефона"
-              className="glass-input w-full text-white placeholder-gray-500"
+              className="input w-full text-white placeholder-gray-500"
             />
 
             <button onClick={handleAuth} className="btn-primary w-full">
@@ -102,7 +102,7 @@ export default function Onboarding() {
                 <div className="w-full border-t border-white/10"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-stake-black-light text-gray-500">или</span>
+                <span className="px-4 bg-[#0F0F0F] text-gray-500">или</span>
               </div>
             </div>
 
@@ -117,7 +117,7 @@ export default function Onboarding() {
               </button>
             </div>
 
-            <p className="text-xs text-gray-500 text-center mt-6">
+            <p className="text-xs text-gray-600 text-center mt-6">
               Продолжая, вы соглашаетесь с условиями использования и политикой конфиденциальности
             </p>
           </div>
@@ -154,7 +154,7 @@ export default function Onboarding() {
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
           {/* Red accent gradient */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/20 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#FF1744]/20 via-transparent to-transparent" />
 
           {/* Animated particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -187,19 +187,19 @@ export default function Onboarding() {
       {/* Content Overlay */}
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
-        <div className="px-8 pt-2 pb-4 flex justify-between items-center">
+        <div className="px-6 pt-6 pb-4 flex justify-between items-center">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="text-3xl font-bold"
           >
-            <span className="text-gradient">StakeChess</span>
+            <span className="bg-gradient-to-r from-white to-[#FF1744] bg-clip-text text-transparent">StakeChess</span>
           </motion.h1>
           <motion.button
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => navigate('/home')}
-            className="glass-button !px-6 !py-3 text-white/80 hover:text-white font-medium"
+            className="px-6 py-3 rounded-2xl bg-white/10 border border-white/10 text-white/80 hover:text-white hover:bg-white/15 font-medium transition-all"
           >
             Пропустить
           </motion.button>
@@ -222,7 +222,7 @@ export default function Onboarding() {
                 transition={{ delay: 0.3 }}
                 className="mb-4"
               >
-                <span className="inline-block glass-button !px-4 !py-2 text-sm font-semibold text-stake-red">
+                <span className="inline-block px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-sm font-semibold text-[#FF1744] backdrop-blur-sm">
                   {currentSlide + 1} / {slides.length}
                 </span>
               </motion.div>
@@ -261,7 +261,7 @@ export default function Onboarding() {
                 onClick={() => setCurrentSlide(index)}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 bg-stake-red shadow-[0_0_16px_rgba(255,23,68,0.6),0_4px_12px_rgba(255,23,68,0.4)]'
+                    ? 'w-12 bg-[#FF1744] shadow-[0_0_16px_rgba(255,23,68,0.6),0_4px_12px_rgba(255,23,68,0.4)]'
                     : 'w-2 bg-white/30 hover:bg-white/50 hover:shadow-[0_0_8px_rgba(255,255,255,0.3)]'
                 }`}
               />
