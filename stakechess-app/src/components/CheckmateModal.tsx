@@ -7,6 +7,7 @@ interface CheckmateModalProps {
   winner: 'white' | 'black' | null;
   isPlayerWinner: boolean;
   ratingChange: number;
+  alfaPointsReward?: number;
   onClose: () => void;
   onRematch: () => void;
 }
@@ -19,6 +20,7 @@ export default function CheckmateModal({
   isOpen,
   isPlayerWinner,
   ratingChange,
+  alfaPointsReward = 25,
   onClose,
   onRematch,
 }: CheckmateModalProps) {
@@ -182,11 +184,64 @@ export default function CheckmateModal({
             {isPlayerWinner ? 'Победа!' : 'Поражение'}
           </motion.h2>
 
+          {/* Alfa Points Reward (Victory Only) */}
+          {isPlayerWinner && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: 'spring' }}
+              className="glass p-6 rounded-2xl mb-4 bg-gradient-to-br from-green-500/20 to-transparent border-green-500/30"
+            >
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <img src="/alfa-icon.svg" alt="" className="h-6" />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-body-sm text-gray-300"
+                >
+                  Alfa Points начислено
+                </motion.div>
+              </div>
+              <motion.div
+                initial={{ scale: 0, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                transition={{ delay: 0.7, type: 'spring', damping: 10 }}
+                className="text-6xl font-bold text-green-400"
+              >
+                +{alfaPointsReward} ₽
+              </motion.div>
+              {/* Animated particles for Alfa Points */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ y: '50%', x: '50%', opacity: 0, scale: 0 }}
+                    animate={{
+                      y: [null, '-100%'],
+                      x: `${50 + (Math.random() - 0.5) * 100}%`,
+                      opacity: [0, 1, 0],
+                      scale: [0, 1.5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      delay: 0.8 + Math.random() * 0.5,
+                      ease: 'easeOut',
+                    }}
+                    className="absolute text-2xl"
+                  >
+                    ₽
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
           {/* Rating change */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ delay: 0.4, type: 'spring' }}
+            transition={{ delay: isPlayerWinner ? 0.5 : 0.4, type: 'spring' }}
             className="glass p-6 rounded-2xl mb-8"
           >
             <div className="flex items-center justify-center gap-3 mb-3">
@@ -196,7 +251,7 @@ export default function CheckmateModal({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: isPlayerWinner ? 0.7 : 0.6 }}
                 className="text-body-sm text-gray-400"
               >
                 Изменение рейтинга
@@ -205,7 +260,7 @@ export default function CheckmateModal({
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ delay: 0.7, type: 'spring', damping: 10 }}
+              transition={{ delay: isPlayerWinner ? 0.8 : 0.7, type: 'spring', damping: 10 }}
               className={`text-5xl font-bold ${
                 isPlayerWinner ? 'text-green-400' : 'text-red-400'
               }`}

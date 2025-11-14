@@ -10,6 +10,7 @@ const gameModes = [
     title: 'Блиц',
     time: '3 + 2',
     description: '3 минуты на партию + 2 сек за ход',
+    reward: 25,
     Icon: Zap,
   },
   {
@@ -17,6 +18,7 @@ const gameModes = [
     title: 'Рапид',
     time: '10 + 0',
     description: '10 минут на партию',
+    reward: 35,
     Icon: Activity,
   },
   {
@@ -24,6 +26,7 @@ const gameModes = [
     title: 'Пуля',
     time: '1 + 0',
     description: '1 минута на партию',
+    reward: 15,
     Icon: Wind,
   },
   {
@@ -31,6 +34,7 @@ const gameModes = [
     title: 'Классика',
     time: '30 + 0',
     description: '30 минут на партию',
+    reward: 50,
     Icon: Clock,
   },
 ];
@@ -40,6 +44,7 @@ const tournaments = [
     id: 1,
     title: 'Турнир выходного дня',
     time: 'Старт: 2:15:00',
+    reward: 500,
     ratingPoints: '+50 рейтинга',
     players: '128/256',
     entry: 'Открытый',
@@ -48,6 +53,7 @@ const tournaments = [
     id: 2,
     title: 'Ежедневная арена',
     time: 'Идет сейчас',
+    reward: 250,
     ratingPoints: '+25 рейтинга',
     players: '45/100',
     entry: 'Открытый',
@@ -133,12 +139,17 @@ export default function GameMode() {
                       : ''
                   }`}
                 >
-                  <div className={`bg-gradient-to-br ${
-                    selectedMode === mode.id
-                      ? 'from-stake-red/30 to-stake-red/10'
-                      : 'from-stake-red/20 to-stake-red/5'
-                  } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                  <div className="flex justify-between items-start mb-4">
+                    <div className={`bg-gradient-to-br ${
+                      selectedMode === mode.id
+                        ? 'from-stake-red/30 to-stake-red/10'
+                        : 'from-stake-red/20 to-stake-red/5'
+                    } w-12 h-12 rounded-2xl flex items-center justify-center`}>
+                      <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                    </div>
+                    <div className="bg-gradient-to-br from-green-500/20 to-green-500/5 px-3 py-1.5 rounded-lg border border-green-500/30">
+                      <p className="text-xs font-bold text-green-400">+{mode.reward} ₽</p>
+                    </div>
                   </div>
                   <h6 className="mb-1">{mode.title}</h6>
                   <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
@@ -226,9 +237,14 @@ export default function GameMode() {
                     <h4 className="mb-2">{tournament.title}</h4>
                     <p className="text-body-sm text-gray-400 font-medium">{tournament.time}</p>
                   </div>
-                  <div className="text-right bg-gradient-to-br from-stake-red/20 to-stake-red/5 px-4 py-3 rounded-2xl">
-                    <p className="text-stake-red font-bold text-lg">{tournament.ratingPoints}</p>
-                    <p className="text-xs text-gray-500">за победу</p>
+                  <div className="text-right">
+                    <div className="bg-gradient-to-br from-green-500/20 to-green-500/5 px-4 py-3 rounded-2xl border border-green-500/30 mb-2">
+                      <p className="text-green-400 font-bold text-2xl">+{tournament.reward} ₽</p>
+                      <p className="text-xs text-gray-400">Alfa Points</p>
+                    </div>
+                    <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 px-4 py-2 rounded-xl">
+                      <p className="text-stake-red font-semibold text-sm">{tournament.ratingPoints}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mb-6">

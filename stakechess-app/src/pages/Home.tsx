@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Flame } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Flame, TrendingUp } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 
 const quickActions = [
@@ -105,11 +105,39 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stats Card with Hero Image */}
+        {/* Alfa Points Card */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
+          className="glass-card p-6 mb-4 bg-gradient-to-br from-stake-red/10 to-transparent border-stake-red/20 shadow-depth relative overflow-hidden"
+          whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <img src="/alfa-icon.svg" alt="Alfa Points" className="h-8" />
+              <div>
+                <p className="text-body-sm text-gray-400">Ваш баланс</p>
+                <h3 className="!text-2xl text-gradient">2 450 ₽</h3>
+              </div>
+            </div>
+            <button className="btn-white !px-6 !py-3 !text-sm">
+              Потратить
+            </button>
+          </div>
+          <div className="flex items-center gap-4 text-body-sm">
+            <div className="flex items-center gap-1 text-green-400">
+              <TrendingUp className="w-4 h-4" />
+              <span>+350 ₽ за неделю</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Stats Card with Hero Image */}
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.15 }}
           className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden"
           whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
         >
@@ -133,6 +161,30 @@ export default function Home() {
                 <p className="text-3xl font-bold text-green-400">+50</p>
               </div>
             </div>
+
+            {/* Progress to next level */}
+            <div className="mb-6">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-body-sm text-gray-400">До следующего уровня</span>
+                <span className="text-body-sm font-semibold text-white">50 очков</span>
+              </div>
+              <div className="relative h-2 bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: '50%' }}
+                  transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-stake-red to-orange-500 rounded-full"
+                  style={{
+                    boxShadow: '0 0 16px rgba(255, 23, 68, 0.6)',
+                  }}
+                />
+              </div>
+              <div className="flex justify-between items-center mt-1">
+                <span className="text-xs text-gray-500">1400</span>
+                <span className="text-xs font-semibold text-stake-red">1500</span>
+              </div>
+            </div>
+
             <div className="flex gap-6">
               <div>
                 <p className="text-body-sm text-gray-500 mb-1">Побед</p>

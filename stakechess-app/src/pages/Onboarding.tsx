@@ -5,33 +5,33 @@ import { Send, User } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Играй без границ',
-    description: 'Классические шахматы и быстрые партии с игроками со всего мира',
+    title: 'Зарабатывай Alfa Points',
+    description: 'Каждая партия приносит баллы. Играй в шахматы — получай кэшбэк на покупки',
     image: '/images/heroes/growth-path.png',
   },
   {
-    title: 'Следи за прогрессом',
-    description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
-    image: '/images/heroes/stats-growth.png',
-  },
-  {
-    title: 'Участвуй в турнирах',
-    description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
+    title: 'Турниры с реальными призами',
+    description: 'Побеждай в турнирах и выигрывай тысячи баллов Alfa Points',
     image: '/images/achievements/tournament-cup.png',
   },
   {
-    title: 'Найди друзей',
-    description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    image: '/images/pieces/pair-classic.png',
+    title: 'Тратьте баллы как хотите',
+    description: 'Оплачивайте покупки, бронируйте отели или копите на Premium подписку',
+    image: '/images/heroes/stats-growth.png',
   },
   {
-    title: 'Тренируйся с AI',
-    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
+    title: 'Premium для клиентов',
+    description: 'Больше баллов за игру, эксклюзивные турниры и приоритетная поддержка',
     image: '/images/heroes/ai-network.png',
   },
   {
-    title: 'Готов начать?',
-    description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
+    title: 'Играй и расти',
+    description: 'Повышай рейтинг, тренируйся с AI и соревнуйся с игроками по всему миру',
+    image: '/images/pieces/pair-classic.png',
+  },
+  {
+    title: 'Начни зарабатывать сейчас',
+    description: 'Присоединяйся к 50 000+ игроков и получай баллы за каждую победу',
     image: '/images/heroes/progress-stairs.png',
   },
 ];
