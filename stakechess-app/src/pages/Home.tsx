@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Flame, Home as HomeIcon } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Flame } from 'lucide-react';
+import BottomNav from '../components/BottomNav';
+import EmptyState from '../components/EmptyState';
+import { LiveGameSkeleton, GameCardSkeleton } from '../components/SkeletonLoader';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
@@ -32,7 +36,7 @@ const recentGames = [
     opponent: 'Стратег_99',
     result: 'loss',
     mode: 'Рапид 10+0',
-    image: '/images/pieces/queen-luxury.png',
+    image: '/images/pieces/queen-bishop.png',
     moves: 45,
     date: '5 часов назад',
   },
@@ -41,7 +45,7 @@ const recentGames = [
     opponent: 'Тактик_2000',
     result: 'draw',
     mode: 'Классика',
-    image: '/images/pieces/knight-neon.png',
+    image: '/images/pieces/knight-light.png',
     moves: 68,
     date: 'Вчера',
   },
@@ -70,6 +74,7 @@ const widgets = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const [isLoadingGames, setIsLoadingGames] = useState(false);
 
   return (
     <motion.div
@@ -324,39 +329,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="fixed bottom-0 left-0 right-0 glass border-t border-white/[0.08] px-6 py-4 flex justify-around backdrop-blur-2xl"
-        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
-      >
-        <button className="flex flex-col items-center gap-2 text-stake-red min-h-[44px]">
-          <div className="bg-stake-red/10 p-2 rounded-xl">
-            <HomeIcon className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Главная</span>
-        </button>
-        <button
-          onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
-        >
-          <div className="p-2">
-            <Zap className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Играть</span>
-        </button>
-        <button
-          onClick={() => navigate('/profile')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
-        >
-          <div className="p-2">
-            <User className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Профиль</span>
-        </button>
-      </motion.div>
+      <BottomNav />
     </motion.div>
   );
 }
