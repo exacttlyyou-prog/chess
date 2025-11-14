@@ -5,33 +5,33 @@ import { Send, User } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Зарабатывай Alfa Points',
-    description: 'Каждая партия приносит баллы. Играй в шахматы — получай кэшбэк на покупки',
+    title: 'Играй без границ',
+    description: 'Классические шахматы и быстрые партии с игроками со всего мира',
     image: '/images/heroes/growth-path.png',
   },
   {
-    title: 'Турниры с реальными призами',
-    description: 'Побеждай в турнирах и выигрывай тысячи баллов Alfa Points',
-    image: '/images/achievements/tournament-cup.png',
-  },
-  {
-    title: 'Тратьте баллы как хотите',
-    description: 'Оплачивайте покупки, бронируйте отели или копите на Premium подписку',
+    title: 'Следи за прогрессом',
+    description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
     image: '/images/heroes/stats-growth.png',
   },
   {
-    title: 'Premium для клиентов',
-    description: 'Больше баллов за игру, эксклюзивные турниры и приоритетная поддержка',
-    image: '/images/heroes/ai-network.png',
+    title: 'Участвуй в турнирах',
+    description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
+    image: '/images/achievements/tournament-cup.png',
   },
   {
-    title: 'Играй и расти',
-    description: 'Повышай рейтинг, тренируйся с AI и соревнуйся с игроками по всему миру',
+    title: 'Найди друзей',
+    description: 'Играй с друзьями, общайся и создавай команду для турниров',
     image: '/images/pieces/pair-classic.png',
   },
   {
-    title: 'Начни зарабатывать сейчас',
-    description: 'Присоединяйся к 50 000+ игроков и получай баллы за каждую победу',
+    title: 'Тренируйся с AI',
+    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
+    image: '/images/heroes/ai-network.png',
+  },
+  {
+    title: 'Готов начать?',
+    description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
     image: '/images/heroes/progress-stairs.png',
   },
 ];
@@ -80,11 +80,8 @@ export default function Onboarding() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <img src="/alfa-id-full.svg" alt="Alfa Bank" className="h-10" />
-            </div>
             <h1 className="mb-2">
-              <span className="text-gradient">Альфа Шахматы</span>
+              <span className="text-gradient">StakeChess</span>
             </h1>
             <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
           </div>
@@ -110,10 +107,6 @@ export default function Onboarding() {
             </div>
 
             <div className="space-y-3">
-              <button className="btn-white w-full flex items-center justify-center gap-3">
-                <img src="/alfa-icon.svg" alt="Alfa ID" className="h-6" />
-                <span>Alfa ID</span>
-              </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
                 <Send size={18} />
                 <span>Telegram</span>
@@ -156,7 +149,7 @@ export default function Onboarding() {
           <img
             src={slides[currentSlide].image}
             alt={slides[currentSlide].title}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
@@ -195,16 +188,13 @@ export default function Onboarding() {
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
         <div className="px-8 pt-2 pb-4 flex justify-between items-center">
-          <motion.div
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3"
+            className="text-3xl font-bold"
           >
-            <img src="/alfa-id-full.svg" alt="Alfa Bank" className="h-8" />
-            <h1 className="text-2xl font-bold">
-              <span className="text-gradient">Шахматы</span>
-            </h1>
-          </motion.div>
+            <span className="text-gradient">StakeChess</span>
+          </motion.h1>
           <motion.button
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}

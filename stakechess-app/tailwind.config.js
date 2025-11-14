@@ -13,9 +13,9 @@ export default {
           medium: '#1E1E1E',
         },
         'stake-red': {
-          DEFAULT: '#EF3124',
-          dark: '#C72A1E',
-          light: '#F25C4C',
+          DEFAULT: '#FF1744',
+          dark: '#D50000',
+          light: '#FF5252',
         },
         'stake-gray': {
           DEFAULT: '#2A2A2A',

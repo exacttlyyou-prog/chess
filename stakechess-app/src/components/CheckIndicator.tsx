@@ -76,13 +76,13 @@ export default function CheckIndicator({ position }: CheckIndicatorProps) {
           }}
           className="absolute w-3 h-3"
           style={{
-            background: '#EF3124',
+            background: '#FF1744',
             borderRadius: '2px',
             ...(corner === 0 && { top: -2, left: -2 }),
             ...(corner === 1 && { top: -2, right: -2 }),
             ...(corner === 2 && { bottom: -2, right: -2 }),
             ...(corner === 3 && { bottom: -2, left: -2 }),
-            boxShadow: '0 0 8px rgba(239, 49, 36, 0.8)',
+            boxShadow: '0 0 8px rgba(255, 23, 68, 0.8)',
           }}
         />
       ))}

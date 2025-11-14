@@ -213,39 +213,6 @@
     outline-offset: 2px;
   }
 
-  /* White button - premium accent */
-  .btn-white {
-    @apply bg-white text-stake-black font-semibold px-8 py-4 rounded-2xl;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-      0 4px 16px rgba(255, 255, 255, 0.15),
-      0 2px 4px rgba(255, 255, 255, 0.1),
-      0 0 1px rgba(0, 0, 0, 0.05) inset;
-    will-change: transform;
-  }
-
-  .btn-white:hover {
-    transform: scale(1.02) translateY(-1px);
-    box-shadow:
-      0 8px 24px rgba(255, 255, 255, 0.25),
-      0 4px 12px rgba(255, 255, 255, 0.15),
-      0 0 0 1px rgba(0, 0, 0, 0.08) inset;
-    background: rgba(255, 255, 255, 0.95);
-  }
-
-  .btn-white:active {
-    transform: scale(0.98);
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-      0 4px 12px rgba(255, 255, 255, 0.2),
-      0 2px 6px rgba(255, 255, 255, 0.1);
-  }
-
-  .btn-white:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.6);
-    outline-offset: 3px;
-  }
-
   /* Refined text gradient */
   .text-gradient {
     @apply bg-gradient-to-r from-white via-gray-100 to-stake-red bg-clip-text text-transparent;
