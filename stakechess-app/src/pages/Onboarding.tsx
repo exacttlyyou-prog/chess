@@ -5,29 +5,34 @@ import { Send, User } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Играй без границ',
-    description: 'Классические шахматы и быстрые партии с игроками со всего мира',
+    title: 'Стань мастером шахмат',
+    description: 'Играй с игроками со всего мира. Более 1 млн партий каждый день.',
     image: '/images/heroes/growth-path.png',
+    stat: '1M+ игроков',
   },
   {
-    title: 'Следи за прогрессом',
-    description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
-    image: '/images/heroes/stats-growth.png',
+    title: 'Играй как легенды',
+    description: 'Уникальные AI модели стилей Магнуса Карлсена, Каспарова, Фишера и других',
+    image: '/images/heroes/ai-network.png',
+    stat: '12 легендарных стилей',
   },
   {
-    title: 'Участвуй в турнирах',
-    description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
+    title: 'Выигрывай призы',
+    description: 'Участвуй в турнирах с реальными наградами. До 100K монет за победу!',
     image: '/images/achievements/tournament-cup.png',
+    stat: '12 турниров',
   },
   {
-    title: 'Найди друзей',
-    description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    image: '/images/pieces/pair-duo.png',
+    title: 'Отслеживай прогресс',
+    description: '52 достижения, рейтинговая система и детальная статистика каждой партии',
+    image: '/images/heroes/stats-growth.png',
+    stat: '52 достижения',
   },
   {
-    title: 'Тренируйся с AI',
-    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
-    image: '/images/pieces/knight-speed.png',
+    title: 'Начни прямо сейчас',
+    description: 'Регистрация за 30 секунд. Первая партия — бесплатно!',
+    image: '/images/pieces/king-crown.png',
+    stat: 'Бесплатный старт',
   },
 ];
 
@@ -237,10 +242,19 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-body-lg md:text-2xl text-gray-300"
+                className="text-body-lg md:text-2xl text-gray-300 mb-6"
               >
                 {slides[currentSlide].description}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 }}
+                className="inline-flex items-center gap-3 glass-card !px-6 !py-3 border border-stake-red/30"
+              >
+                <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse" />
+                <span className="text-stake-red font-bold text-lg">{slides[currentSlide].stat}</span>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>

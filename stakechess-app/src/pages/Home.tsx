@@ -102,7 +102,7 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-6"
       >
-        <div className="flex justify-between items-start mb-8">
+        <div className="flex justify-between items-start mb-6">
           <div>
             <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
             <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
@@ -123,6 +123,19 @@ export default function Home() {
             </button>
           </div>
         </div>
+
+        {/* Live Players Social Proof */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="glass-card !px-4 !py-2 mb-8 inline-flex items-center gap-2"
+        >
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-sm text-gray-400">
+            <span className="text-white font-semibold">1,247</span> игроков онлайн
+          </span>
+        </motion.div>
 
         {/* Quick Actions - ГЛАВНЫЕ И ПЕРВЫЕ */}
         <h2 className="!text-2xl mb-6 text-gradient">Начать игру</h2>

@@ -299,6 +299,59 @@ export default function Profile() {
               ))}
             </div>
           </div>
+
+          {/* Premium CTA */}
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/premium')}
+            className="w-full bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/30 rounded-3xl p-8 shadow-[0_8px_32px_rgba(234,179,8,0.2)] relative overflow-hidden"
+          >
+            {/* Animated background */}
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.1, 0.2, 0.1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20"
+            />
+
+            <div className="relative z-10 flex items-center gap-6">
+              {/* Crown Icon */}
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-[0_4px_16px_rgba(234,179,8,0.4)]">
+                <Crown className="w-10 h-10 text-black" strokeWidth={2.5} />
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 text-left">
+                <h3 className="!text-2xl text-white mb-1">King Premium</h3>
+                <p className="text-gray-200 text-base mb-2">Открой все возможности</p>
+                <div className="flex items-center gap-2">
+                  <div className="px-3 py-1 rounded-lg bg-white/10">
+                    <span className="text-xs font-semibold text-yellow-300">-50% сегодня</span>
+                  </div>
+                  <div className="px-3 py-1 rounded-lg bg-white/10">
+                    <span className="text-xs font-semibold text-green-300">💎 Безлимитный анализ</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M7 4L13 10L7 16" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </motion.button>
         </motion.div>
       ) : (
         /* Achievements */
