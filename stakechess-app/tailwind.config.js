@@ -13,10 +13,10 @@ export default {
           medium: '#1F1F1F',
         },
         'stake-red': {
-          DEFAULT: '#FF2E63', // More vibrant, higher saturation
-          dark: '#E6194B',
-          light: '#FF5B82',
-          neon: '#FF0844',
+          DEFAULT: '#ef3124', // Primary brand accent
+          dark: '#c72819',
+          light: '#ff5a4d',
+          neon: '#ff1f0f',
         },
         'stake-gray': {
           DEFAULT: '#2E2E2E',
