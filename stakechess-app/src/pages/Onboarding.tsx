@@ -22,12 +22,12 @@ const slides = [
   {
     title: 'Найди друзей',
     description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    image: '/images/pieces/pair-classic.png',
+    image: '/images/pieces/pair-duo.png',
   },
   {
     title: 'Тренируйся с AI',
     description: 'Улучшай навыки с искусственным интеллектом любого уровня',
-    image: '/images/pieces/knight-neon.png',
+    image: '/images/pieces/knight-speed.png',
   },
 ];
 
@@ -102,6 +102,10 @@ export default function Onboarding() {
             </div>
 
             <div className="space-y-3">
+              <button className="btn-white w-full flex items-center justify-center gap-3">
+                <span className="font-bold text-stake-red">А</span>
+                <span>Alfa ID</span>
+              </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
                 <Send size={18} />
                 <span>Telegram</span>

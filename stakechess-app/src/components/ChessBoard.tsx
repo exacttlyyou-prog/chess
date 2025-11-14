@@ -401,11 +401,11 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         />
                       )}
                       {piece && (
-                        <div className="w-full h-full p-2 relative group" style={{ willChange: 'transform' }}>
+                        <div className="w-full h-full p-2 relative">
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className="w-full h-full select-none cursor-pointer relative z-10 transition-all duration-300 ease-out group-hover:scale-110"
+                            className="w-full h-full select-none cursor-pointer relative z-10"
                           />
                         </div>
                       )}

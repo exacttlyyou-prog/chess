@@ -120,13 +120,11 @@ export default function GameMode() {
               {gameModes.map((mode, index) => (
                 <motion.button
                   key={mode.id}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.05, type: 'spring' }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.03, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
                   onClick={() => setSelectedMode(mode.id)}
-                  className={`glass-card p-6 text-left transition-all shadow-depth ${
+                  className={`glass-card p-6 text-left transition-all shadow-depth hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] ${
                     selectedMode === mode.id
                       ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
                       : ''
@@ -205,17 +203,17 @@ export default function GameMode() {
           {tournaments.map((tournament, index) => (
             <motion.div
               key={tournament.id}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1, type: 'spring' }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
             >
               {/* Background chess piece */}
-              <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              <div className="absolute -right-4 -top-4 w-48 h-48 opacity-15 pointer-events-none">
                 <img
                   src="/images/achievements/tournament-cup.png"
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover scale-110"
                 />
               </div>
 
