@@ -59,7 +59,7 @@ export default function GameMode() {
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
 
   const handlePlay = () => {
-    navigate('/play');
+    navigate('/match-search');
   };
 
   return (
