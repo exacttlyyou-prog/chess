@@ -21,6 +21,18 @@ export default function GamePlay() {
   const [moveHistory, setMoveHistory] = useState<Move[]>([]);
 
   useEffect(() => {
+    // Check if time has run out
+    if (timeWhite <= 0) {
+      alert('Время вышло! Черные выиграли.');
+      navigate('/home');
+      return;
+    }
+    if (timeBlack <= 0) {
+      alert('Время вышло! Белые выиграли.');
+      navigate('/home');
+      return;
+    }
+
     const timer = setInterval(() => {
       if (currentTurn === 'white') {
         setTimeWhite((prev) => Math.max(0, prev - 1));
@@ -30,7 +42,7 @@ export default function GamePlay() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentTurn]);
+  }, [currentTurn, timeWhite, timeBlack, navigate]);
 
   const handleMove = (from: { row: number; col: number }, to: { row: number; col: number }) => {
     setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');

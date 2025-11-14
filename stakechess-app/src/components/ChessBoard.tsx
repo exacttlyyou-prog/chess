@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ChessPiece from './ChessPiece';
 import CaptureAnimation from './CaptureAnimation';
 import CheckIndicator from './CheckIndicator';
 import CheckmateModal from './CheckmateModal';
+import PromotionModal from './PromotionModal';
+import type { Piece, Board } from '../utils/chessLogic';
+import {
+  getLegalMoves,
+  isInCheck,
+  isCheckmate,
+  isStalemate,
+  findKing
+} from '../utils/chessLogic';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
-
-interface Piece {
-  type: PieceType;
-  color: PieceColor;
-}
 
 interface Square {
   piece: Piece | null;
@@ -35,19 +39,19 @@ const createInitialBoard = (): Square[][] => {
   // Set up black pieces (top)
   const blackPieces: PieceType[] = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
   blackPieces.forEach((type, col) => {
-    board[0][col].piece = { type, color: 'black' };
+    board[0][col].piece = { type, color: 'black', hasMoved: false };
   });
   for (let col = 0; col < 8; col++) {
-    board[1][col].piece = { type: 'pawn', color: 'black' };
+    board[1][col].piece = { type: 'pawn', color: 'black', hasMoved: false };
   }
 
   // Set up white pieces (bottom)
   const whitePieces: PieceType[] = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
   whitePieces.forEach((type, col) => {
-    board[7][col].piece = { type, color: 'white' };
+    board[7][col].piece = { type, color: 'white', hasMoved: false };
   });
   for (let col = 0; col < 8; col++) {
-    board[6][col].piece = { type: 'pawn', color: 'white' };
+    board[6][col].piece = { type: 'pawn', color: 'white', hasMoved: false };
   }
 
   return board;
@@ -69,135 +73,46 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
 
   // Hero moment states
   const [captureAnimations, setCaptureAnimations] = useState<Array<{ id: number; position: { x: number; y: number }; pieceColor: PieceColor }>>([]);
-  const [kingInCheck] = useState<{ row: number; col: number } | null>(null); // TODO: implement check detection logic
-  const [isCheckmate, setIsCheckmate] = useState(false);
+  const [kingInCheck, setKingInCheck] = useState<{ row: number; col: number } | null>(null);
+  const [isCheckmated, setIsCheckmated] = useState(false);
   const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
+  const [isStalemated, setIsStalemated] = useState(false);
+
+  // Pawn promotion
+  const [promotionState, setPromotionState] = useState<{
+    row: number;
+    col: number;
+    color: PieceColor;
+  } | null>(null);
+
+  // Check for check, checkmate, and stalemate after each move
+  useEffect(() => {
+    const inCheck = isInCheck(board as Board, currentTurn);
+    if (inCheck) {
+      const kingPos = findKing(board as Board, currentTurn);
+      setKingInCheck(kingPos);
+
+      // Check for checkmate
+      if (isCheckmate(board as Board, currentTurn)) {
+        setIsCheckmated(true);
+        setCheckmateWinner(currentTurn === 'white' ? 'black' : 'white');
+      }
+    } else {
+      setKingInCheck(null);
+
+      // Check for stalemate
+      if (isStalemate(board as Board, currentTurn)) {
+        setIsStalemated(true);
+      }
+    }
+  }, [board, currentTurn]);
 
   const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
     const piece = board[row][col].piece;
     if (!piece || piece.color !== currentTurn) return [];
 
-    const moves: { row: number; col: number }[] = [];
-
-    // Simplified move validation (just basic moves, not checking for check/checkmate)
-    switch (piece.type) {
-      case 'pawn': {
-        const direction = piece.color === 'white' ? -1 : 1;
-        const startRow = piece.color === 'white' ? 6 : 1;
-
-        // Forward move
-        if (!board[row + direction]?.[col]?.piece) {
-          moves.push({ row: row + direction, col });
-          // Double move from start
-          if (row === startRow && !board[row + 2 * direction]?.[col]?.piece) {
-            moves.push({ row: row + 2 * direction, col });
-          }
-        }
-
-        // Captures
-        [-1, 1].forEach(offset => {
-          const targetPiece = board[row + direction]?.[col + offset]?.piece;
-          if (targetPiece && targetPiece.color !== piece.color) {
-            moves.push({ row: row + direction, col: col + offset });
-          }
-        });
-        break;
-      }
-      case 'rook': {
-        // Horizontal and vertical moves
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'knight': {
-        const knightMoves = [
-          [-2, -1], [-2, 1], [-1, -2], [-1, 2],
-          [1, -2], [1, 2], [2, -1], [2, 1]
-        ];
-        knightMoves.forEach(([dRow, dCol]) => {
-          const newRow = row + dRow;
-          const newCol = col + dCol;
-          if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece || targetPiece.color !== piece.color) {
-              moves.push({ row: newRow, col: newCol });
-            }
-          }
-        });
-        break;
-      }
-      case 'bishop': {
-        const directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'queen': {
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'king': {
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          const newRow = row + dRow;
-          const newCol = col + dCol;
-          if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece || targetPiece.color !== piece.color) {
-              moves.push({ row: newRow, col: newCol });
-            }
-          }
-        });
-        break;
-      }
-    }
-
-    return moves;
+    // Use the legal moves function that checks for check/checkmate
+    return getLegalMoves(board as Board, row, col);
   };
 
   const handleSquareClick = (row: number, col: number) => {
@@ -208,6 +123,8 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
       if (isValidMove) {
         // Make the move
         const newBoard = board.map(r => r.map(sq => ({ ...sq, piece: sq.piece ? { ...sq.piece } : null })));
+
+        const movingPiece = newBoard[selectedSquare.row][selectedSquare.col].piece;
 
         // Check if capturing a piece
         const capturedPiece = newBoard[row][col].piece;
@@ -233,8 +150,41 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           }));
         }
 
-        newBoard[row][col].piece = newBoard[selectedSquare.row][selectedSquare.col].piece;
+        // Handle castling
+        if (movingPiece && movingPiece.type === 'king') {
+          const colDiff = col - selectedSquare.col;
+          if (Math.abs(colDiff) === 2) {
+            // Castling move
+            if (colDiff === 2) {
+              // Kingside castling
+              const rook = newBoard[row][7].piece;
+              newBoard[row][5].piece = rook ? { ...rook, hasMoved: true } : null;
+              newBoard[row][7].piece = null;
+            } else if (colDiff === -2) {
+              // Queenside castling
+              const rook = newBoard[row][0].piece;
+              newBoard[row][3].piece = rook ? { ...rook, hasMoved: true } : null;
+              newBoard[row][0].piece = null;
+            }
+          }
+        }
+
+        // Move the piece and mark it as moved
+        newBoard[row][col].piece = movingPiece ? { ...movingPiece, hasMoved: true } : null;
         newBoard[selectedSquare.row][selectedSquare.col].piece = null;
+
+        // Check for pawn promotion
+        if (movingPiece && movingPiece.type === 'pawn') {
+          const promotionRow = movingPiece.color === 'white' ? 0 : 7;
+          if (row === promotionRow) {
+            // Show promotion modal
+            setPromotionState({ row, col, color: movingPiece.color });
+            setBoard(newBoard);
+            setLastMove({ from: selectedSquare, to: { row, col } });
+            // Don't change turn yet - will change after promotion selection
+            return;
+          }
+        }
 
         setBoard(newBoard);
         setLastMove({ from: selectedSquare, to: { row, col } });
@@ -475,21 +425,45 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
 
       {/* Checkmate modal */}
       <CheckmateModal
-        isOpen={isCheckmate}
+        isOpen={isCheckmated || isStalemated}
         winner={checkmateWinner}
         isPlayerWinner={checkmateWinner === 'white'}
-        ratingChange={checkmateWinner === 'white' ? 15 : -15}
+        ratingChange={isStalemated ? 0 : (checkmateWinner === 'white' ? 15 : -15)}
         onClose={() => {
-          setIsCheckmate(false);
+          setIsCheckmated(false);
+          setIsStalemated(false);
           setCheckmateWinner(null);
         }}
         onRematch={() => {
           setBoard(createInitialBoard());
-          setIsCheckmate(false);
+          setIsCheckmated(false);
+          setIsStalemated(false);
           setCheckmateWinner(null);
           setCapturedPieces({ white: [], black: [] });
           setCurrentTurn('white');
           setLastMove(null);
+          setKingInCheck(null);
+        }}
+      />
+
+      {/* Pawn promotion modal */}
+      <PromotionModal
+        isOpen={!!promotionState}
+        color={promotionState?.color || 'white'}
+        onSelect={(pieceType) => {
+          if (!promotionState) return;
+
+          // Update the promoted pawn
+          const newBoard = board.map(r => r.map(sq => ({ ...sq, piece: sq.piece ? { ...sq.piece } : null })));
+          newBoard[promotionState.row][promotionState.col].piece = {
+            type: pieceType,
+            color: promotionState.color,
+            hasMoved: true
+          };
+
+          setBoard(newBoard);
+          setPromotionState(null);
+          setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
         }}
       />
     </div>
