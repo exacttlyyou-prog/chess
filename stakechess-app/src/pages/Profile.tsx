@@ -78,27 +78,42 @@ export default function Profile() {
         transition={{ delay: 0.1 }}
         className="px-8 mb-6"
       >
-        <div className="glass-card p-8 text-center shadow-depth-lg">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-4">
-            <User className="w-12 h-12 text-stake-red" />
+        <div className="glass-card p-8 shadow-depth-lg relative overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute right-0 top-0 w-48 h-48 opacity-10 pointer-events-none">
+            <img
+              src="/images/pieces/king-crown.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
-          <h2 className="!text-3xl mb-2">Игрок</h2>
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-body-sm text-gray-400">Рейтинг</p>
-              <p className="text-2xl font-bold text-gradient">{stats.rating}</p>
+
+          <div className="relative z-10 text-center">
+            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-stake-red/50 shadow-[0_0_24px_rgba(255,23,68,0.4)] mx-auto mb-4">
+              <img
+                src="/images/heroes/podium.png"
+                alt="Player"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-body-sm text-gray-400">Побед подряд</p>
-              <div className="flex items-center justify-center gap-1">
-                <p className="text-2xl font-bold text-stake-red">{stats.streak}</p>
-                <Flame className="w-5 h-5 text-stake-red" />
+            <h2 className="!text-3xl mb-4">Игрок</h2>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="glass-card px-6 py-4 rounded-2xl shadow-depth">
+                <p className="text-xs text-gray-400 mb-1">Рейтинг</p>
+                <p className="text-3xl font-bold text-gradient">{stats.rating}</p>
+              </div>
+              <div className="glass-card px-6 py-4 rounded-2xl shadow-depth">
+                <p className="text-xs text-gray-400 mb-1">Побед подряд</p>
+                <div className="flex items-center justify-center gap-1">
+                  <p className="text-3xl font-bold text-stake-red">{stats.streak}</p>
+                  <Flame className="w-6 h-6 text-stake-red" />
+                </div>
               </div>
             </div>
+            <button className="btn-secondary">
+              Редактировать профиль
+            </button>
           </div>
-          <button className="btn-secondary">
-            Редактировать профиль
-          </button>
         </div>
       </motion.div>
 
@@ -135,9 +150,17 @@ export default function Profile() {
           className="px-8 space-y-4"
         >
           {/* Win Rate */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">Общая статистика</h5>
-            <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="glass-card p-8 shadow-depth relative overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute right-0 bottom-0 w-32 h-32 opacity-8 pointer-events-none">
+              <img
+                src="/images/heroes/stats-growth.png"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h5 className="mb-4 relative z-10">Общая статистика</h5>
+            <div className="grid grid-cols-3 gap-4 mb-4 relative z-10">
               <div className="text-center">
                 <p className="text-3xl font-bold text-green-400">{stats.wins}</p>
                 <p className="text-body-sm text-gray-400">Побед</p>
@@ -166,9 +189,17 @@ export default function Profile() {
           </div>
 
           {/* Rating History */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">История рейтинга</h5>
-            <div className="relative h-40">
+          <div className="glass-card p-8 shadow-depth relative overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute left-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              <img
+                src="/images/heroes/growth-path.png"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h5 className="mb-4 relative z-10">История рейтинга</h5>
+            <div className="relative h-40 z-10">
               {/* Simple line chart visualization */}
               <svg className="w-full h-full" viewBox="0 0 300 100">
                 {/* Grid lines */}
@@ -203,8 +234,8 @@ export default function Profile() {
                 {/* Gradient definition */}
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style={{ stopColor: '#FF1744', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#D50000', stopOpacity: 1 }} />
+                    <stop offset="0%" style={{ stopColor: 'rgb(239, 49, 36)', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: 'rgb(213, 0, 0)', stopOpacity: 1 }} />
                   </linearGradient>
                 </defs>
 
@@ -218,7 +249,7 @@ export default function Profile() {
                       cx={x}
                       cy={y}
                       r="4"
-                      fill="#FF1744"
+                      fill="rgb(239, 49, 36)"
                       stroke="#0A0A0A"
                       strokeWidth="2"
                     />
@@ -226,7 +257,7 @@ export default function Profile() {
                 })}
               </svg>
             </div>
-            <div className="flex justify-between mt-4 text-xs text-gray-500">
+            <div className="flex justify-between mt-4 text-xs text-gray-500 relative z-10">
               {ratingHistory.map((point) => (
                 <span key={point.date}>{point.date}</span>
               ))}
@@ -234,9 +265,17 @@ export default function Profile() {
           </div>
 
           {/* Performance by Mode */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">По режимам</h5>
-            <div className="space-y-3">
+          <div className="glass-card p-8 shadow-depth relative overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              <img
+                src="/images/pieces/knight-dynamic.png"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h5 className="mb-4 relative z-10">По режимам</h5>
+            <div className="space-y-3 relative z-10">
               {[
                 { mode: 'Блиц', rating: 1450, games: 120, Icon: Zap },
                 { mode: 'Рапид', rating: 1380, games: 80, Icon: Activity },
