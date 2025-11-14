@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Activity, Target, Award, Zap } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, Award, Zap } from 'lucide-react';
 
 interface StatItem {
   label: string;

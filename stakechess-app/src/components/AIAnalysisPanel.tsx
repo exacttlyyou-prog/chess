@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Brain, TrendingUp, Lightbulb, Target, Zap, AlertCircle } from 'lucide-react';
+import { Brain, TrendingUp, Lightbulb, Zap, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 
 interface Move {
@@ -26,16 +26,16 @@ export default function AIAnalysisPanel({
 }: AIAnalysisPanelProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const getEvaluationColor = (eval: number) => {
-    if (eval > 2) return 'text-green-400';
-    if (eval > 0) return 'text-green-300';
-    if (eval > -2) return 'text-gray-300';
+  const getEvaluationColor = (evaluation: number) => {
+    if (evaluation > 2) return 'text-green-400';
+    if (evaluation > 0) return 'text-green-300';
+    if (evaluation > -2) return 'text-gray-300';
     return 'text-red-400';
   };
 
-  const getEvaluationBar = (eval: number) => {
+  const getEvaluationBar = (evaluation: number) => {
     // Convert evaluation to percentage (capped at ±5)
-    const cappedEval = Math.max(-5, Math.min(5, eval));
+    const cappedEval = Math.max(-5, Math.min(5, evaluation));
     const percentage = ((cappedEval + 5) / 10) * 100;
     return percentage;
   };

@@ -8,9 +8,8 @@ interface TournamentWinnerProps {
   rank: number;
   totalPlayers: number;
   prize?: string;
-  rating
-
-Gain?: number;
+  rating?: number;
+  ratingGain?: number;
 }
 
 export default function TournamentWinner({
@@ -20,6 +19,7 @@ export default function TournamentWinner({
   rank,
   totalPlayers,
   prize,
+  rating: _rating,
   ratingGain = 0,
 }: TournamentWinnerProps) {
   return (

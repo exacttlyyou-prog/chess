@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Eye, Users, Clock, Zap, TrendingUp } from 'lucide-react';
+import { Eye, Clock, Zap, TrendingUp } from 'lucide-react';
 
 interface LiveGame {
   id: string;
