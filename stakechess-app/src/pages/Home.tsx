@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Zap, Bot, Trophy, User, Flame, Crown } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
+import ThemeToggle from '../components/ThemeToggle';
 import { useToast } from '../contexts/ToastContext';
 
 const liveGames = [
@@ -106,12 +107,15 @@ export default function Home() {
             <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
             <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
           </div>
-          <button
-            onClick={() => navigate('/profile')}
-            className="glass-button !px-4 !py-3"
-          >
-            <User className="w-6 h-6" />
-          </button>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => navigate('/profile')}
+              className="glass-button !px-4 !py-3"
+            >
+              <User className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Quick Actions - ГЛАВНЫЕ И ПЕРВЫЕ */}

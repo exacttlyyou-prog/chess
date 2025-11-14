@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ToastProvider } from './contexts/ToastContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Lazy load routes for code splitting
 const Onboarding = lazy(() => import('./pages/Onboarding'));
@@ -37,15 +38,17 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
-      <ToastProvider position="top-right" defaultDuration={5000}>
-        <Suspense fallback={
-          <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
-            <div className="text-2xl font-bold text-gradient">StakeChess</div>
-          </div>
-        }>
-          <AnimatedRoutes />
-        </Suspense>
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider position="top-right" defaultDuration={5000}>
+          <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
+              <div className="text-2xl font-bold text-gradient">StakeChess</div>
+            </div>
+          }>
+            <AnimatedRoutes />
+          </Suspense>
+        </ToastProvider>
+      </ThemeProvider>
     </Router>
   );
 }
