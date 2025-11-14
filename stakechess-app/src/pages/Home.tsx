@@ -77,7 +77,7 @@ export default function Home() {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black"
     >
       {/* Header */}
       <motion.div
@@ -117,9 +117,18 @@ export default function Home() {
 
           <div className="relative z-10">
             <div className="flex justify-between items-center mb-6">
-              <div>
-                <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
-                <h2 className="!text-display-sm text-gradient">1450</h2>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-stake-red/50 shadow-[0_0_16px_rgba(255,23,68,0.4)]">
+                  <img
+                    src="/images/heroes/ai-network.png"
+                    alt="Player"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
+                  <h2 className="!text-display-sm text-gradient">1450</h2>
+                </div>
               </div>
               <div className="text-right">
                 <p className="text-body-sm text-gray-400 mb-2">Прогресс</p>
