@@ -88,7 +88,7 @@ export default function Home() {
       >
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-4">
-            <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-6" />
+            <img src="/alfa-id-full.svg" alt="Alfa Bank" className="h-6" />
             <span className="text-sm font-semibold text-gray-400">Шахматы</span>
           </div>
           <div className="flex justify-between items-start">

@@ -81,7 +81,7 @@ export default function Onboarding() {
         >
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-10" />
+              <img src="/alfa-id-full.svg" alt="Alfa Bank" className="h-10" />
             </div>
             <h1 className="mb-2">
               <span className="text-gradient">Альфа Шахматы</span>
@@ -111,7 +111,7 @@ export default function Onboarding() {
 
             <div className="space-y-3">
               <button className="btn-white w-full flex items-center justify-center gap-3">
-                <img src="/Alfa ID.svg" alt="Alfa ID" className="h-5" />
+                <img src="/alfa-icon.svg" alt="Alfa ID" className="h-6" />
                 <span>Alfa ID</span>
               </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
@@ -200,7 +200,7 @@ export default function Onboarding() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-8" />
+            <img src="/alfa-id-full.svg" alt="Alfa Bank" className="h-8" />
             <h1 className="text-2xl font-bold">
               <span className="text-gradient">Шахматы</span>
             </h1>
