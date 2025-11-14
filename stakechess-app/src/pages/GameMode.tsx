@@ -39,17 +39,19 @@ const tournaments = [
     id: 1,
     title: 'Турнир выходного дня',
     time: 'Старт: 2:15:00',
-    ratingPoints: '+50 рейтинга',
+    ratingPoints: '+50',
     players: '128/256',
     entry: 'Открытый',
+    status: 'upcoming',
   },
   {
     id: 2,
     title: 'Ежедневная арена',
     time: 'Идет сейчас',
-    ratingPoints: '+25 рейтинга',
+    ratingPoints: '+25',
     players: '45/100',
     entry: 'Открытый',
+    status: 'live',
   },
 ];
 
@@ -196,7 +198,7 @@ export default function GameMode() {
           </motion.div>
         </>
       ) : (
-        /* Tournaments */
+        /* Tournaments - Hero Cards */
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -205,42 +207,58 @@ export default function GameMode() {
           {tournaments.map((tournament, index) => (
             <motion.div
               key={tournament.id}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1, type: 'spring' }}
-              className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: index * 0.1, type: 'spring', stiffness: 100 }}
+              className="card-hero min-h-[280px] cursor-pointer hover:scale-[1.01] transition-transform duration-300"
+              onClick={() => navigate('/play')}
             >
-              {/* Background chess piece */}
-              <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
-                <img
-                  src="/images/achievements/tournament-cup.png"
-                  alt=""
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              {/* Hero background with gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FF1744] via-[#D50000] to-[#AA0000]" />
 
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <h4 className="mb-2">{tournament.title}</h4>
-                    <p className="text-body-sm text-gray-400 font-medium">{tournament.time}</p>
+              {/* Subtle pattern overlay */}
+              <div className="absolute inset-0 opacity-10 chess-pattern" />
+
+              {/* Content */}
+              <div className="card-hero-content relative z-10">
+                {/* Status badge */}
+                <div className="mb-6">
+                  {tournament.status === 'live' ? (
+                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                      <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                      <span className="text-sm font-semibold text-white">В эфире</span>
+                    </div>
+                  ) : (
+                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                      <span className="text-sm font-semibold text-white/90">Скоро</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Title and time */}
+                <div className="mb-6">
+                  <h2 className="!text-4xl mb-2 text-white drop-shadow-lg">{tournament.title}</h2>
+                  <p className="text-xl text-white/90 font-medium">{tournament.time}</p>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
+                    <p className="text-sm text-white/70 mb-1">Награда</p>
+                    <p className="text-2xl font-bold text-white">{tournament.ratingPoints}</p>
                   </div>
-                  <div className="text-right bg-gradient-to-br from-stake-red/20 to-stake-red/5 px-4 py-3 rounded-2xl">
-                    <p className="text-stake-red font-bold text-lg">{tournament.ratingPoints}</p>
-                    <p className="text-xs text-gray-500">за победу</p>
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
+                    <p className="text-sm text-white/70 mb-1">Игроки</p>
+                    <p className="text-2xl font-bold text-white">{tournament.players}</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
+                    <p className="text-sm text-white/70 mb-1">Вход</p>
+                    <p className="text-lg font-bold text-white">{tournament.entry}</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <p className="text-body-sm text-gray-400 mb-1">Участники</p>
-                    <h6 className="!text-base">{tournament.players}</h6>
-                  </div>
-                  <div>
-                    <p className="text-body-sm text-gray-400 mb-1">Формат</p>
-                    <h6 className="!text-base">{tournament.entry}</h6>
-                  </div>
-                </div>
-                <button className="btn-primary w-full">
+
+                {/* CTA */}
+                <button className="w-full bg-white text-[#FF1744] font-bold py-4 rounded-2xl hover:bg-white/95 transition-all duration-200 shadow-lg">
                   Зарегистрироваться
                 </button>
               </div>

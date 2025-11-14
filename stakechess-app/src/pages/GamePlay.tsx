@@ -72,15 +72,22 @@ export default function GamePlay() {
 
   return (
     <div className="relative min-h-screen flex overflow-hidden">
-      {/* Premium Background */}
+      {/* Premium Background with depth and ambience */}
       <div className="fixed inset-0 z-0">
-        <img
-          src="/images/backgrounds/board-depth.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40" />
+        {/* Deep black gradient base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0A0A0A] to-black" />
+
+        {/* Subtle chess pattern */}
+        <div className="absolute inset-0 chess-pattern opacity-30" />
+
+        {/* Ambient light effects - создают глубину */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#FF1744] opacity-5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-0 right-1/4 w-[600px] h-[300px] bg-[#D50000] opacity-5 blur-[100px] rounded-full" />
+        </div>
+
+        {/* Vignette для фокуса на доске */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
       </div>
 
     <motion.div
