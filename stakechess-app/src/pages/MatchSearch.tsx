@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Swords, Check, X } from 'lucide-react';
+import { User, Swords, Check } from 'lucide-react';
 
 export default function MatchSearch() {
   const navigate = useNavigate();
