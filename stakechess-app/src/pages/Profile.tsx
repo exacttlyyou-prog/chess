@@ -203,7 +203,7 @@ export default function Profile() {
                 {/* Gradient definition */}
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style={{ stopColor: '#FF1744', stopOpacity: 1 }} />
+                    <stop offset="0%" style={{ stopColor: '#EF3124', stopOpacity: 1 }} />
                     <stop offset="100%" style={{ stopColor: '#D50000', stopOpacity: 1 }} />
                   </linearGradient>
                 </defs>
@@ -218,7 +218,7 @@ export default function Profile() {
                       cx={x}
                       cy={y}
                       r="4"
-                      fill="#FF1744"
+                      fill="#EF3124"
                       stroke="#0A0A0A"
                       strokeWidth="2"
                     />
