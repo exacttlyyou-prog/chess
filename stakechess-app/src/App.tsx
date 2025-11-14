@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import { ToastProvider } from './contexts/ToastContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { BoardSettingsProvider } from './contexts/BoardSettingsContext';
 
 // Lazy load routes for code splitting
 const Onboarding = lazy(() => import('./pages/Onboarding'));
@@ -14,6 +15,7 @@ const Profile = lazy(() => import('./pages/Profile'));
 const Tournaments = lazy(() => import('./pages/Tournaments'));
 const Premium = lazy(() => import('./pages/Premium'));
 const SelectAI = lazy(() => import('./pages/SelectAI'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -30,6 +32,7 @@ function AnimatedRoutes() {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/select-ai" element={<SelectAI />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </AnimatePresence>
   );
@@ -39,15 +42,17 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        <ToastProvider position="top-right" defaultDuration={5000}>
-          <Suspense fallback={
-            <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
-              <div className="text-2xl font-bold text-gradient">StakeChess</div>
-            </div>
-          }>
-            <AnimatedRoutes />
-          </Suspense>
-        </ToastProvider>
+        <BoardSettingsProvider>
+          <ToastProvider position="top-right" defaultDuration={5000}>
+            <Suspense fallback={
+              <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
+                <div className="text-2xl font-bold text-gradient">StakeChess</div>
+              </div>
+            }>
+              <AnimatedRoutes />
+            </Suspense>
+          </ToastProvider>
+        </BoardSettingsProvider>
       </ThemeProvider>
     </Router>
   );

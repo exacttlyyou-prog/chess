@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, User, Flame, Crown } from 'lucide-react';
+import { Zap, Bot, Trophy, User, Flame, Crown, Settings } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import ThemeToggle from '../components/ThemeToggle';
 import { useToast } from '../contexts/ToastContext';
@@ -109,6 +109,12 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
+            <button
+              onClick={() => navigate('/settings')}
+              className="glass-button !px-4 !py-3"
+            >
+              <Settings className="w-6 h-6" />
+            </button>
             <button
               onClick={() => navigate('/profile')}
               className="glass-button !px-4 !py-3"
