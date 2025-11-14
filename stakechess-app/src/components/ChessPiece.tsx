@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import DuckKing from './icons/DuckKing';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -126,6 +127,22 @@ const ChessPieceSVG = ({ type, color }: { type: PieceType; color: PieceColor }) 
 };
 
 export default function ChessPiece({ type, color, className = '' }: ChessPieceProps) {
+  if (type === 'king') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className={`relative ${className}`}
+        style={{
+          filter: 'drop-shadow(0 4px 12px rgba(239,49,36,0.4))'
+        }}
+      >
+        <DuckKing className="w-full h-full" />
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
