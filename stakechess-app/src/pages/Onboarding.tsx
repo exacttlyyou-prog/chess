@@ -102,15 +102,15 @@ export default function Onboarding() {
             </div>
 
             <div className="space-y-3">
-              <button className="btn-white w-full flex items-center justify-center gap-3">
+              <button onClick={handleAuth} className="btn-white w-full flex items-center justify-center gap-3">
                 <span className="font-bold text-stake-red">А</span>
                 <span>Alfa ID</span>
               </button>
-              <button className="btn-secondary w-full flex items-center justify-center gap-3">
+              <button disabled className="btn-secondary w-full flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
                 <Send size={18} />
                 <span>Telegram</span>
               </button>
-              <button className="btn-secondary w-full flex items-center justify-center gap-3">
+              <button disabled className="btn-secondary w-full flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
                 <User size={18} />
                 <span>VK ID</span>
               </button>

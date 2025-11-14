@@ -1,21 +1,43 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Flame } from 'lucide-react';
+import { Zap, Bot, Trophy, User, Flame, Crown } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
+import LiveGameCard from '../components/LiveGameCard';
+import { useToast } from '../contexts/ToastContext';
 
 const quickActions = [
-  { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
-  { id: 'ai', title: 'Игра с AI', Icon: Bot, path: '/play' },
-  { id: 'tournament', title: 'Турниры', Icon: Trophy, path: '/game-mode' },
-  { id: 'friends', title: 'С другом', Icon: Users, path: '/game-mode' },
+  { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode', desc: 'Блиц 3+2' },
+  { id: 'ai', title: 'Модели шахматистов', Icon: Bot, path: '/play', desc: 'Играй с AI стилями' },
+  { id: 'tournament', title: 'Турниры', Icon: Trophy, path: '/tournaments', desc: 'Призовые партии' },
+  { id: 'premium', title: 'King Premium', Icon: Crown, path: '/premium', desc: 'Получить -50%' },
 ];
 
 const liveGames = [
-  { id: 1, white: 'Гроссмейстер_89', black: 'ТактикПро', viewers: 234 },
-  { id: 2, white: 'Мастер_Блица', black: 'Шахматный_Король', viewers: 189 },
-  { id: 3, white: 'Стратег_2100', black: 'Защитник_1900', viewers: 156 },
-  { id: 4, white: 'Атакующий', black: 'Позиционник', viewers: 98 },
-  { id: 5, white: 'Молния_Ход', black: 'Терпеливый', viewers: 67 },
+  {
+    id: '1',
+    whitePlayer: { name: 'Гроссмейстер_89', rating: 2450 },
+    blackPlayer: { name: 'ТактикПро', rating: 2380 },
+    viewers: 234,
+    timeControl: '10+0',
+    currentMove: 24,
+    isHot: true,
+  },
+  {
+    id: '2',
+    whitePlayer: { name: 'Мастер_Блица', rating: 2100 },
+    blackPlayer: { name: 'Шахматный_Король', rating: 2050 },
+    viewers: 189,
+    timeControl: '3+2',
+    currentMove: 18,
+  },
+  {
+    id: '3',
+    whitePlayer: { name: 'Стратег_2100', rating: 1950 },
+    blackPlayer: { name: 'Защитник_1900', rating: 1920 },
+    viewers: 156,
+    timeControl: '5+3',
+    currentMove: 31,
+  },
 ];
 
 const recentGames = [
@@ -71,6 +93,7 @@ const widgets = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const { success, info } = useToast();
 
   return (
     <motion.div
@@ -154,45 +177,38 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {/* Live Games Ticker */}
+      {/* Live Games */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
-        className="mb-8 overflow-hidden"
+        className="px-8 mb-8"
       >
-        <div className="px-8 mb-3 flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <h6 className="!text-sm text-gray-400">Игры идут сейчас</h6>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
+            <h3 className="!text-xl">Игры в прямом эфире</h3>
+          </div>
+          <span className="text-sm text-gray-400">{liveGames.length} партий</span>
         </div>
-        <div className="relative">
-          <motion.div
-            className="flex gap-3"
-            animate={{ x: [0, -1000] }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {[...liveGames, ...liveGames].map((game, index) => (
-              <div
-                key={`${game.id}-${index}`}
-                className="glass-card px-4 py-3 flex items-center gap-3 min-w-[300px] cursor-pointer hover:bg-white/10 transition-all"
-                onClick={() => navigate('/play')}
-              >
-                <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <span className="text-sm font-medium truncate">{game.white}</span>
-                  <span className="text-gray-500 text-xs">vs</span>
-                  <span className="text-sm font-medium truncate">{game.black}</span>
-                </div>
-                <div className="flex items-center gap-1 text-gray-400 text-xs">
-                  <User className="w-3 h-3" />
-                  <span>{game.viewers}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
+        <div className="grid gap-4">
+          {liveGames.map((game, index) => (
+            <motion.div
+              key={game.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + index * 0.1 }}
+            >
+              <LiveGameCard
+                game={game}
+                onWatch={() => {
+                  success('Подключаемся к партии', 'Загрузка трансляции...');
+                  setTimeout(() => navigate('/play'), 1500);
+                }}
+                variant={index === 0 ? 'dynamic' : index === 1 ? 'glass' : 'default'}
+              />
+            </motion.div>
+          ))}
         </div>
       </motion.div>
 
@@ -200,23 +216,41 @@ export default function Home() {
       <div className="px-8 mb-8">
         <h3 className="!text-xl mb-6">Быстрые действия</h3>
         <div className="grid grid-cols-2 gap-4">
-          {quickActions.map((action, index) => (
-            <motion.button
-              key={action.id}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2 + index * 0.05, type: 'spring' }}
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate(action.path)}
-              className="glass-card p-8 text-center shadow-depth hover-lift"
-            >
-              <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <action.Icon className="w-7 h-7 text-stake-red" strokeWidth={2} />
-              </div>
-              <p className="font-semibold text-base">{action.title}</p>
-            </motion.button>
-          ))}
+          {quickActions.map((action, index) => {
+            const isSpecial = action.id === 'premium';
+            return (
+              <motion.button
+                key={action.id}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2 + index * 0.05, type: 'spring' }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  if (action.id === 'ai') {
+                    info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
+                  }
+                  navigate(action.path);
+                }}
+                className={`glass-card p-6 text-center shadow-depth hover-lift relative overflow-hidden ${
+                  isSpecial ? 'border-2 border-yellow-500/30' : ''
+                }`}
+              >
+                {isSpecial && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10" />
+                )}
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 ${
+                  isSpecial
+                    ? 'bg-gradient-to-br from-yellow-400/20 to-orange-500/20'
+                    : 'bg-gradient-to-br from-stake-red/20 to-stake-red/5'
+                }`}>
+                  <action.Icon className={`w-7 h-7 ${isSpecial ? 'text-yellow-400' : 'text-stake-red'}`} strokeWidth={2} />
+                </div>
+                <p className="font-semibold text-base mb-1">{action.title}</p>
+                <p className="text-xs text-gray-400">{action.desc}</p>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
 
