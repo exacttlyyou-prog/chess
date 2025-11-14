@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Users, User, Flame, Home as HomeIcon } from 'lucide-react';
+import { Zap, Bot, Trophy, Users, User, Flame } from 'lucide-react';
+import BottomNav from '../components/BottomNav';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode' },
@@ -85,17 +86,23 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-4"
       >
-        <div className="flex justify-between items-start mb-6">
-          <div>
-            <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
-            <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-6" />
+            <span className="text-sm font-semibold text-gray-400">Шахматы</span>
           </div>
-          <button
-            onClick={() => navigate('/profile')}
-            className="glass-button !px-4 !py-3"
-          >
-            <User className="w-6 h-6" />
-          </button>
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
+              <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
+            </div>
+            <button
+              onClick={() => navigate('/profile')}
+              className="glass-button !px-4 !py-3"
+            >
+              <User className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Stats Card with Hero Image */}
@@ -111,7 +118,7 @@ export default function Home() {
             <img
               src="/images/pieces/king-crown.png"
               alt=""
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover object-center"
             />
           </div>
 
@@ -230,7 +237,7 @@ export default function Home() {
                 <img
                   src={game.image}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
 
@@ -316,38 +323,7 @@ export default function Home() {
       </div>
 
       {/* Bottom Navigation */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="fixed bottom-0 left-0 right-0 glass border-t border-white/[0.08] px-6 py-4 flex justify-around backdrop-blur-2xl"
-        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
-      >
-        <button className="flex flex-col items-center gap-2 text-stake-red min-h-[44px]">
-          <div className="bg-stake-red/10 p-2 rounded-xl">
-            <HomeIcon className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Главная</span>
-        </button>
-        <button
-          onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
-        >
-          <div className="p-2">
-            <Zap className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Играть</span>
-        </button>
-        <button
-          onClick={() => navigate('/profile')}
-          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
-        >
-          <div className="p-2">
-            <User className="w-6 h-6" strokeWidth={2} />
-          </div>
-          <span className="text-xs font-medium">Профиль</span>
-        </button>
-      </motion.div>
+      <BottomNav active="home" />
     </motion.div>
   );
 }

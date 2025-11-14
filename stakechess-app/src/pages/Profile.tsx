@@ -8,13 +8,13 @@ import {
   Zap,
   Activity,
   Wind,
-  Home as HomeIcon,
   Target,
   Puzzle,
   Crown,
   Trophy,
   Check
 } from 'lucide-react';
+import BottomNav from '../components/BottomNav';
 
 const stats = {
   rating: 1450,
@@ -297,31 +297,7 @@ export default function Profile() {
       )}
 
       {/* Bottom Navigation */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="fixed bottom-0 left-0 right-0 glass border-t border-white/10 p-4 flex justify-around"
-      >
-        <button
-          onClick={() => navigate('/home')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
-        >
-          <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Главная</span>
-        </button>
-        <button
-          onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
-        >
-          <Zap className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Играть</span>
-        </button>
-        <button className="flex flex-col items-center gap-1 text-stake-red min-h-[44px]">
-          <User className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Профиль</span>
-        </button>
-      </motion.div>
+      <BottomNav active="profile" />
     </motion.div>
   );
 }

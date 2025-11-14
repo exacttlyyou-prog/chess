@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Zap, Activity, Wind, Clock, Shuffle, Bot, ArrowLeft, ArrowRight } from 'lucide-react';
+import BottomNav from '../components/BottomNav';
 
 const gameModes = [
   {
@@ -211,11 +212,11 @@ export default function GameMode() {
               className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
             >
               {/* Background chess piece */}
-              <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              <div className="absolute right-0 top-0 w-40 h-40 opacity-10 pointer-events-none">
                 <img
                   src="/images/achievements/tournament-cup.png"
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
 
@@ -248,6 +249,9 @@ export default function GameMode() {
           ))}
         </motion.div>
       )}
+
+      {/* Bottom Navigation */}
+      <BottomNav active="play" />
     </motion.div>
   );
 }

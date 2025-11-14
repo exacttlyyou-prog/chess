@@ -80,8 +80,11 @@ export default function Onboarding() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-10" />
+            </div>
             <h1 className="mb-2">
-              <span className="text-gradient">StakeChess</span>
+              <span className="text-gradient">Альфа Шахматы</span>
             </h1>
             <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
           </div>
@@ -107,6 +110,10 @@ export default function Onboarding() {
             </div>
 
             <div className="space-y-3">
+              <button className="btn-white w-full flex items-center justify-center gap-3">
+                <img src="/Alfa ID.svg" alt="Alfa ID" className="h-5" />
+                <span>Alfa ID</span>
+              </button>
               <button className="btn-secondary w-full flex items-center justify-center gap-3">
                 <Send size={18} />
                 <span>Telegram</span>
@@ -149,7 +156,7 @@ export default function Onboarding() {
           <img
             src={slides[currentSlide].image}
             alt={slides[currentSlide].title}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
@@ -188,13 +195,16 @@ export default function Onboarding() {
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
         <div className="px-8 pt-2 pb-4 flex justify-between items-center">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-3xl font-bold"
+            className="flex items-center gap-3"
           >
-            <span className="text-gradient">StakeChess</span>
-          </motion.h1>
+            <img src="/Alfa ID.svg" alt="Alfa Bank" className="h-8" />
+            <h1 className="text-2xl font-bold">
+              <span className="text-gradient">Шахматы</span>
+            </h1>
+          </motion.div>
           <motion.button
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
