@@ -8,6 +8,7 @@ import CheckmateModal from './CheckmateModal';
 import { ParticleEffect } from './ParticleEffect';
 import type { ChessSquare } from '../hooks/useChess';
 import { useSound } from '../hooks/useSound';
+import { useBoardSettings } from '../contexts/BoardSettingsContext';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -105,6 +106,10 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
   // Sound effects
   const { playSound } = useSound();
 
+  // Board settings
+  const { settings } = useBoardSettings();
+  const boardTheme = settings.theme;
+
   const currentTurn: PieceColor = game.turn() === 'w' ? 'white' : 'black';
 
   // Update board when position changes
@@ -162,9 +167,14 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
           });
 
           // Clear animation after it completes
+          const animationDuration = settings.animationSpeed === 'instant' ? 0
+            : settings.animationSpeed === 'fast' ? 150
+            : settings.animationSpeed === 'normal' ? 300
+            : 600;
+
           setTimeout(() => {
             setAnimatingPiece(null);
-          }, 400);
+          }, animationDuration + 100);
         }
 
         // Make the move to check for special conditions
@@ -326,22 +336,26 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
           {/* Board container with coordinates */}
           <div className="relative">
             {/* Rank labels (1-8) on the left */}
-            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
-              {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
-                <div key={rank} className="h-[12.5%] flex items-center">
-                  {rank}
-                </div>
-              ))}
-            </div>
+            {settings.showCoordinates && (
+              <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+                {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
+                  <div key={rank} className="h-[12.5%] flex items-center">
+                    {rank}
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* File labels (a-h) on the bottom */}
-            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
-              {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
-                <div key={file} className="w-[12.5%] flex justify-center">
-                  {file}
-                </div>
-              ))}
-            </div>
+            {settings.showCoordinates && (
+              <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+                {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
+                  <div key={file} className="w-[12.5%] flex justify-center">
+                    {file}
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Main board - transparent with grid lines */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden" style={{
@@ -370,16 +384,24 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                       <button
                         key={`${rowIndex}-${colIndex}`}
                         onClick={() => handleSquareClick(rowIndex, colIndex)}
-                        className={`
-                          relative aspect-square flex items-center justify-center
-                          transition-all duration-300 ease-out
-                          ${isDark ? 'bg-black/20' : 'bg-white/5'}
-                          ${selected ? 'bg-stake-red/30 shadow-[inset_0_0_24px_rgba(255,23,68,0.4)] ring-2 ring-inset ring-stake-red/60' : ''}
-                          ${validMove ? 'bg-stake-red/20' : ''}
-                          ${highlight ? 'bg-yellow-500/20 shadow-[inset_0_0_16px_rgba(234,179,8,0.3)]' : ''}
-                          hover:bg-white/10
-                        `}
-                        style={{ willChange: 'background-color' }}
+                        className="relative aspect-square flex items-center justify-center transition-all ease-out"
+                        style={{
+                          backgroundColor: selected
+                            ? boardTheme.colors.selected
+                            : validMove && settings.showLegalMoves
+                            ? boardTheme.colors.highlight
+                            : highlight && settings.highlightLastMove
+                            ? boardTheme.colors.lastMove
+                            : isDark
+                            ? boardTheme.colors.dark
+                            : boardTheme.colors.light,
+                          transitionDuration: settings.animationSpeed === 'instant' ? '0ms'
+                            : settings.animationSpeed === 'fast' ? '150ms'
+                            : settings.animationSpeed === 'normal' ? '300ms'
+                            : '600ms',
+                          boxShadow: selected ? `inset 0 0 24px ${boardTheme.colors.selected}` : undefined,
+                          willChange: 'background-color',
+                        }}
                       >
                       {validMove && !piece && (
                         <motion.div
@@ -445,7 +467,10 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                     top: `${(animatingPiece.to.row / 8) * 100}%`,
                   }}
                   transition={{
-                    duration: 0.3,
+                    duration: settings.animationSpeed === 'instant' ? 0
+                      : settings.animationSpeed === 'fast' ? 0.15
+                      : settings.animationSpeed === 'normal' ? 0.3
+                      : 0.6,
                     ease: [0.4, 0, 0.2, 1],
                   }}
                   style={{
