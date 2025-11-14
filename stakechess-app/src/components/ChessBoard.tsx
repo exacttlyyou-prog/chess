@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import type { Chess } from 'chess.js';
+import { Chess } from 'chess.js';
 import ChessPiece from './ChessPiece';
 import CaptureAnimation from './CaptureAnimation';
 import CheckIndicator from './CheckIndicator';
 import CheckmateModal from './CheckmateModal';
 import type { ChessSquare } from '../hooks/useChess';
+import { useSound } from '../hooks/useSound';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -84,6 +85,9 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
   const [isCheckmate, setIsCheckmate] = useState(false);
   const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
 
+  // Sound effects
+  const { playSound } = useSound();
+
   const currentTurn: PieceColor = game.turn() === 'w' ? 'white' : 'black';
 
   // Update board when position changes
@@ -126,8 +130,34 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
         const from = rowColToSquare(selectedSquare.row, selectedSquare.col);
         const to = rowColToSquare(row, col);
 
-        // Check if capturing a piece
+        // Get move info for sound detection
         const capturedPiece = board[row][col].piece;
+
+        // Make the move to check for special conditions
+        const testGame = new Chess(game.fen());
+        const moveResult = testGame.move({ from, to });
+
+        // Play appropriate sound
+        if (moveResult) {
+          if (moveResult.flags.includes('k') || moveResult.flags.includes('q')) {
+            // Castling
+            playSound('castle');
+          } else if (moveResult.flags.includes('p')) {
+            // Promotion
+            playSound('promote');
+          } else if (testGame.inCheck()) {
+            // Check
+            playSound('check');
+          } else if (capturedPiece) {
+            // Capture
+            playSound('capture');
+          } else {
+            // Regular move
+            playSound('move');
+          }
+        }
+
+        // Check if capturing a piece
         if (capturedPiece) {
           // Trigger capture animation
           const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();

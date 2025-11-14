@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X } from 'lucide-react';
 import ChessBoard from '../components/ChessBoard';
 import { useChess } from '../hooks/useChess';
 import type { ChessSquare } from '../hooks/useChess';
@@ -11,6 +11,8 @@ import {
   getThinkingTime,
   type ChessPersonality
 } from '../ai/chessPersonalities';
+import { analyzePosition, type ChessAnalysis } from '../services/aiAnalysis';
+import { useToast } from '../contexts/ToastContext';
 
 interface Move {
   notation: string;
@@ -20,11 +22,15 @@ interface Move {
 export default function GamePlay() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { info } = useToast();
   const [timeWhite, setTimeWhite] = useState(180); // 3 minutes in seconds
   const [timeBlack, setTimeBlack] = useState(180);
   const [showMenu, setShowMenu] = useState(false);
   const [moveHistory, setMoveHistory] = useState<Move[]>([]);
   const [isAIThinking, setIsAIThinking] = useState(false);
+  const [showAIAnalysis, setShowAIAnalysis] = useState(false);
+  const [aiAnalysis, setAIAnalysis] = useState<ChessAnalysis | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Get AI personality from navigation state or default to Magnus
   const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'magnus';
@@ -124,6 +130,21 @@ export default function GamePlay() {
     }
   };
 
+  const handleAIAnalysis = async () => {
+    setIsAnalyzing(true);
+    info('AI Анализ', 'Анализируем позицию...');
+
+    try {
+      const analysis = await analyzePosition(game, 'deepseek');
+      setAIAnalysis(analysis);
+      setShowAIAnalysis(true);
+    } catch (error) {
+      console.error('Analysis error:', error);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex overflow-hidden">
       {/* Premium Background with Glow */}
@@ -215,25 +236,30 @@ export default function GamePlay() {
           className="mt-4 flex gap-3"
         >
           <button
+            onClick={handleAIAnalysis}
+            disabled={isAnalyzing}
+            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex items-center justify-center gap-2 hover:!bg-stake-red/20 hover:!border-stake-red/50 hover:shadow-[0_0_16px_rgba(239,49,36,0.3)] transition-all duration-300 disabled:opacity-50"
+          >
+            <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
+            <span className="font-semibold text-stake-red">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
+          </button>
+          <button
             onClick={() => setShowMenu(!showMenu)}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Settings className="w-5 h-5" />
-            <span className="font-semibold">Меню</span>
           </button>
           <button
             onClick={handleDraw}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Handshake className="w-5 h-5" />
-            <span className="font-semibold">Ничья</span>
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/40 flex-1 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
+            className="glass-button !bg-red-500/20 !border-red-500/40 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
           >
             <Flag className="w-5 h-5 text-red-400" />
-            <span className="text-red-300">Сдаться</span>
           </button>
         </motion.div>
       </div>
@@ -348,6 +374,110 @@ export default function GamePlay() {
           </motion.div>
         </motion.div>
       )}
+
+      {/* AI Analysis Panel */}
+      <AnimatePresence>
+        {showAIAnalysis && aiAnalysis && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50"
+            onClick={() => setShowAIAnalysis(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-card p-8 w-full max-w-2xl max-h-[80vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="!text-2xl !mb-0">AI Анализ позиции</h3>
+                    <p className="text-sm text-gray-400">Powered by DeepSeek</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowAIAnalysis(false)}
+                  className="glass-button !p-3"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Evaluation */}
+                <div className="glass-card p-6 bg-gradient-to-br from-stake-red/10 to-transparent border-stake-red/30">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-3 h-3 rounded-full bg-stake-red" />
+                    <h4 className="!text-lg !mb-0">Оценка позиции</h4>
+                  </div>
+                  <p className="text-3xl font-bold text-gradient mb-2">{aiAnalysis.evaluation}</p>
+                  <p className="text-body text-gray-300">{aiAnalysis.positionSummary}</p>
+                </div>
+
+                {/* Best Move */}
+                <div className="glass-card p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                    <h4 className="!text-lg !mb-0">Лучший ход</h4>
+                  </div>
+                  <p className="text-2xl font-bold text-white mb-2">{aiAnalysis.bestMove}</p>
+                  <p className="text-body text-gray-400">{aiAnalysis.suggestedPlan}</p>
+                </div>
+
+                {/* Threats */}
+                {aiAnalysis.threats.length > 0 && (
+                  <div className="glass-card p-6 bg-gradient-to-br from-red-500/10 to-transparent border-red-500/30">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-red-400" />
+                      <h4 className="!text-lg !mb-0">Угрозы</h4>
+                    </div>
+                    <ul className="space-y-2">
+                      {aiAnalysis.threats.map((threat, i) => (
+                        <li key={i} className="text-body text-gray-300 flex items-start gap-2">
+                          <span className="text-red-400 mt-1">•</span>
+                          <span>{threat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Opportunities */}
+                {aiAnalysis.opportunities.length > 0 && (
+                  <div className="glass-card p-6 bg-gradient-to-br from-green-500/10 to-transparent border-green-500/30">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-green-400" />
+                      <h4 className="!text-lg !mb-0">Возможности</h4>
+                    </div>
+                    <ul className="space-y-2">
+                      {aiAnalysis.opportunities.map((opp, i) => (
+                        <li key={i} className="text-body text-gray-300 flex items-start gap-2">
+                          <span className="text-green-400 mt-1">•</span>
+                          <span>{opp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={() => setShowAIAnalysis(false)}
+                className="btn-primary w-full !py-4 mt-6"
+              >
+                Понятно
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
     </div>
   );
