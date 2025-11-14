@@ -4,6 +4,8 @@ import { AnimatePresence } from 'framer-motion';
 import { ToastProvider } from './contexts/ToastContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { BoardSettingsProvider } from './contexts/BoardSettingsContext';
+import { TournamentsProvider } from './contexts/TournamentsContext';
+import { AchievementsProvider } from './contexts/AchievementsContext';
 
 // Lazy load routes for code splitting
 const Onboarding = lazy(() => import('./pages/Onboarding'));
@@ -43,15 +45,19 @@ function App() {
     <Router>
       <ThemeProvider>
         <BoardSettingsProvider>
-          <ToastProvider position="top-right" defaultDuration={5000}>
-            <Suspense fallback={
-              <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
-                <div className="text-2xl font-bold text-gradient">StakeChess</div>
-              </div>
-            }>
-              <AnimatedRoutes />
-            </Suspense>
-          </ToastProvider>
+          <TournamentsProvider>
+            <AchievementsProvider>
+              <ToastProvider position="top-right" defaultDuration={5000}>
+                <Suspense fallback={
+                  <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
+                    <div className="text-2xl font-bold text-gradient">StakeChess</div>
+                  </div>
+                }>
+                  <AnimatedRoutes />
+                </Suspense>
+              </ToastProvider>
+            </AchievementsProvider>
+          </TournamentsProvider>
         </BoardSettingsProvider>
       </ThemeProvider>
     </Router>

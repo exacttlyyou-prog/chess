@@ -1,19 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Swords, Check } from 'lucide-react';
+import { generateOpponentAvatar, svgToDataUrl } from '../utils/avatarGenerator';
 
 export default function MatchSearch() {
   const navigate = useNavigate();
   const [stage, setStage] = useState<'searching' | 'found' | 'ready'>('searching');
   const [progress, setProgress] = useState(0);
 
-  // Simulated opponent data
-  const opponent = {
-    name: 'Мастер_1450',
-    rating: 1445,
-    avatar: '/images/pieces/knight-glass.png',
-  };
+  // Generate opponent data
+  const opponent = useMemo(() => {
+    const rating = 1400 + Math.floor(Math.random() * 200);
+    const { name, avatar } = generateOpponentAvatar(rating);
+    return {
+      name,
+      rating,
+      avatar: svgToDataUrl(avatar),
+    };
+  }, []);
 
   // Search animation (3 seconds)
   useEffect(() => {

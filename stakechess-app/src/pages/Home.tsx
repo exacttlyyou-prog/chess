@@ -263,6 +263,49 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
+      {/* Tournament Banner - White with Red/Black */}
+      <div className="px-8 mb-10">
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, type: 'spring' }}
+          whileHover={{ scale: 1.02, y: -4 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigate('/tournaments')}
+          className="w-full bg-white rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative overflow-hidden"
+        >
+          {/* Red accent gradient */}
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-stake-red/10 to-transparent" />
+
+          <div className="relative z-10 flex items-center gap-6">
+            {/* Trophy Icon */}
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-[0_4px_16px_rgba(239,49,36,0.4)]">
+              <Trophy className="w-10 h-10 text-white" strokeWidth={2.5} />
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 text-left">
+              <h3 className="!text-2xl text-black mb-1">Турниры</h3>
+              <p className="text-gray-700 text-base mb-2">Сразись с лучшими. Выиграй призы.</p>
+              <div className="flex items-center gap-3">
+                <div className="px-3 py-1 rounded-lg bg-stake-red/10 border border-stake-red/20">
+                  <span className="text-xs font-semibold text-stake-red">12 турниров</span>
+                </div>
+                <div className="px-3 py-1 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                  <span className="text-xs font-semibold text-yellow-600">🏆 До 100K монет</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7 4L13 10L7 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </motion.button>
+      </div>
 
       {/* Recent Games Carousel */}
       <div className="px-8 mb-8">

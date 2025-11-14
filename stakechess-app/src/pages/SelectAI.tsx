@@ -1,22 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Bot, Trophy, Flame, Shield, Zap, Crown, Star } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { CHESS_PERSONALITIES } from '../ai/chessPersonalities';
 import type { ChessPersonality } from '../ai/chessPersonalities';
 
-const personalityIcons: Record<string, typeof Bot> = {
-  magnus: Crown,
-  kasparov: Flame,
-  fischer: Star,
-  tal: Zap,
-  petrosian: Shield,
-  capablanca: Trophy,
-  morphy: Zap,
-  karpov: Shield,
-  botvinnik: Star,
-  beginner: Bot,
-  intermediate: Bot,
-  advanced: Bot,
+const personalityBackgrounds: Record<string, string> = {
+  magnus: '/images/pieces/king-solo.png',
+  kasparov: '/images/pieces/knight-dynamic.png',
+  fischer: '/images/pieces/king-crown.png',
+  tal: '/images/pieces/knight-speed.png',
+  petrosian: '/images/pieces/royal-elite.png',
+  capablanca: '/images/pieces/royal-glass.png',
+  morphy: '/images/pieces/knight-light.png',
+  karpov: '/images/pieces/royal-pair.png',
+  botvinnik: '/images/pieces/pair-classic.png',
+  beginner: '/images/pieces/pawn-glow.png',
+  intermediate: '/images/pieces/knight-glass.png',
+  advanced: '/images/pieces/king-queen-red.png',
 };
 
 const getDifficultyColor = (rating: number) => {
@@ -98,7 +98,7 @@ export default function SelectAI() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {category.personalities.map((personalityId, index) => {
                 const personality = CHESS_PERSONALITIES[personalityId];
-                const Icon = personalityIcons[personalityId] || Bot;
+                const bgImage = personalityBackgrounds[personalityId];
 
                 return (
                   <motion.button
@@ -106,81 +106,79 @@ export default function SelectAI() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 + index * 0.05 }}
-                    whileHover={{ scale: 1.03, y: -4 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleSelectPersonality(personality)}
-                    className="glass-card p-6 text-left relative overflow-hidden group hover-lift"
+                    className="glass-card p-4 text-left relative overflow-hidden group hover-lift"
                   >
-                    {/* Background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-stake-red/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                    {/* Icon */}
-                    <div className="relative z-10 mb-4">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mb-3">
-                        <Icon className="w-7 h-7 text-stake-red" strokeWidth={2} />
+                    {/* Two Column Layout */}
+                    <div className="flex items-center gap-4">
+                      {/* Left: Image */}
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border border-white/10">
+                        <img
+                          src={bgImage}
+                          alt={personality.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
 
-                      {/* Name & Rating */}
-                      <h3 className="!text-lg mb-2">{personality.name}</h3>
-                      <div className="flex items-center gap-2 mb-3">
-                        <div
-                          className={`px-2 py-1 rounded-lg text-xs font-semibold border ${getDifficultyColor(
-                            personality.rating
-                          )}`}
-                        >
-                          {getDifficultyLabel(personality.rating)}
-                        </div>
-                        <div className="text-sm font-mono text-gray-400">
-                          ELO {personality.rating}
-                        </div>
-                      </div>
+                      {/* Right: Text Content */}
+                      <div className="flex-1 min-w-0">
+                        {/* Name */}
+                        <h3 className="!text-base font-bold mb-1 truncate">{personality.name}</h3>
 
-                      {/* Description */}
-                      <p className="text-body-sm text-gray-400 mb-4">
-                        {personality.description}
-                      </p>
-
-                      {/* Style indicators */}
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500">Агрессивность</span>
-                          <div className="flex gap-1">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                              <div
-                                key={i}
-                                className={`w-3 h-3 rounded-sm ${
-                                  i <= personality.style.aggression * 5
-                                    ? 'bg-stake-red'
-                                    : 'bg-stake-gray'
-                                }`}
-                              />
-                            ))}
+                        {/* Rating & Difficulty */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <div
+                            className={`px-2 py-0.5 rounded-lg text-xs font-semibold border ${getDifficultyColor(
+                              personality.rating
+                            )}`}
+                          >
+                            {getDifficultyLabel(personality.rating)}
+                          </div>
+                          <div className="text-xs font-mono text-gray-400">
+                            {personality.rating}
                           </div>
                         </div>
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500">Тактика</span>
-                          <div className="flex gap-1">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                              <div
-                                key={i}
-                                className={`w-3 h-3 rounded-sm ${
-                                  i <= personality.style.tactical * 5
-                                    ? 'bg-blue-500'
-                                    : 'bg-stake-gray'
-                                }`}
-                              />
-                            ))}
+
+                        {/* Style indicators */}
+                        <div className="flex items-center gap-3 text-xs">
+                          <div className="flex items-center gap-1">
+                            <span className="text-gray-500">⚔️</span>
+                            <div className="flex gap-0.5">
+                              {[1, 2, 3, 4, 5].map((i) => (
+                                <div
+                                  key={i}
+                                  className={`w-1.5 h-3 rounded-sm ${
+                                    i <= personality.style.aggression * 5
+                                      ? 'bg-stake-red'
+                                      : 'bg-gray-700'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-gray-500">🧠</span>
+                            <div className="flex gap-0.5">
+                              {[1, 2, 3, 4, 5].map((i) => (
+                                <div
+                                  key={i}
+                                  className={`w-1.5 h-3 rounded-sm ${
+                                    i <= personality.style.tactical * 5
+                                      ? 'bg-blue-500'
+                                      : 'bg-gray-700'
+                                  }`}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Hover glow */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent pointer-events-none"
-                    />
+                    {/* Hover effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-stake-red/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   </motion.button>
                 );
               })}
