@@ -5,6 +5,7 @@ import ChessPiece from './ChessPiece';
 import CaptureAnimation from './CaptureAnimation';
 import CheckIndicator from './CheckIndicator';
 import CheckmateModal from './CheckmateModal';
+import { ParticleEffect } from './ParticleEffect';
 import type { ChessSquare } from '../hooks/useChess';
 import { useSound } from '../hooks/useSound';
 
@@ -79,11 +80,27 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
   const [lastMove, setLastMove] = useState<{ from: { row: number; col: number }; to: { row: number; col: number } } | null>(null);
   const [capturedPieces, setCapturedPieces] = useState<{ white: PieceType[]; black: PieceType[] }>({ white: [], black: [] });
 
+  // Animation state for moving pieces
+  const [animatingPiece, setAnimatingPiece] = useState<{
+    piece: Piece;
+    from: { row: number; col: number };
+    to: { row: number; col: number };
+  } | null>(null);
+
   // Hero moment states
   const [captureAnimations, setCaptureAnimations] = useState<Array<{ id: number; position: { x: number; y: number }; pieceColor: PieceColor }>>([]);
   const [kingInCheck, setKingInCheck] = useState<{ row: number; col: number } | null>(null);
   const [isCheckmate, setIsCheckmate] = useState(false);
   const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
+
+  // Particle effects
+  const [particleEffects, setParticleEffects] = useState<Array<{
+    id: number;
+    x: number;
+    y: number;
+    type: 'capture' | 'promote' | 'check';
+    trigger: boolean;
+  }>>([]);
 
   // Sound effects
   const { playSound } = useSound();
@@ -130,8 +147,25 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
         const from = rowColToSquare(selectedSquare.row, selectedSquare.col);
         const to = rowColToSquare(row, col);
 
+        // Get the piece being moved for animation
+        const movingPiece = board[selectedSquare.row][selectedSquare.col].piece;
+
         // Get move info for sound detection
         const capturedPiece = board[row][col].piece;
+
+        // Start piece animation
+        if (movingPiece) {
+          setAnimatingPiece({
+            piece: movingPiece,
+            from: selectedSquare,
+            to: { row, col },
+          });
+
+          // Clear animation after it completes
+          setTimeout(() => {
+            setAnimatingPiece(null);
+          }, 400);
+        }
 
         // Make the move to check for special conditions
         const testGame = new Chess(game.fen());
@@ -139,15 +173,40 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
 
         // Play appropriate sound
         if (moveResult) {
+          const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
+          const squareSize = boardRect ? boardRect.width / 8 : 0;
+          const particleX = boardRect ? boardRect.left + (col + 0.5) * squareSize : 0;
+          const particleY = boardRect ? boardRect.top + (row + 0.5) * squareSize : 0;
+
           if (moveResult.flags.includes('k') || moveResult.flags.includes('q')) {
             // Castling
             playSound('castle');
           } else if (moveResult.flags.includes('p')) {
-            // Promotion
+            // Promotion - add particle effect
             playSound('promote');
+            if (boardRect) {
+              const effectId = Date.now();
+              setParticleEffects(prev => [...prev, {
+                id: effectId,
+                x: particleX,
+                y: particleY,
+                type: 'promote',
+                trigger: true,
+              }]);
+            }
           } else if (testGame.inCheck()) {
-            // Check
+            // Check - add particle effect
             playSound('check');
+            if (boardRect) {
+              const effectId = Date.now();
+              setParticleEffects(prev => [...prev, {
+                id: effectId,
+                x: particleX,
+                y: particleY,
+                type: 'check',
+                trigger: true,
+              }]);
+            }
           } else if (capturedPiece) {
             // Capture
             playSound('capture');
@@ -171,6 +230,16 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                 y: boardRect.top + (row + 0.5) * squareSize,
               },
               pieceColor: capturedPiece.color,
+            }]);
+
+            // Add particle effect for capture
+            const effectId = Date.now() + 1;
+            setParticleEffects(prev => [...prev, {
+              id: effectId,
+              x: boardRect.left + (col + 0.5) * squareSize,
+              y: boardRect.top + (row + 0.5) * squareSize,
+              type: 'capture',
+              trigger: true,
             }]);
           }
 
@@ -347,7 +416,13 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className="w-full h-full select-none cursor-pointer relative z-10"
+                            className={`w-full h-full select-none cursor-pointer relative z-10 ${
+                              animatingPiece &&
+                              animatingPiece.from.row === rowIndex &&
+                              animatingPiece.from.col === colIndex
+                                ? 'opacity-0'
+                                : ''
+                            }`}
                           />
                         </div>
                       )}
@@ -356,6 +431,37 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                   })
                 )}
               </div>
+
+              {/* Animating piece overlay */}
+              {animatingPiece && (
+                <motion.div
+                  className="absolute pointer-events-none z-50"
+                  initial={{
+                    left: `${(animatingPiece.from.col / 8) * 100}%`,
+                    top: `${(animatingPiece.from.row / 8) * 100}%`,
+                  }}
+                  animate={{
+                    left: `${(animatingPiece.to.col / 8) * 100}%`,
+                    top: `${(animatingPiece.to.row / 8) * 100}%`,
+                  }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  style={{
+                    width: `${100 / 8}%`,
+                    height: `${100 / 8}%`,
+                  }}
+                >
+                  <div className="w-full h-full p-2 relative">
+                    <ChessPiece
+                      type={animatingPiece.piece.type}
+                      color={animatingPiece.piece.color}
+                      className="w-full h-full select-none drop-shadow-2xl"
+                    />
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </div>
@@ -406,6 +512,20 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
           pieceColor={animation.pieceColor}
           onComplete={() => {
             setCaptureAnimations(prev => prev.filter(a => a.id !== animation.id));
+          }}
+        />
+      ))}
+
+      {/* Particle effects */}
+      {particleEffects.map(effect => (
+        <ParticleEffect
+          key={effect.id}
+          trigger={effect.trigger}
+          x={effect.x}
+          y={effect.y}
+          type={effect.type}
+          onComplete={() => {
+            setParticleEffects(prev => prev.filter(e => e.id !== effect.id));
           }}
         />
       ))}
