@@ -237,6 +237,163 @@ Alfa Bank A-Club style,
 } as const;
 
 // ============================================
+// UI ELEMENT PROMPTS
+// ============================================
+export const UI_PROMPTS = {
+  achievementBadge: `Chess trophy icon as 3D object,
+glossy black with red metallic star accent,
+floating on dark grey rounded card background,
+soft drop shadow,
+premium luxury render,
+Alfa Bank A-Club style,
+--ar 1:1 --style raw --v 6`,
+
+  winnerCrown: `3D crown icon for victory,
+glossy black with red gems,
+floating elegantly,
+pure black background,
+soft gold rim light,
+luxury aesthetic,
+--ar 1:1 --style raw --v 6`,
+} as const;
+
+// ============================================
+// ONBOARDING ILLUSTRATIONS
+// ============================================
+export const ONBOARDING_PROMPTS = {
+  welcome: `Modern welcome screen illustration,
+abstract chess knight silhouette,
+glossy black with red glow,
+minimal geometric shapes,
+pure black background,
+luxury banking aesthetic,
+contemporary digital art,
+--ar 9:16 --style raw --v 6`,
+
+  tutorial1: `Chess pieces arrangement tutorial,
+3D visualization of opening position,
+glossy black pieces with red accents,
+floating on minimal grid,
+pure black background,
+clean instructional style,
+luxury aesthetic,
+--ar 16:9 --style raw --v 6`,
+
+  tutorial2: `Chess move visualization,
+glowing red arrow showing piece movement,
+glossy black chess piece,
+minimal geometric background,
+pure black base,
+premium instructional design,
+--ar 16:9 --style raw --v 6`,
+
+  tutorial3: `Chess strategy concept,
+abstract network of connected pieces,
+glossy black with red connection lines,
+floating minimal composition,
+pure black background,
+sophisticated educational illustration,
+--ar 16:9 --style raw --v 6`,
+} as const;
+
+// ============================================
+// CHESS RULES ILLUSTRATIONS
+// ============================================
+export const RULES_PROMPTS = {
+  pawnMovement: `Chess pawn movement diagram,
+glossy black pawn with red arrows showing moves,
+minimal grid squares,
+pure black background,
+clean instructional style,
+luxury educational aesthetic,
+--ar 1:1 --style raw --v 6`,
+
+  castling: `Chess castling illustration,
+king and rook with red curved arrow,
+glossy black pieces,
+minimal board representation,
+pure black background,
+premium instructional design,
+--ar 16:9 --style raw --v 6`,
+
+  enPassant: `En passant capture illustration,
+two pawns with red highlight showing special move,
+glossy black pieces,
+minimal grid,
+pure black background,
+elegant instructional style,
+--ar 16:9 --style raw --v 6`,
+
+  checkmate: `Checkmate position illustration,
+king surrounded by pieces with red danger highlight,
+glossy black chess pieces,
+dramatic minimal composition,
+pure black background,
+luxury educational aesthetic,
+--ar 1:1 --style raw --v 6`,
+} as const;
+
+// ============================================
+// BUTTON/ACTION ICONS
+// ============================================
+export const BUTTON_ICONS = {
+  play: `Play button icon,
+glossy black circle with red triangle,
+floating with soft shadow,
+pure black background,
+minimal luxury design,
+premium ui element,
+--ar 1:1 --style raw --v 6`,
+
+  tournament: `Tournament trophy icon,
+glossy black trophy with red ribbon,
+3D premium render,
+pure black background,
+luxury competitive aesthetic,
+--ar 1:1 --style raw --v 6`,
+
+  register: `User profile icon,
+glossy black silhouette with red accent,
+minimal 3D design,
+pure black background,
+premium ui element,
+Alfa Bank style,
+--ar 1:1 --style raw --v 6`,
+
+  analysis: `Chess analysis icon,
+glossy black magnifying glass over board,
+red highlights,
+3D premium render,
+pure black background,
+luxury analytical aesthetic,
+--ar 1:1 --style raw --v 6`,
+
+  blog: `Blog/News icon,
+glossy black document with red bookmark,
+minimal 3D design,
+pure black background,
+premium ui element,
+contemporary aesthetic,
+--ar 1:1 --style raw --v 6`,
+
+  settings: `Settings gear icon,
+glossy black gear with red inner ring,
+3D minimal design,
+pure black background,
+luxury ui element,
+premium aesthetic,
+--ar 1:1 --style raw --v 6`,
+
+  profile: `User crown icon,
+glossy black crown with red jewel,
+3D premium render,
+pure black background,
+luxury personal brand,
+Alfa Bank VIP style,
+--ar 1:1 --style raw --v 6`,
+} as const;
+
+// ============================================
 // SPACING SYSTEM
 // ============================================
 export const SPACING = {
@@ -276,6 +433,10 @@ export default {
   COLORS,
   CHESS_PIECE_PROMPTS,
   BOARD_PROMPTS,
+  UI_PROMPTS,
+  ONBOARDING_PROMPTS,
+  RULES_PROMPTS,
+  BUTTON_ICONS,
   SPACING,
   RADIUS,
   SHADOWS,
