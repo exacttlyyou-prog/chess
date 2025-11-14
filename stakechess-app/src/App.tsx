@@ -12,6 +12,7 @@ const GamePlay = lazy(() => import('./pages/GamePlay'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Tournaments = lazy(() => import('./pages/Tournaments'));
 const Premium = lazy(() => import('./pages/Premium'));
+const SelectAI = lazy(() => import('./pages/SelectAI'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function AnimatedRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/premium" element={<Premium />} />
+        <Route path="/select-ai" element={<SelectAI />} />
       </Routes>
     </AnimatePresence>
   );

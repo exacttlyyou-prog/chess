@@ -7,7 +7,7 @@ import { useToast } from '../contexts/ToastContext';
 
 const quickActions = [
   { id: 'quick', title: 'Быстрая игра', Icon: Zap, path: '/game-mode', desc: 'Блиц 3+2' },
-  { id: 'ai', title: 'Модели шахматистов', Icon: Bot, path: '/play', desc: 'Играй с AI стилями' },
+  { id: 'ai', title: 'Модели шахматистов', Icon: Bot, path: '/select-ai', desc: 'Играй с AI стилями' },
   { id: 'tournament', title: 'Турниры', Icon: Trophy, path: '/tournaments', desc: 'Призовые партии' },
   { id: 'premium', title: 'King Premium', Icon: Crown, path: '/premium', desc: 'Получить -50%' },
 ];

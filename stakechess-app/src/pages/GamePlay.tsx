@@ -1,26 +1,52 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Handshake, Flag, Settings, ArrowLeft, Clock } from 'lucide-react';
+import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot } from 'lucide-react';
 import ChessBoard from '../components/ChessBoard';
+import { useChess } from '../hooks/useChess';
+import type { ChessSquare } from '../hooks/useChess';
+import {
+  CHESS_PERSONALITIES,
+  selectMoveByPersonality,
+  getThinkingTime,
+  type ChessPersonality
+} from '../ai/chessPersonalities';
 
 interface Move {
-  from: { row: number; col: number };
-  to: { row: number; col: number };
-  piece: string;
   notation: string;
   time: string;
 }
 
 export default function GamePlay() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [timeWhite, setTimeWhite] = useState(180); // 3 minutes in seconds
   const [timeBlack, setTimeBlack] = useState(180);
-  const [currentTurn, setCurrentTurn] = useState<'white' | 'black'>('white');
   const [showMenu, setShowMenu] = useState(false);
   const [moveHistory, setMoveHistory] = useState<Move[]>([]);
+  const [isAIThinking, setIsAIThinking] = useState(false);
 
+  // Get AI personality from navigation state or default to Magnus
+  const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'magnus';
+  const aiPersonality: ChessPersonality = CHESS_PERSONALITIES[aiPersonalityId] || CHESS_PERSONALITIES.magnus;
+
+  const {
+    game,
+    position,
+    makeMove,
+    turn,
+    isCheckmate,
+    isStalemate,
+    isDraw,
+  } = useChess();
+
+  const currentTurn = turn === 'w' ? 'white' : 'black';
+  const isPlayerTurn = currentTurn === 'white' && !isAIThinking;
+
+  // Timer effect
   useEffect(() => {
+    if (isCheckmate || isStalemate || isDraw) return;
+
     const timer = setInterval(() => {
       if (currentTurn === 'white') {
         setTimeWhite((prev) => Math.max(0, prev - 1));
@@ -30,20 +56,60 @@ export default function GamePlay() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentTurn]);
+  }, [currentTurn, isCheckmate, isStalemate, isDraw]);
 
-  const handleMove = (from: { row: number; col: number }, to: { row: number; col: number }) => {
-    setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
+  // AI move logic - responds to player moves with personality
+  const makeAIMove = useCallback(() => {
+    if (currentTurn !== 'black' || isCheckmate || isStalemate || isDraw) return;
 
-    // Add move to history (simplified notation)
-    const move: Move = {
-      from,
-      to,
-      piece: '',
-      notation: `${String.fromCharCode(97 + from.col)}${8 - from.row}-${String.fromCharCode(97 + to.col)}${8 - to.row}`,
-      time: `${Math.floor((currentTurn === 'white' ? timeWhite : timeBlack) / 60)}:${((currentTurn === 'white' ? timeWhite : timeBlack) % 60).toString().padStart(2, '0')}`
-    };
-    setMoveHistory([...moveHistory, move]);
+    setIsAIThinking(true);
+
+    // Get personality-based thinking time
+    const thinkingDelay = getThinkingTime(aiPersonality);
+
+    setTimeout(() => {
+      const selectedMove = selectMoveByPersonality(game, aiPersonality);
+
+      if (!selectedMove) {
+        setIsAIThinking(false);
+        return;
+      }
+
+      const result = makeMove({
+        from: selectedMove.from as ChessSquare,
+        to: selectedMove.to as ChessSquare,
+        promotion: selectedMove.promotion as 'q' | 'r' | 'b' | 'n' | undefined,
+      });
+
+      if (result.success) {
+        const currentTime = timeBlack;
+        setMoveHistory(prev => [...prev, {
+          notation: selectedMove.san,
+          time: `${Math.floor(currentTime / 60)}:${(currentTime % 60).toString().padStart(2, '0')}`
+        }]);
+      }
+
+      setIsAIThinking(false);
+    }, thinkingDelay);
+  }, [game, makeMove, currentTurn, isCheckmate, isStalemate, isDraw, timeBlack, aiPersonality]);
+
+  // Trigger AI move when it's black's turn
+  useEffect(() => {
+    if (currentTurn === 'black' && !isAIThinking) {
+      makeAIMove();
+    }
+  }, [currentTurn, isAIThinking, makeAIMove]);
+
+  const handleMove = (from: ChessSquare, to: ChessSquare) => {
+    const result = makeMove({ from, to });
+
+    if (result.success && result.move) {
+      const currentTime = currentTurn === 'white' ? timeWhite : timeBlack;
+      setMoveHistory(prev => [...prev, {
+        notation: result.move.san,
+        time: `${Math.floor(currentTime / 60)}:${(currentTime % 60).toString().padStart(2, '0')}`
+      }]);
+    }
   };
 
   const handleResign = () => {
@@ -89,7 +155,7 @@ export default function GamePlay() {
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="mb-4 flex items-center gap-4"
+          className="mb-4 flex items-center gap-4 flex-wrap"
         >
           <button
             onClick={() => navigate('/game-mode')}
@@ -100,6 +166,25 @@ export default function GamePlay() {
           <div className="glass-card px-4 py-2 flex items-center gap-2">
             <Clock className="w-4 h-4 text-stake-red" />
             <span className="text-body-sm font-semibold">Блиц 3+2</span>
+          </div>
+          <div className="glass-card px-4 py-2 flex items-center gap-3 bg-gradient-to-r from-stake-red/10 to-transparent border-stake-red/30">
+            <Bot className="w-4 h-4 text-stake-red" />
+            <div className="flex flex-col">
+              <span className="text-xs text-gray-400">Противник</span>
+              <span className="text-sm font-semibold text-stake-red">{aiPersonality.name}</span>
+            </div>
+            <div className="text-xs font-mono text-gray-400">
+              {aiPersonality.rating}
+            </div>
+            {isAIThinking && (
+              <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="text-xs text-yellow-400"
+              >
+                думает...
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
@@ -112,9 +197,12 @@ export default function GamePlay() {
         >
           <div className="w-full">
             <ChessBoard
+              game={game}
+              position={position}
               onMove={handleMove}
               whiteTime={timeWhite}
               blackTime={timeBlack}
+              isPlayerTurn={isPlayerTurn}
             />
           </div>
         </motion.div>

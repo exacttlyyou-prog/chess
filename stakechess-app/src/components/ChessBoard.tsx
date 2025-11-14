@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import type { Chess } from 'chess.js';
 import ChessPiece from './ChessPiece';
 import CaptureAnimation from './CaptureAnimation';
 import CheckIndicator from './CheckIndicator';
 import CheckmateModal from './CheckmateModal';
+import type { ChessSquare } from '../hooks/useChess';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -18,199 +20,114 @@ interface Square {
   position: { row: number; col: number };
 }
 
-const createInitialBoard = (): Square[][] => {
+const fenToBoard = (fen: string): Square[][] => {
   const board: Square[][] = [];
+  const rows = fen.split(' ')[0].split('/');
 
-  // Initialize empty board
   for (let row = 0; row < 8; row++) {
     board[row] = [];
-    for (let col = 0; col < 8; col++) {
-      board[row][col] = {
-        piece: null,
-        position: { row, col },
-      };
+    let col = 0;
+    for (const char of rows[row]) {
+      if (isNaN(parseInt(char))) {
+        const color: PieceColor = char === char.toUpperCase() ? 'white' : 'black';
+        const pieceMap: Record<string, PieceType> = {
+          'k': 'king', 'q': 'queen', 'r': 'rook',
+          'b': 'bishop', 'n': 'knight', 'p': 'pawn'
+        };
+        const type = pieceMap[char.toLowerCase()];
+        board[row][col] = { piece: { type, color }, position: { row, col } };
+        col++;
+      } else {
+        const emptySquares = parseInt(char);
+        for (let i = 0; i < emptySquares; i++) {
+          board[row][col] = { piece: null, position: { row, col } };
+          col++;
+        }
+      }
     }
-  }
-
-  // Set up black pieces (top)
-  const blackPieces: PieceType[] = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
-  blackPieces.forEach((type, col) => {
-    board[0][col].piece = { type, color: 'black' };
-  });
-  for (let col = 0; col < 8; col++) {
-    board[1][col].piece = { type: 'pawn', color: 'black' };
-  }
-
-  // Set up white pieces (bottom)
-  const whitePieces: PieceType[] = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
-  whitePieces.forEach((type, col) => {
-    board[7][col].piece = { type, color: 'white' };
-  });
-  for (let col = 0; col < 8; col++) {
-    board[6][col].piece = { type: 'pawn', color: 'white' };
   }
 
   return board;
 };
 
+const squareToRowCol = (square: ChessSquare): { row: number; col: number } => {
+  const col = square.charCodeAt(0) - 97; // 'a' = 0, 'b' = 1, etc.
+  const row = 8 - parseInt(square[1]); // '8' = 0, '7' = 1, etc.
+  return { row, col };
+};
+
+const rowColToSquare = (row: number, col: number): ChessSquare => {
+  const file = String.fromCharCode(97 + col);
+  const rank = (8 - row).toString();
+  return `${file}${rank}` as ChessSquare;
+};
+
 interface ChessBoardProps {
-  onMove?: (from: { row: number; col: number }, to: { row: number; col: number }) => void;
+  game: Chess;
+  position: string;
+  onMove?: (from: ChessSquare, to: ChessSquare) => void;
   whiteTime: number;
   blackTime: number;
+  isPlayerTurn: boolean;
 }
 
-export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardProps) {
-  const [board, setBoard] = useState<Square[][]>(createInitialBoard());
+export default function ChessBoard({ game, position, onMove, whiteTime, blackTime, isPlayerTurn }: ChessBoardProps) {
+  const [board, setBoard] = useState<Square[][]>(fenToBoard(position));
   const [selectedSquare, setSelectedSquare] = useState<{ row: number; col: number } | null>(null);
   const [validMoves, setValidMoves] = useState<{ row: number; col: number }[]>([]);
-  const [currentTurn, setCurrentTurn] = useState<PieceColor>('white');
   const [lastMove, setLastMove] = useState<{ from: { row: number; col: number }; to: { row: number; col: number } } | null>(null);
   const [capturedPieces, setCapturedPieces] = useState<{ white: PieceType[]; black: PieceType[] }>({ white: [], black: [] });
 
   // Hero moment states
   const [captureAnimations, setCaptureAnimations] = useState<Array<{ id: number; position: { x: number; y: number }; pieceColor: PieceColor }>>([]);
-  const [kingInCheck] = useState<{ row: number; col: number } | null>(null); // TODO: implement check detection logic
+  const [kingInCheck, setKingInCheck] = useState<{ row: number; col: number } | null>(null);
   const [isCheckmate, setIsCheckmate] = useState(false);
   const [checkmateWinner, setCheckmateWinner] = useState<PieceColor | null>(null);
 
-  const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
-    const piece = board[row][col].piece;
-    if (!piece || piece.color !== currentTurn) return [];
+  const currentTurn: PieceColor = game.turn() === 'w' ? 'white' : 'black';
 
-    const moves: { row: number; col: number }[] = [];
+  // Update board when position changes
+  useEffect(() => {
+    setBoard(fenToBoard(position));
 
-    // Simplified move validation (just basic moves, not checking for check/checkmate)
-    switch (piece.type) {
-      case 'pawn': {
-        const direction = piece.color === 'white' ? -1 : 1;
-        const startRow = piece.color === 'white' ? 6 : 1;
-
-        // Forward move
-        if (!board[row + direction]?.[col]?.piece) {
-          moves.push({ row: row + direction, col });
-          // Double move from start
-          if (row === startRow && !board[row + 2 * direction]?.[col]?.piece) {
-            moves.push({ row: row + 2 * direction, col });
-          }
-        }
-
-        // Captures
-        [-1, 1].forEach(offset => {
-          const targetPiece = board[row + direction]?.[col + offset]?.piece;
-          if (targetPiece && targetPiece.color !== piece.color) {
-            moves.push({ row: row + direction, col: col + offset });
-          }
-        });
-        break;
+    // Check for check
+    if (game.inCheck()) {
+      const turn = game.turn();
+      const kingSquare = game.board().flat().find(sq => sq && sq.type === 'k' && sq.color === turn);
+      if (kingSquare) {
+        const kingPos = squareToRowCol(kingSquare.square as ChessSquare);
+        setKingInCheck(kingPos);
       }
-      case 'rook': {
-        // Horizontal and vertical moves
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'knight': {
-        const knightMoves = [
-          [-2, -1], [-2, 1], [-1, -2], [-1, 2],
-          [1, -2], [1, 2], [2, -1], [2, 1]
-        ];
-        knightMoves.forEach(([dRow, dCol]) => {
-          const newRow = row + dRow;
-          const newCol = col + dCol;
-          if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece || targetPiece.color !== piece.color) {
-              moves.push({ row: newRow, col: newCol });
-            }
-          }
-        });
-        break;
-      }
-      case 'bishop': {
-        const directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'queen': {
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          for (let i = 1; i < 8; i++) {
-            const newRow = row + dRow * i;
-            const newCol = col + dCol * i;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece) {
-              moves.push({ row: newRow, col: newCol });
-            } else {
-              if (targetPiece.color !== piece.color) {
-                moves.push({ row: newRow, col: newCol });
-              }
-              break;
-            }
-          }
-        });
-        break;
-      }
-      case 'king': {
-        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
-        directions.forEach(([dRow, dCol]) => {
-          const newRow = row + dRow;
-          const newCol = col + dCol;
-          if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
-            const targetPiece = board[newRow][newCol].piece;
-            if (!targetPiece || targetPiece.color !== piece.color) {
-              moves.push({ row: newRow, col: newCol });
-            }
-          }
-        });
-        break;
-      }
+    } else {
+      setKingInCheck(null);
     }
 
-    return moves;
+    // Check for checkmate
+    if (game.isCheckmate()) {
+      setIsCheckmate(true);
+      setCheckmateWinner(game.turn() === 'w' ? 'black' : 'white');
+    }
+  }, [position, game]);
+
+  const getValidMoves = (row: number, col: number): { row: number; col: number }[] => {
+    const square = rowColToSquare(row, col);
+    const moves = game.moves({ square, verbose: true });
+    return moves.map(move => squareToRowCol(move.to as ChessSquare));
   };
 
   const handleSquareClick = (row: number, col: number) => {
+    if (!isPlayerTurn) return; // Prevent moves during AI turn
+
     if (selectedSquare) {
       // Check if clicked square is a valid move
-      const isValidMove = validMoves.some(move => move.row === row && move.col === col);
+      const isValidMoveClick = validMoves.some(move => move.row === row && move.col === col);
 
-      if (isValidMove) {
-        // Make the move
-        const newBoard = board.map(r => r.map(sq => ({ ...sq, piece: sq.piece ? { ...sq.piece } : null })));
+      if (isValidMoveClick) {
+        const from = rowColToSquare(selectedSquare.row, selectedSquare.col);
+        const to = rowColToSquare(row, col);
 
         // Check if capturing a piece
-        const capturedPiece = newBoard[row][col].piece;
+        const capturedPiece = board[row][col].piece;
         if (capturedPiece) {
           // Trigger capture animation
           const boardRect = document.querySelector('.chess-board-grid')?.getBoundingClientRect();
@@ -233,15 +150,10 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           }));
         }
 
-        newBoard[row][col].piece = newBoard[selectedSquare.row][selectedSquare.col].piece;
-        newBoard[selectedSquare.row][selectedSquare.col].piece = null;
-
-        setBoard(newBoard);
         setLastMove({ from: selectedSquare, to: { row, col } });
-        setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
 
         if (onMove) {
-          onMove(selectedSquare, { row, col });
+          onMove(from, to);
         }
       }
 
@@ -250,7 +162,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
     } else {
       // Select a piece
       const piece = board[row][col].piece;
-      if (piece && piece.color === currentTurn) {
+      if (piece && piece.color === currentTurn && isPlayerTurn) {
         setSelectedSquare({ row, col });
         setValidMoves(getValidMoves(row, col));
       }
@@ -484,11 +396,11 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
           setCheckmateWinner(null);
         }}
         onRematch={() => {
-          setBoard(createInitialBoard());
+          game.reset();
+          setBoard(fenToBoard(game.fen()));
           setIsCheckmate(false);
           setCheckmateWinner(null);
           setCapturedPieces({ white: [], black: [] });
-          setCurrentTurn('white');
           setLastMove(null);
         }}
       />
