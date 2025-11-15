@@ -102,7 +102,7 @@ export default function TournamentCompletionScreen({
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              src="/images/achievements/0_0_-_2025-11-13T224810_678.png"
+              src="/images/achievements/0_0__73_.png"
               alt="Tournament Trophy"
               className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(250,204,21,0.5)]"
             />

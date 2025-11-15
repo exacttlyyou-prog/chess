@@ -236,7 +236,7 @@ export default function GameMode() {
               {/* Background chess piece */}
               <div className="absolute -right-4 -top-4 w-48 h-48 opacity-15 pointer-events-none">
                 <img
-                  src="/images/achievements/0_0_-_2025-11-12T034253_092.png"
+                  src="/images/achievements/0_0__73_.png"
                   alt=""
                   className="w-full h-full object-cover scale-110"
                 />

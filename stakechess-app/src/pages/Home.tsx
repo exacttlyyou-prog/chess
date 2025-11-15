@@ -39,7 +39,7 @@ const recentGames = [
     opponent: 'Мастер_1450',
     result: 'win',
     mode: 'Блиц 3+2',
-    image: '/images/pieces/0_0_-_2025-11-12T034229_848.png',
+    image: '/images/pieces/0_0__65_.png',
     moves: 32,
     date: '2 часа назад',
   },
@@ -48,7 +48,7 @@ const recentGames = [
     opponent: 'Стратег_99',
     result: 'loss',
     mode: 'Рапид 10+0',
-    image: '/images/pieces/0_0_-_2025-11-12T034226_653.png',
+    image: '/images/pieces/0_0__68_.png',
     moves: 45,
     date: '5 часов назад',
   },
@@ -57,7 +57,7 @@ const recentGames = [
     opponent: 'Тактик_2000',
     result: 'draw',
     mode: 'Классика',
-    image: '/images/pieces/0_0_-_2025-11-12T034248_654.png',
+    image: '/images/pieces/0_0__70_.png',
     moves: 68,
     date: 'Вчера',
   },
@@ -232,7 +232,7 @@ export default function Home() {
         >
           <div className="absolute right-0 bottom-0 w-32 h-32 opacity-5 pointer-events-none">
             <img
-              src="/images/pieces/0_0_-_2025-11-12T034311_785.png"
+              src="/images/pieces/0_0__64_.png"
               alt=""
               className="w-full h-full object-contain"
             />
