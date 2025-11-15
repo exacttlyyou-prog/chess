@@ -396,18 +396,11 @@ export default function Home() {
               whileTap={{ scale: 0.98 }}
               className={`glass-card min-w-[280px] cursor-pointer shadow-depth overflow-hidden snap-start flex flex-col h-[240px] ${
                 game.result === 'win'
-                  ? 'border border-[rgba(48,209,88,0.2)]'
+                  ? '!bg-[rgba(48,209,88,0.08)] border border-[rgba(48,209,88,0.2)]'
                   : game.result === 'loss'
-                  ? 'border border-[rgba(255,59,48,0.2)]'
-                  : 'bg-[#2a2a2a] border border-[rgba(255,255,255,0.1)]'
+                  ? '!bg-[rgba(255,59,48,0.08)] border border-[rgba(255,59,48,0.2)]'
+                  : '!bg-[#2a2a2a] border border-[rgba(255,255,255,0.1)]'
               }`}
-              style={{
-                backgroundColor: game.result === 'win'
-                  ? 'rgba(48, 209, 88, 0.08)'
-                  : game.result === 'loss'
-                  ? 'rgba(255, 59, 48, 0.08)'
-                  : undefined
-              }}
               onClick={() => navigate('/play')}
             >
               {/* Text Content - Top */}
