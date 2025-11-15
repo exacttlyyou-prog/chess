@@ -122,20 +122,20 @@ export default function GameMode() {
                   switch(mode.id) {
                     case 'blitz':
                       return selectedMode === mode.id
-                        ? 'bg-gradient-to-br from-[#2a1515] to-[#1a1a1a] border border-red-500/40 shadow-[0_8px_24px_rgba(255,59,48,0.15)]'
-                        : 'bg-gradient-to-br from-[#2a1515] to-[#1a1a1a] border border-red-500/20 hover:border-red-500/40 hover:shadow-[0_8px_24px_rgba(255,59,48,0.15)]';
+                        ? 'bg-gradient-to-br from-[#2a1a1a] to-[#1f1f1f] border-l-[3px] border-l-[#ff3b30] border border-[#ff3b30]/40 shadow-[0_8px_24px_rgba(255,59,48,0.25)]'
+                        : 'bg-gradient-to-br from-[#2a1a1a] to-[#1f1f1f] border-l-[3px] border-l-[#ff3b30] border border-white/10 hover:border-[#ff3b30]/30 hover:shadow-[0_4px_16px_rgba(255,59,48,0.2)]';
                     case 'rapid':
                       return selectedMode === mode.id
-                        ? 'bg-gradient-to-br from-[#2a2315] to-[#1a1a1a] border border-yellow-500/40 shadow-[0_8px_24px_rgba(255,204,0,0.15)]'
-                        : 'bg-gradient-to-br from-[#2a2315] to-[#1a1a1a] border border-yellow-500/20 hover:border-yellow-500/40 hover:shadow-[0_8px_24px_rgba(255,204,0,0.15)]';
+                        ? 'bg-gradient-to-br from-[#2a2a1a] to-[#1f1f1f] border-l-[3px] border-l-[#ffcc00] border border-[#ffcc00]/40 shadow-[0_8px_24px_rgba(255,204,0,0.25)]'
+                        : 'bg-gradient-to-br from-[#2a2a1a] to-[#1f1f1f] border-l-[3px] border-l-[#ffcc00] border border-white/10 hover:border-[#ffcc00]/30 hover:shadow-[0_4px_16px_rgba(255,204,0,0.2)]';
                     case 'bullet':
                       return selectedMode === mode.id
-                        ? 'bg-gradient-to-br from-[#1a1a2a] to-[#1a1a1a] border border-blue-500/40 shadow-[0_8px_24px_rgba(94,92,230,0.15)]'
-                        : 'bg-gradient-to-br from-[#1a1a2a] to-[#1a1a1a] border border-blue-500/20 hover:border-blue-500/40 hover:shadow-[0_8px_24px_rgba(94,92,230,0.15)]';
+                        ? 'bg-gradient-to-br from-[#1a1a2a] to-[#1f1f1f] border-l-[3px] border-l-[#5e5ce6] border border-[#5e5ce6]/40 shadow-[0_8px_24px_rgba(94,92,230,0.25)]'
+                        : 'bg-gradient-to-br from-[#1a1a2a] to-[#1f1f1f] border-l-[3px] border-l-[#5e5ce6] border border-white/10 hover:border-[#5e5ce6]/30 hover:shadow-[0_4px_16px_rgba(94,92,230,0.2)]';
                     case 'classic':
                       return selectedMode === mode.id
-                        ? 'bg-gradient-to-br from-[#1a2a1a] to-[#1a1a1a] border border-green-500/40 shadow-[0_8px_24px_rgba(48,209,88,0.15)]'
-                        : 'bg-gradient-to-br from-[#1a2a1a] to-[#1a1a1a] border border-green-500/20 hover:border-green-500/40 hover:shadow-[0_8px_24px_rgba(48,209,88,0.15)]';
+                        ? 'bg-gradient-to-br from-[#1a2a1a] to-[#1f1f1f] border-l-[3px] border-l-[#30d158] border border-[#30d158]/40 shadow-[0_8px_24px_rgba(48,209,88,0.25)]'
+                        : 'bg-gradient-to-br from-[#1a2a1a] to-[#1f1f1f] border-l-[3px] border-l-[#30d158] border border-white/10 hover:border-[#30d158]/30 hover:shadow-[0_4px_16px_rgba(48,209,88,0.2)]';
                     default:
                       return '';
                   }
