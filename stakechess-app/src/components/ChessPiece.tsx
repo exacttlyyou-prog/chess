@@ -135,10 +135,12 @@ export default function ChessPiece({ type, color, className = '' }: ChessPiecePr
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         className={`relative ${className}`}
         style={{
-          filter: 'drop-shadow(0 4px 12px rgba(239,49,36,0.4))'
+          filter: color === 'white'
+            ? 'drop-shadow(0 4px 12px rgba(239,49,36,0.4)) drop-shadow(0 2px 8px rgba(0,0,0,0.9))'
+            : 'drop-shadow(0 4px 12px rgba(239,49,36,0.4)) drop-shadow(0 2px 8px rgba(255,255,255,0.3))'
         }}
       >
-        <DuckKing className="w-full h-full" />
+        <DuckKing className="w-full h-full" color={color} />
       </motion.div>
     );
   }

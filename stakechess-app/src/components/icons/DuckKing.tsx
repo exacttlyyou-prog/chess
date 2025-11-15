@@ -1,7 +1,15 @@
-export default function DuckKing({ className = "w-12 h-12" }: { className?: string }) {
+export default function DuckKing({
+  className = "w-12 h-12",
+  color = "white"
+}: {
+  className?: string;
+  color?: "white" | "black";
+}) {
+  const strokeColor = color === "white" ? "#FFFFFF" : "#000000";
+
   return (
     <svg viewBox="0 0 45 45" className={className} fill="none">
-      <g stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <g stroke={strokeColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
         {/* Crown base - cross on top */}
         <line x1="22.5" y1="6" x2="22.5" y2="11" />
         <line x1="20" y1="8.5" x2="25" y2="8.5" />
