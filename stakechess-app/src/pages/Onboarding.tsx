@@ -34,12 +34,6 @@ const slides = [
     image: '/images/heroes/stats-growth.png',
     stat: '52 достижения',
   },
-  {
-    title: 'Начни прямо сейчас',
-    description: 'Регистрация за 30 секунд. Первая партия — бесплатно!',
-    image: '/images/pieces/pawn-glow.png',
-    stat: 'Бесплатный старт',
-  },
 ];
 
 export default function Onboarding() {
@@ -86,10 +80,10 @@ export default function Onboarding() {
           className="w-full max-w-md"
         >
           <div className="text-center mb-8">
-            <h1 className="mb-2">
-              <span className="text-gradient">StakeChess</span>
+            <h1 className="mb-4">
+              <span className="text-gradient">Начни прямо сейчас</span>
             </h1>
-            <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
+            <p className="text-body text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
           </div>
 
           <div className="glass-card p-8 space-y-4 shadow-depth-lg">
