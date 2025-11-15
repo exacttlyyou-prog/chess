@@ -25,7 +25,7 @@ const slides = [
   {
     title: 'Выигрывай призы',
     description: 'Участвуй в турнирах с реальными наградами. До 100K монет за победу!',
-    image: '/images/achievements/tournament-prize.png',
+    image: '/images/achievements/trophy-crown.png',
     stat: '12 турниров',
   },
   {
