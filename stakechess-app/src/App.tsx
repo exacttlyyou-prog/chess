@@ -18,6 +18,10 @@ const Tournaments = lazy(() => import('./pages/Tournaments'));
 const Premium = lazy(() => import('./pages/Premium'));
 const SelectAI = lazy(() => import('./pages/SelectAI'));
 const Settings = lazy(() => import('./pages/Settings'));
+const Achievements = lazy(() => import('./pages/Achievements'));
+const Puzzles = lazy(() => import('./pages/Puzzles'));
+const Openings = lazy(() => import('./pages/Openings'));
+const Leaderboard = lazy(() => import('./pages/Leaderboard'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -35,6 +39,10 @@ function AnimatedRoutes() {
         <Route path="/premium" element={<Premium />} />
         <Route path="/select-ai" element={<SelectAI />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/achievements" element={<Achievements />} />
+        <Route path="/puzzles" element={<Puzzles />} />
+        <Route path="/openings" element={<Openings />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </AnimatePresence>
   );
