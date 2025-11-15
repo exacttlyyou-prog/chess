@@ -174,7 +174,7 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/game-mode')}
-              className="glass-card p-6 text-center shadow-depth hover-lift"
+              className="glass-card p-6 text-center shadow-depth hover-lift bg-[#2a2a2a]"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-7 h-7 text-stake-red" strokeWidth={2} />
@@ -190,7 +190,7 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/tournaments')}
-              className="glass-card p-6 text-center shadow-depth hover-lift"
+              className="glass-card p-6 text-center shadow-depth hover-lift bg-[#2a2a2a]"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
                 <Trophy className="w-7 h-7 text-stake-red" strokeWidth={2} />
@@ -208,7 +208,7 @@ export default function Home() {
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/premium')}
-            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden"
+            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden shadow-[0_0_24px_rgba(255,215,0,0.2),0_4px_16px_rgba(255,215,0,0.15)]"
           >
             <div className="flex items-center justify-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center">
@@ -386,21 +386,19 @@ export default function Home() {
               transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
               whileHover={{ scale: 1.02, y: -4 }}
               whileTap={{ scale: 0.98 }}
-              className="glass-card min-w-[280px] p-6 cursor-pointer shadow-depth relative overflow-hidden snap-start"
+              className={`glass-card min-w-[280px] cursor-pointer shadow-depth overflow-hidden snap-start flex flex-col h-[240px] ${
+                game.result === 'win'
+                  ? 'bg-[#1a2e1a] border border-green-500/30'
+                  : game.result === 'loss'
+                  ? 'bg-[#2e1a1a] border border-red-500/30'
+                  : 'bg-[#2a2a2a] border border-gray-500/30'
+              }`}
               onClick={() => navigate('/play')}
             >
-              {/* Background image */}
-              <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none">
-                <img
-                  src={game.image}
-                  alt=""
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="relative z-10">
+              {/* Text Content - Top */}
+              <div className="p-5 flex-1">
                 {/* Result badge */}
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl mb-4 text-xs font-semibold ${
+                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl mb-3 text-xs font-semibold ${
                   game.result === 'win'
                     ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                     : game.result === 'loss'
@@ -411,20 +409,28 @@ export default function Home() {
                 </div>
 
                 {/* Opponent */}
-                <h5 className="mb-2">{game.opponent}</h5>
+                <h5 className="mb-3 !text-base">{game.opponent}</h5>
 
                 {/* Game info */}
-                <div className="space-y-2">
-                  <div className="flex justify-between text-body-sm text-gray-400">
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs text-gray-400">
                     <span>Режим</span>
                     <span className="text-white font-medium">{game.mode}</span>
                   </div>
-                  <div className="flex justify-between text-body-sm text-gray-400">
+                  <div className="flex justify-between text-xs text-gray-400">
                     <span>Ходов</span>
                     <span className="text-white font-medium">{game.moves}</span>
                   </div>
-                  <div className="text-gray-500 text-xs mt-3">{game.date}</div>
                 </div>
+              </div>
+
+              {/* Image - Bottom (40-50% height) */}
+              <div className="h-[100px] overflow-hidden">
+                <img
+                  src={game.image}
+                  alt=""
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
             </motion.div>
           ))}

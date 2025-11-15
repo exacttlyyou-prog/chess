@@ -117,31 +117,56 @@ export default function GameMode() {
           <div className="px-8 mb-8">
             <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
             <div className="grid grid-cols-2 gap-4">
-              {gameModes.map((mode, index) => (
+              {gameModes.map((mode, index) => {
+                const getModeStyles = () => {
+                  switch(mode.id) {
+                    case 'blitz':
+                      return selectedMode === mode.id
+                        ? 'bg-gradient-to-br from-[#2a1515] to-[#1a1a1a] border border-red-500/40 shadow-[0_8px_24px_rgba(255,59,48,0.15)]'
+                        : 'bg-gradient-to-br from-[#2a1515] to-[#1a1a1a] border border-red-500/20 hover:border-red-500/40 hover:shadow-[0_8px_24px_rgba(255,59,48,0.15)]';
+                    case 'rapid':
+                      return selectedMode === mode.id
+                        ? 'bg-gradient-to-br from-[#2a2315] to-[#1a1a1a] border border-yellow-500/40 shadow-[0_8px_24px_rgba(255,204,0,0.15)]'
+                        : 'bg-gradient-to-br from-[#2a2315] to-[#1a1a1a] border border-yellow-500/20 hover:border-yellow-500/40 hover:shadow-[0_8px_24px_rgba(255,204,0,0.15)]';
+                    case 'bullet':
+                      return selectedMode === mode.id
+                        ? 'bg-gradient-to-br from-[#1a1a2a] to-[#1a1a1a] border border-blue-500/40 shadow-[0_8px_24px_rgba(94,92,230,0.15)]'
+                        : 'bg-gradient-to-br from-[#1a1a2a] to-[#1a1a1a] border border-blue-500/20 hover:border-blue-500/40 hover:shadow-[0_8px_24px_rgba(94,92,230,0.15)]';
+                    case 'classic':
+                      return selectedMode === mode.id
+                        ? 'bg-gradient-to-br from-[#1a2a1a] to-[#1a1a1a] border border-green-500/40 shadow-[0_8px_24px_rgba(48,209,88,0.15)]'
+                        : 'bg-gradient-to-br from-[#1a2a1a] to-[#1a1a1a] border border-green-500/20 hover:border-green-500/40 hover:shadow-[0_8px_24px_rgba(48,209,88,0.15)]';
+                    default:
+                      return '';
+                  }
+                };
+
+                return (
                 <motion.button
                   key={mode.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.03, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
                   onClick={() => setSelectedMode(mode.id)}
-                  className={`glass-card p-6 text-left transition-all shadow-depth hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] ${
-                    selectedMode === mode.id
-                      ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
-                      : ''
-                  }`}
+                  className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] ${getModeStyles()}`}
                 >
                   <div className={`bg-gradient-to-br ${
                     selectedMode === mode.id
                       ? 'from-stake-red/30 to-stake-red/10'
                       : 'from-stake-red/20 to-stake-red/5'
                   } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                    <mode.Icon
+                      className="w-6 h-6 text-stake-red"
+                      strokeWidth={2}
+                      style={{ filter: 'drop-shadow(0 0 8px rgba(255, 59, 48, 0.3))' }}
+                    />
                   </div>
                   <h6 className="mb-1">{mode.title}</h6>
                   <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                 </motion.button>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -154,7 +179,7 @@ export default function GameMode() {
           >
             <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth">
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Shuffle className="w-6 h-6 text-stake-red" />
@@ -166,7 +191,7 @@ export default function GameMode() {
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
               </button>
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth">
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Bot className="w-6 h-6 text-stake-red" />

@@ -150,117 +150,125 @@ export default function Profile() {
           className="px-8 space-y-4"
         >
           {/* Win Rate */}
-          <div className="glass-card p-8 shadow-depth relative overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute right-0 bottom-0 w-32 h-32 opacity-8 pointer-events-none">
+          <div className="glass-card shadow-depth overflow-hidden flex flex-row">
+            {/* Text Content - Left (70%) */}
+            <div className="flex-[7] p-6">
+              <h5 className="mb-4">Общая статистика</h5>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-green-400">{stats.wins}</p>
+                  <p className="text-body-sm text-gray-400">Побед</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-red-400">{stats.losses}</p>
+                  <p className="text-body-sm text-gray-400">Поражений</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-gray-400">{stats.draws}</p>
+                  <p className="text-body-sm text-gray-400">Ничьих</p>
+                </div>
+              </div>
+              <div className="glass p-4 rounded-xl">
+                <div className="flex justify-between mb-2">
+                  <span className="text-body-sm text-gray-400">Процент побед</span>
+                  <span className="text-body-sm font-semibold">{winRate}%</span>
+                </div>
+                <div className="w-full bg-stake-gray rounded-full h-2">
+                  <div
+                    className="bg-gradient-to-r from-stake-red to-stake-red-light h-2 rounded-full transition-all"
+                    style={{ width: `${winRate}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Image - Right (30%) */}
+            <div className="flex-[3] overflow-hidden bg-black/20">
               <img
                 src="/images/heroes/stats-growth.png"
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
-            </div>
-            <h5 className="mb-4 relative z-10">Общая статистика</h5>
-            <div className="grid grid-cols-3 gap-4 mb-4 relative z-10">
-              <div className="text-center">
-                <p className="text-3xl font-bold text-green-400">{stats.wins}</p>
-                <p className="text-body-sm text-gray-400">Побед</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-red-400">{stats.losses}</p>
-                <p className="text-body-sm text-gray-400">Поражений</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-gray-400">{stats.draws}</p>
-                <p className="text-body-sm text-gray-400">Ничьих</p>
-              </div>
-            </div>
-            <div className="glass p-4 rounded-xl">
-              <div className="flex justify-between mb-2">
-                <span className="text-body-sm text-gray-400">Процент побед</span>
-                <span className="text-body-sm font-semibold">{winRate}%</span>
-              </div>
-              <div className="w-full bg-stake-gray rounded-full h-2">
-                <div
-                  className="bg-gradient-to-r from-stake-red to-stake-red-light h-2 rounded-full transition-all"
-                  style={{ width: `${winRate}%` }}
-                />
-              </div>
             </div>
           </div>
 
           {/* Rating History */}
-          <div className="glass-card p-8 shadow-depth relative overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute left-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+          <div className="glass-card shadow-depth overflow-hidden flex flex-row">
+            {/* Text Content - Left (70%) */}
+            <div className="flex-[7] p-6">
+              <h5 className="mb-4">История рейтинга</h5>
+              <div className="h-40">
+                {/* Simple line chart visualization */}
+                <svg className="w-full h-full" viewBox="0 0 300 100">
+                  {/* Grid lines */}
+                  {[0, 25, 50, 75, 100].map((y) => (
+                    <line
+                      key={y}
+                      x1="0"
+                      y1={y}
+                      x2="300"
+                      y2={y}
+                      stroke="rgba(255,255,255,0.05)"
+                      strokeWidth="1"
+                    />
+                  ))}
+
+                  {/* Rating line */}
+                  <polyline
+                    points={ratingHistory
+                      .map((point, index) => {
+                        const x = (index / (ratingHistory.length - 1)) * 300;
+                        const y = 100 - ((point.rating - 1300) / 200) * 100;
+                        return `${x},${y}`;
+                      })
+                      .join(' ')}
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* Gradient definition */}
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style={{ stopColor: 'rgb(239, 49, 36)', stopOpacity: 1 }} />
+                      <stop offset="100%" style={{ stopColor: 'rgb(213, 0, 0)', stopOpacity: 1 }} />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Points */}
+                  {ratingHistory.map((point, index) => {
+                    const x = (index / (ratingHistory.length - 1)) * 300;
+                    const y = 100 - ((point.rating - 1300) / 200) * 100;
+                    return (
+                      <circle
+                        key={index}
+                        cx={x}
+                        cy={y}
+                        r="4"
+                        fill="rgb(239, 49, 36)"
+                        stroke="#0A0A0A"
+                        strokeWidth="2"
+                      />
+                    );
+                  })}
+                </svg>
+              </div>
+              <div className="flex justify-between mt-4 text-xs text-gray-500">
+                {ratingHistory.map((point) => (
+                  <span key={point.date}>{point.date}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Image - Right (30%) */}
+            <div className="flex-[3] overflow-hidden bg-black/20">
               <img
                 src="/images/heroes/growth-path.png"
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
-            </div>
-            <h5 className="mb-4 relative z-10">История рейтинга</h5>
-            <div className="relative h-40 z-10">
-              {/* Simple line chart visualization */}
-              <svg className="w-full h-full" viewBox="0 0 300 100">
-                {/* Grid lines */}
-                {[0, 25, 50, 75, 100].map((y) => (
-                  <line
-                    key={y}
-                    x1="0"
-                    y1={y}
-                    x2="300"
-                    y2={y}
-                    stroke="rgba(255,255,255,0.05)"
-                    strokeWidth="1"
-                  />
-                ))}
-
-                {/* Rating line */}
-                <polyline
-                  points={ratingHistory
-                    .map((point, index) => {
-                      const x = (index / (ratingHistory.length - 1)) * 300;
-                      const y = 100 - ((point.rating - 1300) / 200) * 100;
-                      return `${x},${y}`;
-                    })
-                    .join(' ')}
-                  fill="none"
-                  stroke="url(#gradient)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-
-                {/* Gradient definition */}
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style={{ stopColor: 'rgb(239, 49, 36)', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: 'rgb(213, 0, 0)', stopOpacity: 1 }} />
-                  </linearGradient>
-                </defs>
-
-                {/* Points */}
-                {ratingHistory.map((point, index) => {
-                  const x = (index / (ratingHistory.length - 1)) * 300;
-                  const y = 100 - ((point.rating - 1300) / 200) * 100;
-                  return (
-                    <circle
-                      key={index}
-                      cx={x}
-                      cy={y}
-                      r="4"
-                      fill="rgb(239, 49, 36)"
-                      stroke="#0A0A0A"
-                      strokeWidth="2"
-                    />
-                  );
-                })}
-              </svg>
-            </div>
-            <div className="flex justify-between mt-4 text-xs text-gray-500 relative z-10">
-              {ratingHistory.map((point) => (
-                <span key={point.date}>{point.date}</span>
-              ))}
             </div>
           </div>
 
