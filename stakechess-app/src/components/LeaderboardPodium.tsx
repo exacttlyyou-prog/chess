@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Crown, Medal, Trophy, Star, Zap } from 'lucide-react';
+import { Crown, Medal, Trophy, Star } from 'lucide-react';
 
 interface Player {
   id: string;
@@ -26,25 +26,16 @@ export default function LeaderboardPodium({
   const heights = ['h-48', 'h-64', 'h-40'];
   const positions = [2, 1, 3];
   const medals = [
-    { icon: Medal, color: 'text-gray-400', glow: 'shadow-[0_0_20px_rgba(156,163,175,0.5)]' },
-    { icon: Crown, color: 'text-yellow-400', glow: 'shadow-[0_0_30px_rgba(250,204,21,0.7)]' },
-    { icon: Medal, color: 'text-orange-600', glow: 'shadow-[0_0_20px_rgba(234,88,12,0.5)]' },
+    { icon: Medal, color: 'text-gray-400', glow: 'shadow-md' },
+    { icon: Crown, color: 'text-yellow-400', glow: 'shadow-lg' },
+    { icon: Medal, color: 'text-orange-600', glow: 'shadow-md' },
   ];
 
   return (
     <div className="glass-card overflow-hidden relative">
       {/* Podium Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
-        <motion.img
-          animate={{
-            scale: [1, 1.05, 1],
-            y: [-10, 10, -10],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
           src="/images/heroes/podium.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
@@ -115,49 +106,9 @@ export default function LeaderboardPodium({
                     </div>
                   </motion.div>
 
-                  {/* Confetti for Winner */}
-                  {isFirst && (
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                      {[...Array(15)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ y: -20, opacity: 0 }}
-                          animate={{
-                            y: 100,
-                            opacity: [0, 1, 0],
-                            rotate: [0, 360],
-                          }}
-                          transition={{
-                            duration: 2,
-                            delay: i * 0.1,
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                          }}
-                          className={`absolute w-2 h-2 ${
-                            i % 2 === 0 ? 'bg-yellow-400' : 'bg-orange-500'
-                          }`}
-                          style={{
-                            left: `${Math.random() * 100}%`,
-                            clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-
                   {/* Glow Effect */}
                   {isFirst && (
-                    <motion.div
-                      animate={{
-                        opacity: [0.2, 0.5, 0.2],
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                      }}
-                      className="absolute inset-0 bg-gradient-radial from-yellow-400/20 via-transparent to-transparent"
-                    />
+                    <div className="absolute inset-0 bg-gradient-radial from-yellow-400/20 via-transparent to-transparent" />
                   )}
 
                   <div className="relative z-10">
@@ -180,19 +131,9 @@ export default function LeaderboardPodium({
 
                       {/* Crown for Winner */}
                       {isFirst && (
-                        <motion.div
-                          animate={{
-                            rotate: [-5, 5, -5],
-                            y: [-2, 0, -2],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                          }}
-                          className="absolute -top-6 left-1/2 -translate-x-1/2"
-                        >
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2">
                           <Crown className="w-8 h-8 text-yellow-400 fill-current" />
-                        </motion.div>
+                        </div>
                       )}
                     </motion.div>
 
@@ -228,14 +169,6 @@ export default function LeaderboardPodium({
                   } shadow-2xl`}
                   style={{ transformOrigin: 'bottom' }}
                 >
-                  {/* Shine Effect */}
-                  <motion.div
-                    animate={{ x: [-100, 300] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    style={{ width: '100px' }}
-                  />
-
                   {/* Position Number */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <motion.span
@@ -247,26 +180,6 @@ export default function LeaderboardPodium({
                       {position}
                     </motion.span>
                   </div>
-
-                  {/* Sparkles */}
-                  {isFirst &&
-                    [...Array(5)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          opacity: [0, 1, 0],
-                          scale: [0, 1, 0],
-                          y: [0, -30],
-                        }}
-                        transition={{
-                          duration: 2,
-                          delay: i * 0.3,
-                          repeat: Infinity,
-                        }}
-                        className="absolute bottom-4 w-2 h-2 bg-white rounded-full"
-                        style={{ left: `${20 + i * 15}%` }}
-                      />
-                    ))}
                 </motion.div>
               </motion.button>
             );
@@ -281,30 +194,6 @@ export default function LeaderboardPodium({
           className="h-4 bg-gradient-to-r from-stake-gray via-white/10 to-stake-gray rounded-t-lg shadow-lg"
           style={{ transformOrigin: 'center' }}
         />
-      </div>
-
-      {/* Sparkle Effects */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-              x: Math.random() * 100 + '%',
-              y: Math.random() * 100 + '%',
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.5,
-              repeat: Infinity,
-            }}
-            className="absolute"
-          >
-            <Zap className="w-4 h-4 text-yellow-400" fill="currentColor" />
-          </motion.div>
-        ))}
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export default function MatchLoadingScreen({ player1, player2 }: MatchLoadingScr
               ))}
 
               {/* VS Badge */}
-              <div className="relative bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-8 rounded-full border-4 border-stake-red/50 shadow-[0_0_40px_rgba(255,23,68,0.4)]">
+              <div className="relative bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-8 rounded-full border-4 border-stake-red/50 shadow-lg">
                 <Swords className="w-16 h-16 text-stake-red" strokeWidth={2.5} />
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function MatchLoadingScreen({ player1, player2 }: MatchLoadingScr
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
                 transition={{ duration: 2, ease: 'easeInOut' }}
-                className="h-full bg-gradient-to-r from-stake-red to-orange-500 shadow-[0_0_16px_rgba(255,23,68,0.6)]"
+                className="h-full bg-gradient-to-r from-stake-red to-orange-500"
               />
             </div>
           </div>

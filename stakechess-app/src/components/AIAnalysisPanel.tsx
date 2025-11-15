@@ -44,16 +44,7 @@ export default function AIAnalysisPanel({
     <div className="glass-card overflow-hidden relative">
       {/* AI Network Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        <motion.img
-          animate={{
-            scale: [1, 1.05, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
           src="/images/heroes/ai-network.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
@@ -64,33 +55,9 @@ export default function AIAnalysisPanel({
       {/* Header */}
       <div className="relative z-10 p-4 border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center relative"
-          >
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center relative">
             <Brain className="w-5 h-5 text-purple-400" />
-
-            {/* Pulse Effect */}
-            <motion.div
-              animate={{
-                opacity: [0, 0.5, 0],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
-              className="absolute inset-0 rounded-lg bg-purple-500/30"
-            />
-          </motion.div>
+          </div>
 
           <div>
             <h3 className="!text-lg flex items-center gap-2">
@@ -133,15 +100,7 @@ export default function AIAnalysisPanel({
                 ? 'bg-gradient-to-r from-green-600 to-green-400'
                 : 'bg-gradient-to-r from-red-600 to-red-400'
             }`}
-          >
-            {/* Shimmer Effect */}
-            <motion.div
-              animate={{ x: [-50, 200] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-              style={{ width: '50px' }}
-            />
-          </motion.div>
+          />
 
           {/* Center Line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/30" />
@@ -182,34 +141,14 @@ export default function AIAnalysisPanel({
                 onClick={() => onAcceptSuggestion?.(move)}
               >
                 {isBestMove && (
-                  <motion.div
-                    animate={{
-                      opacity: [0.1, 0.3, 0.1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-orange-500/10"
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-orange-500/10" />
                 )}
 
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
                       {isBestMove && (
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 10, 0],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                          }}
-                        >
-                          <Zap className="w-4 h-4 text-yellow-400 fill-current" />
-                        </motion.div>
+                        <Zap className="w-4 h-4 text-yellow-400 fill-current" />
                       )}
                       <span className="font-mono font-bold text-lg">{move.notation}</span>
                     </div>
@@ -269,28 +208,6 @@ export default function AIAnalysisPanel({
           </div>
         </motion.div>
       )}
-
-      {/* Neural Network Animation */}
-      <div className="absolute top-0 right-0 pointer-events-none">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: [0, 0.3, 0],
-              scale: [0, 1, 0],
-              x: Math.random() * 100 - 50,
-              y: Math.random() * 100,
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.3,
-              repeat: Infinity,
-            }}
-            className="absolute top-4 right-4 w-2 h-2 rounded-full bg-purple-400"
-          />
-        ))}
-      </div>
     </div>
   );
 }

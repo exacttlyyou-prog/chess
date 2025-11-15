@@ -60,7 +60,7 @@ export default function ProgressTracker({
                 initial={{ width: 0 }}
                 animate={{ width: `${overallProgress}%` }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-stake-red via-orange-500 to-yellow-500 shadow-[0_0_16px_rgba(255,23,68,0.6)] relative"
+                className="h-full bg-gradient-to-r from-stake-red via-orange-500 to-yellow-500 relative"
               >
                 {/* Shimmer Effect */}
                 <motion.div

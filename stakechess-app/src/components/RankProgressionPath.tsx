@@ -36,17 +36,7 @@ export default function RankProgressionPath({
     <div className="glass-card overflow-hidden relative">
       {/* Growth Path Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        <motion.img
-          animate={{
-            x: [-20, 20, -20],
-            y: [-10, 10, -10],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
           src="/images/heroes/growth-path.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
@@ -64,19 +54,9 @@ export default function RankProgressionPath({
             </p>
           </div>
 
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/20 to-yellow-500/20 flex items-center justify-center"
-          >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/20 to-yellow-500/20 flex items-center justify-center">
             <Trophy className="w-6 h-6 text-yellow-400" />
-          </motion.div>
+          </div>
         </div>
 
         {/* Next Rank Progress */}
@@ -105,22 +85,7 @@ export default function RankProgressionPath({
                 }}
                 transition={{ duration: 1, ease: 'easeOut' }}
                 className="h-full bg-gradient-to-r from-stake-red via-orange-500 to-yellow-500 relative"
-              >
-                {/* Shimmer */}
-                <motion.div
-                  animate={{ x: [-50, 200] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                  style={{ width: '50px' }}
-                />
-
-                {/* Glow */}
-                <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-r from-transparent to-yellow-400/50"
-                />
-              </motion.div>
+              />
             </div>
           </motion.div>
         )}
@@ -156,23 +121,7 @@ export default function RankProgressionPath({
                   className="relative flex items-center gap-4"
                 >
                   {/* Rank Icon */}
-                  <motion.div
-                    animate={
-                      isCurrent
-                        ? {
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 5, -5, 0],
-                          }
-                        : {}
-                    }
-                    transition={
-                      isCurrent
-                        ? {
-                            duration: 2,
-                            repeat: Infinity,
-                          }
-                        : {}
-                    }
+                  <div
                     className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center ${
                       isUnlocked
                         ? 'bg-gradient-to-br from-stake-red to-orange-500 shadow-red-glow'
@@ -190,22 +139,7 @@ export default function RankProgressionPath({
                     ) : (
                       <Lock className="w-6 h-6 text-gray-600" />
                     )}
-
-                    {/* Pulse for Current */}
-                    {isCurrent && (
-                      <motion.div
-                        animate={{
-                          opacity: [0, 0.5, 0],
-                          scale: [1, 1.5, 1],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                        }}
-                        className="absolute inset-0 rounded-full bg-stake-red"
-                      />
-                    )}
-                  </motion.div>
+                  </div>
 
                   {/* Rank Card */}
                   <motion.div
@@ -222,16 +156,7 @@ export default function RankProgressionPath({
                   >
                     {/* Background Glow */}
                     {isCurrent && (
-                      <motion.div
-                        animate={{
-                          opacity: [0.1, 0.3, 0.1],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                        }}
-                        className="absolute inset-0 bg-gradient-to-r from-stake-red/20 to-orange-500/20"
-                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-stake-red/20 to-orange-500/20" />
                     )}
 
                     <div className="relative z-10 flex items-center justify-between">
@@ -279,56 +204,12 @@ export default function RankProgressionPath({
                         </motion.button>
                       )}
                     </div>
-
-                    {/* Sparkles for unlocked */}
-                    {isUnlocked && (
-                      <div className="absolute top-2 right-2">
-                        {[...Array(3)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            animate={{
-                              opacity: [0, 1, 0],
-                              scale: [0, 1, 0],
-                              x: Math.random() * 20 - 10,
-                              y: Math.random() * 20 - 10,
-                            }}
-                            transition={{
-                              duration: 2,
-                              delay: i * 0.3,
-                              repeat: Infinity,
-                            }}
-                            className="absolute w-1 h-1 bg-yellow-400 rounded-full"
-                          />
-                        ))}
-                      </div>
-                    )}
                   </motion.div>
                 </motion.div>
               );
             })}
           </div>
         </div>
-      </div>
-
-      {/* Animated Path Particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{
-              y: '-100%',
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5,
-              delay: i * 1,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute left-6 w-2 h-2 rounded-full bg-gradient-to-b from-stake-red to-yellow-500"
-          />
-        ))}
       </div>
     </div>
   );

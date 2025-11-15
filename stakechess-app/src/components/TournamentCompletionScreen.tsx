@@ -104,7 +104,7 @@ export default function TournamentCompletionScreen({
               }}
               src="/images/achievements/0_0__73_.png"
               alt="Tournament Trophy"
-              className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(250,204,21,0.5)]"
+              className="w-full h-full object-contain"
             />
 
             {/* Glow Rings */}
@@ -194,9 +194,9 @@ export default function TournamentCompletionScreen({
             <div
               className={`glass-card px-8 py-4 inline-flex items-center gap-3 ${
                 isWinner
-                  ? 'border-2 border-yellow-400 shadow-[0_0_30px_rgba(250,204,21,0.5)]'
+                  ? 'border-2 border-yellow-400 shadow-lg'
                   : isTopThree
-                  ? 'border-2 border-orange-400 shadow-[0_0_20px_rgba(251,146,60,0.4)]'
+                  ? 'border-2 border-orange-400 shadow-md'
                   : 'border border-stake-red/30'
               }`}
             >

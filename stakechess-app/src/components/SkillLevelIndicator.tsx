@@ -100,7 +100,7 @@ export default function SkillLevelIndicator({
                 initial={{ width: 0 }}
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-stake-red via-orange-500 to-yellow-500 relative shadow-[0_0_12px_rgba(239,49,36,0.6)]"
+                className="h-full bg-gradient-to-r from-stake-red via-orange-500 to-yellow-500 relative"
               >
                 {/* Shimmer Effect */}
                 <motion.div
@@ -133,7 +133,7 @@ export default function SkillLevelIndicator({
                     transition={{ delay: i * 0.1 }}
                     className={`w-5 h-5 rounded-full border-2 ${
                       isPassed
-                        ? 'bg-stake-red border-stake-red shadow-[0_0_8px_rgba(239,49,36,0.6)]'
+                        ? 'bg-stake-red border-stake-red'
                         : 'bg-stake-gray border-gray-700'
                     }`}
                   />

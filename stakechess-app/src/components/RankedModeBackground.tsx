@@ -27,9 +27,7 @@ export default function RankedModeBackground({
 
         {/* Animated Grid Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-stake-red/5 to-transparent">
-          <motion.div
-            animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          <div
             className="absolute inset-0"
             style={{
               backgroundImage: `
@@ -40,26 +38,6 @@ export default function RankedModeBackground({
             }}
           />
         </div>
-
-        {/* Glow Orbs */}
-        <motion.div
-          animate={{
-            x: [-100, 100, -100],
-            y: [-50, 50, -50],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-stake-red/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [100, -100, 100],
-            y: [50, -50, 50],
-            scale: [1.2, 1, 1.2],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"
-        />
 
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-stake-black-light/90 to-black/80" />
@@ -73,7 +51,7 @@ export default function RankedModeBackground({
           transition={{ delay: 0.5, type: 'spring' }}
           className="absolute top-8 left-1/2 -translate-x-1/2"
         >
-          <div className="glass-card px-8 py-4 flex items-center gap-4 border-2 border-stake-red/50 shadow-[0_0_40px_rgba(239,49,36,0.3)]">
+          <div className="glass-card px-8 py-4 flex items-center gap-4 border-2 border-stake-red/50 shadow-lg">
             <Trophy className="w-6 h-6 text-stake-red" />
             <div>
               <p className="text-xs text-gray-400">Ранговый сезон</p>

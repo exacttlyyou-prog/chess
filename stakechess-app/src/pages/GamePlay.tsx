@@ -238,26 +238,26 @@ export default function GamePlay() {
           <button
             onClick={handleAIAnalysis}
             disabled={isAnalyzing}
-            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex items-center justify-center gap-2 hover:!bg-stake-red/20 hover:!border-stake-red/50 hover:shadow-[0_0_16px_rgba(239,49,36,0.3)] transition-all duration-300 disabled:opacity-50"
+            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex items-center justify-center gap-2 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
           >
             <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
             <span className="font-semibold text-stake-red">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
           </button>
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="btn-secondary flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex items-center justify-center gap-2 transition-all duration-300"
           >
             <Settings className="w-5 h-5" />
           </button>
           <button
             onClick={handleDraw}
-            className="btn-secondary flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex items-center justify-center gap-2 transition-all duration-300"
           >
             <Handshake className="w-5 h-5" />
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/40 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
+            className="glass-button !bg-red-500/20 !border-red-500/40 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 transition-all duration-300"
           >
             <Flag className="w-5 h-5 text-red-400" />
           </button>
@@ -301,7 +301,7 @@ export default function GamePlay() {
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                     className={`p-3 flex items-center justify-between transition-all rounded-lg ${
                       isLatestMove
-                        ? 'bg-stake-red/15 border border-stake-red/30 shadow-[0_0_12px_rgba(255,23,68,0.2)]'
+                        ? 'bg-stake-red/15 border border-stake-red/30'
                         : index % 2 === 0
                         ? 'bg-white/5 hover:bg-white/10'
                         : 'bg-transparent hover:bg-white/5'

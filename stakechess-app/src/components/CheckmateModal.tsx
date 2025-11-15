@@ -53,54 +53,7 @@ export default function CheckmateModal({
 
           {/* Background dramatic effect */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {isPlayerWinner ? (
-              <>
-                {/* Victory rays */}
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    background: `conic-gradient(
-                      from 0deg,
-                      transparent 0deg,
-                      rgba(255, 23, 68, 0.3) 45deg,
-                      transparent 90deg,
-                      rgba(255, 23, 68, 0.3) 135deg,
-                      transparent 180deg,
-                      rgba(255, 23, 68, 0.3) 225deg,
-                      transparent 270deg,
-                      rgba(255, 23, 68, 0.3) 315deg,
-                      transparent 360deg
-                    )`,
-                  }}
-                />
-                {/* Particles floating up */}
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ y: '100%', x: `${Math.random() * 100}%`, opacity: 0 }}
-                    animate={{
-                      y: '-100%',
-                      opacity: [0, 0.6, 0],
-                    }}
-                    transition={{
-                      duration: 3 + Math.random() * 2,
-                      repeat: Infinity,
-                      delay: Math.random() * 3,
-                      ease: 'linear',
-                    }}
-                    className="absolute w-1 h-1 bg-stake-red rounded-full"
-                  />
-                ))}
-              </>
-            ) : (
+            {!isPlayerWinner && (
               /* Defeat dim overlay */
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/50" />
             )}
@@ -115,58 +68,16 @@ export default function CheckmateModal({
           >
             {isPlayerWinner ? (
               /* Victory: Use podium.png asset as background */
-              <div className="relative w-48 h-48 mx-auto">
-                <motion.div
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <Trophy className="w-32 h-32 text-stake-red" strokeWidth={1.5} />
-                </motion.div>
-                {/* Glow effect */}
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(255, 23, 68, 0.3) 0%, transparent 70%)',
-                  }}
-                />
+              <div className="relative w-48 h-48 mx-auto flex items-center justify-center">
+                <Trophy className="w-32 h-32 text-stake-red" strokeWidth={1.5} />
               </div>
             ) : (
               /* Defeat: Shattered king reference */
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.6 }}
-                className="w-48 h-48 mx-auto flex items-center justify-center"
-              >
-                <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="text-6xl filter grayscale opacity-50"
-                >
+              <div className="w-48 h-48 mx-auto flex items-center justify-center">
+                <div className="text-6xl filter grayscale opacity-50">
                   👑
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             )}
           </motion.div>
 

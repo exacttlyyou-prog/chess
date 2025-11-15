@@ -129,7 +129,7 @@ export default function GameEndModal({ result, onClose, stats }: GameEndModalPro
                 initial={{ scale: 0 }}
                 animate={{ scale: 1, rotate: result === 'win' ? 360 : 0 }}
                 transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                className={`w-24 h-24 rounded-full bg-gradient-to-br ${config.color} flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(239,49,36,0.4)]`}
+                className={`w-24 h-24 rounded-full bg-gradient-to-br ${config.color} flex items-center justify-center mx-auto mb-6 shadow-lg`}
               >
                 <Icon className="w-12 h-12 text-white" strokeWidth={2.5} />
               </motion.div>
@@ -211,7 +211,7 @@ export default function GameEndModal({ result, onClose, stats }: GameEndModalPro
                   transition={{ delay: 0.7 }}
                   whileHover={{ scale: 1.02 }}
                   onClick={() => navigate('/premium')}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 rounded-2xl mb-4 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(234,179,8,0.4)]"
+                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 rounded-2xl mb-4 flex items-center justify-center gap-2 shadow-md"
                 >
                   <Crown className="w-5 h-5" />
                   <span>Получи анализ партии с Premium</span>

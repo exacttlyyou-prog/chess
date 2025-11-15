@@ -57,57 +57,23 @@ export default function PremiumKingFeatureCard({
       animate={{ opacity: 1, scale: 1 }}
       className="glass-card overflow-hidden relative"
     >
-      {/* King Crown Background */}
+      {/* King Crown Background - Simplified */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.img
-          animate={{
-            rotate: [-3, 3, -3],
-            scale: [1, 1.05, 1],
-            y: [-10, 10, -10],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
           src="/images/pieces/king-crown.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-contain opacity-10"
+          className="absolute inset-0 w-full h-full object-contain opacity-5"
         />
-
-        {/* Golden Glow */}
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-          }}
-          className="absolute inset-0 bg-gradient-radial from-yellow-400/20 via-transparent to-transparent"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-br from-stake-black/90 via-stake-black/85 to-yellow-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-stake-black/95 via-stake-black/90 to-yellow-900/10" />
       </div>
 
       {/* Header */}
       <div className="relative z-10 p-6 border-b border-yellow-500/20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <motion.div
-              animate={{
-                rotate: [-5, 5, -5],
-                y: [-2, 2, -2],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
-              className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-[0_0_30px_rgba(250,204,21,0.5)]"
-            >
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-md">
               <Crown className="w-10 h-10 text-white" fill="currentColor" />
-            </motion.div>
+            </div>
 
             <div>
               <h2 className="!text-2xl bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent">
@@ -196,16 +162,8 @@ export default function PremiumKingFeatureCard({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onUpgrade}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-stake-black font-bold text-lg relative overflow-hidden group shadow-[0_0_30px_rgba(250,204,21,0.4)]"
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-stake-black font-bold text-lg relative overflow-hidden group shadow-lg"
           >
-            {/* Shine Effect */}
-            <motion.div
-              animate={{ x: [-100, 400] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-              style={{ width: '100px' }}
-            />
-
             <span className="relative z-10 flex items-center justify-center gap-2">
               <Crown className="w-6 h-6" fill="currentColor" />
               Получить King Premium
@@ -239,46 +197,6 @@ export default function PremiumKingFeatureCard({
         </div>
       )}
 
-      {/* Floating Sparkles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-              x: `${Math.random() * 100}%`,
-              y: `${Math.random() * 100}%`,
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.4,
-              repeat: Infinity,
-            }}
-            className="absolute w-1 h-1"
-          >
-            <div
-              className="w-full h-full bg-yellow-400"
-              style={{
-                clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-              }}
-            />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Crown Glow Border */}
-      <motion.div
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-        }}
-        className="absolute inset-0 border-2 border-yellow-400/20 rounded-2xl pointer-events-none"
-      />
     </motion.div>
   );
 }

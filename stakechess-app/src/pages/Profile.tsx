@@ -89,7 +89,7 @@ export default function Profile() {
           </div>
 
           <div className="relative z-10 text-center">
-            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-stake-red/50 shadow-[0_0_24px_rgba(255,23,68,0.4)] mx-auto mb-4">
+            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-stake-red/50 shadow-lg mx-auto mb-4">
               <img
                 src="/images/heroes/podium.png"
                 alt="Player"
@@ -316,7 +316,7 @@ export default function Profile() {
             whileHover={{ scale: 1.02, y: -4 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/premium')}
-            className="w-full bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/30 rounded-3xl p-8 shadow-[0_8px_32px_rgba(234,179,8,0.2)] relative overflow-hidden"
+            className="w-full bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/30 rounded-3xl p-8 shadow-lg relative overflow-hidden"
           >
             {/* Animated background */}
             <motion.div
@@ -334,7 +334,7 @@ export default function Profile() {
 
             <div className="relative z-10 flex items-center gap-6">
               {/* Crown Icon */}
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-[0_4px_16px_rgba(234,179,8,0.4)]">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-md">
                 <Crown className="w-10 h-10 text-black" strokeWidth={2.5} />
               </div>
 

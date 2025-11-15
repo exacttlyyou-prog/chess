@@ -35,16 +35,7 @@ export default function StatsGrowthDashboard({
     <div className="glass-card overflow-hidden relative">
       {/* Stats Growth Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        <motion.img
-          animate={{
-            y: [-20, 20, -20],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
           src="/images/heroes/stats-growth.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
@@ -60,19 +51,9 @@ export default function StatsGrowthDashboard({
             <p className="text-sm text-gray-400">{timeRange}</p>
           </div>
 
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/20 to-orange-500/20 flex items-center justify-center"
-          >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/20 to-orange-500/20 flex items-center justify-center">
             <Activity className="w-6 h-6 text-stake-red" />
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -187,15 +168,7 @@ export default function StatsGrowthDashboard({
                           ? 'bg-gradient-to-r from-red-600 to-red-400'
                           : 'bg-gradient-to-r from-gray-600 to-gray-400'
                       }`}
-                    >
-                      {/* Shimmer */}
-                      <motion.div
-                        animate={{ x: [-50, 200] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                        style={{ width: '50px' }}
-                      />
-                    </motion.div>
+                    />
                   </div>
                 </div>
               </div>
@@ -230,25 +203,6 @@ export default function StatsGrowthDashboard({
           </div>
         </div>
       </motion.div>
-
-      {/* Animated Growth Lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ x: '-100%', opacity: 0 }}
-            animate={{ x: '200%', opacity: [0, 0.3, 0] }}
-            transition={{
-              duration: 5,
-              delay: i * 1.5,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute top-0 h-full w-1 bg-gradient-to-b from-transparent via-stake-red to-transparent"
-            style={{ left: `${i * 30}%` }}
-          />
-        ))}
-      </div>
     </div>
   );
 }

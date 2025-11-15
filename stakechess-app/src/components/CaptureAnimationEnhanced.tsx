@@ -62,7 +62,7 @@ export default function CaptureAnimationEnhanced({
             <img
               src={explosionImage}
               alt="Explosion"
-              className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(255,100,50,0.8)]"
+              className="w-full h-full object-contain"
             />
           </motion.div>
 

@@ -49,28 +49,6 @@ export default function DuoModeScreen({ onStartDuoGame, onInvitePartner }: DuoMo
           <div className="absolute inset-0 bg-gradient-radial from-stake-red/30 via-transparent to-transparent" />
         </motion.div>
 
-        {/* Animated Hearts */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: '100vh', x: `${Math.random() * 100}vw`, opacity: 0 }}
-            animate={{
-              y: '-100vh',
-              x: `${Math.random() * 100}vw`,
-              opacity: [0, 0.4, 0],
-            }}
-            transition={{
-              duration: 10 + Math.random() * 5,
-              delay: i * 0.8,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute"
-          >
-            <Heart className="w-6 h-6 text-stake-red" fill="currentColor" />
-          </motion.div>
-        ))}
-
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-stake-black via-transparent to-stake-black/50" />
       </div>
@@ -248,33 +226,6 @@ export default function DuoModeScreen({ onStartDuoGame, onInvitePartner }: DuoMo
           })}
         </motion.div>
       </div>
-
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 90, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="fixed top-1/4 right-0 w-96 h-96 bg-gradient-to-br from-stake-red/10 to-pink-500/10 rounded-full blur-3xl pointer-events-none"
-      />
-
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          rotate: [0, -90, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="fixed bottom-1/4 left-0 w-96 h-96 bg-gradient-to-br from-pink-500/10 to-purple-500/10 rounded-full blur-3xl pointer-events-none"
-      />
     </div>
   );
 }

@@ -127,7 +127,7 @@ export default function Home() {
           <div className="relative z-10 flex items-center justify-between">
             <div className="flex items-center gap-4">
               {/* Avatar */}
-              <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-[0_0_20px_rgba(255,59,48,0.4)] transition-all">
+              <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-lg transition-all">
                 <img
                   src="/images/pieces/king-crown.png"
                   alt="Profile"
@@ -200,11 +200,11 @@ export default function Home() {
               info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
               navigate('/select-ai');
             }}
-            className="glass-card p-8 text-left shadow-[0_0_32px_rgba(239,49,36,0.3),0_8px_24px_rgba(0,0,0,0.4)] bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group"
+            className="glass-card p-8 text-left shadow-lg bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group"
           >
             <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10 flex items-center gap-6">
-              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-[0_0_24px_rgba(239,49,36,0.5)]">
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-lg">
                 <Bot className="w-10 h-10 text-white" strokeWidth={2.5} />
               </div>
               <div className="flex-1">
@@ -257,7 +257,7 @@ export default function Home() {
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/premium')}
-            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden shadow-[0_0_24px_rgba(255,215,0,0.2),0_4px_16px_rgba(255,215,0,0.15)]"
+            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden shadow-lg"
           >
             <div className="flex items-center justify-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center">
@@ -349,7 +349,7 @@ export default function Home() {
 
           <div className="relative z-10 flex items-center gap-6">
             {/* Trophy Icon */}
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-[0_4px_16px_rgba(239,49,36,0.4)]">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-md">
               <Trophy className="w-10 h-10 text-white" strokeWidth={2.5} />
             </div>
 
@@ -478,9 +478,9 @@ export default function Home() {
                   {/* Result badge */}
                   <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl mb-4 text-xs font-bold uppercase tracking-wide backdrop-blur-md ${
                     game.result === 'win'
-                      ? 'bg-[rgba(48,209,88,0.3)] text-green-200 border-2 border-green-400/50 shadow-[0_0_16px_rgba(48,209,88,0.3)]'
+                      ? 'bg-[rgba(48,209,88,0.3)] text-green-200 border-2 border-green-400/50'
                       : game.result === 'loss'
-                      ? 'bg-[rgba(255,59,48,0.3)] text-red-200 border-2 border-red-400/50 shadow-[0_0_16px_rgba(255,59,48,0.3)]'
+                      ? 'bg-[rgba(255,59,48,0.3)] text-red-200 border-2 border-red-400/50'
                       : 'bg-[rgba(156,163,175,0.3)] text-gray-200 border-2 border-gray-400/50 backdrop-blur-md'
                   }`}>
                     {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
@@ -576,7 +576,7 @@ export default function Home() {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
             <h4 className="!text-base text-gray-400">Эфиры</h4>
           </div>
           <span className="text-xs text-gray-500">{liveGames.length}</span>

@@ -203,7 +203,7 @@ export default function Premium() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={handleUpgrade}
-          className="w-full py-5 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-stake-black font-bold text-xl relative overflow-hidden group shadow-[0_0_40px_rgba(250,204,21,0.5)]"
+          className="w-full py-5 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-stake-black font-bold text-xl relative overflow-hidden group shadow-lg"
         >
           <motion.div
             animate={{ x: [-100, 400] }}

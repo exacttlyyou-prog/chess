@@ -58,18 +58,7 @@ export default function MovePreviewAnimation({
           exit={{ opacity: 0 }}
           className="absolute inset-0 pointer-events-none overflow-hidden"
         >
-          <motion.img
-            animate={{
-              x: [-30, 30, -30],
-              y: [-20, 20, -20],
-              rotate: [-5, 5, -5],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+          <img
             src="/images/pieces/knight-motion.png"
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
@@ -115,37 +104,19 @@ export default function MovePreviewAnimation({
                 {/* Main Circle/Ring */}
                 {isCapture ? (
                   // Capture Ring
-                  <motion.div
-                    animate={{
-                      rotate: [0, 360],
-                      scale: isHovered ? [1, 1.1, 1] : 1,
-                    }}
-                    transition={{
-                      rotate: { duration: 3, repeat: Infinity, ease: 'linear' },
-                      scale: { duration: 0.6, repeat: Infinity },
-                    }}
+                  <div
                     className={`w-12 h-12 rounded-full border-4 ${
                       isBestMove
-                        ? 'border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.6)]'
-                        : 'border-stake-red shadow-[0_0_15px_rgba(239,49,36,0.5)]'
+                        ? 'border-yellow-400 shadow-md'
+                        : 'border-stake-red shadow-md'
                     } relative`}
                   >
-                    {/* Pulsing Inner Glow */}
-                    <motion.div
-                      animate={{
-                        opacity: [0.3, 0.6, 0.3],
-                        scale: [0.8, 1.2, 0.8],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }}
+                    <div
                       className={`absolute inset-0 rounded-full ${
                         isBestMove ? 'bg-yellow-400/30' : 'bg-stake-red/30'
                       }`}
                     />
-                  </motion.div>
+                  </div>
                 ) : (
                   // Normal Move Circle
                   <motion.div
@@ -159,7 +130,7 @@ export default function MovePreviewAnimation({
                     }}
                     className={`w-8 h-8 rounded-full ${
                       isBestMove
-                        ? 'bg-yellow-400/40 border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.6)]'
+                        ? 'bg-yellow-400/40 border-2 border-yellow-400 shadow-md'
                         : 'bg-white/20 border-2 border-white/40'
                     }`}
                   />
@@ -186,60 +157,6 @@ export default function MovePreviewAnimation({
                   >
                     {getMoveIcon(move.type)}
                   </motion.div>
-                )}
-
-                {/* Motion Trail Particles */}
-                {showMotionTrails && isHovered && (
-                  <div className="absolute inset-0">
-                    {[...Array(8)].map((_, i) => {
-                      const angle = (i * 360) / 8;
-                      const distance = 40;
-                      const x = Math.cos((angle * Math.PI) / 180) * distance;
-                      const y = Math.sin((angle * Math.PI) / 180) * distance;
-
-                      return (
-                        <motion.div
-                          key={i}
-                          initial={{ x: 0, y: 0, opacity: 0 }}
-                          animate={{
-                            x,
-                            y,
-                            opacity: [0, 0.6, 0],
-                          }}
-                          transition={{
-                            duration: 1,
-                            delay: i * 0.05,
-                            repeat: Infinity,
-                          }}
-                          className={`absolute w-2 h-2 rounded-full ${
-                            isBestMove ? 'bg-yellow-400' : 'bg-stake-red'
-                          }`}
-                        />
-                      );
-                    })}
-                  </div>
-                )}
-
-                {/* Ripple Effect on Hover */}
-                {isHovered && (
-                  <>
-                    {[...Array(3)].map((_, i) => (
-                      <motion.div
-                        key={`ripple-${i}`}
-                        initial={{ scale: 1, opacity: 0.6 }}
-                        animate={{ scale: 2 + i * 0.5, opacity: 0 }}
-                        transition={{
-                          duration: 1.5,
-                          delay: i * 0.2,
-                          repeat: Infinity,
-                        }}
-                        className={`absolute inset-0 rounded-full border-2 ${
-                          isBestMove ? 'border-yellow-400' : 'border-stake-red'
-                        }`}
-                        style={{ left: '-50%', top: '-50%', width: '200%', height: '200%' }}
-                      />
-                    ))}
-                  </>
                 )}
               </motion.button>
 
@@ -287,7 +204,7 @@ export default function MovePreviewAnimation({
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 flex items-center gap-2 border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.2)]"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 flex items-center gap-2 border border-yellow-500/30"
         >
           <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
           <span className="text-xs text-yellow-400 font-semibold">

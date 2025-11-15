@@ -53,30 +53,6 @@ export default function TournamentWinner({
                 />
               </div>
 
-              {/* Confetti Animation */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(30)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ y: -20, x: Math.random() * 400 - 200, opacity: 1 }}
-                    animate={{
-                      y: 600,
-                      rotate: Math.random() * 360,
-                      opacity: 0,
-                    }}
-                    transition={{
-                      duration: 2 + Math.random() * 2,
-                      delay: Math.random() * 0.5,
-                      repeat: Infinity,
-                    }}
-                    className="absolute w-2 h-2 rounded-full"
-                    style={{
-                      background: ['#FF1744', '#FFD700', '#00E676', '#00B0FF'][Math.floor(Math.random() * 4)],
-                      left: `${Math.random() * 100}%`,
-                    }}
-                  />
-                ))}
-              </div>
 
               {/* Close Button */}
               <button
@@ -98,17 +74,8 @@ export default function TournamentWinner({
                   <img
                     src="/images/achievements/trophy-crown.png"
                     alt="Trophy"
-                    className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(255,215,0,0.6)]"
+                    className="w-full h-full object-contain"
                   />
-                  {rank === 1 && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                      className="absolute inset-0"
-                    >
-                      <div className="absolute inset-0 border-4 border-yellow-400/30 rounded-full" />
-                    </motion.div>
-                  )}
                 </motion.div>
 
                 {/* Title */}

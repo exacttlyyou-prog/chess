@@ -107,7 +107,7 @@ export default function MatchSearch() {
               <div className="mb-8 relative z-10">
                 <div className="w-full bg-stake-gray rounded-full h-3 overflow-hidden">
                   <motion.div
-                    className="bg-gradient-to-r from-stake-red to-stake-red-light h-3 rounded-full shadow-[0_0_16px_rgba(239,49,36,0.6)]"
+                    className="bg-gradient-to-r from-stake-red to-stake-red-light h-3 rounded-full"
                     style={{ width: `${progress}%` }}
                     transition={{ duration: 0.1 }}
                   />
@@ -147,7 +147,7 @@ export default function MatchSearch() {
                 transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
                 className="w-24 h-24 mx-auto mb-6 relative z-10"
               >
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-green-500/30 to-green-500/10 flex items-center justify-center border-4 border-green-500/50 shadow-[0_0_32px_rgba(34,197,94,0.4)]">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-green-500/30 to-green-500/10 flex items-center justify-center border-4 border-green-500/50 shadow-lg">
                   <Check className="w-12 h-12 text-green-400" strokeWidth={3} />
                 </div>
               </motion.div>
@@ -195,7 +195,7 @@ export default function MatchSearch() {
                 </div>
 
                 <div className="relative z-10 text-center">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-stake-red/50 mx-auto mb-4 shadow-[0_0_20px_rgba(239,49,36,0.3)]">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-stake-red/50 mx-auto mb-4 shadow-md">
                     <img
                       src={opponent.avatar}
                       alt={opponent.name}

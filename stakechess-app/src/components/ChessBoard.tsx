@@ -355,10 +355,10 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
             className={`text-2xl font-mono font-bold tabular-nums tracking-tight transition-all duration-300 ${
               currentTurn === 'black'
                 ? blackTime < 10
-                  ? 'text-red-500 animate-pulse drop-shadow-[0_0_12px_rgba(239,68,68,0.8)]'
+                  ? 'text-red-500 animate-pulse'
                   : blackTime < 30
-                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite] drop-shadow-[0_0_8px_rgba(255,23,68,0.6)]'
-                  : 'text-stake-red drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]'
+                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite]'
+                  : 'text-stake-red'
                 : 'text-gray-400'
             }`}
           >
@@ -568,10 +568,10 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
             className={`text-2xl font-mono font-bold tabular-nums tracking-tight transition-all duration-300 ${
               currentTurn === 'white'
                 ? whiteTime < 10
-                  ? 'text-red-500 animate-pulse drop-shadow-[0_0_12px_rgba(239,68,68,0.8)]'
+                  ? 'text-red-500 animate-pulse'
                   : whiteTime < 30
-                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite] drop-shadow-[0_0_8px_rgba(255,23,68,0.6)]'
-                  : 'text-stake-red drop-shadow-[0_0_8px_rgba(255,23,68,0.4)]'
+                  ? 'text-stake-red animate-[pulse_1.5s_ease-in-out_infinite]'
+                  : 'text-stake-red'
                 : 'text-gray-400'
             }`}
           >

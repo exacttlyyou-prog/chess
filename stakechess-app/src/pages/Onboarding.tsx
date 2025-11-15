@@ -201,8 +201,8 @@ export default function Onboarding() {
                 onClick={() => setCurrentSlide(index)}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 bg-stake-red shadow-[0_0_16px_rgba(255,23,68,0.6),0_4px_12px_rgba(255,23,68,0.4)]'
-                    : 'w-2 bg-white/30 hover:bg-white/50 hover:shadow-[0_0_8px_rgba(255,255,255,0.3)]'
+                    ? 'w-12 bg-stake-red shadow-md'
+                    : 'w-2 bg-white/30 hover:bg-white/50'
                 }`}
               />
             ))}
@@ -212,13 +212,13 @@ export default function Onboarding() {
           {currentSlide < slides.length - 1 ? (
             <div className="flex gap-4">
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
+                <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 transition-all duration-300">
                   Назад
                 </button>
               )}
               <button
                 onClick={nextSlide}
-                className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
+                className="btn-primary flex-1 !py-5 text-lg font-bold shadow-lg transition-all duration-300"
               >
                 Далее
               </button>
@@ -238,7 +238,7 @@ export default function Onboarding() {
                 <span>Alfa ID</span>
               </button>
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="btn-secondary w-full !py-4 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
+                <button onClick={prevSlide} className="btn-secondary w-full !py-4 transition-all duration-300">
                   Назад
                 </button>
               )}

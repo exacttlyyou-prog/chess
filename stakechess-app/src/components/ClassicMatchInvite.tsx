@@ -209,7 +209,7 @@ export default function ClassicMatchInvite({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onAccept}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 transition-colors flex items-center justify-center gap-2 font-bold text-stake-black shadow-[0_0_20px_rgba(245,158,11,0.4)] relative overflow-hidden"
+            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 transition-colors flex items-center justify-center gap-2 font-bold text-stake-black shadow-md relative overflow-hidden"
           >
             {/* Shine Effect */}
             <motion.div
