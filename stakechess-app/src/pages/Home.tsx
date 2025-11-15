@@ -105,43 +105,73 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-6"
       >
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-4">
-            {/* Avatar with image background */}
-            <button
-              onClick={() => navigate('/profile')}
-              className="relative w-16 h-16 rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_20px_rgba(255,59,48,0.3)] transition-all group"
-            >
+        {/* Profile Card */}
+        <motion.button
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          onClick={() => navigate('/profile')}
+          className="glass-card p-5 mb-6 hover-lift relative overflow-hidden group"
+        >
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div className="absolute right-0 bottom-0 w-32 h-32">
               <img
                 src="/images/pieces/king-crown.png"
-                alt="Profile"
-                className="absolute inset-0 w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all"
+                alt=""
+                className="w-full h-full object-contain opacity-30"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-stake-red/20 to-transparent" />
-              <div className="absolute inset-0 border-2 border-white/10 rounded-2xl" />
-            </button>
-            <div>
-              <h1 className="!text-2xl mb-1 font-bold">Привет, Игрок</h1>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-yellow-400">⭐ 1450</span>
-                <span className="text-xs text-gray-500">•</span>
-                <span className="text-xs text-green-400 font-semibold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  Онлайн
-                </span>
-              </div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <button
-              onClick={() => navigate('/settings')}
-              className="glass-button !px-4 !py-3"
-            >
-              <Settings className="w-6 h-6" />
-            </button>
+
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              {/* Avatar */}
+              <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-[0_0_20px_rgba(255,59,48,0.4)] transition-all">
+                <img
+                  src="/images/pieces/king-crown.png"
+                  alt="Profile"
+                  className="absolute inset-0 w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-stake-red/20 to-transparent" />
+                <div className="absolute inset-0 border-2 border-white/10 rounded-2xl" />
+              </div>
+
+              {/* Info */}
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="!text-lg font-bold">Игрок</h2>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-xs text-green-400 font-medium">Онлайн</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-yellow-400 font-bold">⭐ 1450</span>
+                    <span className="text-xs text-gray-500">ELO</span>
+                  </div>
+                  <span className="text-gray-600">•</span>
+                  <span className="text-gray-400 text-xs">Профиль →</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate('/settings');
+                }}
+                className="glass-button !px-3 !py-3 hover:bg-white/10"
+              >
+                <Settings className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </div>
+        </motion.button>
 
         {/* Live Players Social Proof */}
         <motion.div
@@ -413,59 +443,76 @@ export default function Home() {
               transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
               whileHover={{ scale: 1.02, y: -4 }}
               whileTap={{ scale: 0.98 }}
-              className={`glass-card min-w-[280px] cursor-pointer shadow-depth overflow-hidden snap-start flex flex-col h-[240px] ${
+              className={`relative min-w-[280px] h-[280px] cursor-pointer shadow-depth overflow-hidden snap-start rounded-3xl ${
                 game.result === 'win'
-                  ? '!bg-[rgba(48,209,88,0.15)] border-2 !border-[rgba(48,209,88,0.4)]'
+                  ? 'border-2 !border-[rgba(48,209,88,0.4)]'
                   : game.result === 'loss'
-                  ? '!bg-[rgba(255,59,48,0.15)] border-2 !border-[rgba(255,59,48,0.4)]'
-                  : '!bg-[#2a2a2a] border-2 !border-[rgba(255,255,255,0.15)]'
+                  ? 'border-2 !border-[rgba(255,59,48,0.4)]'
+                  : 'border-2 !border-[rgba(255,255,255,0.15)]'
               }`}
               onClick={() => navigate('/play')}
             >
-              {/* Text Content - Top */}
-              <div className="p-5 flex-1">
-                {/* Result badge - более контрастный */}
-                <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl mb-3 text-xs font-bold uppercase tracking-wide ${
-                  game.result === 'win'
-                    ? 'bg-[rgba(48,209,88,0.25)] text-green-300 border-2 border-green-500/40 shadow-[0_0_12px_rgba(48,209,88,0.2)]'
-                    : game.result === 'loss'
-                    ? 'bg-[rgba(255,59,48,0.25)] text-red-300 border-2 border-red-500/40 shadow-[0_0_12px_rgba(255,59,48,0.2)]'
-                    : 'bg-[rgba(156,163,175,0.25)] text-gray-300 border-2 border-gray-500/40'
-                }`}>
-                  {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
-                </div>
-
-                {/* Opponent with rating */}
-                <div className="mb-3">
-                  <h5 className="!text-base font-bold">{game.opponent}</h5>
-                  {game.rating && (
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-yellow-500 font-semibold">⭐ {game.rating}</span>
-                      <span className="text-xs text-gray-500">ELO</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Game info */}
-                <div className="space-y-1.5">
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span>Режим</span>
-                    <span className="text-white font-medium">{game.mode}</span>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span>Ходов</span>
-                    <span className="text-white font-medium">{game.moves}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Image - Bottom (40-50% height) */}
-              <div className="h-[100px] overflow-hidden">
+              {/* Background Image (Full) */}
+              <div className="absolute inset-0">
                 <img
                   src={game.image}
                   alt=""
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover"
                 />
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+                {/* Color tint overlay */}
+                <div className={`absolute inset-0 ${
+                  game.result === 'win'
+                    ? 'bg-gradient-to-br from-green-500/20 to-transparent'
+                    : game.result === 'loss'
+                    ? 'bg-gradient-to-br from-red-500/20 to-transparent'
+                    : 'bg-black/20'
+                }`} />
+              </div>
+
+              {/* Content (Relative) */}
+              <div className="relative z-10 p-5 h-full flex flex-col justify-between">
+                {/* Top Section */}
+                <div>
+                  {/* Result badge */}
+                  <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl mb-4 text-xs font-bold uppercase tracking-wide backdrop-blur-md ${
+                    game.result === 'win'
+                      ? 'bg-[rgba(48,209,88,0.3)] text-green-200 border-2 border-green-400/50 shadow-[0_0_16px_rgba(48,209,88,0.3)]'
+                      : game.result === 'loss'
+                      ? 'bg-[rgba(255,59,48,0.3)] text-red-200 border-2 border-red-400/50 shadow-[0_0_16px_rgba(255,59,48,0.3)]'
+                      : 'bg-[rgba(156,163,175,0.3)] text-gray-200 border-2 border-gray-400/50 backdrop-blur-md'
+                  }`}>
+                    {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
+                  </div>
+
+                  {/* Opponent with rating */}
+                  <div className="mb-4">
+                    <h5 className="!text-lg font-bold text-white drop-shadow-lg">{game.opponent}</h5>
+                    {game.rating && (
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <span className="text-sm text-yellow-400 font-bold drop-shadow-md">⭐ {game.rating}</span>
+                        <span className="text-xs text-gray-300">ELO</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bottom Section - Game Info */}
+                <div className="space-y-2 backdrop-blur-sm bg-black/30 rounded-2xl p-3 border border-white/10">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-300">Режим</span>
+                    <span className="text-white font-semibold">{game.mode}</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-300">Ходов</span>
+                    <span className="text-white font-semibold">{game.moves}</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-300">Дата</span>
+                    <span className="text-white font-semibold">{game.date}</span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}

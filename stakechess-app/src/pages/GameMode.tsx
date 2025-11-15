@@ -118,24 +118,27 @@ export default function GameMode() {
             <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
             <div className="grid grid-cols-2 gap-4">
               {gameModes.map((mode, index) => {
+                const isSelected = selectedMode === mode.id;
                 const getModeStyles = () => {
+                  const baseOpacity = isSelected ? 'opacity-100' : 'opacity-40 hover:opacity-70';
+
                   switch(mode.id) {
                     case 'blitz':
-                      return selectedMode === mode.id
-                        ? '!bg-gradient-to-br !from-[rgba(255,59,48,0.15)] !to-[#2a1a1a] border-l-4 !border-l-[#ff3b30] border-2 !border-[#ff3b30]/40 shadow-[0_8px_24px_rgba(255,59,48,0.25)]'
-                        : '!bg-gradient-to-br !from-[rgba(255,59,48,0.08)] !to-[#2a1a1a] border-l-4 !border-l-[#ff3b30] border !border-white/10 hover:!border-[#ff3b30]/30 hover:shadow-[0_4px_16px_rgba(255,59,48,0.2)]';
+                      return isSelected
+                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(255,59,48,0.15)] !to-[#2a1a1a] border-l-4 !border-l-[#ff3b30] border-2 !border-[#ff3b30]/40 shadow-[0_8px_24px_rgba(255,59,48,0.25)]`
+                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ff3b30]/20 border !border-white/5`;
                     case 'rapid':
-                      return selectedMode === mode.id
-                        ? '!bg-gradient-to-br !from-[rgba(255,204,0,0.15)] !to-[#2a2a1a] border-l-4 !border-l-[#ffcc00] border-2 !border-[#ffcc00]/40 shadow-[0_8px_24px_rgba(255,204,0,0.25)]'
-                        : '!bg-gradient-to-br !from-[rgba(255,204,0,0.08)] !to-[#2a2a1a] border-l-4 !border-l-[#ffcc00] border !border-white/10 hover:!border-[#ffcc00]/30 hover:shadow-[0_4px_16px_rgba(255,204,0,0.2)]';
+                      return isSelected
+                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(255,204,0,0.15)] !to-[#2a2a1a] border-l-4 !border-l-[#ffcc00] border-2 !border-[#ffcc00]/40 shadow-[0_8px_24px_rgba(255,204,0,0.25)]`
+                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ffcc00]/20 border !border-white/5`;
                     case 'bullet':
-                      return selectedMode === mode.id
-                        ? '!bg-gradient-to-br !from-[rgba(94,92,230,0.15)] !to-[#1a1a2a] border-l-4 !border-l-[#5e5ce6] border-2 !border-[#5e5ce6]/40 shadow-[0_8px_24px_rgba(94,92,230,0.25)]'
-                        : '!bg-gradient-to-br !from-[rgba(94,92,230,0.08)] !to-[#1a1a2a] border-l-4 !border-l-[#5e5ce6] border !border-white/10 hover:!border-[#5e5ce6]/30 hover:shadow-[0_4px_16px_rgba(94,92,230,0.2)]';
+                      return isSelected
+                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(94,92,230,0.15)] !to-[#1a1a2a] border-l-4 !border-l-[#5e5ce6] border-2 !border-[#5e5ce6]/40 shadow-[0_8px_24px_rgba(94,92,230,0.25)]`
+                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#5e5ce6]/20 border !border-white/5`;
                     case 'classic':
-                      return selectedMode === mode.id
-                        ? '!bg-gradient-to-br !from-[rgba(48,209,88,0.15)] !to-[#1a2a1a] border-l-4 !border-l-[#30d158] border-2 !border-[#30d158]/40 shadow-[0_8px_24px_rgba(48,209,88,0.25)]'
-                        : '!bg-gradient-to-br !from-[rgba(48,209,88,0.08)] !to-[#1a2a1a] border-l-4 !border-l-[#30d158] border !border-white/10 hover:!border-[#30d158]/30 hover:shadow-[0_4px_16px_rgba(48,209,88,0.2)]';
+                      return isSelected
+                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(48,209,88,0.15)] !to-[#1a2a1a] border-l-4 !border-l-[#30d158] border-2 !border-[#30d158]/40 shadow-[0_8px_24px_rgba(48,209,88,0.25)]`
+                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#30d158]/20 border !border-white/5`;
                     default:
                       return '';
                   }
