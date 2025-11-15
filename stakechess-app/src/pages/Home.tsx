@@ -174,9 +174,9 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/game-mode')}
-              className="glass-card p-6 text-center shadow-depth hover-lift bg-[#2a2a2a]"
+              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,59,48,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ff3b30]"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-7 h-7 text-stake-red" strokeWidth={2} />
               </div>
               <p className="font-semibold text-base mb-1">Быстрая игра</p>
@@ -190,10 +190,10 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/tournaments')}
-              className="glass-card p-6 text-center shadow-depth hover-lift bg-[#2a2a2a]"
+              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,204,0,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ffcc00]"
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/20 to-stake-red/5 flex items-center justify-center mx-auto mb-3">
-                <Trophy className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/30 to-yellow-500/10 flex items-center justify-center mx-auto mb-3">
+                <Trophy className="w-7 h-7 text-yellow-500" strokeWidth={2} />
               </div>
               <p className="font-semibold text-base mb-1">Турниры</p>
               <p className="text-xs text-gray-400">Призовые партии</p>
@@ -339,9 +339,9 @@ export default function Home() {
             whileHover={{ scale: 1.05, y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/puzzles')}
-            className="glass-card p-5 text-center shadow-depth hover-lift"
+            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(94,92,230,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#5e5ce6]"
           >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/15 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">🧩</span>
             </div>
             <p className="font-semibold text-sm mb-1">Задачи</p>
@@ -355,9 +355,9 @@ export default function Home() {
             whileHover={{ scale: 1.05, y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/openings')}
-            className="glass-card p-5 text-center shadow-depth hover-lift"
+            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(168,85,247,0.12)] !to-[#2a2a2a] border-l-4 !border-l-purple-500"
           >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/15 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">📖</span>
             </div>
             <p className="font-semibold text-sm mb-1">Дебюты</p>
@@ -371,9 +371,9 @@ export default function Home() {
             whileHover={{ scale: 1.05, y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/leaderboard')}
-            className="glass-card p-5 text-center shadow-depth hover-lift"
+            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(48,209,88,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#30d158]"
           >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500/30 to-green-600/15 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">🏆</span>
             </div>
             <p className="font-semibold text-sm mb-1">Топ-100</p>
@@ -396,10 +396,10 @@ export default function Home() {
               whileTap={{ scale: 0.98 }}
               className={`glass-card min-w-[280px] cursor-pointer shadow-depth overflow-hidden snap-start flex flex-col h-[240px] ${
                 game.result === 'win'
-                  ? '!bg-[rgba(48,209,88,0.08)] border border-[rgba(48,209,88,0.2)]'
+                  ? '!bg-[rgba(48,209,88,0.15)] border-2 !border-[rgba(48,209,88,0.4)]'
                   : game.result === 'loss'
-                  ? '!bg-[rgba(255,59,48,0.08)] border border-[rgba(255,59,48,0.2)]'
-                  : '!bg-[#2a2a2a] border border-[rgba(255,255,255,0.1)]'
+                  ? '!bg-[rgba(255,59,48,0.15)] border-2 !border-[rgba(255,59,48,0.4)]'
+                  : '!bg-[#2a2a2a] border-2 !border-[rgba(255,255,255,0.15)]'
               }`}
               onClick={() => navigate('/play')}
             >
