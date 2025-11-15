@@ -1,11 +1,12 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Zap, User, Trophy } from 'lucide-react';
+import { Home, Zap, User, Trophy, Target } from 'lucide-react';
 
 const navItems = [
   { id: 'home', label: 'Главная', icon: Home, path: '/home' },
   { id: 'play', label: 'Играть', icon: Zap, path: '/game-mode' },
-  { id: 'tournaments', label: 'Турниры', icon: Trophy, path: '/game-mode' },
+  { id: 'tournaments', label: 'Турниры', icon: Trophy, path: '/tournaments' },
+  { id: 'achievements', label: 'Награды', icon: Target, path: '/achievements' },
   { id: 'profile', label: 'Профиль', icon: User, path: '/profile' },
 ];
 

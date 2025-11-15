@@ -320,6 +320,60 @@ export default function Home() {
         </motion.button>
       </div>
 
+      {/* Training & Progress Section */}
+      <div className="px-8 mb-8">
+        <h3 className="!text-xl mb-6">Тренировки</h3>
+        <div className="grid grid-cols-3 gap-4">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/puzzles')}
+            className="glass-card p-5 text-center shadow-depth hover-lift"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mx-auto mb-3">
+              <span className="text-2xl">🧩</span>
+            </div>
+            <p className="font-semibold text-sm mb-1">Задачи</p>
+            <p className="text-xs text-gray-400">Ежедневно</p>
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.45 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/openings')}
+            className="glass-card p-5 text-center shadow-depth hover-lift"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mx-auto mb-3">
+              <span className="text-2xl">📖</span>
+            </div>
+            <p className="font-semibold text-sm mb-1">Дебюты</p>
+            <p className="text-xs text-gray-400">Библиотека</p>
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+            whileHover={{ scale: 1.05, y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/leaderboard')}
+            className="glass-card p-5 text-center shadow-depth hover-lift"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center mx-auto mb-3">
+              <span className="text-2xl">🏆</span>
+            </div>
+            <p className="font-semibold text-sm mb-1">Топ-100</p>
+            <p className="text-xs text-gray-400">Рейтинг</p>
+          </motion.button>
+        </div>
+      </div>
+
       {/* Recent Games Carousel */}
       <div className="px-8 mb-8">
         <h3 className="!text-xl mb-6">Недавние партии</h3>
