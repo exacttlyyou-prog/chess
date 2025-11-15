@@ -39,7 +39,7 @@ const recentGames = [
     opponent: 'Мастер_1450',
     result: 'win',
     mode: 'Блиц 3+2',
-    image: '/images/pieces/king-crown.png',
+    image: '/images/pieces/0_0_-_2025-11-12T034229_848.png',
     moves: 32,
     date: '2 часа назад',
   },
@@ -48,7 +48,7 @@ const recentGames = [
     opponent: 'Стратег_99',
     result: 'loss',
     mode: 'Рапид 10+0',
-    image: '/images/pieces/queen-bishop.png',
+    image: '/images/pieces/0_0_-_2025-11-12T034226_653.png',
     moves: 45,
     date: '5 часов назад',
   },
@@ -57,7 +57,7 @@ const recentGames = [
     opponent: 'Тактик_2000',
     result: 'draw',
     mode: 'Классика',
-    image: '/images/pieces/knight-light.png',
+    image: '/images/pieces/0_0_-_2025-11-12T034248_654.png',
     moves: 68,
     date: 'Вчера',
   },
@@ -232,7 +232,7 @@ export default function Home() {
         >
           <div className="absolute right-0 bottom-0 w-32 h-32 opacity-5 pointer-events-none">
             <img
-              src="/images/pieces/king-crown.png"
+              src="/images/pieces/0_0_-_2025-11-12T034311_785.png"
               alt=""
               className="w-full h-full object-contain"
             />
@@ -287,6 +287,14 @@ export default function Home() {
           onClick={() => navigate('/tournaments')}
           className="w-full bg-white rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative overflow-hidden"
         >
+          {/* Background image */}
+          <div className="absolute right-0 top-0 w-1/2 h-full opacity-10 pointer-events-none">
+            <img
+              src="/images/heroes/0_0_-_2025-11-13T230855_596.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
           {/* Red accent gradient */}
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-stake-red/10 to-transparent" />
 
