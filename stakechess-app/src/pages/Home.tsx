@@ -36,7 +36,8 @@ const liveGames = [
 const recentGames = [
   {
     id: 1,
-    opponent: 'Мастер_1450',
+    opponent: 'Магнус Карлсен',
+    rating: '2831',
     result: 'win',
     mode: 'Блиц 3+2',
     image: '/images/pieces/king-solo.png',
@@ -46,6 +47,7 @@ const recentGames = [
   {
     id: 2,
     opponent: 'Стратег_99',
+    rating: '1850',
     result: 'loss',
     mode: 'Рапид 10+0',
     image: '/images/pieces/king-shatter.png',
@@ -55,6 +57,7 @@ const recentGames = [
   {
     id: 3,
     opponent: 'Тактик_2000',
+    rating: '2000',
     result: 'draw',
     mode: 'Классика',
     image: '/images/pieces/queen-bishop.png',
@@ -102,10 +105,32 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-6"
       >
-        <div className="flex justify-between items-start mb-6">
-          <div>
-            <h1 className="!text-3xl mb-1">Привет, Игрок</h1>
-            <p className="text-body-sm text-gray-400">Рейтинг: 1450 • Онлайн</p>
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-4">
+            {/* Avatar with image background */}
+            <button
+              onClick={() => navigate('/profile')}
+              className="relative w-16 h-16 rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_20px_rgba(255,59,48,0.3)] transition-all group"
+            >
+              <img
+                src="/images/pieces/king-crown.png"
+                alt="Profile"
+                className="absolute inset-0 w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-stake-red/20 to-transparent" />
+              <div className="absolute inset-0 border-2 border-white/10 rounded-2xl" />
+            </button>
+            <div>
+              <h1 className="!text-2xl mb-1 font-bold">Привет, Игрок</h1>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-yellow-400">⭐ 1450</span>
+                <span className="text-xs text-gray-500">•</span>
+                <span className="text-xs text-green-400 font-semibold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  Онлайн
+                </span>
+              </div>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
@@ -114,12 +139,6 @@ export default function Home() {
               className="glass-button !px-4 !py-3"
             >
               <Settings className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => navigate('/profile')}
-              className="glass-button !px-4 !py-3"
-            >
-              <User className="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -405,19 +424,27 @@ export default function Home() {
             >
               {/* Text Content - Top */}
               <div className="p-5 flex-1">
-                {/* Result badge */}
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl mb-3 text-xs font-semibold ${
+                {/* Result badge - более контрастный */}
+                <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl mb-3 text-xs font-bold uppercase tracking-wide ${
                   game.result === 'win'
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                    ? 'bg-[rgba(48,209,88,0.25)] text-green-300 border-2 border-green-500/40 shadow-[0_0_12px_rgba(48,209,88,0.2)]'
                     : game.result === 'loss'
-                    ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                    : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                    ? 'bg-[rgba(255,59,48,0.25)] text-red-300 border-2 border-red-500/40 shadow-[0_0_12px_rgba(255,59,48,0.2)]'
+                    : 'bg-[rgba(156,163,175,0.25)] text-gray-300 border-2 border-gray-500/40'
                 }`}>
-                  {game.result === 'win' ? 'Победа' : game.result === 'loss' ? 'Поражение' : 'Ничья'}
+                  {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
                 </div>
 
-                {/* Opponent */}
-                <h5 className="mb-3 !text-base">{game.opponent}</h5>
+                {/* Opponent with rating */}
+                <div className="mb-3">
+                  <h5 className="!text-base font-bold">{game.opponent}</h5>
+                  {game.rating && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-xs text-yellow-500 font-semibold">⭐ {game.rating}</span>
+                      <span className="text-xs text-gray-500">ELO</span>
+                    </div>
+                  )}
+                </div>
 
                 {/* Game info */}
                 <div className="space-y-1.5">
