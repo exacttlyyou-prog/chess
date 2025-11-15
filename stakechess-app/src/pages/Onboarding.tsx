@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, User } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 const slides = [
   {
@@ -38,7 +38,6 @@ const slides = [
 
 export default function Onboarding() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
 
   // Preload all images
@@ -52,8 +51,6 @@ export default function Onboarding() {
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
-    } else {
-      setShowAuth(true);
     }
   };
 
@@ -66,76 +63,6 @@ export default function Onboarding() {
   const handleAuth = () => {
     navigate('/home');
   };
-
-  if (showAuth) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center p-6"
-      >
-        <motion.div
-          initial={{ scale: 0.9, y: 20 }}
-          animate={{ scale: 1, y: 0 }}
-          className="w-full max-w-md"
-        >
-          <div className="text-center mb-8">
-            <h1 className="mb-4">
-              <span className="text-gradient">Начни прямо сейчас</span>
-            </h1>
-            <p className="text-body text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
-          </div>
-
-          <div className="glass-card p-8 space-y-4 shadow-depth-lg">
-            <input
-              type="tel"
-              placeholder="Номер телефона"
-              className="glass-input w-full text-white placeholder-gray-500"
-            />
-
-            <button onClick={handleAuth} className="btn-primary w-full">
-              Продолжить
-            </button>
-
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-stake-black-light text-gray-500">или</span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <button onClick={handleAuth} className="btn-white w-full flex items-center justify-center gap-3">
-                <span className="font-bold text-stake-red">А</span>
-                <span>Alfa ID</span>
-              </button>
-              <button disabled className="btn-secondary w-full flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
-                <Send size={18} />
-                <span>Telegram</span>
-              </button>
-              <button disabled className="btn-secondary w-full flex items-center justify-center gap-3 opacity-50 cursor-not-allowed">
-                <User size={18} />
-                <span>VK ID</span>
-              </button>
-            </div>
-
-            <p className="text-xs text-gray-500 text-center mt-6">
-              Продолжая, вы соглашаетесь с условиями использования и политикой конфиденциальности
-            </p>
-          </div>
-
-          <button
-            onClick={() => setShowAuth(false)}
-            className="mt-6 text-gray-500 hover:text-white transition-colors w-full text-center"
-          >
-            Назад
-          </button>
-        </motion.div>
-      </motion.div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden">
@@ -282,19 +209,41 @@ export default function Onboarding() {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex gap-4">
-            {currentSlide > 0 && (
-              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
-                Назад
+          {currentSlide < slides.length - 1 ? (
+            <div className="flex gap-4">
+              {currentSlide > 0 && (
+                <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
+                  Назад
+                </button>
+              )}
+              <button
+                onClick={nextSlide}
+                className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
+              >
+                Далее
               </button>
-            )}
-            <button
-              onClick={nextSlide}
-              className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
-            >
-              {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
-            </button>
-          </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="text-center mb-4">
+                <h3 className="!text-xl mb-2 text-gradient">Начни прямо сейчас</h3>
+                <p className="text-sm text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
+              </div>
+              <button onClick={handleAuth} className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3">
+                <Send size={20} />
+                <span>Telegram</span>
+              </button>
+              <button onClick={handleAuth} className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3">
+                <span className="font-bold text-stake-red text-xl">А</span>
+                <span>Alfa ID</span>
+              </button>
+              {currentSlide > 0 && (
+                <button onClick={prevSlide} className="btn-secondary w-full !py-4 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
+                  Назад
+                </button>
+              )}
+            </div>
+          )}
         </motion.div>
       </div>
     </div>
