@@ -13,19 +13,19 @@ const slides = [
   {
     title: 'Играй с реальными людьми',
     description: 'Предприниматели, звёзды спорта и культуры, эксперты. Найди достойного соперника!',
-    image: '/images/heroes/0_0_-_2025-11-12T034217_125.png',
+    image: '/images/heroes/real-people.png',
     stat: 'Живое сообщество',
   },
   {
     title: 'Играй как легенды',
     description: 'Уникальные AI модели стилей Магнуса Карлсена, Каспарова, Фишера и других',
-    image: '/images/heroes/0_0_-_2025-11-12T034223_379.png',
+    image: '/images/heroes/ai-legends.png',
     stat: '12 легендарных стилей',
   },
   {
     title: 'Выигрывай призы',
     description: 'Участвуй в турнирах с реальными наградами. До 100K монет за победу!',
-    image: '/images/achievements/0_0__73_.png',
+    image: '/images/achievements/tournament-prize.png',
     stat: '12 турниров',
   },
   {
@@ -37,7 +37,7 @@ const slides = [
   {
     title: 'Начни прямо сейчас',
     description: 'Регистрация за 30 секунд. Первая партия — бесплатно!',
-    image: '/images/pieces/0_0_-_2025-11-12T034239_945.png',
+    image: '/images/pieces/pawn-glow.png',
     stat: 'Бесплатный старт',
   },
 ];
