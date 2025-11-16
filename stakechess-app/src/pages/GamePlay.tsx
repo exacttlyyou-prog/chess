@@ -36,9 +36,9 @@ export default function GamePlay() {
   const [showPremiumUpsell, setShowPremiumUpsell] = useState(false);
   const AI_ANALYSIS_LIMIT = 3;
 
-  // Get AI personality from navigation state or default to Magnus
-  const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'magnus';
-  const aiPersonality: ChessPersonality = CHESS_PERSONALITIES[aiPersonalityId] || CHESS_PERSONALITIES.magnus;
+  // Get AI personality from navigation state or default to Intermediate (unlocked)
+  const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'intermediate';
+  const aiPersonality: ChessPersonality = CHESS_PERSONALITIES[aiPersonalityId] || CHESS_PERSONALITIES.intermediate;
 
   const {
     game,

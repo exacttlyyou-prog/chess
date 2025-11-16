@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Swords, Check } from 'lucide-react';
 import { generateOpponentAvatar, svgToDataUrl } from '../utils/avatarGenerator';
+import { CHESS_PERSONALITIES } from '../ai/chessPersonalities';
 
 export default function MatchSearch() {
   const navigate = useNavigate();
@@ -52,7 +53,11 @@ export default function MatchSearch() {
   };
 
   const handleStart = () => {
-    navigate('/play');
+    // Select a random unlocked AI personality for opponent
+    const unlockedPersonalities = Object.values(CHESS_PERSONALITIES).filter(p => !p.locked);
+    const randomPersonality = unlockedPersonalities[Math.floor(Math.random() * unlockedPersonalities.length)];
+
+    navigate('/play', { state: { aiPersonality: randomPersonality.id } });
   };
 
   return (
