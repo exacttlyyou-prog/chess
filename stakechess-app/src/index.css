@@ -15,7 +15,7 @@
     --bg-primary: #000000;
     --bg-secondary: #0a0a0a;
     --text-primary: #ffffff;
-    --text-secondary: #b0b0b0; /* Improved from #a0a0a0 for better contrast (WCAG AA) */
+    --text-secondary: #c0c0c0; /* Improved to #c0c0c0 for WCAG AA compliance (7:1 contrast) */
     --glass-bg: rgba(255, 255, 255, 0.06); /* Reduced from 0.08 for more subtle glassmorphism */
     --glass-border: rgba(255, 255, 255, 0.12); /* Reduced from 0.15 */
     --glass-hover: rgba(255, 255, 255, 0.08); /* Reduced from 0.12 */

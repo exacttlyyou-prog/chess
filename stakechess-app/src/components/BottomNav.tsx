@@ -32,7 +32,7 @@ export default function BottomNav() {
             <button
               key={item.id}
               onClick={() => navigate(item.path)}
-              className={`flex flex-col items-center gap-1 px-6 py-2 rounded-xl transition-all min-h-[56px] min-w-[64px] relative ${
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl transition-all min-h-[64px] min-w-[64px] relative ${
                 active ? 'text-stake-red' : 'text-gray-400 hover:text-white'
               }`}
             >
