@@ -104,7 +104,14 @@ export default function MatchSearch() {
 
               {/* Progress Bar */}
               <div className="mb-8 relative z-10">
-                <div className="w-full bg-stake-gray rounded-full h-3 overflow-hidden">
+                <div
+                  className="w-full bg-stake-gray rounded-full h-3 overflow-hidden"
+                  role="progressbar"
+                  aria-valuenow={Math.round(progress)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label="Прогресс поиска соперника"
+                >
                   <motion.div
                     className="bg-gradient-to-r from-stake-red to-stake-red-light h-3 rounded-full"
                     style={{ width: `${progress}%` }}
@@ -114,7 +121,7 @@ export default function MatchSearch() {
                 <p className="text-sm text-gray-500 mt-3">{Math.round(progress)}%</p>
               </div>
 
-              <button onClick={handleCancel} className="btn-secondary relative z-10">
+              <button onClick={handleCancel} className="btn-secondary relative z-10" aria-label="Отменить поиск соперника">
                 Отменить поиск
               </button>
             </div>
@@ -175,6 +182,7 @@ export default function MatchSearch() {
                 transition={{ delay: 0.5 }}
                 onClick={handleCancel}
                 className="btn-secondary relative z-10"
+                aria-label="Отменить матч"
               >
                 Отменить
               </motion.button>
@@ -242,10 +250,10 @@ export default function MatchSearch() {
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                <button onClick={handleStart} className="btn-primary w-full">
+                <button onClick={handleStart} className="btn-primary w-full" aria-label="Начать игру с найденным соперником">
                   Начать игру
                 </button>
-                <button onClick={handleCancel} className="btn-secondary w-full">
+                <button onClick={handleCancel} className="btn-secondary w-full" aria-label="Отменить матч и вернуться">
                   Отменить
                 </button>
               </div>

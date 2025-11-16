@@ -16,7 +16,7 @@ export default function Tournaments() {
     >
       <div className="px-6 pt-8 pb-6">
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate(-1)} className="glass-button !p-3 !rounded-xl">
+          <button onClick={() => navigate(-1)} className="glass-button !p-3 !rounded-xl" aria-label="Вернуться назад">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
@@ -35,6 +35,7 @@ export default function Tournaments() {
             whileHover={{ scale: 1.02 }}
             onClick={() => setSelectedTournament(tournament)}
             className="glass-card p-5 w-full text-left"
+            aria-label={`Открыть детали турнира ${tournament.name}`}
           >
             <div className="flex items-center gap-2 mb-2">
               <Trophy className="w-5 h-5 text-stake-red" />
@@ -62,6 +63,9 @@ export default function Tournaments() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
             onClick={() => setSelectedTournament(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tournament-modal-title"
           >
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
@@ -76,13 +80,14 @@ export default function Tournaments() {
                     <Trophy className="w-8 h-8 text-stake-red" />
                   </div>
                   <div>
-                    <h2 className="!text-2xl mb-1">{selectedTournament.name}</h2>
+                    <h2 id="tournament-modal-title" className="!text-2xl mb-1">{selectedTournament.name}</h2>
                     <p className="text-sm text-gray-400">{selectedTournament.description}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedTournament(null)}
                   className="glass-button !p-3"
+                  aria-label="Закрыть детали турнира"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -92,13 +97,13 @@ export default function Tournaments() {
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="glass-card p-4 text-center">
                   <Users className="w-6 h-6 text-stake-red mx-auto mb-2" />
-                  <p className="text-2xl font-bold">{selectedTournament.participants}</p>
-                  <p className="text-xs text-gray-400">Участников</p>
+                  <p className="text-2xl font-bold">{selectedTournament.rounds.length}</p>
+                  <p className="text-xs text-gray-400">Раундов</p>
                 </div>
                 <div className="glass-card p-4 text-center">
                   <Clock className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                  <p className="text-2xl font-bold">{selectedTournament.duration}</p>
-                  <p className="text-xs text-gray-400">Длительность</p>
+                  <p className="text-2xl font-bold">{selectedTournament.difficulty === 'beginner' ? 'Новичок' : selectedTournament.difficulty === 'intermediate' ? 'Средний' : selectedTournament.difficulty === 'advanced' ? 'Сложный' : selectedTournament.difficulty === 'master' ? 'Мастер' : 'GM'}</p>
+                  <p className="text-xs text-gray-400">Уровень</p>
                 </div>
               </div>
 

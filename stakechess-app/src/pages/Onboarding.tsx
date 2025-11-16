@@ -157,6 +157,7 @@ export default function Onboarding() {
             animate={{ opacity: 1, x: 0 }}
             onClick={() => navigate('/home')}
             className="glass-button !px-6 !py-3 text-white/80 hover:text-white font-medium"
+            aria-label="Пропустить онбординг и перейти на главную"
           >
             Пропустить
           </motion.button>
@@ -220,7 +221,7 @@ export default function Onboarding() {
           className="p-8 space-y-6"
         >
           {/* Progress Dots */}
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">
             {slides.map((_, index) => (
               <button
                 key={index}
@@ -230,6 +231,9 @@ export default function Onboarding() {
                     ? 'w-12 bg-stake-red shadow-md'
                     : 'w-2 bg-white/30 hover:bg-white/50'
                 }`}
+                role="tab"
+                aria-selected={index === currentSlide}
+                aria-label={`Слайд ${index + 1} из ${slides.length}`}
               />
             ))}
           </div>
@@ -259,6 +263,7 @@ export default function Onboarding() {
                 onClick={handleAuth}
                 disabled={isAuthenticating}
                 className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Войти через Telegram"
               >
                 {isAuthenticating ? (
                   <>
@@ -276,6 +281,7 @@ export default function Onboarding() {
                 onClick={handleAuth}
                 disabled={isAuthenticating}
                 className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Войти через Alfa ID"
               >
                 {isAuthenticating ? (
                   <>
@@ -305,13 +311,16 @@ export default function Onboarding() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="skill-level-title"
         >
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             className="glass-card p-8 w-full max-w-md"
           >
-            <h3 className="!text-2xl mb-3 text-center">Ваш уровень игры?</h3>
+            <h3 id="skill-level-title" className="!text-2xl mb-3 text-center">Ваш уровень игры?</h3>
             <p className="text-sm text-gray-400 text-center mb-8">
               Это поможет подобрать подходящих соперников
             </p>
@@ -320,6 +329,7 @@ export default function Onboarding() {
               <button
                 onClick={() => handleSkillSelect('beginner')}
                 className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                aria-label="Выбрать уровень: Новичок"
               >
                 <h4 className="!text-lg mb-2">🌱 Новичок</h4>
                 <p className="text-sm text-gray-400">
@@ -330,6 +340,7 @@ export default function Onboarding() {
               <button
                 onClick={() => handleSkillSelect('intermediate')}
                 className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                aria-label="Выбрать уровень: Средний"
               >
                 <h4 className="!text-lg mb-2">⚡ Средний</h4>
                 <p className="text-sm text-gray-400">
@@ -340,6 +351,7 @@ export default function Onboarding() {
               <button
                 onClick={() => handleSkillSelect('advanced')}
                 className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                aria-label="Выбрать уровень: Продвинутый"
               >
                 <h4 className="!text-lg mb-2">👑 Продвинутый</h4>
                 <p className="text-sm text-gray-400">
@@ -351,6 +363,7 @@ export default function Onboarding() {
             <button
               onClick={() => setShowSkillSelect(false)}
               className="btn-secondary w-full mt-4"
+              aria-label="Вернуться назад без выбора уровня"
             >
               Назад
             </button>

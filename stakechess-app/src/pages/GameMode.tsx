@@ -98,9 +98,12 @@ export default function GameMode() {
 
       {/* Tabs */}
       <div className="px-8 mb-8">
-        <div className="glass rounded-2xl p-2 flex gap-2">
+        <div className="glass rounded-2xl p-2 flex gap-2" role="tablist" aria-label="Режим игры">
           <button
             onClick={() => setActiveTab('play')}
+            role="tab"
+            aria-selected={activeTab === 'play'}
+            aria-controls="play-panel"
             className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
               activeTab === 'play'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
@@ -111,6 +114,9 @@ export default function GameMode() {
           </button>
           <button
             onClick={() => setActiveTab('tournament')}
+            role="tab"
+            aria-selected={activeTab === 'tournament'}
+            aria-controls="tournament-panel"
             className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
               activeTab === 'tournament'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
@@ -123,7 +129,7 @@ export default function GameMode() {
       </div>
 
       {activeTab === 'play' ? (
-        <>
+        <div role="tabpanel" id="play-panel" aria-labelledby="play-tab">
           {/* Game Modes */}
           <div className="px-8 mb-8">
             <div className="flex items-center justify-between mb-4">
@@ -182,6 +188,8 @@ export default function GameMode() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.03, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
                   onClick={() => setSelectedMode(mode.id)}
+                  aria-label={`${mode.title} - ${mode.description}`}
+                  aria-pressed={isSelected}
                   className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] ${getModeStyles()}`}
                 >
                   <div className={`bg-gradient-to-br ${
@@ -247,14 +255,17 @@ export default function GameMode() {
             transition={{ delay: 0.3 }}
             className="px-8"
           >
-            <button onClick={handlePlay} className="btn-primary w-full">
+            <button onClick={handlePlay} className="btn-primary w-full" aria-label="Начать игру с выбранными настройками">
               Начать игру
             </button>
           </motion.div>
-        </>
+        </div>
       ) : (
         /* Tournaments */
         <motion.div
+          role="tabpanel"
+          id="tournament-panel"
+          aria-labelledby="tournament-tab"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="px-8 space-y-6"

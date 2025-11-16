@@ -244,6 +244,7 @@ export default function Premium() {
           whileTap={{ scale: 0.98 }}
           onClick={handleUpgrade}
           className="w-full py-5 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-stake-black font-bold text-xl relative overflow-hidden group shadow-lg"
+          aria-label="Начать бесплатный пробный период King Premium на 7 дней"
         >
           <motion.div
             animate={{ x: [-100, 400] }}

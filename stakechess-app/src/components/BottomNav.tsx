@@ -18,6 +18,8 @@ export default function BottomNav() {
 
   return (
     <motion.nav
+      role="navigation"
+      aria-label="Основная навигация"
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.4 }}
@@ -32,6 +34,8 @@ export default function BottomNav() {
             <button
               key={item.id}
               onClick={() => navigate(item.path)}
+              aria-label={item.label}
+              aria-current={active ? 'page' : undefined}
               className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl transition-all min-h-[64px] min-w-[64px] relative ${
                 active ? 'text-stake-red' : 'text-gray-400 hover:text-white'
               }`}

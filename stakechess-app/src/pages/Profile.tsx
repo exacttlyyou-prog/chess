@@ -65,6 +65,7 @@ export default function Profile() {
         <button
           onClick={() => navigate('/home')}
           className="glass-button !px-4 !py-3"
+          aria-label="Вернуться на главную"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -119,9 +120,12 @@ export default function Profile() {
 
       {/* Tabs */}
       <div className="px-8 mb-6">
-        <div className="glass rounded-xl p-2 flex gap-2">
+        <div className="glass rounded-xl p-2 flex gap-2" role="tablist" aria-label="Профиль пользователя">
           <button
             onClick={() => setActiveTab('stats')}
+            role="tab"
+            aria-selected={activeTab === 'stats'}
+            aria-controls="stats-panel"
             className={`flex-1 py-3 rounded-lg font-semibold transition-all ${
               activeTab === 'stats'
                 ? 'bg-stake-red text-white'
@@ -132,6 +136,9 @@ export default function Profile() {
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
+            role="tab"
+            aria-selected={activeTab === 'achievements'}
+            aria-controls="achievements-panel"
             className={`flex-1 py-3 rounded-lg font-semibold transition-all ${
               activeTab === 'achievements'
                 ? 'bg-stake-red text-white'
@@ -145,6 +152,9 @@ export default function Profile() {
 
       {activeTab === 'stats' ? (
         <motion.div
+          role="tabpanel"
+          id="stats-panel"
+          aria-labelledby="stats-tab"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="px-8 space-y-4"
@@ -364,6 +374,9 @@ export default function Profile() {
       ) : (
         /* Achievements */
         <motion.div
+          role="tabpanel"
+          id="achievements-panel"
+          aria-labelledby="achievements-tab"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="px-8"
@@ -402,10 +415,13 @@ export default function Profile() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3 }}
         className="fixed bottom-0 left-0 right-0 glass border-t border-white/10 p-4 flex justify-around"
+        role="navigation"
+        aria-label="Навигация профиля"
       >
         <button
           onClick={() => navigate('/home')}
           className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
+          aria-label="Перейти на главную"
         >
           <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Главная</span>
@@ -413,11 +429,16 @@ export default function Profile() {
         <button
           onClick={() => navigate('/game-mode')}
           className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
+          aria-label="Начать играть"
         >
           <Zap className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Играть</span>
         </button>
-        <button className="flex flex-col items-center gap-1 text-stake-red min-h-[44px]">
+        <button
+          className="flex flex-col items-center gap-1 text-stake-red min-h-[44px]"
+          aria-label="Профиль (текущая страница)"
+          aria-current="page"
+        >
           <User className="w-6 h-6" strokeWidth={1.5} />
           <span className="text-xs">Профиль</span>
         </button>

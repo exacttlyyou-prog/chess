@@ -63,6 +63,7 @@ export default function Home() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
           onClick={() => navigate('/profile')}
+          aria-label="Открыть профиль игрока"
           className="relative mb-6 hover-lift overflow-hidden rounded-3xl shadow-depth-lg group h-[180px]"
         >
           {/* Full Background Image */}
@@ -119,6 +120,7 @@ export default function Home() {
                     navigate('/settings');
                   }}
                   className="glass-button !px-3 !py-3 hover:bg-white/10"
+                  aria-label="Открыть настройки"
                 >
                   <Settings className="w-5 h-5" />
                 </button>
@@ -174,6 +176,7 @@ export default function Home() {
               navigate('/select-ai');
             }}
             className="glass-card p-8 text-left shadow-lg bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group w-full"
+            aria-label="Играть с AI моделями легендарных шахматистов"
           >
             <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10 flex items-center gap-6">
@@ -197,6 +200,7 @@ export default function Home() {
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/game-mode')}
               className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,59,48,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ff3b30]"
+              aria-label="Быстрая игра в режиме Блиц 3+2"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-7 h-7 text-stake-red" strokeWidth={2} />
@@ -213,6 +217,7 @@ export default function Home() {
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/tournaments')}
               className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,204,0,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ffcc00]"
+              aria-label="Турниры с призовыми партиями"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/30 to-yellow-500/10 flex items-center justify-center mx-auto mb-3">
                 <Trophy className="w-7 h-7 text-yellow-500" strokeWidth={2} />
@@ -234,6 +239,7 @@ export default function Home() {
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/puzzles')}
             className="glass-card p-4 text-center shadow-depth hover-lift"
+            aria-label="Решать шахматные задачи"
           >
             <span className="text-2xl mb-2 block">🧩</span>
             <p className="font-semibold text-sm">Задачи</p>
@@ -247,6 +253,7 @@ export default function Home() {
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/openings')}
             className="glass-card p-4 text-center shadow-depth hover-lift"
+            aria-label="Изучать шахматные дебюты"
           >
             <span className="text-2xl mb-2 block">📖</span>
             <p className="font-semibold text-sm">Дебюты</p>
@@ -260,6 +267,7 @@ export default function Home() {
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/leaderboard')}
             className="glass-card p-4 text-center shadow-depth hover-lift"
+            aria-label="Посмотреть таблицу лидеров"
           >
             <span className="text-2xl mb-2 block">🏆</span>
             <p className="font-semibold text-sm">Рейтинг</p>
@@ -270,7 +278,7 @@ export default function Home() {
       {/* Recent Games - Compact horizontal scroll */}
       <div className="px-8 pb-28">
         <h3 className="!text-xl mb-4">Недавние партии</h3>
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" role="list" aria-label="Недавние шахматные партии">
           {recentGames.map((game, index) => (
             <motion.button
               key={game.id}
@@ -287,6 +295,8 @@ export default function Home() {
                   ? 'border-l-4 !border-l-red-500'
                   : 'border-l-4 !border-l-gray-500'
               }`}
+              aria-label={`Партия против ${game.opponent}, результат: ${game.result === 'win' ? 'Победа' : game.result === 'loss' ? 'Поражение' : 'Ничья'}`}
+              role="listitem"
             >
               {/* Result badge */}
               <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg mb-3 text-xs font-bold ${
