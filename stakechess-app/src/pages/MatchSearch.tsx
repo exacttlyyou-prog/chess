@@ -163,10 +163,21 @@ export default function MatchSearch() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-green-400 font-semibold relative z-10"
+                className="text-green-400 font-semibold mb-8 relative z-10"
               >
                 Подготовка к матчу...
               </motion.p>
+
+              {/* Cancel button on found stage */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                onClick={handleCancel}
+                className="btn-secondary relative z-10"
+              >
+                Отменить
+              </motion.button>
             </div>
           </motion.div>
         )}

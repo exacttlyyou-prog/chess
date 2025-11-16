@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Activity, Wind, Clock, Shuffle, Bot, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Zap, Activity, Wind, Clock, Shuffle, Bot, ArrowLeft, ArrowRight, Info } from 'lucide-react';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const gameModes = [
   {
@@ -53,10 +54,18 @@ const tournaments = [
   },
 ];
 
+const modeTooltips = {
+  blitz: 'Быстрая игра для опытных игроков. Каждая партия длится около 6 минут.',
+  rapid: 'Классический темп. Достаточно времени на обдумывание стратегии.',
+  bullet: 'Молниеносная игра! Только для профи с быстрой реакцией.',
+  classic: 'Полноценные партии без спешки. Идеально для глубокого анализа.',
+};
+
 export default function GameMode() {
   const navigate = useNavigate();
   const [selectedMode, setSelectedMode] = useState('blitz');
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
 
   const handlePlay = () => {
     navigate('/match-search');
@@ -70,6 +79,8 @@ export default function GameMode() {
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
       className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-20"
     >
+      <Breadcrumbs />
+
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
@@ -115,7 +126,27 @@ export default function GameMode() {
         <>
           {/* Game Modes */}
           <div className="px-8 mb-8">
-            <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
+            <div className="flex items-center justify-between mb-4">
+              <h6 className="!text-base text-gray-400">Режим игры</h6>
+              <button
+                onClick={() => setShowTooltip(showTooltip ? null : 'info')}
+                className="glass-button !px-3 !py-2 flex items-center gap-2"
+              >
+                <Info className="w-4 h-4 text-stake-red" />
+                <span className="text-xs">Подсказка</span>
+              </button>
+            </div>
+            {showTooltip && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="glass-card p-4 mb-4 bg-stake-red/10 border-stake-red/30"
+              >
+                <p className="text-sm text-gray-300">
+                  {modeTooltips[selectedMode as keyof typeof modeTooltips]}
+                </p>
+              </motion.div>
+            )}
             <div className="grid grid-cols-2 gap-4">
               {gameModes.map((mode, index) => {
                 const isSelected = selectedMode === mode.id;

@@ -38,6 +38,7 @@ const slides = [
 
 export default function Onboarding() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const navigate = useNavigate();
 
   // Preload all images
@@ -60,8 +61,12 @@ export default function Onboarding() {
     }
   };
 
-  const handleAuth = () => {
-    navigate('/home');
+  const handleAuth = (provider: 'telegram' | 'alfa') => {
+    setIsAuthenticating(true);
+    // Simulate auth delay
+    setTimeout(() => {
+      navigate('/home');
+    }, 1500);
   };
 
   return (
@@ -229,13 +234,39 @@ export default function Onboarding() {
                 <h3 className="!text-xl mb-2 text-gradient">Начни прямо сейчас</h3>
                 <p className="text-sm text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
               </div>
-              <button onClick={handleAuth} className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3">
-                <Send size={20} />
-                <span>Telegram</span>
+              <button
+                onClick={() => handleAuth('telegram')}
+                disabled={isAuthenticating}
+                className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isAuthenticating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Подключение...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} />
+                    <span>Telegram</span>
+                  </>
+                )}
               </button>
-              <button onClick={handleAuth} className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3">
-                <span className="font-bold text-stake-red text-xl">А</span>
-                <span>Alfa ID</span>
+              <button
+                onClick={() => handleAuth('alfa')}
+                disabled={isAuthenticating}
+                className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isAuthenticating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-stake-red/30 border-t-stake-red rounded-full animate-spin" />
+                    <span>Подключение...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-bold text-stake-red text-xl">А</span>
+                    <span>Alfa ID</span>
+                  </>
+                )}
               </button>
               {currentSlide > 0 && (
                 <button onClick={prevSlide} className="btn-secondary w-full !py-4 transition-all duration-300">
