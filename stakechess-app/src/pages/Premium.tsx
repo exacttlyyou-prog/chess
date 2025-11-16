@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Crown, Check, Zap, Award, Star, Sparkles, Beaker } from 'lucide-react';
+import { Crown, Check, Zap, Award, Star, Sparkles, Beaker, Clock } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import PremiumKingFeatureCard from '../components/PremiumKingFeatureCard';
 import { useToast } from '../contexts/ToastContext';
@@ -54,6 +55,41 @@ export default function Premium() {
   const { success } = useToast();
   const { variant, trackConversion } = useABTest(PREMIUM_PRICING_TEST);
 
+  // Countdown timer for urgency (24 hours from now)
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 23,
+    minutes: 59,
+    seconds: 59,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        let { hours, minutes, seconds } = prev;
+
+        if (seconds > 0) {
+          seconds--;
+        } else if (minutes > 0) {
+          minutes--;
+          seconds = 59;
+        } else if (hours > 0) {
+          hours--;
+          minutes = 59;
+          seconds = 59;
+        } else {
+          // Reset to 24 hours when countdown ends
+          hours = 23;
+          minutes = 59;
+          seconds = 59;
+        }
+
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Get pricing based on A/B test variant
   const pricing = variant
     ? PREMIUM_PRICES[variant.id as keyof typeof PREMIUM_PRICES]
@@ -89,6 +125,35 @@ export default function Premium() {
           >
             <Zap className="w-5 h-5 text-green-400" fill="currentColor" />
             <span className="text-green-400 font-bold text-sm">7 ДНЕЙ БЕСПЛАТНО</span>
+          </motion.div>
+
+          {/* Urgency Countdown Timer */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3, type: 'spring' }}
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-500/20 border-2 border-red-500/40 mb-6"
+          >
+            <Clock className="w-5 h-5 text-red-400" />
+            <div className="flex items-center gap-2">
+              <span className="text-red-400 font-bold text-sm">Скидка заканчивается через:</span>
+              <div className="flex items-center gap-1">
+                <div className="flex flex-col items-center min-w-[32px]">
+                  <span className="text-white font-bold text-lg tabular-nums">{String(timeLeft.hours).padStart(2, '0')}</span>
+                  <span className="text-xs text-gray-400">ч</span>
+                </div>
+                <span className="text-white font-bold text-lg">:</span>
+                <div className="flex flex-col items-center min-w-[32px]">
+                  <span className="text-white font-bold text-lg tabular-nums">{String(timeLeft.minutes).padStart(2, '0')}</span>
+                  <span className="text-xs text-gray-400">м</span>
+                </div>
+                <span className="text-white font-bold text-lg">:</span>
+                <div className="flex flex-col items-center min-w-[32px]">
+                  <span className="text-white font-bold text-lg tabular-nums">{String(timeLeft.seconds).padStart(2, '0')}</span>
+                  <span className="text-xs text-gray-400">с</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           <div className="flex items-center justify-center gap-2 mb-3">
