@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X, Pause, Play } from 'lucide-react';
+import { Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X, Pause, Play, Crown } from 'lucide-react';
 import ChessBoard from '../components/ChessBoard';
 import { useChess } from '../hooks/useChess';
 import type { ChessSquare } from '../hooks/useChess';
@@ -32,6 +32,9 @@ export default function GamePlay() {
   const [aiAnalysis, setAIAnalysis] = useState<ChessAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [aiAnalysisCount, setAiAnalysisCount] = useState(0);
+  const [showPremiumUpsell, setShowPremiumUpsell] = useState(false);
+  const AI_ANALYSIS_LIMIT = 3;
 
   // Get AI personality from navigation state or default to Magnus
   const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'magnus';
@@ -126,7 +129,14 @@ export default function GamePlay() {
   };
 
   const handleAIAnalysis = async () => {
+    // Check if user has reached limit
+    if (aiAnalysisCount >= AI_ANALYSIS_LIMIT) {
+      setShowPremiumUpsell(true);
+      return;
+    }
+
     setIsAnalyzing(true);
+    setAiAnalysisCount(prev => prev + 1);
     info('AI Анализ', 'Анализируем позицию...');
 
     try {
@@ -249,10 +259,14 @@ export default function GamePlay() {
           <button
             onClick={handleAIAnalysis}
             disabled={isAnalyzing || isPaused}
-            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex items-center justify-center gap-2 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
+            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex flex-col items-center justify-center gap-1 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
+            aria-label={`AI анализ позиции, осталось ${AI_ANALYSIS_LIMIT - aiAnalysisCount} из ${AI_ANALYSIS_LIMIT}`}
           >
-            <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
-            <span className="font-semibold text-stake-red">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
+            <div className="flex items-center gap-2">
+              <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
+              <span className="font-semibold text-stake-red">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
+            </div>
+            <span className="text-xs text-gray-400">{aiAnalysisCount}/{AI_ANALYSIS_LIMIT}</span>
           </button>
           <button
             onClick={() => setShowMenu(!showMenu)}
@@ -425,6 +439,73 @@ export default function GamePlay() {
           </motion.div>
         </motion.div>
       )}
+
+      {/* Premium Upsell Modal */}
+      <AnimatePresence>
+        {showPremiumUpsell && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-6 z-50"
+            onClick={() => setShowPremiumUpsell(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="premium-upsell-title"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-card p-8 w-full max-w-md text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mx-auto mb-6">
+                <Crown className="w-10 h-10 text-white" fill="currentColor" />
+              </div>
+
+              <h2 id="premium-upsell-title" className="!text-3xl mb-3">Лимит AI анализа исчерпан</h2>
+              <p className="text-body text-gray-300 mb-2">
+                Вы использовали все <span className="font-bold text-stake-red">{AI_ANALYSIS_LIMIT} бесплатных анализа</span> за сегодня
+              </p>
+              <p className="text-body text-gray-400 mb-6">
+                Получите <span className="text-gradient font-bold">безлимитный AI анализ</span> с King Premium
+              </p>
+
+              {/* Premium Benefits */}
+              <div className="glass-card p-6 mb-6 bg-gradient-to-br from-yellow-500/10 to-transparent border-yellow-500/30 text-left">
+                <ul className="space-y-3">
+                  {['Безлимитный AI анализ', 'Глубокий разбор каждого хода', 'Эксклюзивные стратегии', 'Персональный тренер'].map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <span className="text-sm text-gray-200">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                onClick={() => navigate('/premium')}
+                className="btn-primary w-full !py-5 flex items-center justify-center gap-2 mb-3"
+                aria-label="Перейти к King Premium"
+              >
+                <Crown className="w-6 h-6" fill="currentColor" />
+                <span className="text-xl font-bold">Получить Premium</span>
+              </button>
+
+              <button
+                onClick={() => setShowPremiumUpsell(false)}
+                className="glass-button w-full !py-4"
+                aria-label="Закрыть и продолжить"
+              >
+                Продолжить без анализа
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* AI Analysis Panel */}
       <AnimatePresence>
