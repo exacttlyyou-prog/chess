@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X } from 'lucide-react';
+import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X, Pause, Play } from 'lucide-react';
 import ChessBoard from '../components/ChessBoard';
 import { useChess } from '../hooks/useChess';
 import type { ChessSquare } from '../hooks/useChess';
@@ -31,6 +31,7 @@ export default function GamePlay() {
   const [showAIAnalysis, setShowAIAnalysis] = useState(false);
   const [aiAnalysis, setAIAnalysis] = useState<ChessAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Get AI personality from navigation state or default to Magnus
   const aiPersonalityId = (location.state as { aiPersonality?: string })?.aiPersonality || 'magnus';
@@ -49,9 +50,9 @@ export default function GamePlay() {
   const currentTurn = turn === 'w' ? 'white' : 'black';
   const isPlayerTurn = currentTurn === 'white' && !isAIThinking;
 
-  // Timer effect
+  // Timer effect - stops when paused
   useEffect(() => {
-    if (isCheckmate || isStalemate || isDraw) return;
+    if (isCheckmate || isStalemate || isDraw || isPaused) return;
 
     const timer = setInterval(() => {
       if (currentTurn === 'white') {
@@ -62,11 +63,11 @@ export default function GamePlay() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentTurn, isCheckmate, isStalemate, isDraw]);
+  }, [currentTurn, isCheckmate, isStalemate, isDraw, isPaused]);
 
   // AI move logic - responds to player moves with personality
   const makeAIMove = useCallback(() => {
-    if (currentTurn !== 'black' || isCheckmate || isStalemate || isDraw) return;
+    if (currentTurn !== 'black' || isCheckmate || isStalemate || isDraw || isPaused) return;
 
     setIsAIThinking(true);
 
@@ -97,14 +98,14 @@ export default function GamePlay() {
 
       setIsAIThinking(false);
     }, thinkingDelay);
-  }, [game, makeMove, currentTurn, isCheckmate, isStalemate, isDraw, timeBlack, aiPersonality]);
+  }, [game, makeMove, currentTurn, isCheckmate, isStalemate, isDraw, timeBlack, aiPersonality, isPaused]);
 
-  // Trigger AI move when it's black's turn
+  // Trigger AI move when it's black's turn and not paused
   useEffect(() => {
-    if (currentTurn === 'black' && !isAIThinking) {
+    if (currentTurn === 'black' && !isAIThinking && !isPaused) {
       makeAIMove();
     }
-  }, [currentTurn, isAIThinking, makeAIMove]);
+  }, [currentTurn, isAIThinking, makeAIMove, isPaused]);
 
   const handleMove = (from: ChessSquare, to: ChessSquare) => {
     const result = makeMove({ from, to });
@@ -236,8 +237,24 @@ export default function GamePlay() {
           className="mt-4 flex gap-3"
         >
           <button
+            onClick={() => setIsPaused(!isPaused)}
+            className="glass-button !bg-yellow-500/10 !border-yellow-500/30 flex-1 flex items-center justify-center gap-2 hover:!bg-yellow-500/20 hover:!border-yellow-500/50 transition-all duration-300"
+          >
+            {isPaused ? (
+              <>
+                <Play className="w-5 h-5 text-yellow-400" fill="currentColor" />
+                <span className="font-semibold text-yellow-400">Продолжить</span>
+              </>
+            ) : (
+              <>
+                <Pause className="w-5 h-5 text-yellow-400" />
+                <span className="font-semibold text-yellow-400">Пауза</span>
+              </>
+            )}
+          </button>
+          <button
             onClick={handleAIAnalysis}
-            disabled={isAnalyzing}
+            disabled={isAnalyzing || isPaused}
             className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex items-center justify-center gap-2 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
           >
             <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
@@ -248,12 +265,6 @@ export default function GamePlay() {
             className="btn-secondary flex items-center justify-center gap-2 transition-all duration-300"
           >
             <Settings className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handleDraw}
-            className="btn-secondary flex items-center justify-center gap-2 transition-all duration-300"
-          >
-            <Handshake className="w-5 h-5" />
           </button>
           <button
             onClick={handleResign}
@@ -325,6 +336,52 @@ export default function GamePlay() {
           </div>
         </div>
       </motion.div>
+
+      {/* Pause Overlay */}
+      <AnimatePresence>
+        {isPaused && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-6 z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 20 }}
+              className="glass-card p-8 w-full max-w-md text-center"
+            >
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center mx-auto mb-6">
+                <Pause className="w-10 h-10 text-yellow-400" />
+              </div>
+
+              <h2 className="!text-3xl mb-3">Игра на паузе</h2>
+              <p className="text-body text-gray-400 mb-8">
+                Таймер остановлен. Нажмите "Продолжить" чтобы возобновить игру.
+              </p>
+
+              <button
+                onClick={() => setIsPaused(false)}
+                className="btn-primary w-full !py-5 flex items-center justify-center gap-2 mb-3"
+              >
+                <Play className="w-6 h-6" fill="currentColor" />
+                <span className="text-xl font-bold">Продолжить игру</span>
+              </button>
+
+              <button
+                onClick={() => navigate('/home')}
+                className="glass-button w-full !bg-red-500/20 !border-red-500/30 !py-4 hover:!bg-red-500/30"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Flag className="w-5 h-5" />
+                  <span>Выйти из игры</span>
+                </div>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Menu Overlay */}
       {showMenu && (

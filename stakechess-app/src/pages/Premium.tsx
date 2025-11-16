@@ -70,6 +70,17 @@ export default function Premium() {
           animate={{ y: 0, opacity: 1 }}
           className="text-center"
         >
+          {/* Trial Badge */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, type: 'spring' }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-green-600/20 border-2 border-green-500/40 mb-4"
+          >
+            <Zap className="w-5 h-5 text-green-400" fill="currentColor" />
+            <span className="text-green-400 font-bold text-sm">7 ДНЕЙ БЕСПЛАТНО</span>
+          </motion.div>
+
           <div className="flex items-center justify-center gap-2 mb-3">
             <Crown className="w-10 h-10 text-yellow-400" fill="currentColor" />
             <h1 className="!text-4xl bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent">
@@ -199,6 +210,25 @@ export default function Premium() {
 
       {/* CTA */}
       <div className="p-6">
+        {/* Trial Info Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass-card p-4 mb-4 border-2 border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500/30 to-green-600/20 flex items-center justify-center">
+              <Zap className="w-6 h-6 text-green-400" fill="currentColor" />
+            </div>
+            <div className="flex-1">
+              <h6 className="!text-base mb-1 text-green-400">Попробуйте бесплатно!</h6>
+              <p className="text-xs text-gray-400">
+                Первые 7 дней совершенно бесплатно. Отмените в любой момент.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -214,14 +244,19 @@ export default function Premium() {
 
           <span className="relative z-10 flex items-center justify-center gap-2">
             <Crown className="w-7 h-7" fill="currentColor" />
-            Получить King Premium
+            Начать бесплатный период
             <Crown className="w-7 h-7" fill="currentColor" />
           </span>
         </motion.button>
 
-        <p className="text-xs text-center text-gray-500 mt-3">
-          Специальная цена: 499₽/месяц вместо 999₽
-        </p>
+        <div className="mt-4 space-y-2">
+          <p className="text-sm text-center text-gray-400">
+            <span className="font-bold text-green-400">Бесплатно 7 дней</span>, затем 499₽/месяц
+          </p>
+          <p className="text-xs text-center text-gray-500">
+            Отмените подписку в любое время без комиссий
+          </p>
+        </div>
       </div>
 
       <BottomNav />

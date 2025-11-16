@@ -1,37 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, User, Flame, Crown, Settings } from 'lucide-react';
+import { Zap, Bot, Trophy, Settings } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import ThemeToggle from '../components/ThemeToggle';
 import { useToast } from '../contexts/ToastContext';
-
-const liveGames = [
-  {
-    id: '1',
-    whitePlayer: { name: 'Гроссмейстер_89', rating: 2450 },
-    blackPlayer: { name: 'ТактикПро', rating: 2380 },
-    viewers: 234,
-    timeControl: '10+0',
-    currentMove: 24,
-    isHot: true,
-  },
-  {
-    id: '2',
-    whitePlayer: { name: 'Мастер_Блица', rating: 2100 },
-    blackPlayer: { name: 'Шахматный_Король', rating: 2050 },
-    viewers: 189,
-    timeControl: '3+2',
-    currentMove: 18,
-  },
-  {
-    id: '3',
-    whitePlayer: { name: 'Стратег_2100', rating: 1950 },
-    blackPlayer: { name: 'Защитник_1900', rating: 1920 },
-    viewers: 156,
-    timeControl: '5+3',
-    currentMove: 31,
-  },
-];
 
 const recentGames = [
   {
@@ -66,26 +38,6 @@ const recentGames = [
   },
 ];
 
-const widgets = [
-  {
-    type: 'tournament',
-    title: 'Турнир выходного дня',
-    subtitle: 'Старт через 2:15:00',
-    participants: '128 игроков',
-  },
-  {
-    type: 'achievement',
-    title: 'Новое достижение!',
-    subtitle: '5 побед подряд',
-    badge: 'flame',
-  },
-  {
-    type: 'friends',
-    title: 'Друзья онлайн',
-    subtitle: '3 игрока',
-    avatars: ['user', 'user', 'user'],
-  },
-];
 
 export default function Home() {
   const navigate = useNavigate();
@@ -207,10 +159,10 @@ export default function Home() {
           </span>
         </motion.div>
 
-        {/* Quick Actions - ГЛАВНЫЕ И ПЕРВЫЕ */}
+        {/* Quick Actions - Simplified */}
         <h2 className="!text-2xl mb-6 text-gradient">Начать игру</h2>
-        <div className="grid grid-cols-1 gap-4 mb-6">
-          {/* Главная кнопка - Играть с AI */}
+        <div className="space-y-4 mb-8">
+          {/* Main CTA - Play with AI */}
           <motion.button
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -221,7 +173,7 @@ export default function Home() {
               info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
               navigate('/select-ai');
             }}
-            className="glass-card p-8 text-left shadow-lg bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group"
+            className="glass-card p-8 text-left shadow-lg bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group w-full"
           >
             <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10 flex items-center gap-6">
@@ -235,7 +187,7 @@ export default function Home() {
             </div>
           </motion.button>
 
-          {/* Другие игровые опции */}
+          {/* Secondary actions - compact */}
           <div className="grid grid-cols-2 gap-4">
             <motion.button
               initial={{ scale: 0.95, opacity: 0 }}
@@ -269,377 +221,99 @@ export default function Home() {
               <p className="text-xs text-gray-400">Призовые партии</p>
             </motion.button>
           </div>
-
-          {/* Premium отдельно */}
-          <motion.button
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.25, type: 'spring' }}
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/premium')}
-            className="glass-card p-6 text-center shadow-depth hover-lift border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 relative overflow-hidden shadow-lg"
-          >
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-orange-500/20 flex items-center justify-center">
-                <Crown className="w-6 h-6 text-yellow-400" strokeWidth={2} />
-              </div>
-              <div className="text-left">
-                <p className="font-semibold text-base mb-0.5">King Premium</p>
-                <p className="text-xs text-gray-400">Получить -50%</p>
-              </div>
-            </div>
-          </motion.button>
         </div>
 
-        {/* Stats Card - компактнее */}
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="glass-card p-6 bg-gradient-to-br from-white/[0.06] to-white/[0.02] relative overflow-hidden"
-          whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
-        >
-          <div className="absolute right-0 bottom-0 w-32 h-32 opacity-5 pointer-events-none">
-            <img
-              src="/images/pieces/0_0__64_.png"
-              alt=""
-              className="w-full h-full object-contain"
-            />
-          </div>
+        {/* Training - Compact single row */}
+        <h3 className="!text-xl mb-4">Тренировки</h3>
+        <div className="grid grid-cols-3 gap-3 mb-8">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.25 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/puzzles')}
+            className="glass-card p-4 text-center shadow-depth hover-lift"
+          >
+            <span className="text-2xl mb-2 block">🧩</span>
+            <p className="font-semibold text-sm">Задачи</p>
+          </motion.button>
 
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-stake-red/50">
-                  <img
-                    src="/images/heroes/ai-network.png"
-                    alt="Player"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400">Текущий рейтинг</p>
-                  <p className="text-3xl font-bold text-gradient">1450</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-xs text-gray-400">Прогресс</p>
-                <p className="text-2xl font-bold text-green-400">+50</p>
-              </div>
-            </div>
-            <div className="flex gap-6 text-center">
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 mb-0.5">Побед</p>
-                <p className="text-white font-semibold">128</p>
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 mb-0.5">Поражений</p>
-                <p className="text-gray-400 font-semibold">94</p>
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 mb-0.5">Ничьих</p>
-                <p className="text-gray-400 font-semibold">23</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/openings')}
+            className="glass-card p-4 text-center shadow-depth hover-lift"
+          >
+            <span className="text-2xl mb-2 block">📖</span>
+            <p className="font-semibold text-sm">Дебюты</p>
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.35 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/leaderboard')}
+            className="glass-card p-4 text-center shadow-depth hover-lift"
+          >
+            <span className="text-2xl mb-2 block">🏆</span>
+            <p className="font-semibold text-sm">Рейтинг</p>
+          </motion.button>
+        </div>
       </motion.div>
 
-      {/* Tournament Banner - White with Red/Black */}
-      <div className="px-8 mb-10">
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, type: 'spring' }}
-          whileHover={{ scale: 1.02, y: -4 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/tournaments')}
-          className="w-full bg-white rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative overflow-hidden"
-        >
-          {/* Background image */}
-          <div className="absolute right-0 top-0 w-1/2 h-full opacity-10 pointer-events-none">
-            <img
-              src="/images/heroes/0_0_-_2025-11-13T230855_596.png"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          {/* Red accent gradient */}
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-stake-red/10 to-transparent" />
-
-          <div className="relative z-10 flex items-center gap-6">
-            {/* Trophy Icon */}
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-md">
-              <Trophy className="w-10 h-10 text-white" strokeWidth={2.5} />
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 text-left">
-              <h3 className="!text-2xl text-black mb-1">Турниры</h3>
-              <p className="text-gray-700 text-base mb-2">Сразись с лучшими. Выиграй призы.</p>
-              <div className="flex items-center gap-3">
-                <div className="px-3 py-1 rounded-lg bg-stake-red/10 border border-stake-red/20">
-                  <span className="text-xs font-semibold text-stake-red">12 турниров</span>
-                </div>
-                <div className="px-3 py-1 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                  <span className="text-xs font-semibold text-yellow-600">🏆 До 100K монет</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Arrow */}
-            <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M7 4L13 10L7 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </motion.button>
-      </div>
-
-      {/* Training & Progress Section */}
-      <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Тренировки</h3>
-        <div className="grid grid-cols-3 gap-4">
-          <motion.button
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4 }}
-            whileHover={{ scale: 1.05, y: -4 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/puzzles')}
-            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(94,92,230,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#5e5ce6]"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/15 flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl">🧩</span>
-            </div>
-            <p className="font-semibold text-sm mb-1">Задачи</p>
-            <p className="text-xs text-gray-400">Ежедневно</p>
-          </motion.button>
-
-          <motion.button
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.45 }}
-            whileHover={{ scale: 1.05, y: -4 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/openings')}
-            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(168,85,247,0.12)] !to-[#2a2a2a] border-l-4 !border-l-purple-500"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/15 flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl">📖</span>
-            </div>
-            <p className="font-semibold text-sm mb-1">Дебюты</p>
-            <p className="text-xs text-gray-400">Библиотека</p>
-          </motion.button>
-
-          <motion.button
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-            whileHover={{ scale: 1.05, y: -4 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/leaderboard')}
-            className="glass-card p-5 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(48,209,88,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#30d158]"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500/30 to-green-600/15 flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl">🏆</span>
-            </div>
-            <p className="font-semibold text-sm mb-1">Топ-100</p>
-            <p className="text-xs text-gray-400">Рейтинг</p>
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Recent Games Carousel */}
-      <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Недавние партии</h3>
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+      {/* Recent Games - Compact horizontal scroll */}
+      <div className="px-8 pb-28">
+        <h3 className="!text-xl mb-4">Недавние партии</h3>
+        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
           {recentGames.map((game, index) => (
-            <motion.div
-              key={game.id}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
-              whileHover={{ scale: 1.02, y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              className={`relative min-w-[280px] h-[280px] cursor-pointer shadow-depth overflow-hidden snap-start rounded-3xl ${
-                game.result === 'win'
-                  ? 'border-2 !border-[rgba(48,209,88,0.4)]'
-                  : game.result === 'loss'
-                  ? 'border-2 !border-[rgba(255,59,48,0.4)]'
-                  : 'border-2 !border-[rgba(255,255,255,0.15)]'
-              }`}
-              onClick={() => navigate('/play')}
-            >
-              {/* Background Image (Full) */}
-              <div className="absolute inset-0">
-                <img
-                  src={game.image}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-                {/* Dark gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-                {/* Color tint overlay */}
-                <div className={`absolute inset-0 ${
-                  game.result === 'win'
-                    ? 'bg-gradient-to-br from-green-500/20 to-transparent'
-                    : game.result === 'loss'
-                    ? 'bg-gradient-to-br from-red-500/20 to-transparent'
-                    : 'bg-black/20'
-                }`} />
-              </div>
-
-              {/* Content (Relative) */}
-              <div className="relative z-10 p-5 h-full flex flex-col justify-between">
-                {/* Top Section */}
-                <div>
-                  {/* Result badge */}
-                  <div className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl mb-4 text-xs font-bold uppercase tracking-wide backdrop-blur-md ${
-                    game.result === 'win'
-                      ? 'bg-[rgba(48,209,88,0.3)] text-green-200 border-2 border-green-400/50'
-                      : game.result === 'loss'
-                      ? 'bg-[rgba(255,59,48,0.3)] text-red-200 border-2 border-red-400/50'
-                      : 'bg-[rgba(156,163,175,0.3)] text-gray-200 border-2 border-gray-400/50 backdrop-blur-md'
-                  }`}>
-                    {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
-                  </div>
-
-                  {/* Opponent with rating */}
-                  <div className="mb-4">
-                    <h5 className="!text-lg font-bold text-white drop-shadow-lg">{game.opponent}</h5>
-                    {game.rating && (
-                      <div className="flex items-center gap-2 mt-1.5">
-                        <span className="text-sm text-yellow-400 font-bold drop-shadow-md">⭐ {game.rating}</span>
-                        <span className="text-xs text-gray-300">ELO</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Bottom Section - Game Info */}
-                <div className="space-y-2 backdrop-blur-sm bg-black/30 rounded-2xl p-3 border border-white/10">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">Режим</span>
-                    <span className="text-white font-semibold">{game.mode}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">Ходов</span>
-                    <span className="text-white font-semibold">{game.moves}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">Дата</span>
-                    <span className="text-white font-semibold">{game.date}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Widgets */}
-      <div className="px-8 mb-8">
-        <h3 className="!text-xl mb-6">Актуально</h3>
-        <div className="space-y-4">
-          {widgets.map((widget, index) => (
-            <motion.div
-              key={index}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
-              whileHover={{ x: 4 }}
-              whileTap={{ scale: 0.98 }}
-              className="glass-card p-6 cursor-pointer shadow-depth hover-lift"
-              onClick={() => navigate('/game-mode')}
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h6 className="mb-2">{widget.title}</h6>
-                  <p className="text-body-sm text-gray-400">{widget.subtitle}</p>
-                </div>
-                <div className="text-right flex items-center gap-3">
-                  {widget.participants && (
-                    <p className="text-gray-400 text-body-sm font-medium">{widget.participants}</p>
-                  )}
-                  {widget.badge && (
-                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-2xl">
-                      <Flame className="w-6 h-6 text-stake-red" />
-                    </div>
-                  )}
-                  {widget.avatars && (
-                    <div className="flex -space-x-2">
-                      {widget.avatars.map((_, i) => (
-                        <div
-                          key={i}
-                          className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border-2 border-stake-black-light"
-                        >
-                          <User className="w-4 h-4 text-gray-400" />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Live Games - компактные и внизу */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="px-8 pb-28"
-      >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <h4 className="!text-base text-gray-400">Эфиры</h4>
-          </div>
-          <span className="text-xs text-gray-500">{liveGames.length}</span>
-        </div>
-        <div className="space-y-3">
-          {liveGames.slice(0, 2).map((game, index) => (
             <motion.button
               key={game.id}
-              initial={{ opacity: 0, x: -10 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.55 + index * 0.05 }}
-              whileHover={{ x: 4 }}
+              transition={{ delay: 0.4 + index * 0.05 }}
+              whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                success('Подключаемся к партии', 'Загрузка трансляции...');
-                setTimeout(() => navigate('/play'), 1500);
-              }}
-              className="glass-card p-4 w-full text-left hover-lift"
+              onClick={() => navigate('/play')}
+              className={`glass-card p-4 min-w-[200px] text-left shadow-depth ${
+                game.result === 'win'
+                  ? 'border-l-4 !border-l-green-500'
+                  : game.result === 'loss'
+                  ? 'border-l-4 !border-l-red-500'
+                  : 'border-l-4 !border-l-gray-500'
+              }`}
             >
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-semibold truncate">{game.whitePlayer.name}</span>
-                    <span className="text-xs text-gray-500">{game.whitePlayer.rating}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold truncate">{game.blackPlayer.name}</span>
-                    <span className="text-xs text-gray-500">{game.blackPlayer.rating}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-1">
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                    <User className="w-3 h-3" />
-                    <span>{game.viewers}</span>
-                  </div>
-                  <span className="text-xs text-gray-500">{game.timeControl}</span>
-                </div>
+              {/* Result badge */}
+              <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg mb-3 text-xs font-bold ${
+                game.result === 'win'
+                  ? 'bg-green-500/20 text-green-400'
+                  : game.result === 'loss'
+                  ? 'bg-red-500/20 text-red-400'
+                  : 'bg-gray-500/20 text-gray-400'
+              }`}>
+                {game.result === 'win' ? '✓ Победа' : game.result === 'loss' ? '✗ Поражение' : '= Ничья'}
+              </div>
+
+              {/* Opponent */}
+              <h6 className="!text-base mb-1 truncate">{game.opponent}</h6>
+              {game.rating && (
+                <p className="text-xs text-yellow-400 mb-2">⭐ {game.rating} ELO</p>
+              )}
+
+              {/* Game info */}
+              <div className="space-y-1">
+                <p className="text-xs text-gray-400">{game.mode} • {game.moves} ходов</p>
+                <p className="text-xs text-gray-500">{game.date}</p>
               </div>
             </motion.button>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       <BottomNav />
     </motion.div>

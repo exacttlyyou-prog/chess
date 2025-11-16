@@ -6,6 +6,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { BoardSettingsProvider } from './contexts/BoardSettingsContext';
 import { TournamentsProvider } from './contexts/TournamentsContext';
 import { AchievementsProvider } from './contexts/AchievementsContext';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy load routes for code splitting
 const Onboarding = lazy(() => import('./pages/Onboarding'));
@@ -50,35 +51,37 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <Router>
-      <ThemeProvider>
-        <BoardSettingsProvider>
-          <TournamentsProvider>
-            <AchievementsProvider>
-              <ToastProvider position="top-right" defaultDuration={5000}>
-                {/* Skip to main content - Accessibility */}
-                <a
-                  href="#main-content"
-                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-stake-red focus:text-white focus:rounded-lg focus:shadow-lg"
-                >
-                  Перейти к основному содержимому
-                </a>
+    <ErrorBoundary>
+      <Router>
+        <ThemeProvider>
+          <BoardSettingsProvider>
+            <TournamentsProvider>
+              <AchievementsProvider>
+                <ToastProvider position="top-right" defaultDuration={5000}>
+                  {/* Skip to main content - Accessibility */}
+                  <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-stake-red focus:text-white focus:rounded-lg focus:shadow-lg"
+                  >
+                    Перейти к основному содержимому
+                  </a>
 
-                <div id="main-content">
-                  <Suspense fallback={
-                    <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
-                      <div className="text-2xl font-bold text-gradient">StakeChess</div>
-                    </div>
-                  }>
-                    <AnimatedRoutes />
-                  </Suspense>
-                </div>
-              </ToastProvider>
-            </AchievementsProvider>
-          </TournamentsProvider>
-        </BoardSettingsProvider>
-      </ThemeProvider>
-    </Router>
+                  <div id="main-content">
+                    <Suspense fallback={
+                      <div className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black flex items-center justify-center">
+                        <div className="text-2xl font-bold text-gradient">StakeChess</div>
+                      </div>
+                    }>
+                      <AnimatedRoutes />
+                    </Suspense>
+                  </div>
+                </ToastProvider>
+              </AchievementsProvider>
+            </TournamentsProvider>
+          </BoardSettingsProvider>
+        </ThemeProvider>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
