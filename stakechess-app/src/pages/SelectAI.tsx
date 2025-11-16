@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Lock, Sword, Brain, Shield } from 'lucide-react';
 import { CHESS_PERSONALITIES } from '../ai/chessPersonalities';
 import type { ChessPersonality } from '../ai/chessPersonalities';
 
@@ -106,15 +106,27 @@ export default function SelectAI() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 + index * 0.05 }}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleSelectPersonality(personality)}
-                    className="glass-card p-4 text-left relative overflow-hidden group hover-lift"
+                    whileHover={{ scale: personality.locked ? 1 : 1.02, y: personality.locked ? 0 : -4 }}
+                    whileTap={{ scale: personality.locked ? 1 : 0.98 }}
+                    onClick={() => !personality.locked && handleSelectPersonality(personality)}
+                    disabled={personality.locked}
+                    className={`glass-card p-6 text-left relative overflow-hidden group ${
+                      personality.locked ? 'opacity-60 cursor-not-allowed' : 'hover-lift cursor-pointer'
+                    }`}
                   >
-                    {/* Two Column Layout */}
-                    <div className="flex items-center gap-4">
-                      {/* Left: Image */}
-                      <div className="w-20 h-20 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border border-white/10">
+                    {/* Locked Overlay */}
+                    {personality.locked && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <div className="glass-card !px-3 !py-2 border border-yellow-500/30 bg-yellow-500/10">
+                          <Lock className="w-4 h-4 text-yellow-500" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Header */}
+                    <div className="flex items-start gap-4 mb-4">
+                      {/* Avatar */}
+                      <div className="w-24 h-24 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border-2 border-white/10 group-hover:border-stake-red/30 transition-colors">
                         <img
                           src={bgImage}
                           alt={personality.name}
@@ -122,60 +134,100 @@ export default function SelectAI() {
                         />
                       </div>
 
-                      {/* Right: Text Content */}
+                      {/* Name & Title */}
                       <div className="flex-1 min-w-0">
-                        {/* Name */}
-                        <h3 className="!text-base font-bold mb-1 truncate">{personality.name}</h3>
+                        <h3 className="!text-xl font-bold mb-1">{personality.name}</h3>
+                        {personality.title && (
+                          <p className="text-sm text-gray-400 mb-2">{personality.title}</p>
+                        )}
 
-                        {/* Rating & Difficulty */}
-                        <div className="flex items-center gap-2 mb-2">
+                        {/* Rating Badge */}
+                        <div className="flex items-center gap-2">
                           <div
-                            className={`px-2 py-0.5 rounded-lg text-xs font-semibold border ${getDifficultyColor(
+                            className={`inline-flex px-3 py-1 rounded-lg text-xs font-semibold border ${getDifficultyColor(
                               personality.rating
                             )}`}
                           >
                             {getDifficultyLabel(personality.rating)}
                           </div>
-                          <div className="text-xs font-mono text-gray-400">
-                            {personality.rating}
-                          </div>
-                        </div>
-
-                        {/* Style indicators */}
-                        <div className="flex items-center gap-3 text-xs">
-                          <div className="flex items-center gap-1">
-                            <span className="text-gray-500">⚔️</span>
-                            <div className="flex gap-0.5">
-                              {[1, 2, 3, 4, 5].map((i) => (
-                                <div
-                                  key={i}
-                                  className={`w-1.5 h-3 rounded-sm ${
-                                    i <= personality.style.aggression * 5
-                                      ? 'bg-stake-red'
-                                      : 'bg-gray-700'
-                                  }`}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-gray-500">🧠</span>
-                            <div className="flex gap-0.5">
-                              {[1, 2, 3, 4, 5].map((i) => (
-                                <div
-                                  key={i}
-                                  className={`w-1.5 h-3 rounded-sm ${
-                                    i <= personality.style.tactical * 5
-                                      ? 'bg-blue-500'
-                                      : 'bg-gray-700'
-                                  }`}
-                                />
-                              ))}
-                            </div>
+                          <div className="text-sm font-mono text-gray-400">
+                            ELO {personality.rating}
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    {/* Biography */}
+                    {personality.bio && (
+                      <p className="text-sm text-gray-300 leading-relaxed mb-4">
+                        {personality.bio}
+                      </p>
+                    )}
+
+                    {/* Style Tags */}
+                    {personality.styleTags && personality.styleTags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {personality.styleTags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-400"
+                          >
+                            {tag === 'Агрессивный' || tag === 'Атакующий' ? <Sword className="w-3 h-3" /> :
+                             tag === 'Тактический' ? <Brain className="w-3 h-3" /> :
+                             tag === 'Защитный' ? <Shield className="w-3 h-3" /> : null}
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Stats Grid */}
+                    {personality.stats && (
+                      <div className="grid grid-cols-2 gap-3 mb-4 pt-4 border-t border-white/5">
+                        {personality.stats.peakRating && (
+                          <div className="text-center">
+                            <div className="text-xl font-bold text-stake-red">
+                              {personality.stats.peakRating}
+                            </div>
+                            <div className="text-xs text-gray-500">Пик рейтинга</div>
+                          </div>
+                        )}
+                        {personality.stats.yearsAsChampion && (
+                          <div className="text-center">
+                            <div className="text-xl font-bold text-yellow-500">
+                              {personality.stats.yearsAsChampion}
+                            </div>
+                            <div className="text-xs text-gray-500">Лет чемпионом</div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Notable Record */}
+                    {personality.stats?.notableRecord && (
+                      <div className="glass-card !px-4 !py-3 bg-gradient-to-r from-stake-red/5 to-transparent border-l-2 border-stake-red/50">
+                        <p className="text-sm text-gray-300">
+                          <span className="text-stake-red font-semibold">Рекорд:</span> {personality.stats.notableRecord}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Unlock Condition */}
+                    {personality.locked && personality.unlockCondition && (
+                      <div className="mt-4 pt-4 border-t border-white/5">
+                        <div className="flex items-center gap-2 text-sm text-yellow-500">
+                          <Lock className="w-4 h-4" />
+                          <span>{personality.unlockCondition}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* CTA */}
+                    {!personality.locked && (
+                      <div className="mt-4 text-stake-red font-semibold text-sm group-hover:text-white transition-colors">
+                        Играть против {personality.name.split(' ')[0]} →
+                      </div>
+                    )}
 
                     {/* Hover effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-stake-red/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Bot, Trophy, Settings } from 'lucide-react';
+import { Zap, Bot, Trophy, Settings, Puzzle, BookOpen, BarChart3 } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import ThemeToggle from '../components/ThemeToggle';
 import { useToast } from '../contexts/ToastContext';
@@ -161,36 +161,87 @@ export default function Home() {
           </span>
         </motion.div>
 
-        {/* Quick Actions - Simplified */}
-        <h2 className="!text-2xl mb-6 text-gradient">Начать игру</h2>
-        <div className="space-y-4 mb-8">
-          {/* Main CTA - Play with AI */}
+        {/* HERO: Legends Section - Premium Showcase */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center gap-2 glass-card !px-3 !py-1.5 border border-stake-red/30">
+              <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse" />
+              <span className="text-xs font-bold text-stake-red uppercase tracking-wider">УТП</span>
+            </div>
+            <h2 className="!text-3xl text-gradient">Играй как легенды</h2>
+          </div>
+
           <motion.button
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.1, type: 'spring' }}
-            whileHover={{ scale: 1.02, y: -4 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01, y: -6 }}
+            whileTap={{ scale: 0.99 }}
             onClick={() => {
               info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
               navigate('/select-ai');
             }}
-            className="glass-card p-8 text-left shadow-lg bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 relative overflow-hidden group w-full"
+            className="glass-card p-8 md:p-10 text-left shadow-2xl bg-gradient-to-br from-stake-red/25 via-purple-900/15 to-transparent border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[280px]"
             aria-label="Играть с AI моделями легендарных шахматистов"
           >
-            <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="relative z-10 flex items-center gap-6">
-              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-stake-red to-stake-red-dark flex items-center justify-center shadow-lg">
-                <Bot className="w-10 h-10 text-white" strokeWidth={2.5} />
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-radial from-stake-red/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Content */}
+            <div className="relative z-10">
+              {/* Header with icon */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-stake-red via-stake-red-dark to-purple-900 flex items-center justify-center shadow-2xl border border-stake-red/30 group-hover:scale-110 transition-transform duration-300">
+                  <Bot className="w-12 h-12 text-white" strokeWidth={2.5} />
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-400 mb-1">Доступно</div>
+                  <div className="text-3xl font-bold text-stake-red">12</div>
+                  <div className="text-xs text-gray-500">легенд</div>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="!text-2xl mb-2">Модели шахматистов</h3>
-                <p className="text-body text-gray-400">Играй с AI стилями легенд шахмат</p>
+
+              {/* Title & Description */}
+              <h3 className="!text-3xl md:!text-4xl mb-4 leading-tight">AI-модели стилей<br/>великих шахматистов</h3>
+              <p className="text-body-lg text-gray-300 mb-6 leading-relaxed">
+                Сражайся против уникальных стилей игры Карлсена, Каспарова, Фишера и других легенд
+              </p>
+
+              {/* Preview Avatars */}
+              <div className="flex items-center gap-3 mb-6">
+                {['MC', 'GK', 'BF'].map((initials, i) => (
+                  <motion.div
+                    key={initials}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 + i * 0.1, type: 'spring' }}
+                    className="w-12 h-12 rounded-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center border-2 border-white/20 font-bold text-sm backdrop-blur-sm"
+                  >
+                    {initials}
+                  </motion.div>
+                ))}
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/30 to-purple-900/30 flex items-center justify-center border-2 border-stake-red/30 text-sm text-gray-400 backdrop-blur-sm">
+                  +9
+                </div>
+              </div>
+
+              {/* CTA Arrow */}
+              <div className="flex items-center gap-2 text-stake-red font-semibold group-hover:gap-4 transition-all">
+                <span className="text-lg">Все 12 стилей</span>
+                <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
-          </motion.button>
 
-          {/* Secondary actions - compact */}
+            {/* Decorative chess piece background */}
+            <div className="absolute right-0 bottom-0 w-40 h-40 opacity-10 pointer-events-none">
+              <Bot className="w-full h-full text-white" strokeWidth={1} />
+            </div>
+          </motion.button>
+        </div>
+
+        {/* Quick Actions - Secondary CTAs */}
+        <h3 className="!text-xl mb-4 text-gray-300">Быстрый старт</h3>
+        <div className="space-y-4 mb-8">
           <div className="grid grid-cols-2 gap-4">
             <motion.button
               initial={{ scale: 0.95, opacity: 0 }}
@@ -241,7 +292,9 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift"
             aria-label="Решать шахматные задачи"
           >
-            <span className="text-2xl mb-2 block">🧩</span>
+            <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <Puzzle className="w-5 h-5 text-purple-400" strokeWidth={2} />
+            </div>
             <p className="font-semibold text-sm">Задачи</p>
           </motion.button>
 
@@ -255,7 +308,9 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift"
             aria-label="Изучать шахматные дебюты"
           >
-            <span className="text-2xl mb-2 block">📖</span>
+            <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-blue-400" strokeWidth={2} />
+            </div>
             <p className="font-semibold text-sm">Дебюты</p>
           </motion.button>
 
@@ -269,7 +324,9 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift"
             aria-label="Посмотреть таблицу лидеров"
           >
-            <span className="text-2xl mb-2 block">🏆</span>
+            <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-yellow-400" strokeWidth={2} />
+            </div>
             <p className="font-semibold text-sm">Рейтинг</p>
           </motion.button>
         </div>

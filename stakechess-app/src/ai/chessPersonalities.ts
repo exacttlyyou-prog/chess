@@ -10,6 +10,18 @@ export interface ChessPersonality {
   description: string;
   rating: number;
   avatar?: string;
+  // Extended metadata for storytelling
+  title?: string; // e.g., "Чемпион мира 2013-2023"
+  bio?: string; // Full biography (2-3 sentences)
+  styleTags?: string[]; // e.g., ["Агрессивный", "Тактический"]
+  stats?: {
+    peakRating?: number;
+    yearsAsChampion?: number;
+    notableRecord?: string;
+  };
+  // Gamification
+  locked?: boolean;
+  unlockCondition?: string; // e.g., "Набери 2200 рейтинг"
   style: {
     aggression: number; // 0-1: How aggressive (attacking vs defensive)
     tactical: number; // 0-1: Tactical vs positional
@@ -31,6 +43,16 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'magnus',
     name: 'Magnus Carlsen',
     description: 'Универсальный стиль, отличная эндшпиль игра, минимальные ошибки',
+    title: 'Чемпион мира 2013-2023',
+    bio: 'Норвежский вундеркинд с феноменальной интуицией. Известен непобедимым эндшпилем и способностью выжимать победы из ничейных позиций. Достиг высшего рейтинга в истории — 2882.',
+    styleTags: ['Универсальный', 'Позиционный', 'Эндшпиль-виртуоз'],
+    stats: {
+      peakRating: 2882,
+      yearsAsChampion: 10,
+      notableRecord: '125 партий без поражений',
+    },
+    locked: true,
+    unlockCondition: 'Набери 2200 рейтинг',
     rating: 2850,
     style: {
       aggression: 0.6,
@@ -45,6 +67,16 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'kasparov',
     name: 'Garry Kasparov',
     description: 'Агрессивный, динамичный стиль с глубокой подготовкой',
+    title: 'Чемпион мира 1985-2000',
+    bio: 'Один из величайших шахматистов всех времён. Агрессивный тактический стиль и непревзойдённая дебютная подготовка. Доминировал в мировых шахматах 15 лет подряд.',
+    styleTags: ['Агрессивный', 'Тактический', 'Дебютная подготовка'],
+    stats: {
+      peakRating: 2851,
+      yearsAsChampion: 15,
+      notableRecord: '255 месяцев подряд №1',
+    },
+    locked: true,
+    unlockCondition: 'Выиграй турнир',
     rating: 2820,
     style: {
       aggression: 0.9,
@@ -59,6 +91,16 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'fischer',
     name: 'Bobby Fischer',
     description: 'Точный, принципиальный стиль с отличной техникой',
+    title: 'Чемпион мира 1972-1975',
+    bio: 'Американская легенда, победившая советскую шахматную школу. Известен идеальной техникой и принципиальной игрой. Выиграл матч века против Спасского.',
+    styleTags: ['Точный', 'Принципиальный', 'Техничный'],
+    stats: {
+      peakRating: 2785,
+      yearsAsChampion: 3,
+      notableRecord: '20 побед подряд в турнирах',
+    },
+    locked: true,
+    unlockCondition: 'King Premium подписка',
     rating: 2780,
     style: {
       aggression: 0.7,
@@ -73,6 +115,16 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'tal',
     name: 'Mikhail Tal',
     description: 'Магический стиль с жертвами и комбинациями',
+    title: 'Чемпион мира 1960-1961',
+    bio: 'Магический Миша — мастер фантастических жертв и комбинаций. Его атаки казались невозможными, но работали. Самый креативный шахматист в истории.',
+    styleTags: ['Магический', 'Жертвы', 'Комбинационный'],
+    stats: {
+      peakRating: 2750,
+      yearsAsChampion: 1,
+      notableRecord: '95 партий без поражений',
+    },
+    locked: false,
+    unlockCondition: 'Набери 1800 рейтинг',
     rating: 2750,
     style: {
       aggression: 1.0,
@@ -87,6 +139,15 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'petrosian',
     name: 'Tigran Petrosian',
     description: 'Защитник - профилактический стиль, минимальный риск',
+    title: 'Чемпион мира 1963-1969',
+    bio: 'Железный Тигран — мастер защиты и профилактики. Его позиции казались неприступными крепостями. Минимальный риск, максимальная надёжность.',
+    styleTags: ['Защитный', 'Профилактический', 'Надёжный'],
+    stats: {
+      peakRating: 2720,
+      yearsAsChampion: 6,
+      notableRecord: 'Ни одного поражения в защите титула',
+    },
+    locked: false,
     rating: 2720,
     style: {
       aggression: 0.3,
@@ -101,6 +162,15 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'capablanca',
     name: 'José Raúl Capablanca',
     description: 'Простота и ясность - природный талант',
+    title: 'Чемпион мира 1921-1927',
+    bio: 'Кубинский вундеркинд с природным талантом. Играл просто, ясно и почти без ошибок. Его эндшпиль был образцом совершенства.',
+    styleTags: ['Природный талант', 'Ясный', 'Эндшпиль'],
+    stats: {
+      peakRating: 2740,
+      yearsAsChampion: 6,
+      notableRecord: '8 лет без поражений',
+    },
+    locked: false,
     rating: 2740,
     style: {
       aggression: 0.5,
@@ -115,6 +185,14 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'morphy',
     name: 'Paul Morphy',
     description: 'Быстрое развитие и атака на короля',
+    title: 'Неофициальный чемпион мира 1858',
+    bio: 'Американский гений XIX века. Блестящее быстрое развитие фигур и прямая атака на короля. Доминировал над всеми соперниками своей эпохи.',
+    styleTags: ['Атакующий', 'Быстрое развитие', 'Тактический'],
+    stats: {
+      peakRating: 2700,
+      notableRecord: 'Не проиграл ни одной серьёзной партии',
+    },
+    locked: false,
     rating: 2700,
     style: {
       aggression: 0.9,
@@ -129,6 +207,16 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'karpov',
     name: 'Anatoly Karpov',
     description: 'Позиционная игра, удушающий стиль',
+    title: 'Чемпион мира 1975-1985',
+    bio: 'Мастер позиционной игры и удушающего стиля. Медленно, но неумолимо создаёт преимущество. Один из самых успешных чемпионов мира.',
+    styleTags: ['Позиционный', 'Удушающий', 'Стратегический'],
+    stats: {
+      peakRating: 2780,
+      yearsAsChampion: 10,
+      notableRecord: '9 побед в Олимпиадах',
+    },
+    locked: false,
+    unlockCondition: 'Выиграй 20 партий',
     rating: 2780,
     style: {
       aggression: 0.4,
@@ -143,6 +231,15 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'botvinnik',
     name: 'Mikhail Botvinnik',
     description: 'Научный подход, глубокая подготовка',
+    title: 'Чемпион мира 1948-1963',
+    bio: 'Патриарх советской шахматной школы. Научный подход к игре, глубочайшая подготовка и железная воля. Воспитал поколение чемпионов.',
+    styleTags: ['Научный', 'Подготовленный', 'Универсальный'],
+    stats: {
+      peakRating: 2760,
+      yearsAsChampion: 13,
+      notableRecord: 'Трижды возвращал титул',
+    },
+    locked: false,
     rating: 2760,
     style: {
       aggression: 0.6,
@@ -157,6 +254,10 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'beginner',
     name: 'Новичок',
     description: 'Базовый уровень для начинающих',
+    title: 'AI уровень 1',
+    bio: 'Идеальный соперник для тех, кто только начинает свой путь в шахматах. Понятные ходы, минимум сложных комбинаций.',
+    styleTags: ['Простой', 'Обучающий'],
+    locked: false,
     rating: 800,
     style: {
       aggression: 0.5,
@@ -171,6 +272,10 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'intermediate',
     name: 'Любитель',
     description: 'Средний уровень игры',
+    title: 'AI уровень 2',
+    bio: 'Для игроков, знающих основы. Понимает базовые принципы и может создавать угрозы. Хороший баланс между обучением и вызовом.',
+    styleTags: ['Сбалансированный', 'Обучающий'],
+    locked: false,
     rating: 1500,
     style: {
       aggression: 0.6,
@@ -185,6 +290,10 @@ export const CHESS_PERSONALITIES: Record<string, ChessPersonality> = {
     id: 'advanced',
     name: 'Мастер',
     description: 'Продвинутый уровень',
+    title: 'AI уровень 3',
+    bio: 'Серьёзный вызов для опытных игроков. Сильная позиционная игра, понимание стратегии и тактики. Требует полной концентрации.',
+    styleTags: ['Сильный', 'Универсальный'],
+    locked: false,
     rating: 2200,
     style: {
       aggression: 0.7,
