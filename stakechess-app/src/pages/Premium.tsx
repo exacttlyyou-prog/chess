@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Crown, Check, Zap, Award, Star, Sparkles } from 'lucide-react';
+import { Crown, Check, Zap, Award, Star, Sparkles, Beaker } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import PremiumKingFeatureCard from '../components/PremiumKingFeatureCard';
 import { useToast } from '../contexts/ToastContext';
+import { useABTest, PREMIUM_PRICING_TEST, PREMIUM_PRICES } from '../hooks/useABTest';
 
 const features = [
   {
@@ -51,8 +52,17 @@ const features = [
 
 export default function Premium() {
   const { success } = useToast();
+  const { variant, isLoading, trackConversion } = useABTest(PREMIUM_PRICING_TEST);
+
+  // Get pricing based on A/B test variant
+  const pricing = variant
+    ? PREMIUM_PRICES[variant.id as keyof typeof PREMIUM_PRICES]
+    : PREMIUM_PRICES.control; // Fallback to control
 
   const handleUpgrade = () => {
+    // Track conversion for A/B test
+    trackConversion('premium_upgrade_clicked');
+
     success('Premium активирован!', 'Добро пожаловать в King Premium');
   };
 
@@ -250,12 +260,24 @@ export default function Premium() {
         </motion.button>
 
         <div className="mt-4 space-y-2">
+          {/* Dynamic pricing based on A/B test */}
           <p className="text-sm text-center text-gray-400">
-            <span className="font-bold text-green-400">Бесплатно 7 дней</span>, затем 499₽/месяц
+            <span className="font-bold text-green-400">Бесплатно 7 дней</span>, затем {pricing.price}₽/месяц
           </p>
           <p className="text-xs text-center text-gray-500">
-            Отмените подписку в любое время без комиссий
+            <span className="line-through text-gray-600">{pricing.oldPrice}₽</span>{' '}
+            <span className="text-green-400 font-semibold">{pricing.discount}</span> • Отмените в любое время
           </p>
+
+          {/* A/B Test Indicator (dev mode only) */}
+          {process.env.NODE_ENV === 'development' && variant && (
+            <div className="mt-3 p-2 rounded-lg bg-purple-500/10 border border-purple-500/30">
+              <div className="flex items-center justify-center gap-2 text-xs text-purple-400">
+                <Beaker className="w-3 h-3" />
+                <span>A/B Test: {variant.name}</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
