@@ -39,6 +39,8 @@ const slides = [
 export default function Onboarding() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [skillLevel, setSkillLevel] = useState<'beginner' | 'intermediate' | 'advanced' | null>(null);
+  const [showSkillSelect, setShowSkillSelect] = useState(false);
   const navigate = useNavigate();
 
   // Preload all images
@@ -62,11 +64,30 @@ export default function Onboarding() {
   };
 
   const handleAuth = () => {
+    // Show skill selection before auth
+    if (!skillLevel) {
+      setShowSkillSelect(true);
+      return;
+    }
+
     setIsAuthenticating(true);
+    // Save skill level to localStorage
+    localStorage.setItem('user_skill_level', skillLevel);
     // Simulate auth delay
     setTimeout(() => {
       navigate('/home');
     }, 1500);
+  };
+
+  const handleSkillSelect = (level: 'beginner' | 'intermediate' | 'advanced') => {
+    setSkillLevel(level);
+    setShowSkillSelect(false);
+    // Auto-proceed to auth
+    setTimeout(() => {
+      setIsAuthenticating(true);
+      localStorage.setItem('user_skill_level', level);
+      setTimeout(() => navigate('/home'), 1500);
+    }, 300);
   };
 
   return (
@@ -277,6 +298,65 @@ export default function Onboarding() {
           )}
         </motion.div>
       </div>
+
+      {/* Skill Level Selection Modal */}
+      {showSkillSelect && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-8"
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            className="glass-card p-8 w-full max-w-md"
+          >
+            <h3 className="!text-2xl mb-3 text-center">Ваш уровень игры?</h3>
+            <p className="text-sm text-gray-400 text-center mb-8">
+              Это поможет подобрать подходящих соперников
+            </p>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => handleSkillSelect('beginner')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+              >
+                <h4 className="!text-lg mb-2">🌱 Новичок</h4>
+                <p className="text-sm text-gray-400">
+                  Только начинаю изучать шахматы
+                </p>
+              </button>
+
+              <button
+                onClick={() => handleSkillSelect('intermediate')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+              >
+                <h4 className="!text-lg mb-2">⚡ Средний</h4>
+                <p className="text-sm text-gray-400">
+                  Знаю основы, играю регулярно
+                </p>
+              </button>
+
+              <button
+                onClick={() => handleSkillSelect('advanced')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+              >
+                <h4 className="!text-lg mb-2">👑 Продвинутый</h4>
+                <p className="text-sm text-gray-400">
+                  Опытный игрок с высоким рейтингом
+                </p>
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowSkillSelect(false)}
+              className="btn-secondary w-full mt-4"
+            >
+              Назад
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
