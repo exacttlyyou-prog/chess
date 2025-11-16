@@ -9,13 +9,12 @@ export default function MatchSearch() {
   const [stage, setStage] = useState<'searching' | 'found' | 'ready'>('searching');
   const [progress, setProgress] = useState(0);
 
-  // Generate opponent data
+  // Magnus Carlsen as opponent
   const opponent = useMemo(() => {
-    const rating = 1400 + Math.floor(Math.random() * 200);
-    const { name, avatar } = generateOpponentAvatar(rating);
+    const { avatar } = generateOpponentAvatar(2831);
     return {
-      name,
-      rating,
+      name: 'Магнус Карлсен',
+      rating: 2831,
       avatar: svgToDataUrl(avatar),
     };
   }, []);

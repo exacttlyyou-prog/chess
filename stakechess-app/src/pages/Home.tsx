@@ -105,70 +105,91 @@ export default function Home() {
         animate={{ y: 0, opacity: 1 }}
         className="px-8 pt-2 pb-6"
       >
-        {/* Profile Card */}
+        {/* Hero Profile Card */}
         <motion.button
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
           onClick={() => navigate('/profile')}
-          className="glass-card p-5 mb-6 hover-lift relative overflow-hidden group"
+          className="relative mb-6 hover-lift overflow-hidden rounded-3xl shadow-depth-lg group h-[180px]"
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <div className="absolute right-0 bottom-0 w-32 h-32">
-              <img
-                src="/images/pieces/king-crown.png"
-                alt=""
-                className="w-full h-full object-contain opacity-30"
-              />
-            </div>
+          {/* Full Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src="/images/pieces/king-solo.png"
+              alt=""
+              className="w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+            />
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-br from-stake-black/95 via-stake-black/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/20 via-transparent to-transparent" />
           </div>
 
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {/* Avatar */}
-              <div className="relative w-14 h-14 rounded-2xl overflow-hidden shadow-lg transition-all">
-                <img
-                  src="/images/pieces/king-crown.png"
-                  alt="Profile"
-                  className="absolute inset-0 w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-stake-red/20 to-transparent" />
-                <div className="absolute inset-0 border-2 border-white/10 rounded-2xl" />
+          {/* Content */}
+          <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+            {/* Top Section - Avatar & Info */}
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-4">
+                {/* Large Avatar */}
+                <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white/20">
+                  <img
+                    src="/images/pieces/king-crown.png"
+                    alt="Profile"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-stake-red/30" />
+                </div>
+
+                {/* Info */}
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <h1 className="!text-2xl font-bold">Игрок</h1>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-lg" />
+                      <span className="text-xs text-green-400 font-semibold">Онлайн</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-1.5 bg-yellow-500/20 px-3 py-1 rounded-full border border-yellow-500/30">
+                      <span className="text-yellow-400 font-bold text-lg">⭐ 1450</span>
+                      <span className="text-xs text-yellow-300/80 font-medium">ELO</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Info */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h2 className="!text-lg font-bold">Игрок</h2>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-xs text-green-400 font-medium">Онлайн</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-yellow-400 font-bold">⭐ 1450</span>
-                    <span className="text-xs text-gray-500">ELO</span>
-                  </div>
-                  <span className="text-gray-600">•</span>
-                  <span className="text-gray-400 text-xs">Профиль →</span>
-                </div>
+              {/* Top Actions */}
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate('/settings');
+                  }}
+                  className="glass-button !px-3 !py-3 hover:bg-white/10"
+                >
+                  <Settings className="w-5 h-5" />
+                </button>
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate('/settings');
-                }}
-                className="glass-button !px-3 !py-3 hover:bg-white/10"
-              >
-                <Settings className="w-5 h-5" />
-              </button>
+            {/* Bottom Section - Stats */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-2xl font-bold text-green-400">12</span>
+                <span className="text-xs text-gray-400">Побед</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-2xl font-bold text-red-400">3</span>
+                <span className="text-xs text-gray-400">Поражений</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-2xl font-bold text-gray-400">5</span>
+                <span className="text-xs text-gray-400">Ничья</span>
+              </div>
+              <div className="ml-auto">
+                <span className="text-xs text-gray-400 font-medium">Смотреть профиль →</span>
+              </div>
             </div>
           </div>
         </motion.button>
