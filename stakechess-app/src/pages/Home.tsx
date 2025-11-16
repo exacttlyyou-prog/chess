@@ -41,7 +41,7 @@ const recentGames = [
 
 export default function Home() {
   const navigate = useNavigate();
-  const { success, info } = useToast();
+  const { info } = useToast();
 
   return (
     <motion.div

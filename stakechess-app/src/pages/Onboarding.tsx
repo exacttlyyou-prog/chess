@@ -61,7 +61,7 @@ export default function Onboarding() {
     }
   };
 
-  const handleAuth = (provider: 'telegram' | 'alfa') => {
+  const handleAuth = () => {
     setIsAuthenticating(true);
     // Simulate auth delay
     setTimeout(() => {
@@ -235,7 +235,7 @@ export default function Onboarding() {
                 <p className="text-sm text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
               </div>
               <button
-                onClick={() => handleAuth('telegram')}
+                onClick={handleAuth}
                 disabled={isAuthenticating}
                 className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -252,7 +252,7 @@ export default function Onboarding() {
                 )}
               </button>
               <button
-                onClick={() => handleAuth('alfa')}
+                onClick={handleAuth}
                 disabled={isAuthenticating}
                 className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
               >

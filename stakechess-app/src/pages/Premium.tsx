@@ -52,7 +52,7 @@ const features = [
 
 export default function Premium() {
   const { success } = useToast();
-  const { variant, isLoading, trackConversion } = useABTest(PREMIUM_PRICING_TEST);
+  const { variant, trackConversion } = useABTest(PREMIUM_PRICING_TEST);
 
   // Get pricing based on A/B test variant
   const pricing = variant
@@ -270,7 +270,7 @@ export default function Premium() {
           </p>
 
           {/* A/B Test Indicator (dev mode only) */}
-          {process.env.NODE_ENV === 'development' && variant && (
+          {import.meta.env.DEV && variant && (
             <div className="mt-3 p-2 rounded-lg bg-purple-500/10 border border-purple-500/30">
               <div className="flex items-center justify-center gap-2 text-xs text-purple-400">
                 <Beaker className="w-3 h-3" />

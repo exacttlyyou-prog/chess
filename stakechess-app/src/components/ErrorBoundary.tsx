@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
 interface Props {
@@ -67,7 +67,7 @@ class ErrorBoundary extends Component<Props, State> {
             </p>
 
             {/* Error Details (dev mode) */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-left">
                 <p className="text-xs text-red-400 font-mono break-all">
                   {this.state.error.toString()}

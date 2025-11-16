@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Handshake, Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X, Pause, Play } from 'lucide-react';
+import { Flag, Settings, ArrowLeft, Clock, Bot, Sparkles, X, Pause, Play } from 'lucide-react';
 import ChessBoard from '../components/ChessBoard';
 import { useChess } from '../hooks/useChess';
 import type { ChessSquare } from '../hooks/useChess';
@@ -122,12 +122,6 @@ export default function GamePlay() {
   const handleResign = () => {
     if (window.confirm('Вы уверены, что хотите сдаться?')) {
       navigate('/home');
-    }
-  };
-
-  const handleDraw = () => {
-    if (window.confirm('Предложить ничью сопернику?')) {
-      setShowMenu(false);
     }
   };
 
