@@ -71,6 +71,10 @@ export default function GameMode() {
     navigate('/match-search');
   };
 
+  const handlePlayWithAI = () => {
+    navigate('/select-ai');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -221,7 +225,11 @@ export default function GameMode() {
           >
             <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth">
+              <button
+                onClick={handlePlay}
+                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth"
+                aria-label="Играть против случайного соперника"
+              >
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Shuffle className="w-6 h-6 text-stake-red" />
@@ -233,7 +241,11 @@ export default function GameMode() {
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
               </button>
-              <button className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth">
+              <button
+                onClick={handlePlayWithAI}
+                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth"
+                aria-label="Играть против AI моделей шахматистов"
+              >
                 <div className="flex items-center gap-3">
                   <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
                     <Bot className="w-6 h-6 text-stake-red" />
