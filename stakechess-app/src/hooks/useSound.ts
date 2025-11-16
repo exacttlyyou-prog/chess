@@ -11,7 +11,15 @@ export function useSound() {
 
   const getAudioContext = useCallback(() => {
     if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      try {
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioContextClass) {
+          audioContextRef.current = new AudioContextClass();
+        }
+      } catch (error) {
+        console.warn('Audio context not available:', error);
+        return null;
+      }
     }
     return audioContextRef.current;
   }, []);
@@ -21,7 +29,10 @@ export function useSound() {
    */
   const playSound = useCallback((type: SoundType) => {
     const ctx = getAudioContext();
-    const now = ctx.currentTime;
+    if (!ctx) return; // Safely return if audio context not available
+
+    try {
+      const now = ctx.currentTime;
 
     // Create oscillator and gain nodes
     const oscillator = ctx.createOscillator();
@@ -118,6 +129,9 @@ export function useSound() {
         oscillator.start(now);
         oscillator.stop(now + 0.3);
         break;
+    }
+    } catch (error) {
+      console.warn('Sound playback error:', error);
     }
   }, [getAudioContext]);
 
