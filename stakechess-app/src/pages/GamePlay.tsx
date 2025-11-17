@@ -244,35 +244,35 @@ export default function GamePlay() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mt-4 flex gap-3"
+          className="mt-4 flex gap-2 md:gap-3"
         >
           <button
             onClick={() => setIsPaused(!isPaused)}
-            className="glass-button !bg-yellow-500/10 !border-yellow-500/30 flex-1 flex items-center justify-center gap-2 hover:!bg-yellow-500/20 hover:!border-yellow-500/50 transition-all duration-300"
+            className="glass-button !bg-yellow-500/10 !border-yellow-500/30 flex-1 flex items-center justify-center gap-1 md:gap-2 hover:!bg-yellow-500/20 hover:!border-yellow-500/50 transition-all duration-300"
           >
             {isPaused ? (
               <>
-                <Play className="w-5 h-5 text-yellow-400" fill="currentColor" />
-                <span className="font-semibold text-yellow-400">Продолжить</span>
+                <Play className="w-4 h-4 md:w-5 md:h-5 text-yellow-400" fill="currentColor" />
+                <span className="font-semibold text-yellow-400 text-xs md:text-base">Продолжить</span>
               </>
             ) : (
               <>
-                <Pause className="w-5 h-5 text-yellow-400" />
-                <span className="font-semibold text-yellow-400">Пауза</span>
+                <Pause className="w-4 h-4 md:w-5 md:h-5 text-yellow-400" />
+                <span className="font-semibold text-yellow-400 text-xs md:text-base">Пауза</span>
               </>
             )}
           </button>
           <button
             onClick={handleAIAnalysis}
             disabled={isAnalyzing || isPaused}
-            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex flex-col items-center justify-center gap-1 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
+            className="glass-button !bg-stake-red/10 !border-stake-red/30 flex-1 flex flex-col items-center justify-center gap-0.5 md:gap-1 hover:!bg-stake-red/20 hover:!border-stake-red/50 transition-all duration-300 disabled:opacity-50"
             aria-label={`AI анализ позиции, осталось ${AI_ANALYSIS_LIMIT - aiAnalysisCount} из ${AI_ANALYSIS_LIMIT}`}
           >
-            <div className="flex items-center gap-2">
-              <Sparkles className={`w-5 h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
-              <span className="font-semibold text-stake-red">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
+            <div className="flex items-center gap-1 md:gap-2">
+              <Sparkles className={`w-4 h-4 md:w-5 md:h-5 text-stake-red ${isAnalyzing ? 'animate-pulse' : ''}`} />
+              <span className="font-semibold text-stake-red text-xs md:text-base">{isAnalyzing ? 'Анализ...' : 'AI'}</span>
             </div>
-            <span className="text-xs text-gray-400">{aiAnalysisCount}/{AI_ANALYSIS_LIMIT}</span>
+            <span className="text-[10px] md:text-xs text-gray-400">{aiAnalysisCount}/{AI_ANALYSIS_LIMIT}</span>
           </button>
           <button
             onClick={() => setShowMenu(!showMenu)}
