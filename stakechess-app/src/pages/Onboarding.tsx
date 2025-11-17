@@ -163,9 +163,6 @@ export default function Onboarding() {
           </motion.button>
         </div>
 
-        {/* Flex Spacer - pushes content to bottom on desktop */}
-        <div className="hidden md:block flex-1" />
-
         {/* AI Legends Squircles - Custom Layout for Slide 3 */}
         {currentSlide === 2 && (
           <div className="flex items-center justify-center px-4 py-2 md:p-8">
@@ -245,7 +242,7 @@ export default function Onboarding() {
         )}
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-32">
+        <div className="flex-1 flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
