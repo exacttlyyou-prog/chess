@@ -180,7 +180,7 @@ export default function Onboarding() {
                 transition={{ delay: 0.3 }}
                 className="mb-2"
               >
-                <span className="inline-block glass-button !px-4 !py-2 text-xs md:text-sm font-semibold text-stake-red min-w-[80px] text-center">
+                <span className="inline-block glass-button !px-4 !py-2 text-sm md:text-base font-semibold text-stake-red min-w-[90px] text-center">
                   {currentSlide + 1} / {slides.length}
                 </span>
               </motion.div>
