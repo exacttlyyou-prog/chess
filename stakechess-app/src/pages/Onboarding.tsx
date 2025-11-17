@@ -165,12 +165,12 @@ export default function Onboarding() {
 
         {/* AI Legends Squircles - Custom Layout for Slide 3 */}
         {currentSlide === 2 && (
-          <div className="flex-1 flex items-center justify-center px-2 py-1 md:p-8">
+          <div className="flex items-center justify-center px-4 py-2 md:p-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.6, type: 'spring' }}
-              className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 w-full max-w-md"
+              className="flex gap-2 md:grid md:grid-cols-3 md:gap-4 max-w-xs md:max-w-md"
             >
               {/* Карлсен */}
               <motion.div
@@ -178,7 +178,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
+                className="w-32 h-32 md:aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl flex-shrink-0"
               >
                 <img src="/images/grandmasters/карлсон.png" alt="Карлсен" className="w-full h-full object-cover" />
               </motion.div>
@@ -189,29 +189,29 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
+                className="w-32 h-32 md:aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl flex-shrink-0"
               >
                 <img src="/images/grandmasters/фишер.png" alt="Фишер" className="w-full h-full object-cover" />
               </motion.div>
 
-              {/* Таль */}
+              {/* Таль - HIDDEN ON MOBILE */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
+                className="hidden md:block aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/михаил таль.png" alt="Таль" className="w-full h-full object-cover" />
               </motion.div>
 
-              {/* Карпов */}
+              {/* Карпов - HIDDEN ON MOBILE */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
+                className="hidden md:block aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/карпов.png" alt="Карпов" className="w-full h-full object-cover" />
               </motion.div>
@@ -242,7 +242,7 @@ export default function Onboarding() {
         )}
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-8 pb-8 md:pb-32">
+        <div className="flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-32">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -256,9 +256,9 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mb-4"
+                className="mb-2"
               >
-                <span className="inline-block glass-button !px-4 !py-2 text-sm font-semibold text-stake-red">
+                <span className="inline-block glass-button !px-3 !py-1.5 text-xs md:text-sm font-semibold text-stake-red">
                   {currentSlide + 1} / {slides.length}
                 </span>
               </motion.div>
@@ -266,7 +266,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="!text-display md:!text-6xl mb-6 leading-tight"
+                className="!text-3xl md:!text-display mb-3 md:mb-6 leading-tight"
               >
                 {slides[currentSlide].title}
               </motion.h2>
@@ -274,7 +274,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-body-lg md:text-2xl text-gray-300 mb-6"
+                className="text-sm md:text-body-lg text-gray-300 mb-3 md:mb-6"
               >
                 {slides[currentSlide].description}
               </motion.p>
@@ -282,10 +282,10 @@ export default function Onboarding() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 }}
-                className="inline-flex items-center gap-3 glass-card !px-6 !py-3 border border-stake-red/30"
+                className="inline-flex items-center gap-2 glass-card !px-4 !py-2 md:!px-6 md:!py-3 border border-stake-red/30"
               >
-                <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse" />
-                <span className="text-stake-red font-bold text-lg">{slides[currentSlide].stat}</span>
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-stake-red animate-pulse" />
+                <span className="text-stake-red font-bold text-sm md:text-lg">{slides[currentSlide].stat}</span>
               </motion.div>
             </motion.div>
           </AnimatePresence>
@@ -296,7 +296,7 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-4 md:p-8 space-y-4 md:space-y-6 pb-32 md:pb-8"
+          className="p-3 md:p-8 space-y-3 md:space-y-6 pb-28 md:pb-8"
         >
           {/* Progress Dots */}
           <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">

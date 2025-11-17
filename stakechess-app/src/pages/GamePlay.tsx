@@ -152,18 +152,20 @@ export default function GamePlay() {
 
   return (
     <div className="relative min-h-screen flex overflow-hidden">
-      {/* Premium Background with Pattern - НАСЫЩЕННЫЙ */}
-      <div className="fixed inset-0 z-0">
-        {/* Main pattern background - БЕЗ opacity, полная насыщенность */}
+      {/* Premium Background with Pattern - HIDDEN ON MOBILE */}
+      <div className="fixed inset-0 z-0 hidden md:block">
+        {/* Main pattern background */}
         <img
           src="/images/backgrounds/паттерн фон.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Легкие градиенты для глубины - НЕ перекрывают паттерн */}
+        {/* Легкие градиенты для глубины */}
         <div className="absolute inset-0 bg-gradient-to-br from-stake-black/20 via-transparent to-stake-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
       </div>
+      {/* Mobile: Simple gradient background */}
+      <div className="fixed inset-0 z-0 md:hidden bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black"></div>
 
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
