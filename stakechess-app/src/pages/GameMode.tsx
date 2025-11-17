@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Activity, Wind, Clock, Shuffle, Bot, ArrowLeft, ArrowRight, Info } from 'lucide-react';
+import { Zap, Activity, Wind, Clock, ArrowLeft, ArrowRight, Info } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const gameModes = [
@@ -196,29 +196,18 @@ export default function GameMode() {
                   aria-pressed={isSelected}
                   className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] relative overflow-hidden ${getModeStyles()}`}
                 >
-                  <div className={`bg-gradient-to-br ${
-                    selectedMode === mode.id
-                      ? 'from-stake-red/30 to-stake-red/10'
-                      : 'from-stake-red/20 to-stake-red/5'
-                  } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon
-                      className="w-6 h-6 text-stake-red"
-                      strokeWidth={2}
-                      style={{ filter: 'drop-shadow(0 0 8px rgba(255, 59, 48, 0.3))' }}
-                    />
-                  </div>
-                  <h6 className="mb-1">{mode.title}</h6>
+                  <h6 className="mb-1 mt-4">{mode.title}</h6>
                   <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                   {/* 3D Icon Anchor */}
                   {mode.id === 'blitz' && (
-                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-16 h-16 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                   {mode.id === 'rapid' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-14 h-14 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                   {mode.id === 'classic' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-14 h-14 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                 </motion.button>
                 );
@@ -241,9 +230,6 @@ export default function GameMode() {
                 aria-label="Играть против случайного соперника"
               >
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Shuffle className="w-6 h-6 text-stake-red" />
-                  </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Случайный соперник</h6>
                     <p className="text-body-sm text-gray-400">Рейтинг: 1400 - 1500</p>
@@ -254,7 +240,7 @@ export default function GameMode() {
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-16 h-16 opacity-50 pointer-events-none"
+                  className="absolute bottom-4 right-4 w-28 h-28 opacity-50 pointer-events-none"
                 />
               </button>
               <button
@@ -263,9 +249,6 @@ export default function GameMode() {
                 aria-label="Играть против AI моделей шахматистов"
               >
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Bot className="w-6 h-6 text-stake-red" />
-                  </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Играть с AI</h6>
                     <p className="text-body-sm text-gray-400">Тренировочный режим</p>
@@ -276,7 +259,7 @@ export default function GameMode() {
                 <img
                   src="/images/icons/ai-robot.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-16 h-16 opacity-50 pointer-events-none"
+                  className="absolute bottom-4 right-4 w-28 h-28 opacity-50 pointer-events-none"
                 />
               </button>
             </div>
@@ -310,7 +293,7 @@ export default function GameMode() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-              className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
+              className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer border border-white/10"
             >
               {/* Background chess piece */}
               <div className="absolute -right-4 -top-4 w-48 h-48 opacity-15 pointer-events-none">

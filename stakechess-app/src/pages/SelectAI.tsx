@@ -6,14 +6,10 @@ import type { ChessPersonality } from '../ai/chessPersonalities';
 
 const personalityBackgrounds: Record<string, string> = {
   magnus: '/images/pieces/king-solo.png',
-  kasparov: '/images/pieces/knight-dynamic.png',
   fischer: '/images/pieces/king-crown.png',
   tal: '/images/pieces/knight-speed.png',
-  petrosian: '/images/pieces/royal-elite.png',
   capablanca: '/images/pieces/royal-glass.png',
-  morphy: '/images/pieces/knight-light.png',
   karpov: '/images/pieces/royal-pair.png',
-  botvinnik: '/images/pieces/pair-classic.png',
   beginner: '/images/pieces/pawn-glow.png',
   intermediate: '/images/pieces/knight-glass.png',
   advanced: '/images/pieces/king-queen-red.png',
@@ -47,7 +43,7 @@ export default function SelectAI() {
     },
     {
       title: 'Легенды шахмат',
-      personalities: ['magnus', 'kasparov', 'fischer', 'tal', 'petrosian', 'capablanca', 'morphy', 'karpov', 'botvinnik'],
+      personalities: ['magnus', 'fischer', 'tal', 'capablanca', 'karpov'],
     },
     {
       title: 'Сложность',
