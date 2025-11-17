@@ -60,15 +60,15 @@ export default function Profile() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="p-8 flex items-center gap-4"
+        className="px-6 md:px-8 pt-2 pb-4 flex items-center gap-3 md:gap-4"
       >
         <button
           onClick={() => navigate('/home')}
-          className="glass-button !px-4 !py-3"
+          className="glass-button !px-3 !py-3 md:!px-4"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
-        <h1 className="!text-3xl">Профиль</h1>
+        <h1 className="!text-2xl md:!text-3xl">Профиль</h1>
       </motion.div>
 
       {/* Profile Header */}
@@ -76,23 +76,23 @@ export default function Profile() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="px-8 mb-6"
+        className="px-6 md:px-8 mb-6"
       >
-        <div className="glass-card p-8 text-center shadow-depth-lg">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-4">
-            <User className="w-12 h-12 text-stake-red" />
+        <div className="glass-card p-6 md:p-8 text-center shadow-depth-lg">
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <User className="w-10 h-10 md:w-12 md:h-12 text-stake-red" />
           </div>
-          <h2 className="!text-3xl mb-2">Игрок</h2>
+          <h2 className="!text-2xl md:!text-3xl mb-2">Иван</h2>
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-body-sm text-gray-400">Рейтинг</p>
-              <p className="text-2xl font-bold text-gradient">{stats.rating}</p>
+            <div className="glass px-3 py-2 md:px-4 rounded-lg">
+              <p className="text-xs md:text-body-sm text-gray-400">Рейтинг</p>
+              <p className="text-xl md:text-2xl font-bold text-gradient">{stats.rating}</p>
             </div>
-            <div className="glass px-4 py-2 rounded-lg">
-              <p className="text-body-sm text-gray-400">Побед подряд</p>
+            <div className="glass px-3 py-2 md:px-4 rounded-lg">
+              <p className="text-xs md:text-body-sm text-gray-400">Побед подряд</p>
               <div className="flex items-center justify-center gap-1">
-                <p className="text-2xl font-bold text-stake-red">{stats.streak}</p>
-                <Flame className="w-5 h-5 text-stake-red" />
+                <p className="text-xl md:text-2xl font-bold text-stake-red">{stats.streak}</p>
+                <Flame className="w-4 h-4 md:w-5 md:h-5 text-stake-red" />
               </div>
             </div>
           </div>
@@ -103,11 +103,11 @@ export default function Profile() {
       </motion.div>
 
       {/* Tabs */}
-      <div className="px-8 mb-6">
+      <div className="px-6 md:px-8 mb-6">
         <div className="glass rounded-xl p-2 flex gap-2">
           <button
             onClick={() => setActiveTab('stats')}
-            className={`flex-1 py-3 rounded-lg font-semibold transition-all ${
+            className={`flex-1 py-2.5 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
               activeTab === 'stats'
                 ? 'bg-stake-red text-white'
                 : 'text-gray-400 hover:text-white'
@@ -117,7 +117,7 @@ export default function Profile() {
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
-            className={`flex-1 py-3 rounded-lg font-semibold transition-all ${
+            className={`flex-1 py-2.5 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
               activeTab === 'achievements'
                 ? 'bg-stake-red text-white'
                 : 'text-gray-400 hover:text-white'
@@ -132,23 +132,23 @@ export default function Profile() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="px-8 space-y-4"
+          className="px-6 md:px-8 space-y-3 md:space-y-4"
         >
           {/* Win Rate */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">Общая статистика</h5>
-            <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="glass-card p-5 md:p-8 shadow-depth">
+            <h5 className="mb-3 md:mb-4">Общая статистика</h5>
+            <div className="grid grid-cols-3 gap-3 md:gap-4 mb-4">
               <div className="text-center">
-                <p className="text-3xl font-bold text-green-400">{stats.wins}</p>
-                <p className="text-body-sm text-gray-400">Побед</p>
+                <p className="text-2xl md:text-3xl font-bold text-green-400">{stats.wins}</p>
+                <p className="text-xs md:text-body-sm text-gray-400">Побед</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-red-400">{stats.losses}</p>
-                <p className="text-body-sm text-gray-400">Поражений</p>
+                <p className="text-2xl md:text-3xl font-bold text-red-400">{stats.losses}</p>
+                <p className="text-xs md:text-body-sm text-gray-400">Поражений</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-400">{stats.draws}</p>
-                <p className="text-body-sm text-gray-400">Ничьих</p>
+                <p className="text-2xl md:text-3xl font-bold text-gray-400">{stats.draws}</p>
+                <p className="text-xs md:text-body-sm text-gray-400">Ничьих</p>
               </div>
             </div>
             <div className="glass p-4 rounded-xl">
@@ -166,8 +166,8 @@ export default function Profile() {
           </div>
 
           {/* Rating History */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">История рейтинга</h5>
+          <div className="glass-card p-5 md:p-8 shadow-depth">
+            <h5 className="mb-3 md:mb-4">История рейтинга</h5>
             <div className="relative h-40">
               {/* Simple line chart visualization */}
               <svg className="w-full h-full" viewBox="0 0 300 100">
@@ -234,9 +234,9 @@ export default function Profile() {
           </div>
 
           {/* Performance by Mode */}
-          <div className="glass-card p-8 shadow-depth">
-            <h5 className="mb-4">По режимам</h5>
-            <div className="space-y-3">
+          <div className="glass-card p-5 md:p-8 shadow-depth">
+            <h5 className="mb-3 md:mb-4">По режимам</h5>
+            <div className="space-y-2 md:space-y-3">
               {[
                 { mode: 'Блиц', rating: 1450, games: 120, Icon: Zap },
                 { mode: 'Рапид', rating: 1380, games: 80, Icon: Activity },
@@ -244,18 +244,18 @@ export default function Profile() {
               ].map((item) => (
                 <div
                   key={item.mode}
-                  className="glass p-4 rounded-xl flex items-center justify-between"
+                  className="glass p-3 md:p-4 rounded-xl flex items-center justify-between"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3">
                     <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 rounded-lg">
-                      <item.Icon className="w-5 h-5 text-stake-red" />
+                      <item.Icon className="w-4 h-4 md:w-5 md:h-5 text-stake-red" />
                     </div>
                     <div>
-                      <h6 className="!text-base">{item.mode}</h6>
-                      <p className="text-body-sm text-gray-400">{item.games} партий</p>
+                      <h6 className="!text-sm md:!text-base">{item.mode}</h6>
+                      <p className="text-xs md:text-body-sm text-gray-400">{item.games} партий</p>
                     </div>
                   </div>
-                  <p className="text-xl font-bold text-gradient">{item.rating}</p>
+                  <p className="text-lg md:text-xl font-bold text-gradient">{item.rating}</p>
                 </div>
               ))}
             </div>
@@ -266,27 +266,27 @@ export default function Profile() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="px-8"
+          className="px-6 md:px-8"
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={achievement.id}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: index * 0.05 }}
-                className={`glass-card p-6 text-center shadow-depth ${
+                className={`glass-card p-4 md:p-6 text-center shadow-depth ${
                   !achievement.unlocked ? 'opacity-50 grayscale' : ''
                 }`}
               >
-                <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                  <achievement.Icon className="w-8 h-8 text-stake-red" strokeWidth={1.5} />
+                <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2.5 md:p-3 rounded-full w-14 h-14 md:w-16 md:h-16 mx-auto mb-2 md:mb-3 flex items-center justify-center">
+                  <achievement.Icon className="w-7 h-7 md:w-8 md:h-8 text-stake-red" strokeWidth={1.5} />
                 </div>
-                <h6 className="!text-sm mb-1">{achievement.title}</h6>
-                <p className="text-xs text-gray-400">{achievement.description}</p>
+                <h6 className="!text-xs md:!text-sm mb-1 line-clamp-1">{achievement.title}</h6>
+                <p className="text-[10px] md:text-xs text-gray-400 line-clamp-2">{achievement.description}</p>
                 {achievement.unlocked && (
-                  <div className="mt-2 flex items-center justify-center gap-1 text-xs text-stake-red font-semibold">
-                    <Check className="w-3 h-3" />
+                  <div className="mt-2 flex items-center justify-center gap-1 text-[10px] md:text-xs text-stake-red font-semibold">
+                    <Check className="w-2.5 h-2.5 md:w-3 md:h-3" />
                     <span>Получено</span>
                   </div>
                 )}
@@ -301,25 +301,32 @@ export default function Profile() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="fixed bottom-0 left-0 right-0 glass border-t border-white/10 p-4 flex justify-around"
+        className="fixed bottom-0 left-0 right-0 glass border-t border-white/[0.08] px-6 py-4 flex justify-around backdrop-blur-2xl"
+        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
       >
         <button
           onClick={() => navigate('/home')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
         >
-          <HomeIcon className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Главная</span>
+          <div className="p-2">
+            <HomeIcon className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Главная</span>
         </button>
         <button
           onClick={() => navigate('/game-mode')}
-          className="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors min-h-[44px]"
+          className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-all min-h-[44px]"
         >
-          <Zap className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Играть</span>
+          <div className="p-2">
+            <Zap className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Играть</span>
         </button>
-        <button className="flex flex-col items-center gap-1 text-stake-red min-h-[44px]">
-          <User className="w-6 h-6" strokeWidth={1.5} />
-          <span className="text-xs">Профиль</span>
+        <button className="flex flex-col items-center gap-2 text-stake-red min-h-[44px]">
+          <div className="bg-stake-red/10 p-2 rounded-xl">
+            <User className="w-6 h-6" strokeWidth={2} />
+          </div>
+          <span className="text-xs font-medium">Профиль</span>
         </button>
       </motion.div>
     </motion.div>
