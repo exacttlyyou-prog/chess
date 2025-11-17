@@ -226,7 +226,7 @@ export default function GameMode() {
             <div className="space-y-3">
               <button
                 onClick={handlePlay}
-                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth relative overflow-hidden"
+                className="glass-card p-6 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
                 aria-label="Играть против случайного соперника"
               >
                 <div className="flex items-center gap-3">
@@ -245,7 +245,7 @@ export default function GameMode() {
               </button>
               <button
                 onClick={handlePlayWithAI}
-                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth relative overflow-hidden"
+                className="glass-card p-6 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
                 aria-label="Играть против AI моделей шахматистов"
               >
                 <div className="flex items-center gap-3">
@@ -303,7 +303,7 @@ export default function GameMode() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-              className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer border border-white/10"
+              className="glass-card p-8 relative overflow-hidden hover-lift cursor-pointer"
             >
               {/* Background chess piece */}
               <div className="absolute -right-4 -top-4 w-48 h-48 opacity-15 pointer-events-none">
