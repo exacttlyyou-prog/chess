@@ -170,8 +170,8 @@ export default function Home() {
                     Блиц 3+2 • Последний режим
                   </p>
                 </div>
-                {/* Иконка КРУПНАЯ - доминирует в карточке */}
-                <div className="w-32 h-32 flex-shrink-0">
+                {/* Иконка КРУПНЕЕ +15% - доминирует в карточке */}
+                <div className="w-36 h-36 flex-shrink-0">
                   <img
                     src="/images/icons/пешка.png"
                     alt=""
@@ -211,12 +211,12 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Правая часть: КРУПНЫЙ бюст Карлсена - Айв: "Это должен быть герой" */}
+                  {/* Правая часть: КРУПНЕЕ бюст Карлсена +15% - Айв: "Это должен быть герой" */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, x: 20 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     transition={{ delay: 0.3, type: 'spring' }}
-                    className="w-56 h-56 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
+                    className="w-64 h-64 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
                   >
                     <img
                       src="/images/grandmasters/карлсон.png"
@@ -237,9 +237,9 @@ export default function Home() {
           transition={{ delay: 0.5, type: 'spring' }}
           whileHover={{ scale: 1.01, y: -4 }}
           whileTap={{ scale: 0.99 }}
-          onClick={() => navigate('/tournaments')}
+          onClick={() => navigate('/tournaments', { state: { openTournamentId: 'novice_cup' } })}
           className="w-full mb-12 p-6 rounded-3xl bg-white text-black shadow-2xl relative overflow-hidden group"
-          aria-label="Перейти к турнирам"
+          aria-label="Перейти к главному турниру недели"
         >
           {/* Паттерн A: Баланс - Текст 60% + Иконка 40% */}
           <div className="flex items-center gap-6">
@@ -260,8 +260,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Правая колонка: КРУПНАЯ иконка кубка */}
-            <div className="w-40 h-40 flex-shrink-0 relative">
+            {/* Правая колонка: КРУПНЕЕ иконка кубка +20% */}
+            <div className="w-48 h-48 flex-shrink-0 relative">
               <img
                 src="/images/icons/кубок.png"
                 alt=""
@@ -275,7 +275,7 @@ export default function Home() {
         </motion.button>
 
         {/* Training - Паттерн C: Интеграция (иконка + текст как единое целое) */}
-        <h3 className="!text-xl mb-4 !font-semibold">Тренировки</h3>
+        <h3 className="!text-xl mb-4 !font-semibold !text-white">Тренировки</h3>
         <div className="grid grid-cols-3 gap-3 mb-12">
           <motion.button
             initial={{ opacity: 0, scale: 0.95 }}
@@ -287,11 +287,11 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Решать шахматные задачи"
           >
-            {/* Иконка КРУПНЕЕ - доминирует */}
+            {/* Иконка КРУПНЕЕ +15% - доминирует */}
             <img
               src="/images/icons/мозг.png"
               alt=""
-              className="w-24 h-24 object-contain drop-shadow-2xl"
+              className="w-28 h-28 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Задачи</p>
           </motion.button>
@@ -306,11 +306,11 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Изучать шахматные дебюты"
           >
-            {/* Иконка КРУПНЕЕ - доминирует */}
+            {/* Иконка КРУПНЕЕ +15% - доминирует */}
             <img
               src="/images/icons/pawn.png"
               alt=""
-              className="w-24 h-24 object-contain drop-shadow-2xl"
+              className="w-28 h-28 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Дебюты</p>
           </motion.button>
@@ -325,11 +325,11 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Посмотреть таблицу лидеров"
           >
-            {/* Иконка КРУПНЕЕ - доминирует */}
+            {/* Иконка КРУПНЕЕ +15% - доминирует */}
             <img
               src="/images/icons/статист.png"
               alt=""
-              className="w-24 h-24 object-contain drop-shadow-2xl"
+              className="w-28 h-28 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Рейтинг</p>
           </motion.button>

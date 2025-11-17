@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import DuckKing from './icons/DuckKing';
 
 type PieceType = 'king' | 'queen' | 'rook' | 'bishop' | 'knight' | 'pawn';
 type PieceColor = 'white' | 'black';
@@ -140,7 +139,11 @@ export default function ChessPiece({ type, color, className = '' }: ChessPiecePr
             : 'drop-shadow(0 2px 8px rgba(255,255,255,0.3))'
         }}
       >
-        <DuckKing className="w-full h-full" color={color} />
+        <img
+          src={color === 'white' ? '/images/pieces/white-king.svg' : '/images/pieces/black-king.svg'}
+          alt={`${color} king`}
+          className="w-full h-full object-contain"
+        />
       </motion.div>
     );
   }

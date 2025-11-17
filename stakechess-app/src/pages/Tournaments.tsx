@@ -1,12 +1,24 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Trophy, X, Users, Clock, Award } from 'lucide-react';
 import { TOURNAMENTS } from '../config/tournaments';
 
 export default function Tournaments() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedTournament, setSelectedTournament] = useState<typeof TOURNAMENTS[0] | null>(null);
+
+  // Auto-open tournament if passed via state
+  useEffect(() => {
+    const state = location.state as { openTournamentId?: string } | null;
+    if (state?.openTournamentId) {
+      const tournament = TOURNAMENTS.find(t => t.id === state.openTournamentId);
+      if (tournament) {
+        setSelectedTournament(tournament);
+      }
+    }
+  }, [location.state]);
 
   return (
     <motion.div
@@ -125,17 +137,30 @@ export default function Tournaments() {
                 </div>
               </div>
 
-              {/* Premium CTA */}
-              <div className="glass-card p-6 bg-gradient-to-br from-stake-red/10 to-transparent border-stake-red/30 mb-4">
-                <p className="text-sm text-gray-300 mb-4">
-                  🔒 Участие в турнирах доступно только для Premium пользователей
-                </p>
+              {/* Action Buttons */}
+              <div className="space-y-3 mb-4">
                 <button
-                  onClick={() => navigate('/premium')}
+                  onClick={() => {
+                    // TODO: Implement tournament start logic
+                    navigate('/game-mode');
+                  }}
                   className="btn-primary w-full"
                 >
-                  Получить Premium
+                  Начать турнир
                 </button>
+
+                {/* Premium CTA - Secondary */}
+                <div className="glass-card p-4 bg-gradient-to-br from-stake-red/10 to-transparent border-stake-red/30">
+                  <p className="text-xs text-gray-400 mb-2">
+                    💎 Premium дает безлимитные турниры и больше наград
+                  </p>
+                  <button
+                    onClick={() => navigate('/premium')}
+                    className="btn-secondary w-full !text-sm"
+                  >
+                    Узнать о Premium
+                  </button>
+                </div>
               </div>
 
               <button
