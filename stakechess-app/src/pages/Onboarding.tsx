@@ -144,11 +144,11 @@ export default function Onboarding() {
       {/* Content Overlay */}
       <div className="relative z-10 h-screen flex flex-col">
         {/* Header */}
-        <div className="px-8 pt-2 pb-4 flex justify-between items-center">
+        <div className="px-4 md:px-8 pt-2 pb-4 flex justify-between items-center gap-2">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-3xl font-bold"
+            className="text-2xl md:text-3xl font-bold flex-shrink-0"
           >
             <span className="text-gradient">StakeChess</span>
           </motion.h1>
@@ -156,7 +156,7 @@ export default function Onboarding() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => navigate('/home')}
-            className="glass-button !px-6 !py-3 text-white/80 hover:text-white font-medium"
+            className="glass-button !px-3 !py-2 md:!px-6 md:!py-3 text-white/80 hover:text-white font-medium text-sm md:text-base flex-shrink-0"
             aria-label="Пропустить онбординг и перейти на главную"
           >
             Пропустить

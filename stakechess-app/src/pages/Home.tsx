@@ -239,7 +239,11 @@ export default function Home() {
           whileHover={{ scale: 1.01, y: -4 }}
           whileTap={{ scale: 0.99 }}
           onClick={() => navigate('/tournaments', { state: { openTournamentId: 'novice_cup' } })}
-          className="w-full mb-12 p-6 rounded-3xl bg-white text-black shadow-2xl relative overflow-hidden group"
+          className="w-full mb-12 p-6 rounded-3xl text-black relative overflow-hidden group"
+          style={{
+            backgroundColor: '#F9F9F9',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.04), 0 12px 24px rgba(0, 0, 0, 0.03), 0 24px 48px rgba(0, 0, 0, 0.02)',
+          }}
           aria-label="Перейти к главному турниру недели"
         >
           {/* Паттерн A: Баланс - Текст 60% + Иконка 40% */}
@@ -255,15 +259,15 @@ export default function Home() {
               <p className="text-sm text-black/70 mb-4 leading-relaxed">
                 Призовой фонд: <span className="font-bold text-black">50 000 ₽</span>
               </p>
-              {/* Ghost Button - Jony Ive: "Плавная заливка белым при hover" */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black/10 bg-black/5 hover:bg-white hover:border-black/30 transition-all group-hover:gap-3 duration-300">
-                <span className="text-sm font-semibold text-black">Участвовать</span>
+              {/* Ghost Button - Jony Ive: "Элегантная прозрачная обводка, при hover - черный фон" */}
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-300 bg-transparent text-gray-700 hover:bg-black hover:text-white hover:border-black transition-all group-hover:gap-3 duration-300">
+                <span className="text-sm font-semibold">Участвовать</span>
                 <span className="text-lg transition-transform group-hover:translate-x-1">→</span>
               </div>
             </div>
 
-            {/* Правая колонка: ГЕРОЙ кубок +33% - Айв: "Кубок должен доминировать" */}
-            <div className="w-64 h-64 flex-shrink-0 relative">
+            {/* Правая колонка: ГЕРОЙ кубок - Айв: "Кубок должен доминировать" */}
+            <div className="w-80 h-80 flex-shrink-0 relative">
               <img
                 src="/images/icons/кубок.png"
                 alt=""

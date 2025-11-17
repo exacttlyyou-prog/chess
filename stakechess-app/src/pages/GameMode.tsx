@@ -79,7 +79,7 @@ export default function GameMode() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-20"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-28 md:pb-20"
     >
       <Breadcrumbs />
 
@@ -172,7 +172,7 @@ export default function GameMode() {
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-20 h-20 md:w-28 md:h-28 object-contain"
+                        className="w-32 h-32 md:w-48 md:h-48 object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
