@@ -172,7 +172,7 @@ export default function GameMode() {
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-24 h-24 object-contain"
+                        className="w-20 h-20 md:w-28 md:h-28 object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
