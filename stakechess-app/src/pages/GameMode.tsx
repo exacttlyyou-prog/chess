@@ -190,7 +190,7 @@ export default function GameMode() {
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-2xl font-bold mb-1">{mode.time}</p>
+                      <p className="text-2xl font-normal text-white mb-1">{mode.time}</p>
                       <p className="text-xs text-gray-400">{mode.description}</p>
                     </div>
 
