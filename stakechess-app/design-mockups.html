@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StakeChess UI Mockups - Color Fixes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ff3b30;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 32px;
+        }
+
+        .variants {
+            display: grid;
+            gap: 40px;
+        }
+
+        .variant {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .variant-label {
+            display: inline-block;
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff3b30;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .variant-label.recommended {
+            background: rgba(48, 209, 88, 0.15);
+            color: #30d158;
+        }
+
+        /* Game Mode Selection */
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .mode-card {
+            background: #1f1f1f;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: currentColor;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mode-card:hover::before {
+            opacity: 1;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 59, 48, 0.15);
+        }
+
+        /* Variant 1: Current (Bad) */
+        .mode-card.v1-blitz,
+        .mode-card.v1-rapid,
+        .mode-card.v1-bullet,
+        .mode-card.v1-classic {
+            background: #2a2a2a;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Variant 2: Color-coded borders */
+        .mode-card.v2-blitz {
+            background: linear-gradient(135deg, #2a1a1a 0%, #1f1f1f 100%);
+            border-left: 3px solid #ff3b30;
+            color: #ff3b30;
+        }
+
+        .mode-card.v2-rapid {
+            background: linear-gradient(135deg, #2a2a1a 0%, #1f1f1f 100%);
+            border-left: 3px solid #ffcc00;
+            color: #ffcc00;
+        }
+
+        .mode-card.v2-bullet {
+            background: linear-gradient(135deg, #1a1a2a 0%, #1f1f1f 100%);
+            border-left: 3px solid #5e5ce6;
+            color: #5e5ce6;
+        }
+
+        .mode-card.v2-classic {
+            background: linear-gradient(135deg, #1a2a1a 0%, #1f1f1f 100%);
+            border-left: 3px solid #30d158;
+            color: #30d158;
+        }
+
+        /* Variant 3: Glowing cards */
+        .mode-card.v3-blitz {
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.08) 0%, #1f1f1f 100%);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.1);
+        }
+
+        .mode-card.v3-rapid {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.08) 0%, #1f1f1f 100%);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
+        }
+
+        .mode-card.v3-bullet {
+            background: linear-gradient(135deg, rgba(94, 92, 230, 0.08) 0%, #1f1f1f 100%);
+            border: 1px solid rgba(94, 92, 230, 0.3);
+            box-shadow: 0 0 20px rgba(94, 92, 230, 0.1);
+        }
+
+        .mode-card.v3-classic {
+            background: linear-gradient(135deg, rgba(48, 209, 88, 0.08) 0%, #1f1f1f 100%);
+            border: 1px solid rgba(48, 209, 88, 0.3);
+            box-shadow: 0 0 20px rgba(48, 209, 88, 0.1);
+        }
+
+        .mode-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        .mode-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .mode-time {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Recent Games */
+        .recent-games {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .game-card {
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Variant 1: Current (Bad) */
+        .game-card.v1-win,
+        .game-card.v1-loss,
+        .game-card.v1-draw {
+            background: #2a2a2a;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Variant 2: Subtle tints */
+        .game-card.v2-win {
+            background: rgba(48, 209, 88, 0.08);
+            border: 1px solid rgba(48, 209, 88, 0.2);
+        }
+
+        .game-card.v2-loss {
+            background: rgba(255, 59, 48, 0.08);
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+
+        .game-card.v2-draw {
+            background: #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Variant 3: Bold badges */
+        .game-card.v3-win,
+        .game-card.v3-loss,
+        .game-card.v3-draw {
+            background: #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .game-badge.win {
+            background: rgba(48, 209, 88, 0.2);
+            color: #30d158;
+        }
+
+        .game-badge.loss {
+            background: rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
+        }
+
+        .game-badge.draw {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .game-player {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .game-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* AI Analysis Modal */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-icon {
+            width: 32px;
+            height: 32px;
+            background: #ff3b30;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .analysis-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .analysis-item {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .analysis-item:hover {
+            transform: translateX(4px);
+        }
+
+        /* Variant 1: Current (Bad) */
+        .analysis-item.v1-error,
+        .analysis-item.v1-success,
+        .analysis-item.v1-neutral,
+        .analysis-item.v1-info {
+            background: #2a2a2a;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Variant 2: Color-coded */
+        .analysis-item.v2-error {
+            background: rgba(255, 59, 48, 0.05);
+            border-color: rgba(255, 59, 48, 0.3);
+        }
+
+        .analysis-item.v2-success {
+            background: rgba(48, 209, 88, 0.05);
+            border-color: rgba(48, 209, 88, 0.3);
+        }
+
+        .analysis-item.v2-neutral {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .analysis-item.v2-info {
+            background: rgba(94, 92, 230, 0.05);
+            border-color: rgba(94, 92, 230, 0.3);
+        }
+
+        .analysis-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .analysis-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .analysis-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-error {
+            background: #ff3b30;
+        }
+
+        .dot-success {
+            background: #30d158;
+        }
+
+        .dot-neutral {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .dot-info {
+            background: #5e5ce6;
+        }
+
+        .primary-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #ff3b30 0%, #ff6259 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 59, 48, 0.3);
+        }
+
+        /* Top Action Cards */
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .action-card {
+            border-radius: 16px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Variant 1: Current (Bad) */
+        .action-card.v1 {
+            background: #2a2a2a;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Variant 2: Lighter with accent */
+        .action-card.v2-quick {
+            background: linear-gradient(135deg, #323232 0%, #2a2a2a 100%);
+            border-color: rgba(255, 59, 48, 0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-card.v2-tournament {
+            background: linear-gradient(135deg, #2a2a32 0%, #2a2a2a 100%);
+            border-color: rgba(94, 92, 230, 0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-card.v2-quick:hover {
+            box-shadow: 0 8px 32px rgba(255, 59, 48, 0.15);
+        }
+
+        .action-card.v2-tournament:hover {
+            box-shadow: 0 8px 32px rgba(94, 92, 230, 0.15);
+        }
+
+        .action-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            background: rgba(255, 59, 48, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .action-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .action-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .comparison-note {
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .comparison-note strong {
+            color: #ffcc00;
+        }
+
+        @media (max-width: 768px) {
+            .mode-grid,
+            .recent-games,
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 12px;">
+                <span style="color: #ff3b30;">Stake</span>Chess
+            </h1>
+            <p style="font-size: 18px; color: rgba(255, 255, 255, 0.6);">
+                UI Mockups — Цветовые исправления
+            </p>
+        </div>
+
+        <!-- 1. Game Mode Selection -->
+        <div class="section">
+            <h2 class="section-title">1. Выбор режима игры</h2>
+            <p class="section-subtitle">Самая критичная проблема — все режимы одинаковые серые</p>
+
+            <div class="variants">
+                <!-- Current Version -->
+                <div class="variant">
+                    <span class="variant-label">❌ Текущая версия (Плохо)</span>
+                    <div class="mode-grid">
+                        <div class="mode-card v1-blitz">
+                            <div class="mode-icon">⚡</div>
+                            <div class="mode-name">Блиц</div>
+                            <div class="mode-time">3+2</div>
+                        </div>
+                        <div class="mode-card v1-rapid">
+                            <div class="mode-icon">🎯</div>
+                            <div class="mode-name">Рапид</div>
+                            <div class="mode-time">10+0</div>
+                        </div>
+                        <div class="mode-card v1-bullet">
+                            <div class="mode-icon">💨</div>
+                            <div class="mode-name">Пуля</div>
+                            <div class="mode-time">1+0</div>
+                        </div>
+                        <div class="mode-card v1-classic">
+                            <div class="mode-icon">♔</div>
+                            <div class="mode-name">Классика</div>
+                            <div class="mode-time">30+0</div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Проблема:</strong> Все карточки абсолютно одинаковые — невозможно быстро различить режимы
+                    </div>
+                </div>
+
+                <!-- Variant 2: Color-coded borders -->
+                <div class="variant">
+                    <span class="variant-label recommended">✓ Вариант 1: Цветные границы (Рекомендую)</span>
+                    <div class="mode-grid">
+                        <div class="mode-card v2-blitz">
+                            <div class="mode-icon">⚡</div>
+                            <div class="mode-name">Блиц</div>
+                            <div class="mode-time">3+2</div>
+                        </div>
+                        <div class="mode-card v2-rapid">
+                            <div class="mode-icon">🎯</div>
+                            <div class="mode-name">Рапид</div>
+                            <div class="mode-time">10+0</div>
+                        </div>
+                        <div class="mode-card v2-bullet">
+                            <div class="mode-icon">💨</div>
+                            <div class="mode-name">Пуля</div>
+                            <div class="mode-time">1+0</div>
+                        </div>
+                        <div class="mode-card v2-classic">
+                            <div class="mode-icon">♔</div>
+                            <div class="mode-name">Классика</div>
+                            <div class="mode-time">30+0</div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Решение:</strong> Минимальные изменения — градиент + цветная граница слева. Четкая визуальная иерархия без перегрузки.
+                    </div>
+                </div>
+
+                <!-- Variant 3: Glowing cards -->
+                <div class="variant">
+                    <span class="variant-label">Вариант 2: Светящиеся карточки</span>
+                    <div class="mode-grid">
+                        <div class="mode-card v3-blitz">
+                            <div class="mode-icon">⚡</div>
+                            <div class="mode-name">Блиц</div>
+                            <div class="mode-time">3+2</div>
+                        </div>
+                        <div class="mode-card v3-rapid">
+                            <div class="mode-icon">🎯</div>
+                            <div class="mode-name">Рапид</div>
+                            <div class="mode-time">10+0</div>
+                        </div>
+                        <div class="mode-card v3-bullet">
+                            <div class="mode-icon">💨</div>
+                            <div class="mode-name">Пуля</div>
+                            <div class="mode-time">1+0</div>
+                        </div>
+                        <div class="mode-card v3-classic">
+                            <div class="mode-icon">♔</div>
+                            <div class="mode-name">Классика</div>
+                            <div class="mode-time">30+0</div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Альтернатива:</strong> Более яркий подход с glow эффектами. Работает для premium-сегмента, но может быть слишком ярко.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Recent Games -->
+        <div class="section">
+            <h2 class="section-title">2. Недавние партии</h2>
+            <p class="section-subtitle">Нет визуального различия между победой/поражением/ничьей</p>
+
+            <div class="variants">
+                <!-- Current Version -->
+                <div class="variant">
+                    <span class="variant-label">❌ Текущая версия (Плохо)</span>
+                    <div class="recent-games">
+                        <div class="game-card v1-win">
+                            <div class="game-player">Мастер_1450</div>
+                            <div class="game-details">
+                                <span>Блиц 3+2</span>
+                                <span>32 хода</span>
+                            </div>
+                        </div>
+                        <div class="game-card v1-loss">
+                            <div class="game-player">Стратег_99</div>
+                            <div class="game-details">
+                                <span>Рапид 10+0</span>
+                                <span>45 ходов</span>
+                            </div>
+                        </div>
+                        <div class="game-card v1-draw">
+                            <div class="game-player">Тактик_2000</div>
+                            <div class="game-details">
+                                <span>Классика</span>
+                                <span>68 ходов</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Проблема:</strong> Все партии выглядят одинаково — нельзя быстро понять результат
+                    </div>
+                </div>
+
+                <!-- Variant 2: Subtle tints -->
+                <div class="variant">
+                    <span class="variant-label recommended">✓ Вариант 1: Тонированные фоны (Рекомендую)</span>
+                    <div class="recent-games">
+                        <div class="game-card v2-win">
+                            <div class="game-player">Мастер_1450</div>
+                            <div class="game-details">
+                                <span>Блиц 3+2</span>
+                                <span>32 хода</span>
+                            </div>
+                        </div>
+                        <div class="game-card v2-loss">
+                            <div class="game-player">Стратег_99</div>
+                            <div class="game-details">
+                                <span>Рапид 10+0</span>
+                                <span>45 ходов</span>
+                            </div>
+                        </div>
+                        <div class="game-card v2-draw">
+                            <div class="game-player">Тактик_2000</div>
+                            <div class="game-details">
+                                <span>Классика</span>
+                                <span>68 ходов</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Решение:</strong> Subtle зеленый для побед, красный для поражений. Ничья остается нейтральной.
+                    </div>
+                </div>
+
+                <!-- Variant 3: Bold badges -->
+                <div class="variant">
+                    <span class="variant-label">Вариант 2: Цветные бейджи</span>
+                    <div class="recent-games">
+                        <div class="game-card v3-win">
+                            <span class="game-badge win">Победа</span>
+                            <div class="game-player">Мастер_1450</div>
+                            <div class="game-details">
+                                <span>Блиц 3+2</span>
+                                <span>32 хода</span>
+                            </div>
+                        </div>
+                        <div class="game-card v3-loss">
+                            <span class="game-badge loss">Поражение</span>
+                            <div class="game-player">Стратег_99</div>
+                            <div class="game-details">
+                                <span>Рапид 10+0</span>
+                                <span>45 ходов</span>
+                            </div>
+                        </div>
+                        <div class="game-card v3-draw">
+                            <span class="game-badge draw">Ничья</span>
+                            <div class="game-player">Тактик_2000</div>
+                            <div class="game-details">
+                                <span>Классика</span>
+                                <span>68 ходов</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Альтернатива:</strong> Явные бейджи — максимально четко, но занимает больше места.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. AI Analysis Modal -->
+        <div class="section">
+            <h2 class="section-title">3. AI Анализ позиции</h2>
+            <p class="section-subtitle">Все элементы одинаково серые — не видно что ошибка, что успех</p>
+
+            <div class="variants">
+                <!-- Current Version -->
+                <div class="variant">
+                    <span class="variant-label">❌ Текущая версия (Плохо)</span>
+                    <div class="modal-overlay">
+                        <div class="modal-header">
+                            <div class="modal-icon">🤖</div>
+                            <div>
+                                <div class="modal-title">AI Анализ позиции</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Powered by Deepseek</div>
+                            </div>
+                        </div>
+                        <div class="analysis-grid">
+                            <div class="analysis-item v1-error">
+                                <div class="analysis-label">Оценка позиции</div>
+                                <div class="analysis-value">Unable to analyze</div>
+                                <div class="analysis-desc">Model not trained on old games</div>
+                            </div>
+                            <div class="analysis-item v1-success">
+                                <div class="analysis-label">Лучший ход</div>
+                                <div class="analysis-value">e3</div>
+                                <div class="analysis-desc">Continue with your plan</div>
+                            </div>
+                            <div class="analysis-item v1-neutral">
+                                <div class="analysis-label">Упущено</div>
+                                <div class="analysis-value">Анализ невозможен</div>
+                            </div>
+                            <div class="analysis-item v1-info">
+                                <div class="analysis-label">Возможности</div>
+                                <div class="analysis-value">Try applying again</div>
+                            </div>
+                        </div>
+                        <button class="primary-button">Начать</button>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Проблема:</strong> Ошибка и успех выглядят одинаково. Нет визуальной иерархии.
+                    </div>
+                </div>
+
+                <!-- Variant 2: Color-coded -->
+                <div class="variant">
+                    <span class="variant-label recommended">✓ Цветовое кодирование (Рекомендую)</span>
+                    <div class="modal-overlay">
+                        <div class="modal-header">
+                            <div class="modal-icon">🤖</div>
+                            <div>
+                                <div class="modal-title">AI Анализ позиции</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Powered by Deepseek</div>
+                            </div>
+                        </div>
+                        <div class="analysis-grid">
+                            <div class="analysis-item v2-error">
+                                <div class="analysis-label">
+                                    <span class="status-dot dot-error"></span>
+                                    Оценка позиции
+                                </div>
+                                <div class="analysis-value" style="color: #ff3b30;">Unable to analyze</div>
+                                <div class="analysis-desc">Model not trained on old games</div>
+                            </div>
+                            <div class="analysis-item v2-success">
+                                <div class="analysis-label">
+                                    <span class="status-dot dot-success"></span>
+                                    Лучший ход
+                                </div>
+                                <div class="analysis-value" style="color: #30d158;">e3</div>
+                                <div class="analysis-desc">Continue with your plan</div>
+                            </div>
+                            <div class="analysis-item v2-neutral">
+                                <div class="analysis-label">
+                                    <span class="status-dot dot-neutral"></span>
+                                    Упущено
+                                </div>
+                                <div class="analysis-value">Анализ невозможен</div>
+                            </div>
+                            <div class="analysis-item v2-info">
+                                <div class="analysis-label">
+                                    <span class="status-dot dot-info"></span>
+                                    Возможности
+                                </div>
+                                <div class="analysis-value" style="color: #5e5ce6;">Try applying again</div>
+                            </div>
+                        </div>
+                        <button class="primary-button">Начать</button>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Решение:</strong> Красный для ошибок, зеленый для успехов, фиолетовый для инфо. Визуально понятно с первого взгляда.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Top Action Cards -->
+        <div class="section">
+            <h2 class="section-title">4. Верхние карточки действий</h2>
+            <p class="section-subtitle">"Быстрая игра" и "Турниры" теряются на темном фоне</p>
+
+            <div class="variants">
+                <!-- Current Version -->
+                <div class="variant">
+                    <span class="variant-label">❌ Текущая версия (Плохо)</span>
+                    <div class="action-cards">
+                        <div class="action-card v1">
+                            <div class="action-icon">⚡</div>
+                            <div class="action-title">Быстрая игра</div>
+                            <div class="action-subtitle">Начни партию прямо сейчас</div>
+                        </div>
+                        <div class="action-card v1">
+                            <div class="action-icon">🏆</div>
+                            <div class="action-title">Турниры</div>
+                            <div class="action-subtitle">Соревнуйся с лучшими</div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Проблема:</strong> Слишком темные, сливаются с фоном, нет акцента на важных действиях
+                    </div>
+                </div>
+
+                <!-- Variant 2: Lighter with accent -->
+                <div class="variant">
+                    <span class="variant-label recommended">✓ Светлее + акценты (Рекомендую)</span>
+                    <div class="action-cards">
+                        <div class="action-card v2-quick">
+                            <div class="action-icon">⚡</div>
+                            <div class="action-title">Быстрая игра</div>
+                            <div class="action-subtitle">Начни партию прямо сейчас</div>
+                        </div>
+                        <div class="action-card v2-tournament">
+                            <div class="action-icon">🏆</div>
+                            <div class="action-title">Турниры</div>
+                            <div class="action-subtitle">Соревнуйся с лучшими</div>
+                        </div>
+                    </div>
+                    <div class="comparison-note">
+                        <strong>Решение:</strong> Lighter gray (#323232) + subtle градиенты + цветные borders. Хорошо выделяются, но не перегружают.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Palette Reference -->
+        <div class="section">
+            <h2 class="section-title">📋 Цветовая палитра StakeChess</h2>
+            <p class="section-subtitle">Референс для всех компонентов</p>
+
+            <div class="variant">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+                    <div style="padding: 20px; border-radius: 12px; background: #ff3b30;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Primary Red</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#ff3b30</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Кнопки, акценты, блиц</div>
+                    </div>
+                    <div style="padding: 20px; border-radius: 12px; background: #30d158;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Success Green</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#30d158</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Победы, классика, успех</div>
+                    </div>
+                    <div style="padding: 20px; border-radius: 12px; background: #ffcc00; color: #000;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Warning Yellow</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#ffcc00</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Рапид, предупреждения</div>
+                    </div>
+                    <div style="padding: 20px; border-radius: 12px; background: #5e5ce6;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Info Purple</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#5e5ce6</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Пуля, информация</div>
+                    </div>
+                    <div style="padding: 20px; border-radius: 12px; background: #2a2a2a; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Dark Gray</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#2a2a2a</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Карточки, фон элементов</div>
+                    </div>
+                    <div style="padding: 20px; border-radius: 12px; background: #323232; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Light Gray</div>
+                        <div style="font-size: 14px; opacity: 0.8;">#323232</div>
+                        <div style="font-size: 12px; margin-top: 8px;">Elevated карточки</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 80px; padding: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="color: rgba(255,255,255,0.5); margin-bottom: 8px;">
+                StakeChess UI Mockups — November 2025
+            </p>
+            <p style="color: rgba(255,255,255,0.3); font-size: 14px;">
+                Все варианты интерактивные. Наведи на карточки для hover эффектов.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -126,6 +126,28 @@ const ChessPieceSVG = ({ type, color }: { type: PieceType; color: PieceColor }) 
 };
 
 export default function ChessPiece({ type, color, className = '' }: ChessPieceProps) {
+  if (type === 'king') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className={`relative ${className}`}
+        style={{
+          filter: color === 'white'
+            ? 'drop-shadow(0 2px 8px rgba(0,0,0,0.9))'
+            : 'drop-shadow(0 2px 8px rgba(255,255,255,0.3))'
+        }}
+      >
+        <img
+          src={color === 'white' ? '/images/pieces/white-king.svg' : '/images/pieces/black-king.svg'}
+          alt={`${color} king`}
+          className="w-full h-full object-contain"
+        />
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

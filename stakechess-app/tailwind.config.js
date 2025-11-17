@@ -8,23 +8,31 @@ export default {
     extend: {
       colors: {
         'stake-black': {
-          DEFAULT: '#0A0A0A',
-          light: '#121212',
-          medium: '#1E1E1E',
+          DEFAULT: '#121212',
+          light: '#1a1a1a',
+          medium: '#252525',
         },
         'stake-red': {
-          DEFAULT: '#FF1744',
-          dark: '#D50000',
-          light: '#FF5252',
+          DEFAULT: '#ef3124', // Restored - Apple uses vibrant colors
+          dark: '#c72819',
+          light: '#ff5a4d',
         },
         'stake-gray': {
-          DEFAULT: '#2A2A2A',
-          light: '#424242',
-          dark: '#181818',
+          DEFAULT: '#2E2E2E',
+          light: '#4A4A4A',
+          dark: '#1A1A1A',
+        },
+        'stake-accent': {
+          purple: '#C724E5', // Restored - vibrant but not neon
+          blue: '#2E9CFF',
+          cyan: '#00D9FF',
+          green: '#00FF9F',
+          yellow: '#FFD700',
+          orange: '#FF6B35',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Styrene A', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'system-ui', 'sans-serif'],
       },
       backdropBlur: {
         xs: '2px',
