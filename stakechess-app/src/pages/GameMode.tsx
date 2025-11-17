@@ -202,6 +202,9 @@ export default function GameMode() {
                     <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                   </div>
                   {/* 3D Icon Anchor - Паттерн Баланс (40% справа) */}
+                  {mode.id === 'bullet' && (
+                    <img src="/images/icons/пуля.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
+                  )}
                   {mode.id === 'blitz' && (
                     <img src="/images/icons/молния.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
                   )}

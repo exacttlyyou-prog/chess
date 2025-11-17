@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Settings } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import ThemeToggle from '../components/ThemeToggle';
 
@@ -123,7 +122,7 @@ export default function Home() {
                   className="glass-button !px-3 !py-3 hover:bg-white/10"
                   aria-label="Открыть настройки"
                 >
-                  <Settings className="w-5 h-5" />
+                  <img src="/images/icons/шестеренка 1.png" alt="" className="w-5 h-5 object-contain" />
                 </button>
               </div>
             </div>

@@ -2,10 +2,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const navItems = [
-  { id: 'home', label: 'Главная', icon: '/images/icons/секундомер.png', path: '/home' },
-  { id: 'play', label: 'Играть', icon: '/images/icons/молния.png', path: '/game-mode' },
-  { id: 'tournaments', label: 'Турниры', icon: '/images/icons/турнир.png', path: '/tournaments' },
-  { id: 'achievements', label: 'Награды', icon: '/images/icons/кубок.png', path: '/achievements' },
+  { id: 'home', label: 'Главная', icon: '/images/icons/домик.png', path: '/home' },
+  { id: 'play', label: 'Играть', icon: '/images/icons/игра.png', path: '/game-mode' },
+  { id: 'tournaments', label: 'Турниры', icon: '/images/icons/кубок.png', path: '/tournaments' },
+  { id: 'achievements', label: 'Награды', icon: '/images/icons/0_0 - 2025-11-17T025115.769 1.png', path: '/achievements' },
   { id: 'profile', label: 'Профиль', icon: '/images/icons/ai-robot.png', path: '/profile' },
 ];
 
