@@ -200,7 +200,7 @@ export default function GameMode() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="px-8 space-y-6"
+          className="px-6 md:px-8 space-y-6"
         >
           {tournaments.map((tournament, index) => (
             <motion.div
