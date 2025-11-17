@@ -124,7 +124,7 @@ export default function SelectAI() {
                       {/* Avatar */}
                       <div className="w-24 h-24 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border-2 border-white/10 group-hover:border-stake-red/30 transition-colors">
                         <img
-                          src={bgImage}
+                          src={personality.avatar || bgImage}
                           alt={personality.name}
                           className="w-full h-full object-cover"
                         />

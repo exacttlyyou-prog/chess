@@ -239,52 +239,6 @@ export default function Home() {
           </motion.button>
         </div>
 
-        {/* Quick Actions - Secondary CTAs */}
-        <h3 className="!text-xl mb-4 text-gray-300">Быстрый старт</h3>
-        <div className="space-y-4 mb-8">
-          <div className="grid grid-cols-2 gap-4">
-            <motion.button
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.15, type: 'spring' }}
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate('/game-mode')}
-              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,59,48,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ff3b30] relative overflow-hidden"
-              aria-label="Быстрая игра в режиме Блиц 3+2"
-            >
-              <p className="font-semibold text-base mb-1 mt-4">Быстрая игра</p>
-              <p className="text-xs text-gray-400">Блиц 3+2</p>
-              {/* 3D Icon Anchor */}
-              <img
-                src="/images/icons/секундомер.png"
-                alt=""
-                className="absolute bottom-4 right-4 w-32 h-32 opacity-60 pointer-events-none"
-              />
-            </motion.button>
-
-            <motion.button
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, type: 'spring' }}
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate('/tournaments')}
-              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,204,0,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ffcc00] relative overflow-hidden"
-              aria-label="Турниры с призовыми партиями"
-            >
-              <p className="font-semibold text-base mb-1 mt-4">Турниры</p>
-              <p className="text-xs text-gray-400">Призовые партии</p>
-              {/* 3D Icon Anchor */}
-              <img
-                src="/images/icons/кубок.png"
-                alt=""
-                className="absolute bottom-4 right-4 w-32 h-32 opacity-60 pointer-events-none"
-              />
-            </motion.button>
-          </div>
-        </div>
-
         {/* Training - Compact single row */}
         <h3 className="!text-xl mb-4">Тренировки</h3>
         <div className="grid grid-cols-3 gap-3 mb-8">
@@ -298,12 +252,12 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Решать шахматные задачи"
           >
-            <p className="font-semibold text-sm mt-3">Задачи</p>
+            <p className="font-semibold text-sm mt-2">Задачи</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/мозг.png"
               alt=""
-              className="absolute bottom-2 right-2 w-28 h-28 opacity-50 pointer-events-none"
+              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
             />
           </motion.button>
 
@@ -317,12 +271,12 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Изучать шахматные дебюты"
           >
-            <p className="font-semibold text-sm mt-3">Дебюты</p>
+            <p className="font-semibold text-sm mt-2">Дебюты</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/pawn.png"
               alt=""
-              className="absolute bottom-2 right-2 w-28 h-28 opacity-50 pointer-events-none"
+              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
             />
           </motion.button>
 
@@ -336,12 +290,12 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Посмотреть таблицу лидеров"
           >
-            <p className="font-semibold text-sm mt-3">Рейтинг</p>
+            <p className="font-semibold text-sm mt-2">Рейтинг</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/статист.png"
               alt=""
-              className="absolute bottom-2 right-2 w-28 h-28 opacity-50 pointer-events-none"
+              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
             />
           </motion.button>
         </div>

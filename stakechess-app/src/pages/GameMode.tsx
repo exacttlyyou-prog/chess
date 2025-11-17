@@ -166,19 +166,19 @@ export default function GameMode() {
                   switch(mode.id) {
                     case 'blitz':
                       return isSelected
-                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(255,59,48,0.15)] !to-[#2a1a1a] border-l-4 !border-l-[#ff3b30] border-2 !border-[#ff3b30]/40 shadow-[0_8px_24px_rgba(255,59,48,0.25)]`
+                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ff3b30] border-2 !border-[#ff3b30] shadow-[0_4px_16px_rgba(255,59,48,0.2)]`
                         : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ff3b30]/20 border !border-white/5`;
                     case 'rapid':
                       return isSelected
-                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(255,204,0,0.15)] !to-[#2a2a1a] border-l-4 !border-l-[#ffcc00] border-2 !border-[#ffcc00]/40 shadow-[0_8px_24px_rgba(255,204,0,0.25)]`
+                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ffcc00] border-2 !border-[#ffcc00] shadow-[0_4px_16px_rgba(255,204,0,0.2)]`
                         : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ffcc00]/20 border !border-white/5`;
                     case 'bullet':
                       return isSelected
-                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(94,92,230,0.15)] !to-[#1a1a2a] border-l-4 !border-l-[#5e5ce6] border-2 !border-[#5e5ce6]/40 shadow-[0_8px_24px_rgba(94,92,230,0.25)]`
+                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#5e5ce6] border-2 !border-[#5e5ce6] shadow-[0_4px_16px_rgba(94,92,230,0.2)]`
                         : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#5e5ce6]/20 border !border-white/5`;
                     case 'classic':
                       return isSelected
-                        ? `${baseOpacity} !bg-gradient-to-br !from-[rgba(48,209,88,0.15)] !to-[#1a2a1a] border-l-4 !border-l-[#30d158] border-2 !border-[#30d158]/40 shadow-[0_8px_24px_rgba(48,209,88,0.25)]`
+                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#30d158] border-2 !border-[#30d158] shadow-[0_4px_16px_rgba(48,209,88,0.2)]`
                         : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#30d158]/20 border !border-white/5`;
                     default:
                       return '';
@@ -201,13 +201,13 @@ export default function GameMode() {
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                   {/* 3D Icon Anchor */}
                   {mode.id === 'blitz' && (
-                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
                   )}
                   {mode.id === 'rapid' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
                   )}
                   {mode.id === 'classic' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-28 h-28 opacity-40 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
                   )}
                 </motion.button>
                 );
@@ -240,7 +240,7 @@ export default function GameMode() {
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-28 h-28 opacity-50 pointer-events-none"
+                  className="absolute bottom-3 right-3 w-24 h-24 opacity-35 pointer-events-none"
                 />
               </button>
               <button
@@ -259,23 +259,12 @@ export default function GameMode() {
                 <img
                   src="/images/icons/ai-robot.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-28 h-28 opacity-50 pointer-events-none"
+                  className="absolute bottom-3 right-3 w-24 h-24 opacity-35 pointer-events-none"
                 />
               </button>
             </div>
           </motion.div>
 
-          {/* Play Button */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-8"
-          >
-            <button onClick={handlePlay} className="btn-primary w-full" aria-label="Начать игру с выбранными настройками">
-              Начать игру
-            </button>
-          </motion.div>
         </div>
       ) : (
         /* Tournaments */
