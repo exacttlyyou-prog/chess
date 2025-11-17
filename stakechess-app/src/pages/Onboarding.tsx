@@ -258,7 +258,7 @@ export default function Onboarding() {
                 transition={{ delay: 0.3 }}
                 className="mb-2"
               >
-                <span className="inline-block glass-button !px-4 !py-2 text-xs md:text-sm font-semibold text-stake-red">
+                <span className="inline-block glass-button !px-4 !py-2 text-xs md:text-sm font-semibold text-stake-red min-w-[80px] text-center">
                   {currentSlide + 1} / {slides.length}
                 </span>
               </motion.div>
@@ -296,7 +296,7 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-3 md:p-8 space-y-3 md:space-y-6 pb-32 md:pb-8"
+          className="p-3 md:p-8 space-y-3 md:space-y-6 pb-4 md:pb-8"
         >
           {/* Progress Dots */}
           <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">
@@ -320,13 +320,13 @@ export default function Onboarding() {
           {currentSlide < slides.length - 1 ? (
             <div className="flex gap-4">
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="btn-secondary flex-1 !py-3 md:!py-5 transition-all duration-300">
+                <button onClick={prevSlide} className="btn-secondary flex-1 !py-2 md:!py-3 transition-all duration-300">
                   Назад
                 </button>
               )}
               <button
                 onClick={nextSlide}
-                className="btn-primary flex-1 !py-3 md:!py-5 text-base md:text-lg font-bold shadow-lg transition-all duration-300"
+                className="btn-primary flex-1 !py-2 md:!py-3 text-base md:text-lg font-bold shadow-lg transition-all duration-300"
               >
                 Далее
               </button>
