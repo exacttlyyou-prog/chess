@@ -245,7 +245,7 @@ export default function Onboarding() {
         )}
 
         {/* Main Content - Text Overlay */}
-        <div className="flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-32">
+        <div className="flex-1 flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-32">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}

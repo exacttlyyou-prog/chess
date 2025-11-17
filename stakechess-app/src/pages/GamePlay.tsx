@@ -153,24 +153,20 @@ export default function GamePlay() {
 
   return (
     <div className="relative min-h-screen flex overflow-hidden">
-      {/* Premium Background with Pattern - Blurred behind board */}
+      {/* Premium Background with Pattern */}
       <div
         className="fixed inset-0 hidden md:block"
-        style={{
-          zIndex: -1,
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)'
-        }}
+        style={{ zIndex: -1 }}
       >
         {/* Main pattern background */}
         <img
           src="/images/backgrounds/паттерн фон.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-stake-black/60 via-stake-black/40 to-stake-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+        {/* Легкие градиенты для глубины */}
+        <div className="absolute inset-0 bg-gradient-to-br from-stake-black/20 via-transparent to-stake-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
       </div>
       {/* Mobile: Simple gradient background */}
       <div
@@ -186,7 +182,7 @@ export default function GamePlay() {
       className="relative flex flex-1"
     >
       {/* Left Panel - Chess Board */}
-      <div className="flex-1 flex flex-col px-0 sm:px-4 md:px-8 pt-2 pb-4 md:pb-8">
+      <div className="flex-1 flex flex-col px-2 sm:px-4 md:px-8 pt-2 pb-4 md:pb-8">
         {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}

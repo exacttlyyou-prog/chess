@@ -85,7 +85,7 @@ export default function Home() {
                 {/* Large Avatar */}
                 <div className="relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white/20">
                   <img
-                    src="/images/pieces/king-crown.png"
+                    src="/images/profile/ivan.jpg"
                     alt="Profile"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -95,7 +95,7 @@ export default function Home() {
                 {/* Info */}
                 <div>
                   <div className="flex items-center gap-1.5 md:gap-2 mb-1">
-                    <h1 className="!text-lg md:!text-2xl font-bold">Игрок</h1>
+                    <h1 className="!text-lg md:!text-2xl font-bold">Иван</h1>
                     <div className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-400 animate-pulse shadow-lg" />
                       <span className="text-[10px] md:text-xs text-green-400 font-semibold">Онлайн</span>
