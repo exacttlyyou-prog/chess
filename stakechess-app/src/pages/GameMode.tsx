@@ -34,7 +34,7 @@ const gameModes = [
     title: 'Классика',
     time: '30 + 0',
     description: '30 минут',
-    icon: '/images/icons/замок.png',
+    icon: '/images/icons/пешка.png',
     accentColor: '#30d158',
   },
 ];
@@ -253,7 +253,7 @@ export default function GameMode() {
                 </div>
                 {/* 3D Icon Anchor */}
                 <img
-                  src="/images/icons/ai-robot.png"
+                  src="/images/icons/играй с ии.png"
                   alt=""
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none"
                 />

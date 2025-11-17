@@ -165,12 +165,12 @@ export default function Onboarding() {
 
         {/* AI Legends Squircles - Custom Layout for Slide 3 */}
         {currentSlide === 2 && (
-          <div className="flex-1 flex items-center justify-center p-8">
+          <div className="flex-1 flex items-center justify-center p-2 md:p-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.6, type: 'spring' }}
-              className="grid grid-cols-3 gap-4 max-w-md"
+              className="grid grid-cols-3 gap-2 md:gap-4 max-w-md"
             >
               {/* Карлсен - КРУПНЕЕ */}
               <motion.div
@@ -178,7 +178,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 overflow-hidden shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/карлсон.png" alt="Карлсен" className="w-full h-full object-cover" />
               </motion.div>
@@ -189,7 +189,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 overflow-hidden shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/фишер.png" alt="Фишер" className="w-full h-full object-cover" />
               </motion.div>
@@ -200,7 +200,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 overflow-hidden shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/михаил таль.png" alt="Таль" className="w-full h-full object-cover" />
               </motion.div>
@@ -211,7 +211,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 overflow-hidden shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/карпов.png" alt="Карпов" className="w-full h-full object-cover" />
               </motion.div>
@@ -222,7 +222,7 @@ export default function Onboarding() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 overflow-hidden shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/касабланка.png" alt="Капабланка" className="w-full h-full object-cover" />
               </motion.div>
@@ -233,9 +233,9 @@ export default function Onboarding() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.9, type: 'spring' }}
                 whileHover={{ scale: 1.05, rotate: 5 }}
-                className="w-40 h-40 rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border-2 border-stake-red/30 flex items-center justify-center shadow-2xl"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-xl md:rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border border-stake-red/30 md:border-2 flex items-center justify-center shadow-2xl"
               >
-                <img src="/images/icons/ai-robot.png" alt="AI" className="w-24 h-24 object-contain drop-shadow-2xl" />
+                <img src="/images/icons/ai-robot.png" alt="AI" className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-2xl" />
               </motion.div>
             </motion.div>
           </div>

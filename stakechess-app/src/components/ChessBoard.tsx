@@ -368,8 +368,8 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
       </div>
 
       {/* Chess Board */}
-      <div className="glass-card p-4 sm:p-6">
-        <div className="aspect-square max-w-xl mx-auto relative">
+      <div className="glass-card p-2 sm:p-4 lg:p-6">
+        <div className="aspect-square max-w-full sm:max-w-xl mx-auto relative">
           {/* Board container with coordinates */}
           <div className="relative">
             {/* Rank labels (1-8) on the left */}

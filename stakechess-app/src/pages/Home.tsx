@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import BottomNav from '../components/BottomNav';
-import ThemeToggle from '../components/ThemeToggle';
 
 const recentGames = [
   {
@@ -111,20 +110,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Top Actions */}
-              <div className="flex items-center gap-1 md:gap-2">
-                <ThemeToggle />
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate('/settings');
-                  }}
-                  className="glass-button !px-2 !py-2 md:!px-3 md:!py-3 hover:bg-white/10"
-                  aria-label="Открыть настройки"
-                >
-                  <img src="/images/icons/шестеренка 1.png" alt="" className="w-4 h-4 md:w-5 md:h-5 object-contain" />
-                </button>
-              </div>
             </div>
 
             {/* Bottom Section - Stats */}
@@ -199,7 +184,7 @@ export default function Home() {
                 <div className="relative z-10 flex items-center gap-3 md:gap-8">
                   {/* Левая часть: Текст */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="!text-xl md:!text-3xl mb-2 md:mb-3 leading-tight">Играй против<br className="hidden md:block"/>8 AI-легенд</h3>
+                    <h3 className="!text-xl md:!text-3xl mb-2 md:mb-3 leading-tight">Играй против <br className="hidden md:block"/>8 AI-легенд</h3>
                     <p className="text-xs md:text-sm text-gray-400 mb-3 md:mb-6 leading-relaxed max-w-md">
                       Карлсен, Фишер, Таль
                     </p>
