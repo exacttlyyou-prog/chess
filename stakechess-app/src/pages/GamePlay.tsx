@@ -26,6 +26,7 @@ export default function GamePlay() {
   const [timeWhite, setTimeWhite] = useState(180); // 3 minutes in seconds
   const [timeBlack, setTimeBlack] = useState(180);
   const [showMenu, setShowMenu] = useState(false);
+  const [showMoveHistory, setShowMoveHistory] = useState(false);
   const [moveHistory, setMoveHistory] = useState<Move[]>([]);
   const [isAIThinking, setIsAIThinking] = useState(false);
   const [showAIAnalysis, setShowAIAnalysis] = useState(false);
@@ -413,7 +414,13 @@ export default function GamePlay() {
                   <span>Настройки доски</span>
                 </div>
               </button>
-              <button className="btn-secondary w-full !py-4 text-left px-6">
+              <button
+                onClick={() => {
+                  setShowMenu(false);
+                  setShowMoveHistory(true);
+                }}
+                className="btn-secondary w-full !py-4 text-left px-6"
+              >
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5" />
                   <span>История ходов</span>
@@ -604,6 +611,92 @@ export default function GamePlay() {
                 className="btn-primary w-full !py-4 mt-6"
               >
                 Понятно
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Move History Modal (Mobile) */}
+      <AnimatePresence>
+        {showMoveHistory && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-6 z-50 lg:hidden"
+            onClick={() => setShowMoveHistory(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-card p-6 w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="!text-2xl !mb-0">История ходов</h3>
+                <button
+                  onClick={() => setShowMoveHistory(false)}
+                  className="glass-button !p-3"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="glass-card p-4 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-body-sm text-gray-400">Ход</span>
+                  <span className="text-body-sm text-gray-400">Время</span>
+                </div>
+              </div>
+
+              <div className="flex-1 overflow-y-auto scrollbar-hide">
+                {moveHistory.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    <p className="text-body-sm">Ходов пока нет</p>
+                  </div>
+                ) : (
+                  <div className="space-y-1">
+                    {moveHistory.map((move, index) => {
+                      const isLatestMove = index === moveHistory.length - 1;
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          className={`p-3 flex items-center justify-between transition-all rounded-lg ${
+                            isLatestMove
+                              ? 'bg-stake-red/15 border border-stake-red/30'
+                              : index % 2 === 0
+                              ? 'bg-white/5 hover:bg-white/10'
+                              : 'bg-transparent hover:bg-white/5'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-mono font-semibold text-gray-400 w-8 tabular-nums">
+                              {Math.floor(index / 2) + 1}.
+                            </span>
+                            <span className={`font-semibold tracking-wide ${isLatestMove ? 'text-white' : 'text-gray-200'}`}>
+                              {move.notation}
+                            </span>
+                          </div>
+                          <span className={`text-xs font-mono tabular-nums ${isLatestMove ? 'text-gray-300' : 'text-gray-400'}`}>
+                            {move.time}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={() => setShowMoveHistory(false)}
+                className="btn-primary w-full !py-4 mt-6"
+              >
+                Закрыть
               </button>
             </motion.div>
           </motion.div>

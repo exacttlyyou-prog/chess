@@ -184,13 +184,13 @@ export default function GameMode() {
                     {/* Text below icon - 40% */}
                     <div className="relative z-10">
                       <h6
-                        className="!text-base md:!text-lg mb-0.5 md:mb-1 font-bold"
+                        className="!text-sm md:!text-lg mb-0.5 md:mb-1 font-bold truncate"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-lg md:text-2xl font-normal text-white mb-0.5">{mode.time}</p>
-                      <p className="text-[10px] md:text-xs text-gray-400">{mode.description}</p>
+                      <p className="text-base md:text-2xl font-normal text-white mb-0.5 truncate">{mode.time}</p>
+                      <p className="text-[9px] md:text-xs text-gray-400 truncate">{mode.description}</p>
                     </div>
 
                     {/* Energy glow when selected */}

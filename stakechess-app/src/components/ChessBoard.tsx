@@ -372,9 +372,9 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
         <div className="aspect-square w-full sm:max-w-xl mx-auto relative rounded-2xl overflow-hidden shadow-depth-md">
           {/* Board container with coordinates */}
           <div className="relative">
-            {/* Rank labels (1-8) on the left */}
+            {/* Rank labels (1-8) on the left - HIDDEN ON MOBILE */}
             {settings.showCoordinates && (
-              <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+              <div className="hidden sm:flex absolute -left-6 top-0 bottom-0 flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
                 {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
                   <div key={rank} className="h-[12.5%] flex items-center">
                     {rank}
@@ -383,9 +383,9 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
               </div>
             )}
 
-            {/* File labels (a-h) on the bottom */}
+            {/* File labels (a-h) on the bottom - HIDDEN ON MOBILE */}
             {settings.showCoordinates && (
-              <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+              <div className="hidden sm:flex absolute -bottom-6 left-0 right-0 justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
                 {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
                   <div key={file} className="w-[12.5%] flex justify-center">
                     {file}
@@ -447,31 +447,15 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                       >
                       {validMove && !piece && (
                         <motion.div
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{
-                            scale: [1, 1.15, 1],
-                            opacity: [0.9, 1, 0.9]
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: 'easeInOut'
-                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 0.9 }}
                           className="w-4 h-4 rounded-full bg-stake-red shadow-lg shadow-stake-red/50"
                         />
                       )}
                       {validMove && piece && (
                         <motion.div
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{
-                            scale: [1, 1.05, 1],
-                            opacity: [0.8, 1, 0.8]
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: 'easeInOut'
-                          }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 0.8 }}
                           className="absolute inset-0 border-4 border-stake-red rounded-full m-1 shadow-lg shadow-stake-red/40"
                         />
                       )}
