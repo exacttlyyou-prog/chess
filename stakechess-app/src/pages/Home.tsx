@@ -82,9 +82,9 @@ export default function Home() {
           <div className="relative z-10 h-full p-6 flex flex-col justify-between">
             {/* Top Section - Avatar & Info */}
             <div className="flex items-start justify-between">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 md:gap-4">
                 {/* Large Avatar */}
-                <div className="relative w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white/20">
+                <div className="relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white/20">
                   <img
                     src="/images/pieces/king-crown.png"
                     alt="Profile"
@@ -95,53 +95,53 @@ export default function Home() {
 
                 {/* Info */}
                 <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <h1 className="!text-2xl font-bold">Игрок</h1>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-lg" />
-                      <span className="text-xs text-green-400 font-semibold">Онлайн</span>
+                  <div className="flex items-center gap-1.5 md:gap-2 mb-1">
+                    <h1 className="!text-lg md:!text-2xl font-bold">Игрок</h1>
+                    <div className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-400 animate-pulse shadow-lg" />
+                      <span className="text-[10px] md:text-xs text-green-400 font-semibold">Онлайн</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center gap-1.5 bg-yellow-500/20 px-3 py-1 rounded-full border border-yellow-500/30">
-                      <span className="text-yellow-400 font-bold text-lg">⭐ 1450</span>
-                      <span className="text-xs text-yellow-300/80 font-medium">ELO</span>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 md:gap-1.5 bg-yellow-500/20 px-2 md:px-3 py-0.5 md:py-1 rounded-full border border-yellow-500/30">
+                      <span className="text-yellow-400 font-bold text-sm md:text-lg">⭐ 1450</span>
+                      <span className="text-[10px] md:text-xs text-yellow-300/80 font-medium">ELO</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Top Actions */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 md:gap-2">
                 <ThemeToggle />
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate('/settings');
                   }}
-                  className="glass-button !px-3 !py-3 hover:bg-white/10"
+                  className="glass-button !px-2 !py-2 md:!px-3 md:!py-3 hover:bg-white/10"
                   aria-label="Открыть настройки"
                 >
-                  <img src="/images/icons/шестеренка 1.png" alt="" className="w-5 h-5 object-contain" />
+                  <img src="/images/icons/шестеренка 1.png" alt="" className="w-4 h-4 md:w-5 md:h-5 object-contain" />
                 </button>
               </div>
             </div>
 
             {/* Bottom Section - Stats */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-2xl font-bold text-green-400">12</span>
-                <span className="text-xs text-gray-400">Побед</span>
+            <div className="flex items-center gap-2 md:gap-4 flex-wrap">
+              <div className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-lg md:text-2xl font-bold text-green-400">12</span>
+                <span className="text-[10px] md:text-xs text-gray-400">Побед</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-2xl font-bold text-red-400">3</span>
-                <span className="text-xs text-gray-400">Поражений</span>
+              <div className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-lg md:text-2xl font-bold text-red-400">3</span>
+                <span className="text-[10px] md:text-xs text-gray-400">Поражений</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-2xl font-bold text-gray-400">5</span>
-                <span className="text-xs text-gray-400">Ничья</span>
+              <div className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-xl bg-white/5 border border-white/10">
+                <span className="text-lg md:text-2xl font-bold text-gray-400">5</span>
+                <span className="text-[10px] md:text-xs text-gray-400">Ничья</span>
               </div>
-              <div className="ml-auto">
+              <div className="ml-auto hidden md:block">
                 <span className="text-xs text-gray-400 font-medium">Смотреть профиль →</span>
               </div>
             </div>
@@ -189,19 +189,19 @@ export default function Home() {
                 whileHover={{ scale: 1.01, y: -4 }}
                 whileTap={{ scale: 0.99 }}
                 onClick={() => navigate('/select-ai')}
-                className="glass-card p-8 text-left border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[280px]"
+                className="glass-card p-4 md:p-8 text-left border-2 border-stake-red/40 relative overflow-hidden group w-full"
                 aria-label="Играть с AI моделями легендарных шахматистов"
               >
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-stake-red/10 via-transparent to-purple-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Content - Текст слева, ОДИН большой бюст Карлсена справа */}
-                <div className="relative z-10 flex items-center gap-8">
+                <div className="relative z-10 flex items-center gap-3 md:gap-8">
                   {/* Левая часть: Текст */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="!text-3xl mb-3 leading-tight">Играй против<br/>8 AI-легенд</h3>
-                    <p className="text-sm text-gray-400 mb-6 leading-relaxed max-w-md">
-                      Карлсен, Фишер, Таль, Капабланка, Карпов
+                    <h3 className="!text-xl md:!text-3xl mb-2 md:mb-3 leading-tight">Играй против<br className="hidden md:block"/>8 AI-легенд</h3>
+                    <p className="text-xs md:text-sm text-gray-400 mb-3 md:mb-6 leading-relaxed max-w-md">
+                      Карлсен, Фишер, Таль
                     </p>
 
                     {/* CTA */}
@@ -211,13 +211,12 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Правая часть: ГЕРОЙ Карлсен +40% - Айв: "Он должен быть ГЕРОЕМ карточки" */}
+                  {/* Правая часть: ГЕРОЙ Карлсен - Адаптивный */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, x: 20 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     transition={{ delay: 0.3, type: 'spring' }}
-                    className="w-90 h-90 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
-                    style={{ width: '22.5rem', height: '22.5rem' }}
+                    className="w-32 h-32 md:w-64 md:h-64 lg:w-90 lg:h-90 rounded-2xl md:rounded-3xl overflow-hidden border-2 md:border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
                   >
                     <img
                       src="/images/grandmasters/карлсон.png"
@@ -239,7 +238,7 @@ export default function Home() {
           whileHover={{ scale: 1.01, y: -4 }}
           whileTap={{ scale: 0.99 }}
           onClick={() => navigate('/tournaments', { state: { openTournamentId: 'novice_cup' } })}
-          className="w-full mb-12 p-6 rounded-3xl text-black relative overflow-hidden group"
+          className="w-full mb-12 p-4 md:p-6 rounded-3xl text-black relative overflow-hidden group"
           style={{
             backgroundColor: '#F9F9F9',
             boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.04), 0 12px 24px rgba(0, 0, 0, 0.03), 0 24px 48px rgba(0, 0, 0, 0.02)',
@@ -247,16 +246,16 @@ export default function Home() {
           aria-label="Перейти к главному турниру недели"
         >
           {/* Паттерн A: Баланс - Текст 60% + Иконка 40% */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
             {/* Левая колонка: Текст */}
             <div className="flex-1 min-w-0 text-left">
               {/* Jony Ive: "Пульсирующая точка вместо плашки - элегантнее" */}
-              <div className="inline-flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse shadow-lg shadow-stake-red/50" />
-                <span className="text-xs font-semibold text-stake-red">Идет сейчас</span>
+              <div className="inline-flex items-center gap-1.5 md:gap-2 mb-2 md:mb-3">
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-stake-red animate-pulse shadow-lg shadow-stake-red/50" />
+                <span className="text-[10px] md:text-xs font-semibold text-stake-red">Идет сейчас</span>
               </div>
-              <h3 className="!text-2xl !font-bold mb-2 leading-tight text-black">Главный турнир недели</h3>
-              <p className="text-sm text-black/70 mb-4 leading-relaxed">
+              <h3 className="!text-lg md:!text-2xl !font-bold mb-1 md:mb-2 leading-tight text-black">Главный турнир недели</h3>
+              <p className="text-xs md:text-sm text-black/70 mb-3 md:mb-4 leading-relaxed">
                 Призовой фонд: <span className="font-bold text-black">50 000 ₽</span>
               </p>
               {/* Ghost Button - Jony Ive: "Элегантная прозрачная обводка, при hover - черный фон" */}
@@ -266,8 +265,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Правая колонка: ГЕРОЙ кубок - Айв: "Кубок должен доминировать" */}
-            <div className="w-80 h-80 flex-shrink-0 relative">
+            {/* Правая колонка: ГЕРОЙ кубок - Адаптивный */}
+            <div className="w-32 h-32 md:w-56 md:h-56 lg:w-80 lg:h-80 flex-shrink-0 relative">
               <img
                 src="/images/icons/кубок.png"
                 alt=""
