@@ -148,7 +148,7 @@ export default function GameMode() {
                     onClick={() => setSelectedMode(mode.id)}
                     aria-label={`${mode.title} - ${mode.description}`}
                     aria-pressed={isSelected}
-                    className={`glass-card aspect-square p-3 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
+                    className={`glass-card aspect-square p-2 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
                       isSelected
                         ? 'border-2 !border-opacity-100'
                         : 'border border-white/5 hover:border-white/10'
@@ -184,13 +184,13 @@ export default function GameMode() {
                     {/* Text below icon - 40% */}
                     <div className="relative z-10 w-full">
                       <h6
-                        className="!text-xs md:!text-lg mb-0.5 md:mb-1 font-bold truncate"
+                        className="!text-sm md:!text-lg mb-0.5 md:mb-1 font-bold truncate"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-sm md:text-2xl font-normal text-white mb-0.5 truncate">{mode.time}</p>
-                      <p className="text-[8px] md:text-xs text-gray-400 truncate">{mode.description}</p>
+                      <p className="text-base md:text-2xl font-normal text-white mb-0.5 truncate">{mode.time}</p>
+                      <p className="text-[10px] md:text-xs text-gray-400 truncate">{mode.description}</p>
                     </div>
 
                     {/* Energy glow when selected */}
