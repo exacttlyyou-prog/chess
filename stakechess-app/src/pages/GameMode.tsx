@@ -18,7 +18,7 @@ const gameModes = [
     title: 'Рапид',
     time: '10 + 0',
     description: '10 минут',
-    icon: '/images/icons/ожидание.png',
+    icon: '/images/icons/секундомер.png',
     accentColor: '#ffcc00',
   },
   {
@@ -34,7 +34,7 @@ const gameModes = [
     title: 'Классика',
     time: '30 + 0',
     description: '30 минут',
-    icon: '/images/icons/ожидание.png',
+    icon: '/images/icons/замок.png',
     accentColor: '#30d158',
   },
 ];
