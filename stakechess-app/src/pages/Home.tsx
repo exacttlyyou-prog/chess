@@ -149,152 +149,87 @@ export default function Home() {
           </div>
         </motion.button>
 
-        {/* Live Players Social Proof */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="glass-card !px-4 !py-2 mb-8 inline-flex items-center gap-2"
-        >
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-sm text-gray-400">
-            <span className="text-white font-semibold">1,247</span> игроков онлайн
-          </span>
-        </motion.div>
-
-        {/* HERO: Quick Start - Main CTA (Паттерн A: Баланс) */}
-        <div className="mb-8">
-          <h3 className="!text-xl mb-4 text-gray-300">Быстрый старт</h3>
-          <motion.button
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.1, type: 'spring' }}
-            whileHover={{ scale: 1.02, y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/game-mode')}
-            className="glass-card p-6 text-left shadow-2xl bg-gradient-to-br from-stake-red/20 via-transparent to-transparent border-2 border-stake-red/50 relative overflow-hidden group w-full"
-            aria-label="Начать быструю партию"
-          >
-            {/* Паттерн A: Двухколоночный баланс */}
-            <div className="flex items-center gap-6">
-              {/* Левая колонка: Текст */}
-              <div className="flex-1 min-w-0">
-                <h2 className="!text-3xl mb-2 leading-tight">Начать игру</h2>
-                <p className="text-body text-gray-300 mb-4">
-                  Последний режим: <span className="text-stake-red font-semibold">Блиц 3+2</span>
-                </p>
-                <div className="flex items-center gap-2 text-stake-red font-semibold group-hover:gap-4 transition-all">
-                  <span className="text-base">Выбрать режим</span>
-                  <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+        {/* ДВУХКОЛОНОЧНЫЙ GRID LAYOUT - McKinsey: "Разрушить вертикальную тиранию" */}
+        <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6 mb-8">
+          {/* ЛЕВАЯ КОЛОНКА - Главные действия */}
+          <div className="space-y-6">
+            <motion.button
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, type: 'spring' }}
+              whileHover={{ scale: 1.01, y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate('/game-mode')}
+              className="glass-card p-6 text-left border border-stake-red/30 relative overflow-hidden group w-full"
+              aria-label="Начать быструю партию"
+            >
+              {/* Айв: Иконка и текст вертикально отцентрированы */}
+              <div className="flex items-center gap-6">
+                <div className="flex-1 min-w-0">
+                  <h2 className="!text-2xl mb-1 leading-tight">Начать игру</h2>
+                  <p className="text-sm text-gray-400">
+                    Блиц 3+2 • Последний режим
+                  </p>
+                </div>
+                {/* Иконка КРУПНАЯ - доминирует в карточке */}
+                <div className="w-32 h-32 flex-shrink-0">
+                  <img
+                    src="/images/icons/пешка.png"
+                    alt=""
+                    className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-105 transition-transform"
+                  />
                 </div>
               </div>
+            </motion.button>
 
-              {/* Правая колонка: 3D Визуальный якорь */}
-              <div className="w-32 h-32 flex-shrink-0 relative">
-                <img
-                  src="/images/icons/секундомер.png"
-                  alt=""
-                  className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-            </div>
-
-            {/* Gradient glow */}
-            <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-          </motion.button>
-        </div>
-
-        {/* HERO: Legends Section - Premium Showcase */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="inline-flex items-center gap-2 glass-card !px-3 !py-1.5 border border-stake-red/30">
-              <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse" />
-              <span className="text-xs font-bold text-stake-red uppercase tracking-wider">УТП</span>
-            </div>
-            <h2 className="!text-3xl text-gradient">Играй как легенды</h2>
-          </div>
-
-          <motion.button
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.1, type: 'spring' }}
-            whileHover={{ scale: 1.01, y: -6 }}
-            whileTap={{ scale: 0.99 }}
-            onClick={() => {
-              navigate('/select-ai');
-            }}
-            className="glass-card p-8 text-left shadow-2xl bg-gradient-to-br from-stake-red/20 via-purple-900/10 to-transparent border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[240px]"
-            aria-label="Играть с AI моделями легендарных шахматистов"
-          >
-            {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-radial from-stake-red/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            {/* Content - Паттерн B: Доминанта */}
-            <div className="relative z-10 max-w-[60%]">
-              {/* Title & Description */}
-              <h3 className="!text-2xl md:!text-3xl mb-3 leading-tight">AI-модели стилей<br/>великих шахматистов</h3>
-              <p className="text-body text-gray-300 mb-4 leading-relaxed">
-                Сражайся против Карлсена, Фишера, Таля и других легенд
-              </p>
-
-              {/* Stats */}
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="text-3xl font-bold text-stake-red">8</div>
-                  <div className="text-xs text-gray-400 leading-tight">AI<br/>моделей</div>
-                </div>
-                <div className="h-8 w-px bg-white/10" />
-                <div className="flex items-center gap-2">
-                  <div className="text-3xl font-bold text-yellow-500">5</div>
-                  <div className="text-xs text-gray-400 leading-tight">легенд<br/>шахмат</div>
-                </div>
-              </div>
-
-              {/* CTA Arrow */}
-              <div className="flex items-center gap-2 text-stake-red font-semibold group-hover:gap-4 transition-all">
-                <span className="text-base">Выбрать соперника</span>
-                <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </div>
-
-            {/* Паттерн B: Доминирующие портреты легенд (выходят за пределы) */}
-            <div className="absolute -right-6 -top-4 bottom-0 w-[50%] pointer-events-none">
-              {/* Карлсен - самый крупный, на переднем плане */}
-              <motion.img
-                initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
+            {/* 2. HERO: Играй как легенды - Айв: "Самый красивый блок на экране" */}
+            <motion.button
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2, type: 'spring' }}
-                src="/images/grandmasters/карлсон.png"
-                alt=""
-                className="absolute right-0 top-4 w-32 h-32 rounded-2xl object-cover border-2 border-stake-red/40 shadow-2xl group-hover:scale-105 transition-transform duration-300"
-                style={{ zIndex: 5 }}
-              />
-              {/* Фишер */}
-              <motion.img
-                initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 0.3, type: 'spring' }}
-                src="/images/grandmasters/фишер.png"
-                alt=""
-                className="absolute right-16 bottom-8 w-24 h-24 rounded-xl object-cover border-2 border-yellow-500/30 shadow-xl opacity-80 group-hover:opacity-100 transition-all duration-300"
-                style={{ zIndex: 3 }}
-              />
-              {/* Таль */}
-              <motion.img
-                initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 0.4, type: 'spring' }}
-                src="/images/grandmasters/михаил таль.png"
-                alt=""
-                className="absolute right-2 bottom-20 w-20 h-20 rounded-xl object-cover border-2 border-purple-500/30 shadow-lg opacity-60 group-hover:opacity-90 transition-all duration-300"
-                style={{ zIndex: 2 }}
-              />
-            </div>
+                whileHover={{ scale: 1.01, y: -4 }}
+                whileTap={{ scale: 0.99 }}
+                onClick={() => navigate('/select-ai')}
+                className="glass-card p-8 text-left border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[280px]"
+                aria-label="Играть с AI моделями легендарных шахматистов"
+              >
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-stake-red/10 via-transparent to-purple-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Content - Текст слева, ОДИН большой бюст Карлсена справа */}
+                <div className="relative z-10 flex items-center gap-8">
+                  {/* Левая часть: Текст */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="!text-3xl mb-3 leading-tight">Играй против<br/>8 AI-легенд</h3>
+                    <p className="text-sm text-gray-400 mb-6 leading-relaxed max-w-md">
+                      Карлсен, Фишер, Таль, Капабланка, Карпов
+                    </p>
+
+                    {/* CTA */}
+                    <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-stake-red/10 border border-stake-red/30 group-hover:bg-stake-red/20 transition-all">
+                      <span className="text-sm font-semibold text-stake-red">Выбрать соперника</span>
+                      <span className="text-lg text-stake-red group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+
+                  {/* Правая часть: КРУПНЫЙ бюст Карлсена - Айв: "Это должен быть герой" */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    transition={{ delay: 0.3, type: 'spring' }}
+                    className="w-56 h-56 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
+                  >
+                    <img
+                      src="/images/grandmasters/карлсон.png"
+                      alt="Магнус Карлсен"
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                </div>
 
             {/* Subtle glow effect behind portraits */}
             <div className="absolute right-0 top-0 w-48 h-48 bg-stake-red/20 blur-3xl rounded-full opacity-30 pointer-events-none" />
           </motion.button>
-        </div>
 
         {/* Tournament CTA - Premium White Squircle */}
         <motion.button
@@ -326,12 +261,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Правая колонка: 3D Визуальный якорь */}
-            <div className="w-32 h-32 flex-shrink-0 relative">
+            {/* Правая колонка: КРУПНАЯ иконка кубка */}
+            <div className="w-40 h-40 flex-shrink-0 relative">
               <img
-                src="/images/icons/турнир.png"
+                src="/images/icons/кубок.png"
                 alt=""
-                className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-300"
+                className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -353,11 +288,11 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Решать шахматные задачи"
           >
-            {/* 3D Иконка как главный элемент */}
+            {/* Иконка КРУПНЕЕ - доминирует */}
             <img
               src="/images/icons/мозг.png"
               alt=""
-              className="w-16 h-16 object-contain drop-shadow-lg"
+              className="w-24 h-24 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Задачи</p>
           </motion.button>
@@ -372,11 +307,11 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Изучать шахматные дебюты"
           >
-            {/* 3D Иконка как главный элемент */}
+            {/* Иконка КРУПНЕЕ - доминирует */}
             <img
               src="/images/icons/pawn.png"
               alt=""
-              className="w-16 h-16 object-contain drop-shadow-lg"
+              className="w-24 h-24 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Дебюты</p>
           </motion.button>
@@ -391,14 +326,16 @@ export default function Home() {
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Посмотреть таблицу лидеров"
           >
-            {/* 3D Иконка как главный элемент */}
+            {/* Иконка КРУПНЕЕ - доминирует */}
             <img
               src="/images/icons/статист.png"
               alt=""
-              className="w-16 h-16 object-contain drop-shadow-lg"
+              className="w-24 h-24 object-contain drop-shadow-2xl"
             />
             <p className="font-bold text-sm">Рейтинг</p>
           </motion.button>
+        </div>
+          </div>
         </div>
       </motion.div>
 

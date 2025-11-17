@@ -104,7 +104,7 @@ export default function MatchSearch() {
                 </div>
               </motion.div>
 
-              <h2 className="!text-3xl mb-4 relative z-10">Поиск соперника</h2>
+              <h2 className="!text-3xl !font-bold text-white mb-4 relative z-10">Поиск соперника</h2>
               <p className="text-gray-400 mb-8 relative z-10">Подбираем достойного противника...</p>
 
               {/* Progress Bar */}
