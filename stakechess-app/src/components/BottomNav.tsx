@@ -1,12 +1,13 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Home, Zap, Trophy, Award, User } from 'lucide-react';
 
 const navItems = [
-  { id: 'home', label: 'Главная', icon: '/images/icons/домик.png', path: '/home' },
-  { id: 'play', label: 'Играть', icon: '/images/icons/игра.png', path: '/game-mode' },
-  { id: 'tournaments', label: 'Турниры', icon: '/images/icons/кубок.png', path: '/tournaments' },
-  { id: 'achievements', label: 'Награды', icon: '/images/icons/0_0 - 2025-11-17T025115.769 1.png', path: '/achievements' },
-  { id: 'profile', label: 'Профиль', icon: '/images/icons/ai-robot.png', path: '/profile' },
+  { id: 'home', label: 'Главная', icon: Home, path: '/home' },
+  { id: 'play', label: 'Играть', icon: Zap, path: '/game-mode' },
+  { id: 'tournaments', label: 'Турниры', icon: Trophy, path: '/tournaments' },
+  { id: 'achievements', label: 'Награды', icon: Award, path: '/achievements' },
+  { id: 'profile', label: 'Профиль', icon: User, path: '/profile' },
 ];
 
 export default function BottomNav() {
@@ -32,6 +33,7 @@ export default function BottomNav() {
       <div className="flex justify-around items-center p-2">
         {navItems.map((item) => {
           const active = isActive(item.path);
+          const Icon = item.icon;
 
           return (
             <button
@@ -50,12 +52,11 @@ export default function BottomNav() {
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
-              <img
-                src={item.icon}
-                alt=""
-                className={`w-6 h-6 relative z-10 object-contain transition-all ${
-                  active ? 'opacity-100 drop-shadow-[0_0_8px_rgba(255,59,48,0.6)]' : 'opacity-60 hover:opacity-80'
+              <Icon
+                className={`w-6 h-6 relative z-10 transition-all ${
+                  active ? 'drop-shadow-[0_0_8px_rgba(255,59,48,0.6)]' : ''
                 }`}
+                strokeWidth={2}
               />
               <span className={`text-xs relative z-10 font-medium ${active ? 'text-stake-red' : ''}`}>
                 {item.label}
