@@ -1,4 +1,35 @@
-/* Using SF Pro / system fonts for Apple HIG compliance */
+/* Styrene A LC - Premium Typography System */
+@font-face {
+  font-family: 'Styrene A';
+  src: url('/fonts/Styrene A LC-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Styrene A';
+  src: url('/fonts/Styrene A LC-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Styrene A';
+  src: url('/fonts/Styrene A LC-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Styrene A';
+  src: url('/fonts/Styrene A LC-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
