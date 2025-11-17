@@ -169,25 +169,29 @@
     background-color: var(--glass-hover);
   }
 
-  /* Dark theme glass-card - Jony Ive: "Свет падает сверху" */
+  /* Dark theme glass-card - Jony Ive V3.0: "Свет падает сверху - УСИЛЕННЫЙ" */
   .dark-theme .glass-card {
-    background: linear-gradient(180deg, #1E1E1E 0%, #161616 100%);
+    background: linear-gradient(180deg, #232323 0%, #141414 100%);
     @apply backdrop-blur-xl rounded-3xl;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid transparent;
+    border-top-color: rgba(255, 255, 255, 0.12);
+    border-right-color: rgba(255, 255, 255, 0.06);
+    border-bottom-color: rgba(255, 255, 255, 0.02);
+    border-left-color: rgba(255, 255, 255, 0.06);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .dark-theme .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.18);
     transform: translateY(-3px);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.5),
-      0 4px 16px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
   /* Light theme glass-card */
@@ -210,26 +214,31 @@
       0 0 0 1px rgba(0, 0, 0, 0.08) inset;
   }
 
-  /* Default glass-card (dark) - Jony Ive: "Свет падает сверху" */
+  /* Default glass-card (dark) - Jony Ive V3.0: "Свет падает сверху - УСИЛЕННЫЙ" */
   .glass-card {
-    /* Линейный градиент сверху-вниз - имитация света */
-    background: linear-gradient(180deg, #1E1E1E 0%, #161616 100%);
+    /* Более заметный градиент - имитация света сверху */
+    background: linear-gradient(180deg, #232323 0%, #141414 100%);
     @apply backdrop-blur-xl rounded-3xl;
-    border: 1px solid rgba(255, 255, 255, 0.06); /* Едва заметная граница */
+    /* Тонкая светлая обводка по верхнему краю - БЛИК */
+    border: 1px solid transparent;
+    border-top-color: rgba(255, 255, 255, 0.12);
+    border-right-color: rgba(255, 255, 255, 0.06);
+    border-bottom-color: rgba(255, 255, 255, 0.02);
+    border-left-color: rgba(255, 255, 255, 0.06);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04); /* Внутренняя тень для объема */
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08); /* Яркий внутренний блик */
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.1); /* Ярче при hover */
+    border-top-color: rgba(255, 255, 255, 0.18); /* Ярче блик при hover */
     transform: translateY(-3px);
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.5),
-      0 4px 16px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
   .glass-card:active {

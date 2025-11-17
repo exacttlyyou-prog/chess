@@ -22,7 +22,12 @@ export default function BottomNav() {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.3, duration: 0.4 }}
-      className="fixed bottom-0 left-0 right-0 z-50 glass border-t border-white/10 safe-area-bottom"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 safe-area-bottom"
+      style={{
+        background: 'rgba(10, 10, 10, 0.8)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      }}
     >
       <div className="flex justify-around items-center p-2">
         {navItems.map((item) => {

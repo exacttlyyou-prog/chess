@@ -211,12 +211,13 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Правая часть: КРУПНЕЕ бюст Карлсена +15% - Айв: "Это должен быть герой" */}
+                  {/* Правая часть: ГЕРОЙ Карлсен +40% - Айв: "Он должен быть ГЕРОЕМ карточки" */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, x: 20 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     transition={{ delay: 0.3, type: 'spring' }}
-                    className="w-64 h-64 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
+                    className="w-90 h-90 rounded-3xl overflow-hidden border-4 border-stake-red/50 shadow-2xl flex-shrink-0 group-hover:border-stake-red/70 transition-all group-hover:scale-105"
+                    style={{ width: '22.5rem', height: '22.5rem' }}
                   >
                     <img
                       src="/images/grandmasters/карлсон.png"
@@ -245,23 +246,24 @@ export default function Home() {
           <div className="flex items-center gap-6">
             {/* Левая колонка: Текст */}
             <div className="flex-1 min-w-0 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 mb-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-stake-red animate-pulse" />
-                <span className="text-xs font-bold text-stake-red uppercase tracking-wider">Live</span>
+              {/* Jony Ive: "Пульсирующая точка вместо плашки - элегантнее" */}
+              <div className="inline-flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse shadow-lg shadow-stake-red/50" />
+                <span className="text-xs font-semibold text-stake-red">Идет сейчас</span>
               </div>
               <h3 className="!text-2xl !font-bold mb-2 leading-tight text-black">Главный турнир недели</h3>
               <p className="text-sm text-black/70 mb-4 leading-relaxed">
                 Призовой фонд: <span className="font-bold text-black">50 000 ₽</span>
               </p>
-              {/* Ghost Button */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black/10 bg-black/5 hover:bg-black/10 hover:border-black/20 transition-all group-hover:gap-3">
+              {/* Ghost Button - Jony Ive: "Плавная заливка белым при hover" */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black/10 bg-black/5 hover:bg-white hover:border-black/30 transition-all group-hover:gap-3 duration-300">
                 <span className="text-sm font-semibold text-black">Участвовать</span>
                 <span className="text-lg transition-transform group-hover:translate-x-1">→</span>
               </div>
             </div>
 
-            {/* Правая колонка: КРУПНЕЕ иконка кубка +20% */}
-            <div className="w-48 h-48 flex-shrink-0 relative">
+            {/* Правая колонка: ГЕРОЙ кубок +33% - Айв: "Кубок должен доминировать" */}
+            <div className="w-64 h-64 flex-shrink-0 relative">
               <img
                 src="/images/icons/кубок.png"
                 alt=""
