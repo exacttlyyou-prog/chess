@@ -54,7 +54,7 @@ export default function Home() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-2 pb-6"
+        className="px-4 md:px-8 pt-2 pb-6"
       >
         {/* Hero Profile Card */}
         <motion.button
@@ -329,7 +329,7 @@ export default function Home() {
       </motion.div>
 
       {/* Recent Games - Compact horizontal scroll */}
-      <div className="px-8 pb-28">
+      <div className="px-4 md:px-8 pb-28">
         <h3 className="!text-xl mb-4 !font-semibold">Недавние партии</h3>
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" role="list" aria-label="Недавние шахматные партии">
           {recentGames.map((game, index) => (

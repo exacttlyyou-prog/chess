@@ -173,7 +173,7 @@ export default function GamePlay() {
       className="relative z-10 flex flex-1"
     >
       {/* Left Panel - Chess Board */}
-      <div className="flex-1 flex flex-col px-1 sm:px-4 md:px-8 pt-2 pb-4 md:pb-8">
+      <div className="flex-1 flex flex-col px-0 sm:px-4 md:px-8 pt-2 pb-4 md:pb-8">
         {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}

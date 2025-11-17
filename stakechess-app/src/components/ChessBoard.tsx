@@ -368,7 +368,7 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
       </div>
 
       {/* Chess Board */}
-      <div className="glass-card p-2 sm:p-4 lg:p-6">
+      <div className="glass-card p-1 sm:p-4 lg:p-6">
         <div className="aspect-square max-w-full sm:max-w-xl mx-auto relative">
           {/* Board container with coordinates */}
           <div className="relative">
