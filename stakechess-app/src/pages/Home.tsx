@@ -159,6 +159,48 @@ export default function Home() {
           </span>
         </motion.div>
 
+        {/* HERO: Quick Start - Main CTA (Паттерн A: Баланс) */}
+        <div className="mb-8">
+          <h3 className="!text-xl mb-4 text-gray-300">Быстрый старт</h3>
+          <motion.button
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.1, type: 'spring' }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/game-mode')}
+            className="glass-card p-6 text-left shadow-2xl bg-gradient-to-br from-stake-red/20 via-transparent to-transparent border-2 border-stake-red/50 relative overflow-hidden group w-full"
+            aria-label="Начать быструю партию"
+          >
+            {/* Паттерн A: Двухколоночный баланс */}
+            <div className="flex items-center gap-6">
+              {/* Левая колонка: Текст */}
+              <div className="flex-1 min-w-0">
+                <h2 className="!text-3xl mb-2 leading-tight">Начать игру</h2>
+                <p className="text-body text-gray-300 mb-4">
+                  Последний режим: <span className="text-stake-red font-semibold">Блиц 3+2</span>
+                </p>
+                <div className="flex items-center gap-2 text-stake-red font-semibold group-hover:gap-4 transition-all">
+                  <span className="text-base">Выбрать режим</span>
+                  <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+
+              {/* Правая колонка: 3D Визуальный якорь */}
+              <div className="w-32 h-32 flex-shrink-0 relative">
+                <img
+                  src="/images/icons/секундомер.png"
+                  alt=""
+                  className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            </div>
+
+            {/* Gradient glow */}
+            <div className="absolute inset-0 bg-gradient-radial from-stake-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          </motion.button>
+        </div>
+
         {/* HERO: Legends Section - Premium Showcase */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
@@ -269,7 +311,7 @@ export default function Home() {
             <img
               src="/images/icons/мозг.png"
               alt=""
-              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
+              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
             />
           </motion.button>
 
@@ -288,7 +330,7 @@ export default function Home() {
             <img
               src="/images/icons/pawn.png"
               alt=""
-              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
+              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
             />
           </motion.button>
 
@@ -307,7 +349,7 @@ export default function Home() {
             <img
               src="/images/icons/статист.png"
               alt=""
-              className="absolute bottom-1 right-1 w-20 h-20 opacity-40 pointer-events-none"
+              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
             />
           </motion.button>
         </div>

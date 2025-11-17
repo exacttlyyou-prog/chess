@@ -201,13 +201,13 @@ export default function GameMode() {
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
                   {/* 3D Icon Anchor */}
                   {mode.id === 'blitz' && (
-                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
+                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
                   )}
                   {mode.id === 'rapid' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
                   )}
                   {mode.id === 'classic' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-3 right-3 w-20 h-20 opacity-30 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
                   )}
                 </motion.button>
                 );
@@ -240,7 +240,7 @@ export default function GameMode() {
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
-                  className="absolute bottom-3 right-3 w-24 h-24 opacity-35 pointer-events-none"
+                  className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none"
                 />
               </button>
               <button
@@ -259,10 +259,31 @@ export default function GameMode() {
                 <img
                   src="/images/icons/ai-robot.png"
                   alt=""
-                  className="absolute bottom-3 right-3 w-24 h-24 opacity-35 pointer-events-none"
+                  className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none"
                 />
               </button>
             </div>
+          </motion.div>
+
+          {/* Play Button - Main CTA */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="px-8 mb-8"
+          >
+            <button
+              onClick={handlePlay}
+              className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
+                selectedMode
+                  ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-[0_8px_24px_rgba(255,59,48,0.4)] hover:shadow-[0_12px_32px_rgba(255,59,48,0.5)] hover:scale-[1.02] active:scale-[0.98]'
+                  : 'bg-white/5 text-gray-500 cursor-not-allowed border border-white/10'
+              }`}
+              disabled={!selectedMode}
+              aria-label="Начать игру с выбранными настройками"
+            >
+              {selectedMode ? 'Начать игру' : 'Выберите режим игры'}
+            </button>
           </motion.div>
 
         </div>
