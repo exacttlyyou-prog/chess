@@ -1,13 +1,12 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Zap, User, Trophy, Target } from 'lucide-react';
 
 const navItems = [
-  { id: 'home', label: 'Главная', icon: Home, path: '/home' },
-  { id: 'play', label: 'Играть', icon: Zap, path: '/game-mode' },
-  { id: 'tournaments', label: 'Турниры', icon: Trophy, path: '/tournaments' },
-  { id: 'achievements', label: 'Награды', icon: Target, path: '/achievements' },
-  { id: 'profile', label: 'Профиль', icon: User, path: '/profile' },
+  { id: 'home', label: 'Главная', icon: '/images/icons/секундомер.png', path: '/home' },
+  { id: 'play', label: 'Играть', icon: '/images/icons/молния.png', path: '/game-mode' },
+  { id: 'tournaments', label: 'Турниры', icon: '/images/icons/турнир.png', path: '/tournaments' },
+  { id: 'achievements', label: 'Награды', icon: '/images/icons/кубок.png', path: '/achievements' },
+  { id: 'profile', label: 'Профиль', icon: '/images/icons/ai-robot.png', path: '/profile' },
 ];
 
 export default function BottomNav() {
@@ -27,7 +26,6 @@ export default function BottomNav() {
     >
       <div className="flex justify-around items-center p-2">
         {navItems.map((item) => {
-          const Icon = item.icon;
           const active = isActive(item.path);
 
           return (
@@ -47,7 +45,13 @@ export default function BottomNav() {
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
-              <Icon className={`w-6 h-6 relative z-10 ${active ? '' : ''}`} strokeWidth={active ? 2 : 1.5} />
+              <img
+                src={item.icon}
+                alt=""
+                className={`w-6 h-6 relative z-10 object-contain transition-all ${
+                  active ? 'opacity-100 drop-shadow-[0_0_8px_rgba(255,59,48,0.6)]' : 'opacity-60 hover:opacity-80'
+                }`}
+              />
               <span className={`text-xs relative z-10 font-medium ${active ? 'text-stake-red' : ''}`}>
                 {item.label}
               </span>

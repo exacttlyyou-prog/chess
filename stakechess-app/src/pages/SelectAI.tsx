@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Lock, Sword, Brain, Shield } from 'lucide-react';
+import { ArrowLeft, Lock } from 'lucide-react';
 import { CHESS_PERSONALITIES } from '../ai/chessPersonalities';
 import type { ChessPersonality } from '../ai/chessPersonalities';
 
@@ -166,11 +166,8 @@ export default function SelectAI() {
                         {personality.styleTags.map((tag) => (
                           <span
                             key={tag}
-                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-400"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-stake-red/10 to-purple-900/10 border border-stake-red/20 text-xs font-semibold text-white shadow-sm"
                           >
-                            {tag === 'Агрессивный' || tag === 'Атакующий' ? <Sword className="w-3 h-3" /> :
-                             tag === 'Тактический' ? <Brain className="w-3 h-3" /> :
-                             tag === 'Защитный' ? <Shield className="w-3 h-3" /> : null}
                             {tag}
                           </span>
                         ))}

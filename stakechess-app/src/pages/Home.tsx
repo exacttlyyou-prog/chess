@@ -202,7 +202,7 @@ export default function Home() {
         </div>
 
         {/* HERO: Legends Section - Premium Showcase */}
-        <div className="mb-8">
+        <div className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="inline-flex items-center gap-2 glass-card !px-3 !py-1.5 border border-stake-red/30">
               <div className="w-2 h-2 rounded-full bg-stake-red animate-pulse" />
@@ -294,8 +294,8 @@ export default function Home() {
         </div>
 
         {/* Training - Compact single row */}
-        <h3 className="!text-xl mb-4">Тренировки</h3>
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <h3 className="!text-xl mb-4 !font-semibold">Тренировки</h3>
+        <div className="grid grid-cols-3 gap-3 mb-12">
           <motion.button
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -306,7 +306,7 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Решать шахматные задачи"
           >
-            <p className="font-semibold text-sm mt-2">Задачи</p>
+            <p className="font-bold text-base mt-2">Задачи</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/мозг.png"
@@ -325,7 +325,7 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Изучать шахматные дебюты"
           >
-            <p className="font-semibold text-sm mt-2">Дебюты</p>
+            <p className="font-bold text-base mt-2">Дебюты</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/pawn.png"
@@ -344,7 +344,7 @@ export default function Home() {
             className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Посмотреть таблицу лидеров"
           >
-            <p className="font-semibold text-sm mt-2">Рейтинг</p>
+            <p className="font-bold text-base mt-2">Рейтинг</p>
             {/* 3D Icon Anchor */}
             <img
               src="/images/icons/статист.png"
@@ -357,7 +357,7 @@ export default function Home() {
 
       {/* Recent Games - Compact horizontal scroll */}
       <div className="px-8 pb-28">
-        <h3 className="!text-xl mb-4">Недавние партии</h3>
+        <h3 className="!text-xl mb-4 !font-semibold">Недавние партии</h3>
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" role="list" aria-label="Недавние шахматные партии">
           {recentGames.map((game, index) => (
             <motion.button
@@ -390,9 +390,9 @@ export default function Home() {
               </div>
 
               {/* Opponent */}
-              <h6 className="!text-base mb-1 truncate">{game.opponent}</h6>
+              <h6 className="!text-base !font-bold mb-1 truncate">{game.opponent}</h6>
               {game.rating && (
-                <p className="text-xs text-yellow-400 mb-2">⭐ {game.rating} ELO</p>
+                <p className="text-xs text-yellow-400 font-semibold mb-2">⭐ {game.rating} ELO</p>
               )}
 
               {/* Game info */}
