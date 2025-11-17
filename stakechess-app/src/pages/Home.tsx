@@ -103,11 +103,11 @@ export default function Home() {
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="glass-card p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden min-h-[280px]"
+          className="glass-card p-6 md:p-8 mb-6 bg-gradient-to-br from-stake-red/20 to-transparent border-stake-red/40 shadow-[0_0_32px_rgba(255,23,68,0.3),0_8px_24px_rgba(0,0,0,0.4)] relative overflow-hidden min-h-[260px] md:min-h-[280px]"
           whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
         >
           {/* Background player image */}
-          <div className="absolute right-0 bottom-0 w-48 h-48 opacity-20 pointer-events-none">
+          <div className="absolute right-0 bottom-0 w-40 h-40 md:w-48 md:h-48 opacity-20 pointer-events-none">
             <img
               src="/images/player-ivan.jpg"
               alt=""
@@ -116,28 +116,28 @@ export default function Home() {
           </div>
 
           <div className="relative z-10">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4 md:mb-6">
               <div>
-                <p className="text-body-sm text-gray-400 mb-2">Текущий рейтинг</p>
-                <h2 className="!text-display-sm text-gradient">1450</h2>
+                <p className="text-xs md:text-body-sm text-gray-400 mb-1 md:mb-2">Текущий рейтинг</p>
+                <h2 className="!text-4xl md:!text-display-sm text-gradient">1450</h2>
               </div>
               <div className="text-right">
-                <p className="text-body-sm text-gray-400 mb-2">Прогресс</p>
-                <p className="text-3xl font-bold text-green-400">+50</p>
+                <p className="text-xs md:text-body-sm text-gray-400 mb-1 md:mb-2">Прогресс</p>
+                <p className="text-2xl md:text-3xl font-bold text-green-400">+50</p>
               </div>
             </div>
-            <div className="flex gap-6">
+            <div className="flex gap-4 md:gap-6">
               <div>
-                <p className="text-body-sm text-gray-500 mb-1">Побед</p>
-                <p className="text-white font-semibold text-lg">128</p>
+                <p className="text-xs md:text-body-sm text-gray-500 mb-1">Побед</p>
+                <p className="text-white font-semibold text-base md:text-lg">128</p>
               </div>
               <div>
-                <p className="text-body-sm text-gray-500 mb-1">Поражений</p>
-                <p className="text-gray-400 font-semibold text-lg">94</p>
+                <p className="text-xs md:text-body-sm text-gray-500 mb-1">Поражений</p>
+                <p className="text-gray-400 font-semibold text-base md:text-lg">94</p>
               </div>
               <div>
-                <p className="text-body-sm text-gray-500 mb-1">Ничьих</p>
-                <p className="text-gray-400 font-semibold text-lg">23</p>
+                <p className="text-xs md:text-body-sm text-gray-500 mb-1">Ничьих</p>
+                <p className="text-gray-400 font-semibold text-base md:text-lg">23</p>
               </div>
             </div>
           </div>
@@ -151,13 +151,13 @@ export default function Home() {
         transition={{ delay: 0.15 }}
         className="mb-8 overflow-hidden"
       >
-        <div className="px-8 mb-3 flex items-center gap-2">
+        <div className="px-6 md:px-8 mb-3 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           <h6 className="!text-sm text-gray-400">Игры идут сейчас</h6>
         </div>
         <div className="relative">
           <motion.div
-            className="flex gap-3"
+            className="flex gap-2 md:gap-3"
             animate={{ x: [0, -1000] }}
             transition={{
               duration: 25,
@@ -168,16 +168,16 @@ export default function Home() {
             {[...liveGames, ...liveGames].map((game, index) => (
               <div
                 key={`${game.id}-${index}`}
-                className="glass-card px-4 py-3 flex items-center gap-3 min-w-[300px] cursor-pointer hover:bg-white/10 transition-all"
+                className="glass-card px-3 py-2 md:px-4 md:py-3 flex items-center gap-2 md:gap-3 min-w-[280px] md:min-w-[300px] cursor-pointer hover:bg-white/10 transition-all"
                 onClick={() => navigate('/play')}
               >
-                <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <span className="text-sm font-medium truncate">{game.white}</span>
-                  <span className="text-gray-500 text-xs">vs</span>
-                  <span className="text-sm font-medium truncate">{game.black}</span>
+                <div className="flex items-center gap-1.5 md:gap-2 flex-1 min-w-0">
+                  <span className="text-xs md:text-sm font-medium truncate">{game.white}</span>
+                  <span className="text-gray-500 text-[10px] md:text-xs">vs</span>
+                  <span className="text-xs md:text-sm font-medium truncate">{game.black}</span>
                 </div>
-                <div className="flex items-center gap-1 text-gray-400 text-xs">
-                  <User className="w-3 h-3" />
+                <div className="flex items-center gap-0.5 md:gap-1 text-gray-400 text-[10px] md:text-xs flex-shrink-0">
+                  <User className="w-2.5 h-2.5 md:w-3 md:h-3" />
                   <span>{game.viewers}</span>
                 </div>
               </div>
@@ -187,9 +187,9 @@ export default function Home() {
       </motion.div>
 
       {/* Quick Actions */}
-      <div className="px-8 mb-8">
+      <div className="px-6 md:px-8 mb-8">
         <h3 className="!text-xl mb-6">Быстрые действия</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
           {quickActions.map((action, index) => (
             <motion.button
               key={action.id}
@@ -199,21 +199,21 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate(action.path)}
-              className="glass-card p-8 text-center shadow-depth hover-lift"
+              className="glass-card p-6 md:p-8 text-center shadow-depth hover-lift"
             >
-              <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <action.Icon className="w-7 h-7 text-stake-red" strokeWidth={2} />
+              <div className="bg-gradient-to-br from-stake-red/20 to-stake-red/5 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+                <action.Icon className="w-6 h-6 md:w-7 md:h-7 text-stake-red" strokeWidth={2} />
               </div>
-              <p className="font-semibold text-base">{action.title}</p>
+              <p className="font-semibold text-sm md:text-base">{action.title}</p>
             </motion.button>
           ))}
         </div>
       </div>
 
       {/* Recent Games Carousel */}
-      <div className="px-8 mb-8">
+      <div className="px-6 md:px-8 mb-8">
         <h3 className="!text-xl mb-6">Недавние партии</h3>
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+        <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
           {recentGames.map((game, index) => (
             <motion.div
               key={game.id}
@@ -222,7 +222,7 @@ export default function Home() {
               transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
               whileHover={{ scale: 1.02, y: -4 }}
               whileTap={{ scale: 0.98 }}
-              className="glass-card min-w-[280px] p-6 cursor-pointer shadow-depth relative overflow-hidden snap-start"
+              className="glass-card min-w-[260px] md:min-w-[280px] p-5 md:p-6 cursor-pointer shadow-depth relative overflow-hidden snap-start"
               onClick={() => navigate('/play')}
             >
               {/* Background image */}
@@ -268,9 +268,9 @@ export default function Home() {
       </div>
 
       {/* Widgets */}
-      <div className="px-8 pb-28">
+      <div className="px-6 md:px-8 pb-28">
         <h3 className="!text-xl mb-6">Актуально</h3>
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {widgets.map((widget, index) => (
             <motion.div
               key={index}
@@ -279,21 +279,21 @@ export default function Home() {
               transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.98 }}
-              className="glass-card p-6 cursor-pointer shadow-depth hover-lift"
+              className="glass-card p-4 md:p-6 cursor-pointer shadow-depth hover-lift"
               onClick={() => navigate('/game-mode')}
             >
               <div className="flex justify-between items-center">
-                <div>
-                  <h6 className="mb-2">{widget.title}</h6>
-                  <p className="text-body-sm text-gray-400">{widget.subtitle}</p>
+                <div className="flex-1 min-w-0 pr-3">
+                  <h6 className="mb-2 truncate">{widget.title}</h6>
+                  <p className="text-xs md:text-body-sm text-gray-400 truncate">{widget.subtitle}</p>
                 </div>
-                <div className="text-right flex items-center gap-3">
+                <div className="text-right flex items-center gap-2 md:gap-3 flex-shrink-0">
                   {widget.participants && (
-                    <p className="text-gray-400 text-body-sm font-medium">{widget.participants}</p>
+                    <p className="text-gray-400 text-xs md:text-body-sm font-medium hidden sm:block">{widget.participants}</p>
                   )}
                   {widget.badge && (
-                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-2xl">
-                      <Flame className="w-6 h-6 text-stake-red" />
+                    <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 md:p-3 rounded-xl md:rounded-2xl">
+                      <Flame className="w-5 h-5 md:w-6 md:h-6 text-stake-red" />
                     </div>
                   )}
                   {widget.avatars && (
@@ -301,9 +301,9 @@ export default function Home() {
                       {widget.avatars.map((_, i) => (
                         <div
                           key={i}
-                          className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border-2 border-stake-black-light"
+                          className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/5 flex items-center justify-center border-2 border-stake-black-light"
                         >
-                          <User className="w-4 h-4 text-gray-400" />
+                          <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400" />
                         </div>
                       ))}
                     </div>
