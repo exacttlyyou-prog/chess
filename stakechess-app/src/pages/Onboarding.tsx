@@ -262,7 +262,7 @@ export default function Onboarding() {
               <button
                 onClick={handleAuth}
                 disabled={isAuthenticating}
-                className="btn-primary w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full !py-4 md:!py-5 text-base md:text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Войти через Telegram"
               >
                 {isAuthenticating ? (
@@ -280,7 +280,7 @@ export default function Onboarding() {
               <button
                 onClick={handleAuth}
                 disabled={isAuthenticating}
-                className="btn-white w-full !py-5 text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-white w-full !py-4 md:!py-5 text-base md:text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Войти через Alfa ID"
               >
                 {isAuthenticating ? (
