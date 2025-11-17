@@ -84,17 +84,17 @@ export default function GamePlay() {
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="mb-4 flex items-center gap-4"
+          className="mb-4 flex items-center gap-3 md:gap-4"
         >
           <button
             onClick={() => navigate('/game-mode')}
-            className="glass-button !px-4 !py-3"
+            className="glass-button !px-3 !py-3 md:!px-4"
           >
-            <ArrowLeft className="w-6 h-6" />
+            <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
-          <div className="glass-card px-4 py-2 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-stake-red" />
-            <span className="text-body-sm font-semibold">Блиц 3+2</span>
+          <div className="glass-card px-3 py-2 md:px-4 flex items-center gap-2">
+            <Clock className="w-3.5 h-3.5 md:w-4 md:h-4 text-stake-red" />
+            <span className="text-xs md:text-body-sm font-semibold">Блиц 3+2</span>
           </div>
         </motion.div>
 
@@ -119,28 +119,28 @@ export default function GamePlay() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mt-4 flex gap-3"
+          className="mt-4 flex gap-2 md:gap-3"
         >
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 !py-3 md:!py-4 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Settings className="w-5 h-5" />
-            <span className="font-semibold">Меню</span>
+            <span className="font-semibold text-xs md:text-sm">Меню</span>
           </button>
           <button
             onClick={handleDraw}
-            className="btn-secondary flex-1 flex items-center justify-center gap-2 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
+            className="btn-secondary flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 !py-3 md:!py-4 hover:shadow-[0_0_12px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <Handshake className="w-5 h-5" />
-            <span className="font-semibold">Ничья</span>
+            <span className="font-semibold text-xs md:text-sm">Ничья</span>
           </button>
           <button
             onClick={handleResign}
-            className="glass-button !bg-red-500/20 !border-red-500/40 flex-1 flex items-center justify-center gap-2 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
+            className="glass-button !bg-red-500/20 !border-red-500/40 flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 !py-3 md:!py-4 hover:!bg-red-500/30 hover:!border-red-500/60 hover:shadow-[0_0_16px_rgba(239,68,68,0.3)] transition-all duration-300"
           >
             <Flag className="w-5 h-5 text-red-400" />
-            <span className="text-red-300">Сдаться</span>
+            <span className="text-red-300 font-semibold text-xs md:text-sm">Сдаться</span>
           </button>
         </motion.div>
       </div>
@@ -213,41 +213,41 @@ export default function GamePlay() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 z-50"
           onClick={() => setShowMenu(false)}
         >
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
-            className="glass-card p-8 w-full max-w-md"
+            className="glass-card p-6 md:p-8 w-full max-w-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="mb-6">Меню игры</h3>
-            <div className="space-y-3">
-              <button className="btn-secondary w-full !py-4 text-left px-6">
+            <h3 className="mb-4 md:mb-6">Меню игры</h3>
+            <div className="space-y-2 md:space-y-3">
+              <button className="btn-secondary w-full !py-3 md:!py-4 text-left px-4 md:px-6">
                 <div className="flex items-center gap-3">
                   <Settings className="w-5 h-5" />
-                  <span>Настройки доски</span>
+                  <span className="text-sm md:text-base">Настройки доски</span>
                 </div>
               </button>
-              <button className="btn-secondary w-full !py-4 text-left px-6">
+              <button className="btn-secondary w-full !py-3 md:!py-4 text-left px-4 md:px-6">
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5" />
-                  <span>История ходов</span>
+                  <span className="text-sm md:text-base">История ходов</span>
                 </div>
               </button>
               <button
                 onClick={() => navigate('/home')}
-                className="glass-button w-full !bg-red-500/20 !border-red-500/30 !py-4 text-left px-6 hover:!bg-red-500/30"
+                className="glass-button w-full !bg-red-500/20 !border-red-500/30 !py-3 md:!py-4 text-left px-4 md:px-6 hover:!bg-red-500/30"
               >
                 <div className="flex items-center gap-3">
                   <Flag className="w-5 h-5" />
-                  <span>Выйти из игры</span>
+                  <span className="text-sm md:text-base">Выйти из игры</span>
                 </div>
               </button>
               <button
                 onClick={() => setShowMenu(false)}
-                className="btn-primary w-full !py-4"
+                className="btn-primary w-full !py-3 md:!py-4"
               >
                 Продолжить
               </button>
