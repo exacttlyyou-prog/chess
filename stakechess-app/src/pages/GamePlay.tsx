@@ -154,6 +154,12 @@ export default function GamePlay() {
     <div className="relative min-h-screen flex overflow-hidden">
       {/* Premium Background with Glow */}
       <div className="fixed inset-0 z-0">
+        {/* Pattern background layer */}
+        <img
+          src="/images/backgrounds/pattern-board.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        />
         <img
           src="/images/backgrounds/board-depth.png"
           alt=""
