@@ -160,18 +160,18 @@ export default function GameMode() {
                         : undefined,
                     }}
                   >
-                    {/* Hero Icon - 60% of card height, McKinsey principle */}
+                    {/* Hero Icon - compact on mobile */}
                     <motion.div
                       animate={{
                         scale: isSelected ? 1.05 : 1,
                       }}
                       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="flex-1 flex items-center justify-center"
+                      className="flex items-center justify-center h-[55%] md:flex-1"
                     >
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-full h-full max-h-[50%] md:max-h-[60%] object-contain"
+                        className="w-full h-full max-h-[80%] md:max-h-[60%] object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
@@ -181,15 +181,15 @@ export default function GameMode() {
                       />
                     </motion.div>
 
-                    {/* Text below icon - 40% */}
-                    <div className="relative z-10 w-full space-y-0">
+                    {/* Text below icon - fixed height on mobile */}
+                    <div className="relative z-10 w-full h-[45%] md:h-auto flex flex-col justify-end">
                       <h6
-                        className="!text-[11px] md:!text-lg font-bold truncate leading-none mb-0.5"
+                        className="!text-[10px] md:!text-lg font-bold truncate leading-tight mb-0.5"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-xs md:text-2xl font-semibold text-white truncate leading-none">{mode.time}</p>
+                      <p className="text-[11px] md:text-2xl font-semibold text-white truncate leading-tight">{mode.time}</p>
                       <p className="hidden md:block text-xs text-gray-400 truncate mt-1">{mode.description}</p>
                     </div>
 
