@@ -165,12 +165,12 @@ export default function Onboarding() {
 
         {/* AI Legends Squircles - Custom Layout for Slide 3 */}
         {currentSlide === 2 && (
-          <div className="flex-1 flex items-center justify-center p-1 md:p-8">
+          <div className="flex-1 flex items-center justify-center px-2 py-1 md:p-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.6, type: 'spring' }}
-              className="grid grid-cols-2 md:grid-cols-3 gap-1.5 md:gap-4 max-w-md"
+              className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 w-full max-w-md"
             >
               {/* Карлсен */}
               <motion.div
@@ -216,24 +216,24 @@ export default function Onboarding() {
                 <img src="/images/grandmasters/карпов.png" alt="Карпов" className="w-full h-full object-cover" />
               </motion.div>
 
-              {/* Капабланка */}
+              {/* Капабланка - HIDDEN ON MOBILE */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
+                className="hidden md:block aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/30 md:border-2 overflow-hidden shadow-2xl"
               >
                 <img src="/images/grandmasters/касабланка.png" alt="Капабланка" className="w-full h-full object-cover" />
               </motion.div>
 
-              {/* AI Robot Icon */}
+              {/* AI Robot Icon - HIDDEN ON MOBILE */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.9, type: 'spring' }}
                 whileHover={{ scale: 1.05, rotate: 5 }}
-                className="aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border border-stake-red/30 md:border-2 flex items-center justify-center shadow-2xl"
+                className="hidden md:flex aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border border-stake-red/30 md:border-2 items-center justify-center shadow-2xl"
               >
                 <img src="/images/icons/ai-robot.png" alt="AI" className="w-2/3 object-contain drop-shadow-2xl" />
               </motion.div>

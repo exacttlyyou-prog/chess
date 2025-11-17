@@ -134,7 +134,7 @@ export default function Home() {
         </motion.button>
 
         {/* ДВУХКОЛОНОЧНЫЙ GRID LAYOUT - McKinsey: "Разрушить вертикальную тиранию" */}
-        <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6 mb-8">
+        <div className="px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6 mb-8">
           {/* ЛЕВАЯ КОЛОНКА - Главные действия */}
           <div className="space-y-6">
             <motion.button

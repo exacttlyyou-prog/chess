@@ -133,9 +133,9 @@ export default function GameMode() {
       {activeTab === 'play' ? (
         <div role="tabpanel" id="play-panel" aria-labelledby="play-tab">
           {/* Game Modes - 2x2 Grid with Hero Icons */}
-          <div className="px-8 mb-8">
-            <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="px-2 md:px-8 mb-8">
+            <h6 className="!text-base text-gray-400 mb-4 px-2 md:px-0">Режим игры</h6>
+            <div className="grid grid-cols-2 gap-2 md:gap-4">
               {gameModes.map((mode, index) => {
                 const isSelected = selectedMode === mode.id;
 
@@ -148,7 +148,7 @@ export default function GameMode() {
                     onClick={() => setSelectedMode(mode.id)}
                     aria-label={`${mode.title} - ${mode.description}`}
                     aria-pressed={isSelected}
-                    className={`glass-card p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden ${
+                    className={`glass-card aspect-square p-3 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
                       isSelected
                         ? 'border-2 !border-opacity-100'
                         : 'border border-white/5 hover:border-white/10'
@@ -160,19 +160,18 @@ export default function GameMode() {
                         : undefined,
                     }}
                   >
-                    {/* Hero Icon - 40% of card height, centered, above text */}
+                    {/* Hero Icon - 60% of card height, McKinsey principle */}
                     <motion.div
                       animate={{
-                        scale: isSelected ? 1.1 : 1,
-                        y: isSelected ? -4 : 0,
+                        scale: isSelected ? 1.05 : 1,
                       }}
                       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="flex justify-center mb-4"
+                      className="flex-1 flex items-center justify-center"
                     >
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-32 h-32 md:w-48 md:h-48 object-contain"
+                        className="w-full h-full max-h-[60%] object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
@@ -182,16 +181,16 @@ export default function GameMode() {
                       />
                     </motion.div>
 
-                    {/* Text below icon */}
+                    {/* Text below icon - 40% */}
                     <div className="relative z-10">
                       <h6
-                        className="!text-lg mb-1 font-bold"
+                        className="!text-base md:!text-lg mb-0.5 md:mb-1 font-bold"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-2xl font-normal text-white mb-1">{mode.time}</p>
-                      <p className="text-xs text-gray-400">{mode.description}</p>
+                      <p className="text-lg md:text-2xl font-normal text-white mb-0.5">{mode.time}</p>
+                      <p className="text-[10px] md:text-xs text-gray-400">{mode.description}</p>
                     </div>
 
                     {/* Energy glow when selected */}
