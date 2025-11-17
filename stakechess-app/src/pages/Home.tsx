@@ -295,7 +295,7 @@ export default function Home() {
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm">Задачи</p>
+            <p className="font-bold text-sm text-white">Задачи</p>
           </motion.button>
 
           <motion.button
@@ -314,7 +314,7 @@ export default function Home() {
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm">Дебюты</p>
+            <p className="font-bold text-sm text-white">Дебюты</p>
           </motion.button>
 
           <motion.button
@@ -323,17 +323,17 @@ export default function Home() {
             transition={{ delay: 0.35 }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => navigate('/leaderboard')}
+            onClick={() => navigate('/achievements')}
             className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
-            aria-label="Посмотреть таблицу лидеров"
+            aria-label="Пройти испытания"
           >
             {/* Иконка КРУПНЕЕ +15% - доминирует */}
             <img
-              src="/images/icons/статист.png"
+              src="/images/icons/замок.png"
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm">Рейтинг</p>
+            <p className="font-bold text-sm text-white">Испытание</p>
           </motion.button>
         </div>
           </div>

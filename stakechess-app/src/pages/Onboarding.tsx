@@ -242,7 +242,7 @@ export default function Onboarding() {
         )}
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-8 pb-32">
+        <div className="flex-1 flex flex-col justify-end p-8 pb-8 md:pb-32">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -296,7 +296,7 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-8 space-y-6"
+          className="p-4 md:p-8 space-y-4 md:space-y-6 pb-safe"
         >
           {/* Progress Dots */}
           <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">

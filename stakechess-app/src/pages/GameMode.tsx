@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Activity, Wind, Clock, ArrowLeft, ArrowRight, Info } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const gameModes = [
@@ -9,29 +9,33 @@ const gameModes = [
     id: 'blitz',
     title: 'Блиц',
     time: '3 + 2',
-    description: '3 минуты на партию + 2 сек за ход',
-    Icon: Zap,
+    description: '3 мин + 2 сек',
+    icon: '/images/icons/молния.png',
+    accentColor: '#ff3b30',
   },
   {
     id: 'rapid',
     title: 'Рапид',
     time: '10 + 0',
-    description: '10 минут на партию',
-    Icon: Activity,
+    description: '10 минут',
+    icon: '/images/icons/ожидание.png',
+    accentColor: '#ffcc00',
   },
   {
     id: 'bullet',
     title: 'Пуля',
     time: '1 + 0',
-    description: '1 минута на партию',
-    Icon: Wind,
+    description: '1 минута',
+    icon: '/images/icons/пуля.png',
+    accentColor: '#5e5ce6',
   },
   {
     id: 'classic',
     title: 'Классика',
     time: '30 + 0',
-    description: '30 минут на партию',
-    Icon: Clock,
+    description: '30 минут',
+    icon: '/images/icons/ожидание.png',
+    accentColor: '#30d158',
   },
 ];
 
@@ -54,18 +58,10 @@ const tournaments = [
   },
 ];
 
-const modeTooltips = {
-  blitz: 'Быстрая игра для опытных игроков. Каждая партия длится около 6 минут.',
-  rapid: 'Классический темп. Достаточно времени на обдумывание стратегии.',
-  bullet: 'Молниеносная игра! Только для профи с быстрой реакцией.',
-  classic: 'Полноценные партии без спешки. Идеально для глубокого анализа.',
-};
-
 export default function GameMode() {
   const navigate = useNavigate();
   const [selectedMode, setSelectedMode] = useState('blitz');
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
-  const [showTooltip, setShowTooltip] = useState<string | null>(null);
 
   const handlePlay = () => {
     navigate('/match-search');
@@ -74,6 +70,8 @@ export default function GameMode() {
   const handlePlayWithAI = () => {
     navigate('/select-ai');
   };
+
+  const selectedModeData = gameModes.find(m => m.id === selectedMode);
 
   return (
     <motion.div
@@ -134,100 +132,93 @@ export default function GameMode() {
 
       {activeTab === 'play' ? (
         <div role="tabpanel" id="play-panel" aria-labelledby="play-tab">
-          {/* Game Modes */}
+          {/* Game Modes - 2x2 Grid with Hero Icons */}
           <div className="px-8 mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h6 className="!text-base text-gray-400">Режим игры</h6>
-              <button
-                onClick={() => setShowTooltip(showTooltip ? null : 'info')}
-                className="glass-button !px-3 !py-2 flex items-center gap-2"
-              >
-                <Info className="w-4 h-4 text-stake-red" />
-                <span className="text-xs">Подсказка</span>
-              </button>
-            </div>
-            {showTooltip && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="glass-card p-4 mb-4 bg-stake-red/10 border-stake-red/30"
-              >
-                <p className="text-sm text-gray-300">
-                  {modeTooltips[selectedMode as keyof typeof modeTooltips]}
-                </p>
-              </motion.div>
-            )}
+            <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
             <div className="grid grid-cols-2 gap-4">
               {gameModes.map((mode, index) => {
                 const isSelected = selectedMode === mode.id;
-                const getModeStyles = () => {
-                  const baseOpacity = isSelected ? 'opacity-100' : 'opacity-40 hover:opacity-70';
-
-                  switch(mode.id) {
-                    case 'blitz':
-                      return isSelected
-                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ff3b30] border-2 !border-[#ff3b30] shadow-[0_4px_16px_rgba(255,59,48,0.2)]`
-                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ff3b30]/20 border !border-white/5`;
-                    case 'rapid':
-                      return isSelected
-                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ffcc00] border-2 !border-[#ffcc00] shadow-[0_4px_16px_rgba(255,204,0,0.2)]`
-                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#ffcc00]/20 border !border-white/5`;
-                    case 'bullet':
-                      return isSelected
-                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#5e5ce6] border-2 !border-[#5e5ce6] shadow-[0_4px_16px_rgba(94,92,230,0.2)]`
-                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#5e5ce6]/20 border !border-white/5`;
-                    case 'classic':
-                      return isSelected
-                        ? `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#30d158] border-2 !border-[#30d158] shadow-[0_4px_16px_rgba(48,209,88,0.2)]`
-                        : `${baseOpacity} !bg-[#1a1a1a] border-l-4 !border-l-[#30d158]/20 border !border-white/5`;
-                    default:
-                      return '';
-                  }
-                };
 
                 return (
-                <motion.button
-                  key={mode.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.03, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                  onClick={() => setSelectedMode(mode.id)}
-                  aria-label={`${mode.title} - ${mode.description}`}
-                  aria-pressed={isSelected}
-                  className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] relative overflow-hidden ${getModeStyles()}`}
-                >
-                  <div className="relative z-10">
-                    <h6 className="mb-1">{mode.title}</h6>
-                    <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
-                  </div>
-                  {/* 3D Icon Anchor - Паттерн Баланс (40% справа) */}
-                  {mode.id === 'bullet' && (
-                    <img src="/images/icons/пуля.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
-                  )}
-                  {mode.id === 'blitz' && (
-                    <img src="/images/icons/молния.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
-                  )}
-                  {mode.id === 'rapid' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
-                  )}
-                  {mode.id === 'classic' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
-                  )}
-                </motion.button>
+                  <motion.button
+                    key={mode.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05, duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    onClick={() => setSelectedMode(mode.id)}
+                    aria-label={`${mode.title} - ${mode.description}`}
+                    aria-pressed={isSelected}
+                    className={`glass-card p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden ${
+                      isSelected
+                        ? 'border-2 !border-opacity-100'
+                        : 'border border-white/5 hover:border-white/10'
+                    }`}
+                    style={{
+                      borderColor: isSelected ? mode.accentColor : undefined,
+                      boxShadow: isSelected
+                        ? `0 4px 24px ${mode.accentColor}40, 0 0 0 1px ${mode.accentColor}60`
+                        : undefined,
+                    }}
+                  >
+                    {/* Hero Icon - 40% of card height, centered, above text */}
+                    <motion.div
+                      animate={{
+                        scale: isSelected ? 1.1 : 1,
+                        y: isSelected ? -4 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                      className="flex justify-center mb-4"
+                    >
+                      <img
+                        src={mode.icon}
+                        alt=""
+                        className="w-24 h-24 object-contain"
+                        style={{
+                          filter: isSelected
+                            ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
+                            : 'opacity: 0.6',
+                          opacity: isSelected ? 1 : 0.6,
+                        }}
+                      />
+                    </motion.div>
+
+                    {/* Text below icon */}
+                    <div className="relative z-10">
+                      <h6
+                        className="!text-lg mb-1 font-bold"
+                        style={{ color: isSelected ? mode.accentColor : 'white' }}
+                      >
+                        {mode.title}
+                      </h6>
+                      <p className="text-2xl font-bold mb-1">{mode.time}</p>
+                      <p className="text-xs text-gray-400">{mode.description}</p>
+                    </div>
+
+                    {/* Energy glow when selected */}
+                    {isSelected && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: `radial-gradient(circle at 50% 0%, ${mode.accentColor}20 0%, transparent 70%)`,
+                        }}
+                      />
+                    )}
+                  </motion.button>
                 );
               })}
             </div>
           </div>
 
-          {/* Opponent Selection */}
+          {/* Opponent Selection - Separate section below grid */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="px-8 mb-6"
           >
-            <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
+            <h6 className="!text-base text-gray-400 mb-4">Выбор соперника</h6>
             <div className="space-y-3">
               <button
                 onClick={handlePlay}
@@ -241,7 +232,7 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
-                {/* 3D Icon Anchor - увеличен для визуального якоря */}
+                {/* 3D Icon Anchor */}
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
@@ -260,7 +251,7 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
-                {/* 3D Icon Anchor - увеличен для визуального якоря */}
+                {/* 3D Icon Anchor */}
                 <img
                   src="/images/icons/ai-robot.png"
                   alt=""
@@ -270,25 +261,46 @@ export default function GameMode() {
             </div>
           </motion.div>
 
-          {/* Play Button - Main CTA */}
+          {/* Play Button - Main CTA with volumetric design */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
             className="px-8 mb-8"
           >
-            <button
+            <motion.button
               onClick={handlePlay}
-              className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
+              disabled={!selectedMode}
+              animate={{
+                boxShadow: selectedMode && selectedModeData
+                  ? [
+                      `0 8px 24px ${selectedModeData.accentColor}40`,
+                      `0 12px 32px ${selectedModeData.accentColor}60`,
+                      `0 8px 24px ${selectedModeData.accentColor}40`,
+                    ]
+                  : 'none',
+              }}
+              transition={{
+                boxShadow: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+              }}
+              className={`w-full py-5 rounded-2xl font-bold text-lg transition-all relative overflow-hidden ${
                 selectedMode
-                  ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-[0_8px_24px_rgba(255,59,48,0.4)] hover:shadow-[0_12px_32px_rgba(255,59,48,0.5)] hover:scale-[1.02] active:scale-[0.98]'
+                  ? 'bg-gradient-to-b from-stake-red to-stake-red-dark text-white hover:scale-[1.02] active:scale-[0.98]'
                   : 'bg-white/5 text-gray-500 cursor-not-allowed border border-white/10'
               }`}
-              disabled={!selectedMode}
+              style={{
+                boxShadow: selectedMode
+                  ? `0 1px 0 inset rgba(255, 255, 255, 0.2), 0 8px 24px ${selectedModeData?.accentColor}40`
+                  : undefined,
+              }}
               aria-label="Начать игру с выбранными настройками"
             >
               {selectedMode ? 'Начать игру' : 'Выберите режим игры'}
-            </button>
+            </motion.button>
           </motion.div>
 
         </div>
