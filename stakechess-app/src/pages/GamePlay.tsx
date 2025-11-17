@@ -377,10 +377,10 @@ export default function GamePlay() {
 
               <button
                 onClick={() => setIsPaused(false)}
-                className="btn-primary w-full !py-5 flex items-center justify-center gap-2 mb-3"
+                className="btn-primary w-full !py-3 md:!py-4 flex items-center justify-center gap-2 mb-3"
               >
-                <Play className="w-6 h-6" fill="currentColor" />
-                <span className="text-xl font-bold">Продолжить игру</span>
+                <Play className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" />
+                <span className="text-lg md:text-xl font-bold">Продолжить игру</span>
               </button>
 
               <button
@@ -500,11 +500,11 @@ export default function GamePlay() {
 
               <button
                 onClick={() => navigate('/premium')}
-                className="btn-primary w-full !py-5 flex items-center justify-center gap-2 mb-3"
+                className="btn-primary w-full !py-3 md:!py-4 flex items-center justify-center gap-2 mb-3"
                 aria-label="Перейти к King Premium"
               >
-                <Crown className="w-6 h-6" fill="currentColor" />
-                <span className="text-xl font-bold">Получить Premium</span>
+                <Crown className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" />
+                <span className="text-lg md:text-xl font-bold">Получить Premium</span>
               </button>
 
               <button

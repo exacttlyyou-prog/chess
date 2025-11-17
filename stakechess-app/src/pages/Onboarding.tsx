@@ -226,17 +226,6 @@ export default function Onboarding() {
               >
                 <img src="/images/grandmasters/касабланка.png" alt="Капабланка" className="w-full h-full object-cover" />
               </motion.div>
-
-              {/* AI Robot Icon - HIDDEN ON MOBILE */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.9, type: 'spring' }}
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                className="hidden md:flex aspect-square rounded-lg md:rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border border-stake-red/30 md:border-2 items-center justify-center shadow-2xl"
-              >
-                <img src="/images/icons/ai-robot.png" alt="AI" className="w-2/3 object-contain drop-shadow-2xl" />
-              </motion.div>
             </motion.div>
           </div>
         )}

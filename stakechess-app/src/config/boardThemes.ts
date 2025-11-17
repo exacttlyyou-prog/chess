@@ -21,8 +21,8 @@ export const BOARD_THEMES: BoardTheme[] = [
     description: 'Традиционные шахматные цвета',
     premium: false,
     colors: {
-      light: 'rgba(255, 255, 255, 0.15)',
-      dark: 'rgba(0, 0, 0, 0.40)',
+      light: 'rgba(255, 255, 255, 0.25)',
+      dark: 'rgba(0, 0, 0, 0.60)',
       border: 'rgba(255, 255, 255, 0.12)',
       highlight: 'rgba(239, 49, 36, 0.3)',
       selected: 'rgba(239, 49, 36, 0.4)',
@@ -66,8 +66,8 @@ export const BOARD_THEMES: BoardTheme[] = [
     description: 'Чистые линии и простота',
     premium: false,
     colors: {
-      light: 'rgba(255, 255, 255, 0.10)',
-      dark: 'rgba(0, 0, 0, 0.30)',
+      light: 'rgba(255, 255, 255, 0.18)',
+      dark: 'rgba(0, 0, 0, 0.50)',
       border: 'rgba(255, 255, 255, 0.08)',
       highlight: 'rgba(239, 49, 36, 0.25)',
       selected: 'rgba(239, 49, 36, 0.35)',
