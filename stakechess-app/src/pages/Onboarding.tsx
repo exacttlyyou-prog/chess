@@ -19,7 +19,7 @@ const slides = [
   {
     title: 'Играй как легенды',
     description: 'Уникальные AI модели стилей Магнуса Карлсена, Каспарова, Фишера и других',
-    image: '/images/heroes/ai-legends.png',
+    image: '/images/grandmasters/карлсон.png',
     stat: '12 легендарных стилей',
   },
   {
