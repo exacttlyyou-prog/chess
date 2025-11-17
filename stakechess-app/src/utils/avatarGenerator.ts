@@ -165,6 +165,7 @@ export function generateOpponentAvatar(rating: number): { name: string; avatar: 
 }
 
 // Convert SVG string to data URL for use in img src
+// Using encodeURIComponent instead of btoa to handle Unicode characters (chess pieces)
 export function svgToDataUrl(svg: string): string {
-  return `data:image/svg+xml;base64,${btoa(svg)}`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
