@@ -194,7 +194,7 @@ export default function GameMode() {
                   onClick={() => setSelectedMode(mode.id)}
                   aria-label={`${mode.title} - ${mode.description}`}
                   aria-pressed={isSelected}
-                  className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] ${getModeStyles()}`}
+                  className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] relative overflow-hidden ${getModeStyles()}`}
                 >
                   <div className={`bg-gradient-to-br ${
                     selectedMode === mode.id
@@ -210,6 +210,16 @@ export default function GameMode() {
                   <h6 className="mb-1">{mode.title}</h6>
                   <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
                   <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
+                  {/* 3D Icon Anchor */}
+                  {mode.id === 'blitz' && (
+                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-16 h-16 opacity-40 pointer-events-none" />
+                  )}
+                  {mode.id === 'rapid' && (
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-14 h-14 opacity-40 pointer-events-none" />
+                  )}
+                  {mode.id === 'classic' && (
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-14 h-14 opacity-40 pointer-events-none" />
+                  )}
                 </motion.button>
                 );
               })}
@@ -227,7 +237,7 @@ export default function GameMode() {
             <div className="space-y-3">
               <button
                 onClick={handlePlay}
-                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth"
+                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth relative overflow-hidden"
                 aria-label="Играть против случайного соперника"
               >
                 <div className="flex items-center gap-3">
@@ -240,10 +250,16 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
+                {/* 3D Icon Anchor */}
+                <img
+                  src="/images/icons/кубик.png"
+                  alt=""
+                  className="absolute bottom-4 right-4 w-16 h-16 opacity-50 pointer-events-none"
+                />
               </button>
               <button
                 onClick={handlePlayWithAI}
-                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth"
+                className="glass-card p-6 w-full text-left bg-white/5 border border-white/10 hover:bg-white/8 hover:border-stake-red/30 transition-all shadow-depth relative overflow-hidden"
                 aria-label="Играть против AI моделей шахматистов"
               >
                 <div className="flex items-center gap-3">
@@ -256,6 +272,12 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
+                {/* 3D Icon Anchor */}
+                <img
+                  src="/images/icons/ai-robot.png"
+                  alt=""
+                  className="absolute bottom-4 right-4 w-16 h-16 opacity-50 pointer-events-none"
+                />
               </button>
             </div>
           </motion.div>

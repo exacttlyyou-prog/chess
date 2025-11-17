@@ -250,7 +250,7 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/game-mode')}
-              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,59,48,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ff3b30]"
+              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,59,48,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ff3b30] relative overflow-hidden"
               aria-label="Быстрая игра в режиме Блиц 3+2"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stake-red/30 to-stake-red/10 flex items-center justify-center mx-auto mb-3">
@@ -258,6 +258,12 @@ export default function Home() {
               </div>
               <p className="font-semibold text-base mb-1">Быстрая игра</p>
               <p className="text-xs text-gray-400">Блиц 3+2</p>
+              {/* 3D Icon Anchor */}
+              <img
+                src="/images/icons/секундомер.png"
+                alt=""
+                className="absolute bottom-4 right-4 w-16 h-16 opacity-60 pointer-events-none"
+              />
             </motion.button>
 
             <motion.button
@@ -267,7 +273,7 @@ export default function Home() {
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => navigate('/tournaments')}
-              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,204,0,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ffcc00]"
+              className="glass-card p-6 text-center shadow-depth hover-lift !bg-gradient-to-br !from-[rgba(255,204,0,0.12)] !to-[#2a2a2a] border-l-4 !border-l-[#ffcc00] relative overflow-hidden"
               aria-label="Турниры с призовыми партиями"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/30 to-yellow-500/10 flex items-center justify-center mx-auto mb-3">
@@ -275,6 +281,12 @@ export default function Home() {
               </div>
               <p className="font-semibold text-base mb-1">Турниры</p>
               <p className="text-xs text-gray-400">Призовые партии</p>
+              {/* 3D Icon Anchor */}
+              <img
+                src="/images/icons/кубок.png"
+                alt=""
+                className="absolute bottom-4 right-4 w-16 h-16 opacity-60 pointer-events-none"
+              />
             </motion.button>
           </div>
         </div>
@@ -289,13 +301,19 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/puzzles')}
-            className="glass-card p-4 text-center shadow-depth hover-lift"
+            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Решать шахматные задачи"
           >
             <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 flex items-center justify-center">
               <Puzzle className="w-5 h-5 text-purple-400" strokeWidth={2} />
             </div>
             <p className="font-semibold text-sm">Задачи</p>
+            {/* 3D Icon Anchor */}
+            <img
+              src="/images/icons/мозг.png"
+              alt=""
+              className="absolute bottom-2 right-2 w-12 h-12 opacity-50 pointer-events-none"
+            />
           </motion.button>
 
           <motion.button
@@ -305,13 +323,19 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/openings')}
-            className="glass-card p-4 text-center shadow-depth hover-lift"
+            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Изучать шахматные дебюты"
           >
             <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-500/20 flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-blue-400" strokeWidth={2} />
             </div>
             <p className="font-semibold text-sm">Дебюты</p>
+            {/* 3D Icon Anchor */}
+            <img
+              src="/images/icons/ожидание.png"
+              alt=""
+              className="absolute bottom-2 right-2 w-12 h-12 opacity-50 pointer-events-none"
+            />
           </motion.button>
 
           <motion.button
@@ -321,13 +345,19 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/leaderboard')}
-            className="glass-card p-4 text-center shadow-depth hover-lift"
+            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
             aria-label="Посмотреть таблицу лидеров"
           >
             <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-yellow-500/20 flex items-center justify-center">
               <BarChart3 className="w-5 h-5 text-yellow-400" strokeWidth={2} />
             </div>
             <p className="font-semibold text-sm">Рейтинг</p>
+            {/* 3D Icon Anchor */}
+            <img
+              src="/images/icons/статист.png"
+              alt=""
+              className="absolute bottom-2 right-2 w-12 h-12 opacity-50 pointer-events-none"
+            />
           </motion.button>
         </div>
       </motion.div>

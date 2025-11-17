@@ -13,7 +13,7 @@ const slides = [
   {
     title: 'Играй с реальными людьми',
     description: 'Предприниматели, звёзды спорта и культуры, эксперты. Найди достойного соперника!',
-    image: '/images/heroes/real-people.png',
+    image: '/images/heroes/world-map.png',
     stat: 'Живое сообщество',
   },
   {
