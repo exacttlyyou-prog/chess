@@ -243,19 +243,19 @@ export default function GameMode() {
                 className="glass-card p-6 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
                 aria-label="Играть против AI моделей шахматистов"
               >
-                <div className="flex items-center gap-3">
+                {/* 3D Icon Anchor - behind text */}
+                <img
+                  src="/images/icons/играй с ии.png"
+                  alt=""
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none z-0"
+                />
+                <div className="flex items-center gap-3 relative z-10">
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Играть с AI</h6>
                     <p className="text-body-sm text-gray-400">Тренировочный режим</p>
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
-                {/* 3D Icon Anchor */}
-                <img
-                  src="/images/icons/играй с ии.png"
-                  alt=""
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none"
-                />
               </button>
             </div>
           </motion.div>

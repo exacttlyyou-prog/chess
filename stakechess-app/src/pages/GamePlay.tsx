@@ -225,9 +225,9 @@ export default function GamePlay() {
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="flex-1 flex items-center scale-75 sm:scale-90 md:scale-100 px-2 sm:px-0"
+          className="flex-1 flex items-center justify-center"
         >
-          <div className="w-full">
+          <div className="w-full max-w-xl">
             <ChessBoard
               game={game}
               position={position}
