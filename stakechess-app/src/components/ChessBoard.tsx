@@ -398,8 +398,13 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
             <div className="relative w-full h-full rounded-2xl overflow-hidden" style={{
               boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) inset'
             }}>
+              {/* Solid background layer - blocks pattern completely */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f14] to-[#0a0a0e] backdrop-blur-xl" style={{
+                background: 'linear-gradient(135deg, rgba(15, 15, 20, 0.98) 0%, rgba(10, 10, 14, 0.98) 100%)'
+              }} />
+
               {/* Grid lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 800" preserveAspectRatio="none">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 800 800" preserveAspectRatio="none">
                 <defs>
                   <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
                     <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1"/>
@@ -408,7 +413,7 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                 <rect width="800" height="800" fill="url(#grid)" />
               </svg>
 
-              <div className="chess-board-grid grid grid-cols-8 gap-0 w-full h-full">
+              <div className="chess-board-grid grid grid-cols-8 gap-0 w-full h-full relative z-20">
                 {board.map((row, rowIndex) =>
                   row.map((square, colIndex) => {
                     const isDark = (rowIndex + colIndex) % 2 === 1;
