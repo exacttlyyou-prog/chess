@@ -133,9 +133,9 @@ export default function GameMode() {
       {activeTab === 'play' ? (
         <div role="tabpanel" id="play-panel" aria-labelledby="play-tab">
           {/* Game Modes - 2x2 Grid with Hero Icons */}
-          <div className="px-2 md:px-8 mb-8">
-            <h6 className="!text-base text-gray-400 mb-4 px-2 md:px-0">Режим игры</h6>
-            <div className="grid grid-cols-2 gap-2 md:gap-4">
+          <div className="px-4 md:px-8 mb-8">
+            <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               {gameModes.map((mode, index) => {
                 const isSelected = selectedMode === mode.id;
 
@@ -148,7 +148,7 @@ export default function GameMode() {
                     onClick={() => setSelectedMode(mode.id)}
                     aria-label={`${mode.title} - ${mode.description}`}
                     aria-pressed={isSelected}
-                    className={`glass-card aspect-square p-2 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
+                    className={`glass-card aspect-square p-1.5 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
                       isSelected
                         ? 'border-2 !border-opacity-100'
                         : 'border border-white/5 hover:border-white/10'
@@ -171,7 +171,7 @@ export default function GameMode() {
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-full h-full max-h-[60%] object-contain"
+                        className="w-full h-full max-h-[50%] md:max-h-[60%] object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
@@ -182,15 +182,15 @@ export default function GameMode() {
                     </motion.div>
 
                     {/* Text below icon - 40% */}
-                    <div className="relative z-10 w-full">
+                    <div className="relative z-10 w-full space-y-0">
                       <h6
-                        className="!text-xs md:!text-lg mb-0.5 md:mb-1 font-bold truncate"
+                        className="!text-[11px] md:!text-lg font-bold truncate leading-none mb-0.5"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-sm md:text-2xl font-normal text-white mb-0 truncate">{mode.time}</p>
-                      <p className="text-[9px] md:text-xs text-gray-400 truncate leading-tight">{mode.description}</p>
+                      <p className="text-xs md:text-2xl font-semibold text-white truncate leading-none">{mode.time}</p>
+                      <p className="hidden md:block text-xs text-gray-400 truncate mt-1">{mode.description}</p>
                     </div>
 
                     {/* Energy glow when selected */}
