@@ -22,7 +22,7 @@ export const BOARD_THEMES: BoardTheme[] = [
     premium: false,
     colors: {
       light: 'rgba(255, 255, 255, 0.95)',
-      dark: 'rgba(0, 0, 0, 0.90)',
+      dark: 'rgba(80, 80, 90, 0.95)',
       border: 'rgba(255, 255, 255, 0.12)',
       highlight: 'rgba(239, 49, 36, 0.3)',
       selected: 'rgba(239, 49, 36, 0.4)',
@@ -67,7 +67,7 @@ export const BOARD_THEMES: BoardTheme[] = [
     premium: false,
     colors: {
       light: 'rgba(255, 255, 255, 0.90)',
-      dark: 'rgba(0, 0, 0, 0.85)',
+      dark: 'rgba(70, 70, 80, 0.92)',
       border: 'rgba(255, 255, 255, 0.08)',
       highlight: 'rgba(239, 49, 36, 0.25)',
       selected: 'rgba(239, 49, 36, 0.35)',
