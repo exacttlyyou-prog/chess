@@ -169,25 +169,25 @@
     background-color: var(--glass-hover);
   }
 
-  /* Dark theme glass-card - Material Design по стандартам Jony Ive */
+  /* Dark theme glass-card - Jony Ive: "Свет падает сверху" */
   .dark-theme .glass-card {
-    background-color: #1A1A1A;
+    background: linear-gradient(180deg, #1E1E1E 0%, #161616 100%);
     @apply backdrop-blur-xl rounded-3xl;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .dark-theme .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.08);
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
     box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.4),
-      0 2px 12px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   /* Light theme glass-card */
@@ -210,25 +210,26 @@
       0 0 0 1px rgba(0, 0, 0, 0.08) inset;
   }
 
-  /* Default glass-card (dark) - Material Design по стандартам Jony Ive */
+  /* Default glass-card (dark) - Jony Ive: "Свет падает сверху" */
   .glass-card {
-    background-color: #1A1A1A; /* Чуть светлее фона #121212 - создает глубину */
+    /* Линейный градиент сверху-вниз - имитация света */
+    background: linear-gradient(180deg, #1E1E1E 0%, #161616 100%);
     @apply backdrop-blur-xl rounded-3xl;
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Едва заметная граница */
+    border: 1px solid rgba(255, 255, 255, 0.06); /* Едва заметная граница */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.03); /* Внутренняя тень для объема */
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04); /* Внутренняя тень для объема */
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.08); /* Немного ярче при hover */
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1); /* Ярче при hover */
+    transform: translateY(-3px);
     box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.4),
-      0 2px 12px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   .glass-card:active {

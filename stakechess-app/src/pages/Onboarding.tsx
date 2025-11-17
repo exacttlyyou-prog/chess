@@ -163,6 +163,84 @@ export default function Onboarding() {
           </motion.button>
         </div>
 
+        {/* AI Legends Squircles - Custom Layout for Slide 3 */}
+        {currentSlide === 2 && (
+          <div className="flex-1 flex items-center justify-center p-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.6, type: 'spring' }}
+              className="grid grid-cols-3 gap-4 max-w-md"
+            >
+              {/* Карлсен */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 overflow-hidden shadow-2xl"
+              >
+                <img src="/images/grandmasters/карлсон.png" alt="Карлсен" className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* Фишер */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 overflow-hidden shadow-2xl"
+              >
+                <img src="/images/grandmasters/фишер.png" alt="Фишер" className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* Таль */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 overflow-hidden shadow-2xl"
+              >
+                <img src="/images/grandmasters/михаил таль.png" alt="Таль" className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* Карпов */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 overflow-hidden shadow-2xl"
+              >
+                <img src="/images/grandmasters/карпов.png" alt="Карпов" className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* Капабланка */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 overflow-hidden shadow-2xl"
+              >
+                <img src="/images/grandmasters/касабланка.png" alt="Капабланка" className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* AI Robot Icon - центральный элемент */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9, type: 'spring' }}
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="w-24 h-24 rounded-2xl bg-gradient-to-br from-stake-red/20 to-purple-900/20 border-2 border-stake-red/30 flex items-center justify-center shadow-2xl"
+              >
+                <img src="/images/icons/ai-robot.png" alt="AI" className="w-16 h-16 object-contain drop-shadow-lg" />
+              </motion.div>
+            </motion.div>
+          </div>
+        )}
+
         {/* Main Content - Text Overlay */}
         <div className="flex-1 flex flex-col justify-end p-8 pb-32">
           <AnimatePresence mode="wait">
