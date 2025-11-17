@@ -206,7 +206,7 @@ export default function Onboarding() {
         </div>
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end px-6 md:p-8 pb-8 md:pb-32">
+        <div className="flex-1 flex flex-col justify-end px-6 md:p-8 pb-44 md:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -251,7 +251,7 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="px-6 py-6 md:p-8 space-y-6"
+          className="fixed bottom-0 left-0 right-0 md:relative px-6 py-6 md:p-8 space-y-6 bg-gradient-to-t from-black via-black/95 to-transparent md:bg-none"
           style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
         >
           {/* Progress Dots */}
