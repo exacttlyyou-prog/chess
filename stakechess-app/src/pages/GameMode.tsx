@@ -196,18 +196,20 @@ export default function GameMode() {
                   aria-pressed={isSelected}
                   className={`glass-card p-6 text-left transition-all hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.99] relative overflow-hidden ${getModeStyles()}`}
                 >
-                  <h6 className="mb-1 mt-4">{mode.title}</h6>
-                  <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
-                  {/* 3D Icon Anchor */}
+                  <div className="relative z-10">
+                    <h6 className="mb-1">{mode.title}</h6>
+                    <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
+                    <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
+                  </div>
+                  {/* 3D Icon Anchor - Паттерн Баланс (40% справа) */}
                   {mode.id === 'blitz' && (
-                    <img src="/images/icons/молния.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
+                    <img src="/images/icons/молния.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                   {mode.id === 'rapid' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                   {mode.id === 'classic' && (
-                    <img src="/images/icons/ожидание.png" alt="" className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none" />
+                    <img src="/images/icons/ожидание.png" alt="" className="absolute right-2 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none" />
                   )}
                 </motion.button>
                 );
@@ -236,11 +238,11 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
-                {/* 3D Icon Anchor */}
+                {/* 3D Icon Anchor - увеличен для визуального якоря */}
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none"
                 />
               </button>
               <button
@@ -255,11 +257,11 @@ export default function GameMode() {
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
-                {/* 3D Icon Anchor */}
+                {/* 3D Icon Anchor - увеличен для визуального якоря */}
                 <img
                   src="/images/icons/ai-robot.png"
                   alt=""
-                  className="absolute bottom-4 right-4 w-20 h-20 opacity-25 pointer-events-none"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none"
                 />
               </button>
             </div>

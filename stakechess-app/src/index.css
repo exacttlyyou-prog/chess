@@ -138,23 +138,25 @@
     background-color: var(--glass-hover);
   }
 
-  /* Dark theme glass-card - improved contrast for WCAG AA */
+  /* Dark theme glass-card - Material Design по стандартам Jony Ive */
   .dark-theme .glass-card {
-    @apply bg-gradient-to-br from-white/[0.14] to-white/[0.08] backdrop-blur-xl border border-white/[0.22] rounded-3xl;
+    background-color: #1A1A1A;
+    @apply backdrop-blur-xl rounded-3xl;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
   .dark-theme .glass-card:hover {
-    @apply border-white/[0.28] from-white/[0.18] to-white/[0.10];
+    border-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
     box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.3),
+      0 8px 28px rgba(0, 0, 0, 0.4),
       0 2px 12px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   /* Light theme glass-card */
@@ -177,23 +179,25 @@
       0 0 0 1px rgba(0, 0, 0, 0.08) inset;
   }
 
-  /* Default glass-card (dark) - improved contrast for WCAG AA */
+  /* Default glass-card (dark) - Material Design по стандартам Jony Ive */
   .glass-card {
-    @apply bg-gradient-to-br from-white/[0.14] to-white/[0.08] backdrop-blur-xl border border-white/[0.22] rounded-3xl;
+    background-color: #1A1A1A; /* Чуть светлее фона #121212 - создает глубину */
+    @apply backdrop-blur-xl rounded-3xl;
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Едва заметная граница */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03); /* Внутренняя тень для объема */
   }
 
   .glass-card:hover {
-    @apply border-white/[0.28] from-white/[0.18] to-white/[0.10];
+    border-color: rgba(255, 255, 255, 0.08); /* Немного ярче при hover */
     transform: translateY(-2px);
     box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.3),
+      0 8px 28px rgba(0, 0, 0, 0.4),
       0 2px 12px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .glass-card:active {
