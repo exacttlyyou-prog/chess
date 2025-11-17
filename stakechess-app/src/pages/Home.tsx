@@ -293,7 +293,51 @@ export default function Home() {
           </motion.button>
         </div>
 
-        {/* Training - Compact single row */}
+        {/* Tournament CTA - Premium White Squircle */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, type: 'spring' }}
+          whileHover={{ scale: 1.01, y: -4 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={() => navigate('/tournaments')}
+          className="w-full mb-12 p-6 rounded-3xl bg-white text-black shadow-2xl relative overflow-hidden group"
+          aria-label="Перейти к турнирам"
+        >
+          {/* Паттерн A: Баланс - Текст 60% + Иконка 40% */}
+          <div className="flex items-center gap-6">
+            {/* Левая колонка: Текст */}
+            <div className="flex-1 min-w-0 text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 mb-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-stake-red animate-pulse" />
+                <span className="text-xs font-bold text-stake-red uppercase tracking-wider">Live</span>
+              </div>
+              <h3 className="!text-2xl !font-bold mb-2 leading-tight text-black">Главный турнир недели</h3>
+              <p className="text-sm text-black/70 mb-4 leading-relaxed">
+                Призовой фонд: <span className="font-bold text-black">50 000 ₽</span>
+              </p>
+              {/* Ghost Button */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black/10 bg-black/5 hover:bg-black/10 hover:border-black/20 transition-all group-hover:gap-3">
+                <span className="text-sm font-semibold text-black">Участвовать</span>
+                <span className="text-lg transition-transform group-hover:translate-x-1">→</span>
+              </div>
+            </div>
+
+            {/* Правая колонка: 3D Визуальный якорь */}
+            <div className="w-32 h-32 flex-shrink-0 relative">
+              <img
+                src="/images/icons/турнир.png"
+                alt=""
+                className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+          </div>
+
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-stake-red/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        </motion.button>
+
+        {/* Training - Паттерн C: Интеграция (иконка + текст как единое целое) */}
         <h3 className="!text-xl mb-4 !font-semibold">Тренировки</h3>
         <div className="grid grid-cols-3 gap-3 mb-12">
           <motion.button
@@ -303,16 +347,16 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/puzzles')}
-            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
+            className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Решать шахматные задачи"
           >
-            <p className="font-bold text-base mt-2">Задачи</p>
-            {/* 3D Icon Anchor */}
+            {/* 3D Иконка как главный элемент */}
             <img
               src="/images/icons/мозг.png"
               alt=""
-              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
+              className="w-16 h-16 object-contain drop-shadow-lg"
             />
+            <p className="font-bold text-sm">Задачи</p>
           </motion.button>
 
           <motion.button
@@ -322,16 +366,16 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/openings')}
-            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
+            className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Изучать шахматные дебюты"
           >
-            <p className="font-bold text-base mt-2">Дебюты</p>
-            {/* 3D Icon Anchor */}
+            {/* 3D Иконка как главный элемент */}
             <img
               src="/images/icons/pawn.png"
               alt=""
-              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
+              className="w-16 h-16 object-contain drop-shadow-lg"
             />
+            <p className="font-bold text-sm">Дебюты</p>
           </motion.button>
 
           <motion.button
@@ -341,16 +385,16 @@ export default function Home() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/leaderboard')}
-            className="glass-card p-4 text-center shadow-depth hover-lift relative overflow-hidden"
+            className="glass-card p-6 text-center shadow-depth hover-lift flex flex-col items-center justify-center gap-3 min-h-[140px]"
             aria-label="Посмотреть таблицу лидеров"
           >
-            <p className="font-bold text-base mt-2">Рейтинг</p>
-            {/* 3D Icon Anchor */}
+            {/* 3D Иконка как главный элемент */}
             <img
               src="/images/icons/статист.png"
               alt=""
-              className="absolute bottom-2 right-2 w-16 h-16 opacity-30 pointer-events-none"
+              className="w-16 h-16 object-contain drop-shadow-lg"
             />
+            <p className="font-bold text-sm">Рейтинг</p>
           </motion.button>
         </div>
       </motion.div>
