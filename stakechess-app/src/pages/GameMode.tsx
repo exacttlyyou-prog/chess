@@ -74,23 +74,23 @@ export default function GameMode() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-2 pb-4 flex items-center gap-4"
+        className="px-6 md:px-8 pt-2 pb-4 flex items-center gap-3 md:gap-4"
       >
         <button
           onClick={() => navigate('/home')}
-          className="glass-button !px-4 !py-3"
+          className="glass-button !px-3 !py-3 md:!px-4"
         >
-          <ArrowLeft className="w-6 h-6" />
+          <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
-        <h1 className="!text-3xl">Выбор режима</h1>
+        <h1 className="!text-2xl md:!text-3xl">Выбор режима</h1>
       </motion.div>
 
       {/* Tabs */}
-      <div className="px-8 mb-8">
+      <div className="px-6 md:px-8 mb-6 md:mb-8">
         <div className="glass rounded-2xl p-2 flex gap-2">
           <button
             onClick={() => setActiveTab('play')}
-            className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
+            className={`flex-1 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all ${
               activeTab === 'play'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -100,7 +100,7 @@ export default function GameMode() {
           </button>
           <button
             onClick={() => setActiveTab('tournament')}
-            className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
+            className={`flex-1 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all ${
               activeTab === 'tournament'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -114,9 +114,9 @@ export default function GameMode() {
       {activeTab === 'play' ? (
         <>
           {/* Game Modes */}
-          <div className="px-8 mb-8">
+          <div className="px-6 md:px-8 mb-8">
             <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               {gameModes.map((mode, index) => (
                 <motion.button
                   key={mode.id}
@@ -126,7 +126,7 @@ export default function GameMode() {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedMode(mode.id)}
-                  className={`glass-card p-6 text-left transition-all shadow-depth ${
+                  className={`glass-card p-4 md:p-6 text-left transition-all shadow-depth min-h-[160px] md:min-h-[180px] flex flex-col ${
                     selectedMode === mode.id
                       ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
                       : ''
@@ -136,12 +136,12 @@ export default function GameMode() {
                     selectedMode === mode.id
                       ? 'from-stake-red/30 to-stake-red/10'
                       : 'from-stake-red/20 to-stake-red/5'
-                  } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
+                  } w-10 h-10 md:w-12 md:h-12 rounded-2xl flex items-center justify-center mb-3 md:mb-4`}>
+                    <mode.Icon className="w-5 h-5 md:w-6 md:h-6 text-stake-red" strokeWidth={2} />
                   </div>
-                  <h6 className="mb-1">{mode.title}</h6>
-                  <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
+                  <h6 className="mb-1 truncate">{mode.title}</h6>
+                  <p className="text-sm md:text-body-sm text-gray-400 mb-2 font-medium truncate">{mode.time}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{mode.description}</p>
                 </motion.button>
               ))}
             </div>
@@ -152,32 +152,32 @@ export default function GameMode() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="px-8 mb-6"
+            className="px-6 md:px-8 mb-6"
           >
             <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button className="glass-card p-4 md:p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Shuffle className="w-6 h-6 text-stake-red" />
+                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 md:p-3 rounded-xl">
+                    <Shuffle className="w-5 h-5 md:w-6 md:h-6 text-stake-red" />
                   </div>
-                  <div className="flex-1">
-                    <h6 className="!text-base mb-1">Случайный соперник</h6>
-                    <p className="text-body-sm text-gray-400">Рейтинг: 1400 - 1500</p>
+                  <div className="flex-1 min-w-0">
+                    <h6 className="!text-sm md:!text-base mb-1 truncate">Случайный соперник</h6>
+                    <p className="text-xs md:text-body-sm text-gray-400 truncate">Рейтинг: 1400 - 1500</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-gray-500" />
+                  <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0" />
                 </div>
               </button>
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button className="glass-card p-4 md:p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Bot className="w-6 h-6 text-stake-red" />
+                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-2 md:p-3 rounded-xl">
+                    <Bot className="w-5 h-5 md:w-6 md:h-6 text-stake-red" />
                   </div>
-                  <div className="flex-1">
-                    <h6 className="!text-base mb-1">Играть с AI</h6>
-                    <p className="text-body-sm text-gray-400">Тренировочный режим</p>
+                  <div className="flex-1 min-w-0">
+                    <h6 className="!text-sm md:!text-base mb-1 truncate">Играть с AI</h6>
+                    <p className="text-xs md:text-body-sm text-gray-400 truncate">Тренировочный режим</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-gray-500" />
+                  <ArrowRight className="w-5 h-5 text-gray-500 flex-shrink-0" />
                 </div>
               </button>
             </div>
@@ -188,7 +188,7 @@ export default function GameMode() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="px-8"
+            className="px-6 md:px-8"
           >
             <button onClick={handlePlay} className="btn-primary w-full">
               Начать игру

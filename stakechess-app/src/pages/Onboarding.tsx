@@ -206,7 +206,7 @@ export default function Onboarding() {
         </div>
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-8 pb-32">
+        <div className="flex-1 flex flex-col justify-end px-6 md:p-8 pb-8 md:pb-32">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -251,7 +251,8 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-8 space-y-6"
+          className="px-6 py-6 md:p-8 space-y-6"
+          style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
         >
           {/* Progress Dots */}
           <div className="flex justify-center gap-3">
@@ -269,15 +270,15 @@ export default function Onboarding() {
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             {currentSlide > 0 && (
-              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
+              <button onClick={prevSlide} className="btn-secondary flex-1 !py-3 md:!py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
                 Назад
               </button>
             )}
             <button
               onClick={nextSlide}
-              className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
+              className="btn-primary flex-1 !py-3 md:!py-5 text-base md:text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
             >
               {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
             </button>

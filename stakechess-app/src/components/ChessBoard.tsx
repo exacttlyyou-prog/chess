@@ -310,12 +310,12 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
       </div>
 
       {/* Chess Board */}
-      <div className="glass-card p-4 sm:p-6">
-        <div className="aspect-square max-w-xl mx-auto relative">
+      <div className="glass-card p-3 md:p-4 lg:p-6">
+        <div className="aspect-square w-full mx-auto relative">
           {/* Board container with coordinates */}
           <div className="relative">
             {/* Rank labels (1-8) on the left */}
-            <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+            <div className="absolute -left-4 md:-left-6 top-0 bottom-0 flex flex-col justify-around text-[10px] md:text-xs text-gray-300 font-mono font-bold tracking-wider">
               {[8, 7, 6, 5, 4, 3, 2, 1].map((rank) => (
                 <div key={rank} className="h-[12.5%] flex items-center">
                   {rank}
@@ -324,7 +324,7 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
             </div>
 
             {/* File labels (a-h) on the bottom */}
-            <div className="absolute -bottom-6 left-0 right-0 flex justify-around text-xs text-gray-300 font-mono font-bold tracking-wider">
+            <div className="absolute -bottom-4 md:-bottom-6 left-0 right-0 flex justify-around text-[10px] md:text-xs text-gray-300 font-mono font-bold tracking-wider">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((file) => (
                 <div key={file} className="w-[12.5%] flex justify-center">
                   {file}
@@ -361,14 +361,13 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         onClick={() => handleSquareClick(rowIndex, colIndex)}
                         className={`
                           relative aspect-square flex items-center justify-center
-                          transition-all duration-300 ease-out
+                          transition-colors duration-200 ease-out
                           ${isDark ? 'bg-black/20' : 'bg-white/5'}
                           ${selected ? 'bg-stake-red/30 shadow-[inset_0_0_24px_rgba(255,23,68,0.4)] ring-2 ring-inset ring-stake-red/60' : ''}
                           ${validMove ? 'bg-stake-red/20' : ''}
                           ${highlight ? 'bg-yellow-500/20 shadow-[inset_0_0_16px_rgba(234,179,8,0.3)]' : ''}
                           hover:bg-white/10
                         `}
-                        style={{ willChange: 'background-color' }}
                       >
                       {validMove && !piece && (
                         <motion.div
@@ -401,11 +400,11 @@ export default function ChessBoard({ onMove, whiteTime, blackTime }: ChessBoardP
                         />
                       )}
                       {piece && (
-                        <div className="w-full h-full p-2 relative group" style={{ willChange: 'transform' }}>
+                        <div className="w-full h-full p-1.5 md:p-2 relative group">
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className="w-full h-full select-none cursor-pointer relative z-10 transition-all duration-300 ease-out group-hover:scale-110"
+                            className="w-full h-full select-none cursor-pointer relative z-10 transition-transform duration-200 ease-out group-hover:scale-110"
                           />
                         </div>
                       )}
