@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Bot, Settings } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
 import ThemeToggle from '../components/ThemeToggle';
-import { useToast } from '../contexts/ToastContext';
 
 const recentGames = [
   {
@@ -41,7 +40,6 @@ const recentGames = [
 
 export default function Home() {
   const navigate = useNavigate();
-  const { info } = useToast();
 
   return (
     <motion.div
@@ -178,64 +176,78 @@ export default function Home() {
             whileHover={{ scale: 1.01, y: -6 }}
             whileTap={{ scale: 0.99 }}
             onClick={() => {
-              info('Модели шахматистов', 'Играй в стиле Магнуса Карлсена, Каспарова и других!');
               navigate('/select-ai');
             }}
-            className="glass-card p-8 md:p-10 text-left shadow-2xl bg-gradient-to-br from-stake-red/25 via-purple-900/15 to-transparent border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[280px]"
+            className="glass-card p-8 text-left shadow-2xl bg-gradient-to-br from-stake-red/20 via-purple-900/10 to-transparent border-2 border-stake-red/40 relative overflow-hidden group w-full min-h-[240px]"
             aria-label="Играть с AI моделями легендарных шахматистов"
           >
             {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-radial from-stake-red/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-radial from-stake-red/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            {/* Content */}
-            <div className="relative z-10">
-              {/* Header with icon */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-stake-red via-stake-red-dark to-purple-900 flex items-center justify-center shadow-2xl border border-stake-red/30 group-hover:scale-110 transition-transform duration-300">
-                  <Bot className="w-12 h-12 text-white" strokeWidth={2.5} />
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-400 mb-1">Доступно</div>
-                  <div className="text-3xl font-bold text-stake-red">12</div>
-                  <div className="text-xs text-gray-500">легенд</div>
-                </div>
-              </div>
-
+            {/* Content - Паттерн B: Доминанта */}
+            <div className="relative z-10 max-w-[60%]">
               {/* Title & Description */}
-              <h3 className="!text-3xl md:!text-4xl mb-4 leading-tight">AI-модели стилей<br/>великих шахматистов</h3>
-              <p className="text-body-lg text-gray-300 mb-6 leading-relaxed">
-                Сражайся против уникальных стилей игры Карлсена, Каспарова, Фишера и других легенд
+              <h3 className="!text-2xl md:!text-3xl mb-3 leading-tight">AI-модели стилей<br/>великих шахматистов</h3>
+              <p className="text-body text-gray-300 mb-4 leading-relaxed">
+                Сражайся против Карлсена, Фишера, Таля и других легенд
               </p>
 
-              {/* Preview Avatars */}
-              <div className="flex items-center gap-3 mb-6">
-                {['MC', 'GK', 'BF'].map((initials, i) => (
-                  <motion.div
-                    key={initials}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + i * 0.1, type: 'spring' }}
-                    className="w-12 h-12 rounded-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center border-2 border-white/20 font-bold text-sm backdrop-blur-sm"
-                  >
-                    {initials}
-                  </motion.div>
-                ))}
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stake-red/30 to-purple-900/30 flex items-center justify-center border-2 border-stake-red/30 text-sm text-gray-400 backdrop-blur-sm">
-                  +9
+              {/* Stats */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="text-3xl font-bold text-stake-red">8</div>
+                  <div className="text-xs text-gray-400 leading-tight">AI<br/>моделей</div>
+                </div>
+                <div className="h-8 w-px bg-white/10" />
+                <div className="flex items-center gap-2">
+                  <div className="text-3xl font-bold text-yellow-500">5</div>
+                  <div className="text-xs text-gray-400 leading-tight">легенд<br/>шахмат</div>
                 </div>
               </div>
 
               {/* CTA Arrow */}
               <div className="flex items-center gap-2 text-stake-red font-semibold group-hover:gap-4 transition-all">
-                <span className="text-lg">Все 12 стилей</span>
+                <span className="text-base">Выбрать соперника</span>
                 <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
 
-            {/* Decorative chess piece background */}
-            <div className="absolute right-0 bottom-0 w-40 h-40 opacity-10 pointer-events-none">
-              <Bot className="w-full h-full text-white" strokeWidth={1} />
+            {/* Паттерн B: Доминирующие портреты легенд (выходят за пределы) */}
+            <div className="absolute -right-6 -top-4 bottom-0 w-[50%] pointer-events-none">
+              {/* Карлсен - самый крупный, на переднем плане */}
+              <motion.img
+                initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ delay: 0.2, type: 'spring' }}
+                src="/images/grandmasters/карлсон.png"
+                alt=""
+                className="absolute right-0 top-4 w-32 h-32 rounded-2xl object-cover border-2 border-stake-red/40 shadow-2xl group-hover:scale-105 transition-transform duration-300"
+                style={{ zIndex: 5 }}
+              />
+              {/* Фишер */}
+              <motion.img
+                initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ delay: 0.3, type: 'spring' }}
+                src="/images/grandmasters/фишер.png"
+                alt=""
+                className="absolute right-16 bottom-8 w-24 h-24 rounded-xl object-cover border-2 border-yellow-500/30 shadow-xl opacity-80 group-hover:opacity-100 transition-all duration-300"
+                style={{ zIndex: 3 }}
+              />
+              {/* Таль */}
+              <motion.img
+                initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ delay: 0.4, type: 'spring' }}
+                src="/images/grandmasters/михаил таль.png"
+                alt=""
+                className="absolute right-2 bottom-20 w-20 h-20 rounded-xl object-cover border-2 border-purple-500/30 shadow-lg opacity-60 group-hover:opacity-90 transition-all duration-300"
+                style={{ zIndex: 2 }}
+              />
             </div>
+
+            {/* Subtle glow effect behind portraits */}
+            <div className="absolute right-0 top-0 w-48 h-48 bg-stake-red/20 blur-3xl rounded-full opacity-30 pointer-events-none" />
           </motion.button>
         </div>
 
