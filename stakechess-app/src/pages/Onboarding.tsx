@@ -163,6 +163,9 @@ export default function Onboarding() {
           </motion.button>
         </div>
 
+        {/* Flex Spacer - pushes content to bottom on desktop */}
+        <div className="hidden md:block flex-1" />
+
         {/* AI Legends Squircles - Custom Layout for Slide 3 */}
         {currentSlide === 2 && (
           <div className="flex items-center justify-center px-4 py-2 md:p-8">
