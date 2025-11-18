@@ -5,16 +5,10 @@ import { Send } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Стань мастером шахмат',
-    description: 'Играй с игроками со всего мира. Более 1 млн партий каждый день.',
-    image: '/images/heroes/growth-path.png',
-    stat: '1M+ игроков',
-  },
-  {
-    title: 'Играй с реальными людьми',
-    description: 'Предприниматели, звёзды спорта и культуры, эксперты. Найди достойного соперника!',
+    title: 'Играй со всем миром',
+    description: 'Более 1 млн игроков онлайн. Предприниматели, звёзды спорта, эксперты — найди достойного соперника!',
     image: '/images/heroes/world-map.png',
-    stat: 'Живое сообщество',
+    stat: '1M+ игроков онлайн',
   },
   {
     title: 'Играй как легенды',
@@ -90,6 +84,18 @@ export default function Onboarding() {
     }, 300);
   };
 
+  // Swipe handler
+  const handleDragEnd = (event: any, info: any) => {
+    const swipeThreshold = 50;
+    if (info.offset.x > swipeThreshold && currentSlide > 0) {
+      // Swipe right - previous slide
+      prevSlide();
+    } else if (info.offset.x < -swipeThreshold && currentSlide < slides.length - 1) {
+      // Swipe left - next slide
+      nextSlide();
+    }
+  };
+
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden">
       <AnimatePresence mode="wait">
@@ -142,7 +148,13 @@ export default function Onboarding() {
       </AnimatePresence>
 
       {/* Content Overlay */}
-      <div className="relative z-10 h-screen flex flex-col">
+      <motion.div
+        className="relative z-10 h-screen flex flex-col"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
+      >
         {/* Header */}
         <div className="px-4 md:px-8 pt-2 pb-4 flex justify-between items-center gap-2">
           <motion.h1
@@ -303,7 +315,7 @@ export default function Onboarding() {
             </div>
           )}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Skill Level Selection Modal */}
       {showSkillSelect && (
