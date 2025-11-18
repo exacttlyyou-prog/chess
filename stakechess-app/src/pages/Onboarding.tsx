@@ -85,7 +85,7 @@ export default function Onboarding() {
   };
 
   // Swipe handler
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (_event: any, info: any) => {
     const swipeThreshold = 50;
     if (info.offset.x > swipeThreshold && currentSlide > 0) {
       // Swipe right - previous slide
