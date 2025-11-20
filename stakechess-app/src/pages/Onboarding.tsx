@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slides = [
   {
     title: 'Играй со всем миром',
-    description: 'Более 1 млн игроков онлайн. Предприниматели, звёзды спорта, эксперты — найди достойного соперника!',
+    description: 'Более 1 млн игроков онлайн. Предприниматели, звёзды спорта и эксперты — найди достойного соперника!',
     image: '/images/heroes/world-map.png',
     stat: '1M+ игроков онлайн',
   },
   {
     title: 'Играй как легенды',
-    description: 'Уникальные AI модели стилей Магнуса Карлсена, Каспарова, Фишера и других',
+    description: 'Уникальные AI-модели стилей Магнуса Карлсена, Каспарова, Фишера и других гроссмейстеров',
     image: '/images/grandmasters/карлсон.png',
     stat: '12 легендарных стилей',
   },
@@ -116,8 +116,8 @@ export default function Onboarding() {
           />
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
-          {/* Red accent gradient */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/20 via-transparent to-transparent" />
+          {/* Red accent gradient - reduced opacity */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/10 via-transparent to-transparent" />
 
           {/* Animated particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -176,7 +176,7 @@ export default function Onboarding() {
         </div>
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-3 md:p-8 pb-4 md:pb-8">
+        <div className="flex-1 flex flex-col justify-end p-4 md:p-8 pb-4 md:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -186,13 +186,37 @@ export default function Onboarding() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-2xl"
             >
+              {/* Swipe indicator - показываем на первом слайде */}
+              {currentSlide === 0 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  className="flex items-center justify-center gap-2 mb-4 text-white/50"
+                >
+                  <motion.div
+                    animate={{ x: [-5, 5, -5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </motion.div>
+                  <span className="text-xs">свайп</span>
+                  <motion.div
+                    animate={{ x: [5, -5, 5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </motion.div>
+                </motion.div>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mb-2"
+                className="mb-3"
               >
-                <span className="inline-block glass-button !px-4 !py-2 text-sm md:text-base font-semibold text-stake-red min-w-[90px] text-center">
+                <span className="inline-block glass-button !px-4 !py-2 text-sm font-semibold text-stake-red">
                   {currentSlide + 1} / {slides.length}
                 </span>
               </motion.div>
@@ -200,7 +224,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="!text-3xl md:!text-display mb-3 md:mb-6 leading-tight"
+                className="!text-3xl md:!text-display mb-4 md:mb-6 leading-tight"
               >
                 {slides[currentSlide].title}
               </motion.h2>
@@ -208,7 +232,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-sm md:text-body-lg text-gray-300 mb-3 md:mb-6"
+                className="text-base md:text-lg text-gray-300 mb-4 md:mb-6 leading-relaxed"
               >
                 {slides[currentSlide].description}
               </motion.p>
@@ -230,7 +254,7 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-3 md:p-8 space-y-3 md:space-y-6 pb-4 md:pb-8"
+          className="p-4 md:p-8 space-y-4 md:space-y-6 pb-6 md:pb-8"
         >
           {/* Progress Dots */}
           <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">
@@ -252,29 +276,29 @@ export default function Onboarding() {
 
           {/* Navigation Buttons */}
           {currentSlide < slides.length - 1 ? (
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="btn-secondary flex-1 !py-2 md:!py-3 transition-all duration-300">
+                <button onClick={prevSlide} className="flex-1 !py-3 md:!py-4 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all">
                   Назад
                 </button>
               )}
               <button
                 onClick={nextSlide}
-                className="btn-primary flex-1 !py-2 md:!py-3 text-base md:text-lg font-bold shadow-lg transition-all duration-300"
+                className="btn-primary flex-1 !py-3 md:!py-4 text-base md:text-lg font-bold shadow-lg transition-all duration-300"
               >
                 Далее
               </button>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="text-center mb-4">
                 <h3 className="!text-xl mb-2 text-gradient">Начни прямо сейчас</h3>
-                <p className="text-sm text-gray-400">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
+                <p className="text-sm text-gray-400 leading-relaxed">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
               </div>
               <button
                 onClick={handleAuth}
                 disabled={isAuthenticating}
-                className="btn-primary w-full !py-4 md:!py-5 text-base md:text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Войти через Telegram"
               >
                 {isAuthenticating ? (
@@ -292,12 +316,12 @@ export default function Onboarding() {
               <button
                 onClick={handleAuth}
                 disabled={isAuthenticating}
-                className="btn-white w-full !py-4 md:!py-5 text-base md:text-lg font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed bg-white/10 hover:bg-white/20 rounded-2xl text-white border border-white/20 transition-all"
                 aria-label="Войти через Alfa ID"
               >
                 {isAuthenticating ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-stake-red/30 border-t-stake-red rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     <span>Подключение...</span>
                   </>
                 ) : (
@@ -308,7 +332,7 @@ export default function Onboarding() {
                 )}
               </button>
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="btn-secondary w-full !py-4 transition-all duration-300">
+                <button onClick={prevSlide} className="w-full !py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all">
                   Назад
                 </button>
               )}
@@ -322,7 +346,7 @@ export default function Onboarding() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-8"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="skill-level-title"
@@ -330,43 +354,43 @@ export default function Onboarding() {
           <motion.div
             initial={{ scale: 0.9, y: 20 }}
             animate={{ scale: 1, y: 0 }}
-            className="glass-card p-8 w-full max-w-md"
+            className="glass-card p-6 w-full max-w-md"
           >
-            <h3 id="skill-level-title" className="!text-2xl mb-3 text-center">Ваш уровень игры?</h3>
-            <p className="text-sm text-gray-400 text-center mb-8">
+            <h3 id="skill-level-title" className="!text-2xl mb-2 text-center">Ваш уровень игры?</h3>
+            <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed">
               Это поможет подобрать подходящих соперников
             </p>
 
             <div className="space-y-3">
               <button
                 onClick={() => handleSkillSelect('beginner')}
-                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
                 aria-label="Выбрать уровень: Новичок"
               >
                 <h4 className="!text-lg mb-2">🌱 Новичок</h4>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   Только начинаю изучать шахматы
                 </p>
               </button>
 
               <button
                 onClick={() => handleSkillSelect('intermediate')}
-                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
                 aria-label="Выбрать уровень: Средний"
               >
                 <h4 className="!text-lg mb-2">⚡ Средний</h4>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   Знаю основы, играю регулярно
                 </p>
               </button>
 
               <button
                 onClick={() => handleSkillSelect('advanced')}
-                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
                 aria-label="Выбрать уровень: Продвинутый"
               >
                 <h4 className="!text-lg mb-2">👑 Продвинутый</h4>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   Опытный игрок с высоким рейтингом
                 </p>
               </button>
@@ -374,7 +398,7 @@ export default function Onboarding() {
 
             <button
               onClick={() => setShowSkillSelect(false)}
-              className="btn-secondary w-full mt-4"
+              className="w-full mt-4 py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all"
               aria-label="Вернуться назад без выбора уровня"
             >
               Назад

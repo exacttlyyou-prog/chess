@@ -175,8 +175,8 @@ export default function GameMode() {
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
-                            : 'none',
-                          opacity: isSelected ? 1 : 0.7,
+                            : 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                          opacity: isSelected ? 1 : 0.8,
                         }}
                       />
                     </motion.div>

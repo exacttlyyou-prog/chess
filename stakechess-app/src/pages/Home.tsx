@@ -9,7 +9,7 @@ const recentGames = [
     rating: '2831',
     result: 'win',
     mode: 'Блиц 3+2',
-    image: '/images/pieces/king-solo.png',
+    image: '/images/grandmasters/карлсон.png',
     moves: 32,
     date: '2 часа назад',
   },

@@ -474,7 +474,7 @@ export default function ChessBoard({ game, position, onMove, whiteTime, blackTim
                           <ChessPiece
                             type={piece.type}
                             color={piece.color}
-                            className={`w-full h-full select-none cursor-${piece.color === currentTurn && isPlayerTurn ? 'grab' : 'default'} relative z-10 ${
+                            className={`w-full h-full select-none cursor-${piece.color === currentTurn && isPlayerTurn ? 'grab' : 'default'} relative z-10 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] ${
                               animatingPiece &&
                               animatingPiece.from.row === rowIndex &&
                               animatingPiece.from.col === colIndex
