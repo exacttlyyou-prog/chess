@@ -79,7 +79,7 @@ export default function GameMode() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-28 md:pb-20"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-32"
     >
       <Breadcrumbs />
 
@@ -148,7 +148,7 @@ export default function GameMode() {
                     onClick={() => setSelectedMode(mode.id)}
                     aria-label={`${mode.title} - ${mode.description}`}
                     aria-pressed={isSelected}
-                    className={`glass-card aspect-square p-1.5 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col justify-between ${
+                    className={`glass-card aspect-square p-3 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col ${
                       isSelected
                         ? 'border-2 !border-opacity-100'
                         : 'border border-white/5 hover:border-white/10'
@@ -160,37 +160,36 @@ export default function GameMode() {
                         : undefined,
                     }}
                   >
-                    {/* Hero Icon - compact on mobile */}
+                    {/* Hero Icon - fills most of the card */}
                     <motion.div
                       animate={{
                         scale: isSelected ? 1.05 : 1,
                       }}
                       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="flex items-center justify-center h-[55%] md:flex-1"
+                      className="flex items-center justify-center flex-1"
                     >
                       <img
                         src={mode.icon}
                         alt=""
-                        className="w-full h-full max-h-[80%] md:max-h-[60%] object-contain"
+                        className="w-16 h-16 md:w-20 md:h-20 object-contain"
                         style={{
                           filter: isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
-                            : 'opacity: 0.6',
-                          opacity: isSelected ? 1 : 0.6,
+                            : 'none',
+                          opacity: isSelected ? 1 : 0.7,
                         }}
                       />
                     </motion.div>
 
-                    {/* Text below icon - fixed height on mobile */}
-                    <div className="relative z-10 w-full h-[45%] md:h-auto flex flex-col justify-end">
+                    {/* Text below icon */}
+                    <div className="relative z-10 w-full mt-2">
                       <h6
-                        className="!text-[10px] md:!text-lg font-bold truncate leading-tight mb-0.5"
+                        className="!text-sm md:!text-lg font-bold truncate leading-tight"
                         style={{ color: isSelected ? mode.accentColor : 'white' }}
                       >
                         {mode.title}
                       </h6>
-                      <p className="text-[11px] md:text-2xl font-semibold text-white truncate leading-tight">{mode.time}</p>
-                      <p className="hidden md:block text-xs text-gray-400 truncate mt-1">{mode.description}</p>
+                      <p className="text-base md:text-2xl font-semibold text-white truncate leading-tight">{mode.time}</p>
                     </div>
 
                     {/* Energy glow when selected */}
@@ -221,7 +220,7 @@ export default function GameMode() {
             <div className="space-y-3">
               <button
                 onClick={handlePlay}
-                className="glass-card p-6 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
+                className="glass-card p-4 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
                 aria-label="Играть против случайного соперника"
               >
                 <div className="flex items-center gap-3">
@@ -235,19 +234,19 @@ export default function GameMode() {
                 <img
                   src="/images/icons/кубик.png"
                   alt=""
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 opacity-35 pointer-events-none"
                 />
               </button>
               <button
                 onClick={handlePlayWithAI}
-                className="glass-card p-6 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
+                className="glass-card p-4 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
                 aria-label="Играть против AI моделей шахматистов"
               >
                 {/* 3D Icon Anchor - behind text */}
                 <img
                   src="/images/icons/играй с ии.png"
                   alt=""
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-24 h-24 opacity-35 pointer-events-none z-0"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 opacity-35 pointer-events-none z-0"
                 />
                 <div className="flex items-center gap-3 relative z-10">
                   <div className="flex-1">
@@ -258,48 +257,6 @@ export default function GameMode() {
                 </div>
               </button>
             </div>
-          </motion.div>
-
-          {/* Play Button - Main CTA with volumetric design */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-4 lg:px-6 mb-8"
-          >
-            <motion.button
-              onClick={handlePlay}
-              disabled={!selectedMode}
-              animate={{
-                boxShadow: selectedMode && selectedModeData
-                  ? [
-                      `0 8px 24px ${selectedModeData.accentColor}40`,
-                      `0 12px 32px ${selectedModeData.accentColor}60`,
-                      `0 8px 24px ${selectedModeData.accentColor}40`,
-                    ]
-                  : 'none',
-              }}
-              transition={{
-                boxShadow: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                },
-              }}
-              className={`w-full py-5 rounded-2xl font-bold text-lg transition-all relative overflow-hidden ${
-                selectedMode
-                  ? 'bg-gradient-to-b from-stake-red to-stake-red-dark text-white hover:scale-[1.02] active:scale-[0.98]'
-                  : 'bg-white/5 text-gray-500 cursor-not-allowed border border-white/10'
-              }`}
-              style={{
-                boxShadow: selectedMode
-                  ? `0 1px 0 inset rgba(255, 255, 255, 0.2), 0 8px 24px ${selectedModeData?.accentColor}40`
-                  : undefined,
-              }}
-              aria-label="Начать игру с выбранными настройками"
-            >
-              {selectedMode ? 'Начать игру' : 'Выберите режим игры'}
-            </motion.button>
           </motion.div>
 
         </div>
@@ -357,6 +314,50 @@ export default function GameMode() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+      )}
+
+      {/* Fixed Play Button at bottom */}
+      {activeTab === 'play' && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="fixed bottom-0 left-0 right-0 px-4 pb-4 pt-2 bg-gradient-to-t from-stake-black via-stake-black to-transparent z-50"
+        >
+          <motion.button
+            onClick={handlePlay}
+            disabled={!selectedMode}
+            animate={{
+              boxShadow: selectedMode && selectedModeData
+                ? [
+                    `0 8px 24px ${selectedModeData.accentColor}40`,
+                    `0 12px 32px ${selectedModeData.accentColor}60`,
+                    `0 8px 24px ${selectedModeData.accentColor}40`,
+                  ]
+                : 'none',
+            }}
+            transition={{
+              boxShadow: {
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              },
+            }}
+            className={`w-full py-4 rounded-2xl font-bold text-lg transition-all relative overflow-hidden ${
+              selectedMode
+                ? 'bg-gradient-to-b from-stake-red to-stake-red-dark text-white hover:scale-[1.02] active:scale-[0.98]'
+                : 'bg-white/5 text-gray-500 cursor-not-allowed border border-white/10'
+            }`}
+            style={{
+              boxShadow: selectedMode
+                ? `0 1px 0 inset rgba(255, 255, 255, 0.2), 0 8px 24px ${selectedModeData?.accentColor}40`
+                : undefined,
+            }}
+            aria-label="Начать игру с выбранными настройками"
+          >
+            {selectedMode ? 'Начать игру' : 'Выберите режим игры'}
+          </motion.button>
         </motion.div>
       )}
     </motion.div>
