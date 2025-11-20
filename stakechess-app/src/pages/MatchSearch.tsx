@@ -224,7 +224,7 @@ export default function MatchSearch() {
                   <h4 className="!text-xl mb-2">{opponent.name}</h4>
                   <div className="flex items-center justify-center gap-2">
                     <span className="text-sm text-gray-400">Рейтинг:</span>
-                    <span className="text-xl font-bold text-gradient">{opponent.rating}</span>
+                    <span className="text-xl font-bold" style={{ color: '#e57373' }}>{opponent.rating}</span>
                   </div>
                 </div>
               </div>

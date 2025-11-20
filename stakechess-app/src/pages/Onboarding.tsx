@@ -115,7 +115,11 @@ export default function Onboarding() {
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          {/* Bottom scrim for text readability */}
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent 60%)'
+          }} />
           {/* Red accent gradient - reduced opacity */}
           <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/10 via-transparent to-transparent" />
 
@@ -257,15 +261,15 @@ export default function Onboarding() {
           className="p-4 md:p-8 space-y-4 md:space-y-6 pb-6 md:pb-8"
         >
           {/* Progress Dots */}
-          <div className="flex justify-center gap-3" role="tablist" aria-label="Слайды онбординга">
+          <div className="flex justify-center gap-3 mb-4" role="tablist" aria-label="Слайды онбординга">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 bg-stake-red shadow-md'
-                    : 'w-2 bg-white/30 hover:bg-white/50'
+                    ? 'w-8 bg-stake-red shadow-md'
+                    : 'w-2 bg-white/40 hover:bg-white/60'
                 }`}
                 role="tab"
                 aria-selected={index === currentSlide}
@@ -278,7 +282,7 @@ export default function Onboarding() {
           {currentSlide < slides.length - 1 ? (
             <div className="flex gap-3">
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="flex-1 !py-3 md:!py-4 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all">
+                <button onClick={prevSlide} className="flex-1 !py-3 md:!py-4 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all">
                   Назад
                 </button>
               )}
@@ -332,7 +336,7 @@ export default function Onboarding() {
                 )}
               </button>
               {currentSlide > 0 && (
-                <button onClick={prevSlide} className="w-full !py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all">
+                <button onClick={prevSlide} className="w-full !py-3 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all">
                   Назад
                 </button>
               )}
@@ -364,41 +368,56 @@ export default function Onboarding() {
             <div className="space-y-3">
               <button
                 onClick={() => handleSkillSelect('beginner')}
-                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
                 aria-label="Выбрать уровень: Новичок"
               >
-                <h4 className="!text-lg mb-2">🌱 Новичок</h4>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Только начинаю изучать шахматы
-                </p>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">🌱</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Новичок</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Только начинаю изучать шахматы
+                    </p>
+                  </div>
+                </div>
               </button>
 
               <button
                 onClick={() => handleSkillSelect('intermediate')}
-                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
                 aria-label="Выбрать уровень: Средний"
               >
-                <h4 className="!text-lg mb-2">⚡ Средний</h4>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Знаю основы, играю регулярно
-                </p>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">⚡</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Средний</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Знаю основы, играю регулярно
+                    </p>
+                  </div>
+                </div>
               </button>
 
               <button
                 onClick={() => handleSkillSelect('advanced')}
-                className="glass-card p-5 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all"
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
                 aria-label="Выбрать уровень: Продвинутый"
               >
-                <h4 className="!text-lg mb-2">👑 Продвинутый</h4>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Опытный игрок с высоким рейтингом
-                </p>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">👑</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Продвинутый</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Опытный игрок с высоким рейтингом
+                    </p>
+                  </div>
+                </div>
               </button>
             </div>
 
             <button
               onClick={() => setShowSkillSelect(false)}
-              className="w-full mt-4 py-3 bg-white/10 hover:bg-white/20 rounded-2xl text-white font-medium transition-all"
+              className="w-full mt-4 py-3 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all"
               aria-label="Вернуться назад без выбора уровня"
             >
               Назад

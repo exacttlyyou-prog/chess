@@ -148,7 +148,7 @@ export default function GameMode() {
                     onClick={() => setSelectedMode(mode.id)}
                     aria-label={`${mode.title} - ${mode.description}`}
                     aria-pressed={isSelected}
-                    className={`glass-card aspect-square p-3 md:p-6 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col ${
+                    className={`glass-card aspect-square p-4 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col ${
                       isSelected
                         ? 'border-2 !border-opacity-100'
                         : 'border border-white/5 hover:border-white/10'
@@ -173,10 +173,12 @@ export default function GameMode() {
                         alt=""
                         className="w-16 h-16 md:w-20 md:h-20 object-contain"
                         style={{
-                          filter: isSelected
+                          filter: mode.id === 'blitz'
+                            ? `drop-shadow(0 0 8px rgba(220, 40, 40, 0.6)) brightness(1.1) ${isSelected ? `drop-shadow(0 4px 16px ${mode.accentColor}80)` : ''}`
+                            : isSelected
                             ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
                             : 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
-                          opacity: isSelected ? 1 : 0.8,
+                          opacity: isSelected ? 1 : 0.85,
                         }}
                       />
                     </motion.div>

@@ -328,9 +328,24 @@
     outline-offset: 3px;
   }
 
-  /* Secondary button with refined glass */
+  /* Secondary button with subtle filled background */
   .btn-secondary {
-    @apply glass-button font-semibold;
+    @apply font-semibold px-6 py-3.5 rounded-2xl;
+    background-color: rgba(255, 255, 255, 0.08);
+    min-height: 44px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    transform: scale(1.02) translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.98);
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .btn-secondary:focus-visible {
