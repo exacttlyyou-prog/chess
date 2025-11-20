@@ -316,12 +316,12 @@ export default function Onboarding() {
               <button
                 onClick={handleAuth}
                 disabled={isAuthenticating}
-                className="w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed bg-white/10 hover:bg-white/20 rounded-2xl text-white border border-white/20 transition-all"
+                className="btn-white w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Войти через Alfa ID"
               >
                 {isAuthenticating ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-stake-red/30 border-t-stake-red rounded-full animate-spin" />
                     <span>Подключение...</span>
                   </>
                 ) : (
