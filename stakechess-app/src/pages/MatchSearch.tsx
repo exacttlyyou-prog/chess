@@ -1,8 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Swords, Check } from 'lucide-react';
-import { generateOpponentAvatar, svgToDataUrl } from '../utils/avatarGenerator';
 import { CHESS_PERSONALITIES } from '../ai/chessPersonalities';
 
 export default function MatchSearch() {
@@ -10,15 +9,12 @@ export default function MatchSearch() {
   const [stage, setStage] = useState<'searching' | 'found' | 'ready'>('searching');
   const [progress, setProgress] = useState(0);
 
-  // Magnus Carlsen as opponent
-  const opponent = useMemo(() => {
-    const { avatar } = generateOpponentAvatar(2831);
-    return {
-      name: 'Магнус Карлсен',
-      rating: 2831,
-      avatar: svgToDataUrl(avatar),
-    };
-  }, []);
+  // Magnus Carlsen as opponent - using real photo
+  const opponent = {
+    name: 'Магнус Карлсен',
+    rating: 2831,
+    avatar: '/images/grandmasters/карлсон.png',
+  };
 
   // Search animation (3 seconds)
   useEffect(() => {
