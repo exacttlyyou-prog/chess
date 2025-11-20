@@ -54,7 +54,7 @@ export default function Home() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-4 md:px-8 pt-2 pb-6"
+        className="px-4 lg:px-6 pt-2 pb-6"
       >
         {/* Hero Profile Card */}
         <motion.button
@@ -283,7 +283,7 @@ export default function Home() {
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm text-white">Задачи</p>
+            <p className="font-bold text-base text-white">Задачи</p>
           </motion.button>
 
           <motion.button
@@ -302,7 +302,7 @@ export default function Home() {
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm text-white">Дебюты</p>
+            <p className="font-bold text-base text-white">Дебюты</p>
           </motion.button>
 
           <motion.button
@@ -321,7 +321,7 @@ export default function Home() {
               alt=""
               className="w-28 h-28 object-contain drop-shadow-2xl"
             />
-            <p className="font-bold text-sm text-white">Испытание</p>
+            <p className="font-bold text-base text-white">Испытание</p>
           </motion.button>
         </div>
           </div>
@@ -329,7 +329,7 @@ export default function Home() {
       </motion.div>
 
       {/* Recent Games - Compact horizontal scroll */}
-      <div className="px-4 md:px-8 pb-28">
+      <div className="px-4 lg:px-6 pb-28">
         <h3 className="!text-xl mb-4 !font-semibold">Недавние партии</h3>
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" role="list" aria-label="Недавние шахматные партии">
           {recentGames.map((game, index) => (

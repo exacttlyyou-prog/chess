@@ -63,7 +63,7 @@ export default function SelectAI() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-6 pb-4"
+        className="px-4 lg:px-6 pt-6 pb-4"
       >
         <div className="flex items-center gap-4 mb-6">
           <button
@@ -82,7 +82,7 @@ export default function SelectAI() {
       </motion.div>
 
       {/* AI Personalities Grid */}
-      <div className="px-8 pb-28 space-y-8">
+      <div className="px-4 lg:px-6 pb-28 space-y-8">
         {categories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}
@@ -122,7 +122,7 @@ export default function SelectAI() {
                     {/* Header */}
                     <div className="flex items-start gap-4 mb-4">
                       {/* Avatar */}
-                      <div className="w-24 h-24 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border-2 border-white/10 group-hover:border-stake-red/30 transition-colors">
+                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden bg-black/50 flex-shrink-0 border-2 border-white/10 group-hover:border-stake-red/30 transition-colors">
                         <img
                           src={personality.avatar || bgImage}
                           alt={personality.name}

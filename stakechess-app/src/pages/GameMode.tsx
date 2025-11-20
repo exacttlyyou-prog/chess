@@ -87,7 +87,7 @@ export default function GameMode() {
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-2 pb-4 flex items-center gap-4"
+        className="px-4 lg:px-6 pt-2 pb-4 flex items-center gap-4"
       >
         <button
           onClick={() => navigate('/home')}
@@ -99,7 +99,7 @@ export default function GameMode() {
       </motion.div>
 
       {/* Tabs */}
-      <div className="px-8 mb-8">
+      <div className="px-4 lg:px-6 mb-8">
         <div className="glass rounded-2xl p-2 flex gap-2" role="tablist" aria-label="Режим игры">
           <button
             onClick={() => setActiveTab('play')}
@@ -215,7 +215,7 @@ export default function GameMode() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="px-8 mb-6"
+            className="px-4 lg:px-6 mb-6"
           >
             <h6 className="!text-base text-gray-400 mb-4">Выбор соперника</h6>
             <div className="space-y-3">
@@ -265,7 +265,7 @@ export default function GameMode() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="px-8 mb-8"
+            className="px-4 lg:px-6 mb-8"
           >
             <motion.button
               onClick={handlePlay}
@@ -311,7 +311,7 @@ export default function GameMode() {
           aria-labelledby="tournament-tab"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="px-8 space-y-6"
+          className="px-4 lg:px-6 space-y-6"
         >
           {tournaments.map((tournament, index) => (
             <motion.div
