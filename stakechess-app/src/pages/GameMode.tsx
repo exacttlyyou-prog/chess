@@ -1,36 +1,41 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, Activity, Wind, Clock, Shuffle, Bot, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const gameModes = [
   {
     id: 'blitz',
     title: 'Блиц',
     time: '3 + 2',
-    description: '3 минуты на партию + 2 сек за ход',
-    Icon: Zap,
+    description: '3 мин + 2 сек',
+    icon: '/images/icons/молния.png',
+    accentColor: '#ff3b30',
   },
   {
     id: 'rapid',
     title: 'Рапид',
     time: '10 + 0',
-    description: '10 минут на партию',
-    Icon: Activity,
+    description: '10 минут',
+    icon: '/images/icons/секундомер.png',
+    accentColor: '#ffcc00',
   },
   {
     id: 'bullet',
     title: 'Пуля',
     time: '1 + 0',
-    description: '1 минута на партию',
-    Icon: Wind,
+    description: '1 минута',
+    icon: '/images/icons/пуля.png',
+    accentColor: '#5e5ce6',
   },
   {
     id: 'classic',
     title: 'Классика',
     time: '30 + 0',
-    description: '30 минут на партию',
-    Icon: Clock,
+    description: '30 минут',
+    icon: '/images/icons/пешка.png',
+    accentColor: '#30d158',
   },
 ];
 
@@ -59,8 +64,14 @@ export default function GameMode() {
   const [activeTab, setActiveTab] = useState<'play' | 'tournament'>('play');
 
   const handlePlay = () => {
-    navigate('/play');
+    navigate('/match-search');
   };
+
+  const handlePlayWithAI = () => {
+    navigate('/select-ai');
+  };
+
+  const selectedModeData = gameModes.find(m => m.id === selectedMode);
 
   return (
     <motion.div
@@ -68,13 +79,15 @@ export default function GameMode() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern pb-20"
+      className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black pb-32"
     >
+      <Breadcrumbs />
+
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="px-8 pt-2 pb-4 flex items-center gap-4"
+        className="px-4 lg:px-6 pt-2 pb-4 flex items-center gap-4"
       >
         <button
           onClick={() => navigate('/home')}
@@ -86,10 +99,13 @@ export default function GameMode() {
       </motion.div>
 
       {/* Tabs */}
-      <div className="px-8 mb-8">
-        <div className="glass rounded-2xl p-2 flex gap-2">
+      <div className="px-4 lg:px-6 mb-8">
+        <div className="glass rounded-2xl p-2 flex gap-2" role="tablist" aria-label="Режим игры">
           <button
             onClick={() => setActiveTab('play')}
+            role="tab"
+            aria-selected={activeTab === 'play'}
+            aria-controls="play-panel"
             className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
               activeTab === 'play'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
@@ -100,6 +116,9 @@ export default function GameMode() {
           </button>
           <button
             onClick={() => setActiveTab('tournament')}
+            role="tab"
+            aria-selected={activeTab === 'tournament'}
+            aria-controls="tournament-panel"
             className={`flex-1 py-4 rounded-xl font-semibold transition-all ${
               activeTab === 'tournament'
                 ? 'bg-gradient-to-r from-stake-red to-stake-red-dark text-white shadow-lg'
@@ -112,67 +131,126 @@ export default function GameMode() {
       </div>
 
       {activeTab === 'play' ? (
-        <>
-          {/* Game Modes */}
-          <div className="px-8 mb-8">
+        <div role="tabpanel" id="play-panel" aria-labelledby="play-tab">
+          {/* Game Modes - 2x2 Grid with Hero Icons */}
+          <div className="px-4 md:px-8 mb-8">
             <h6 className="!text-base text-gray-400 mb-4">Режим игры</h6>
-            <div className="grid grid-cols-2 gap-4">
-              {gameModes.map((mode, index) => (
-                <motion.button
-                  key={mode.id}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.05, type: 'spring' }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedMode(mode.id)}
-                  className={`glass-card p-6 text-left transition-all shadow-depth ${
-                    selectedMode === mode.id
-                      ? 'border-stake-red/50 bg-stake-red/10 shadow-red-glow'
-                      : ''
-                  }`}
-                >
-                  <div className={`bg-gradient-to-br ${
-                    selectedMode === mode.id
-                      ? 'from-stake-red/30 to-stake-red/10'
-                      : 'from-stake-red/20 to-stake-red/5'
-                  } w-12 h-12 rounded-2xl flex items-center justify-center mb-4`}>
-                    <mode.Icon className="w-6 h-6 text-stake-red" strokeWidth={2} />
-                  </div>
-                  <h6 className="mb-1">{mode.title}</h6>
-                  <p className="text-body-sm text-gray-400 mb-2 font-medium">{mode.time}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{mode.description}</p>
-                </motion.button>
-              ))}
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              {gameModes.map((mode, index) => {
+                const isSelected = selectedMode === mode.id;
+
+                return (
+                  <motion.button
+                    key={mode.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05, duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                    onClick={() => setSelectedMode(mode.id)}
+                    aria-label={`${mode.title} - ${mode.description}`}
+                    aria-pressed={isSelected}
+                    className={`glass-card aspect-square p-4 text-center transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden flex flex-col ${
+                      isSelected
+                        ? 'border-2 !border-opacity-100'
+                        : 'border border-white/5 hover:border-white/10'
+                    }`}
+                    style={{
+                      borderColor: isSelected ? mode.accentColor : undefined,
+                      boxShadow: isSelected
+                        ? `0 4px 24px ${mode.accentColor}40, 0 0 0 1px ${mode.accentColor}60`
+                        : undefined,
+                    }}
+                  >
+                    {/* Hero Icon - fills most of the card */}
+                    <motion.div
+                      animate={{
+                        scale: isSelected ? 1.05 : 1,
+                      }}
+                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                      className="flex items-center justify-center flex-1"
+                    >
+                      <img
+                        src={mode.icon}
+                        alt=""
+                        className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                        style={{
+                          filter: mode.id === 'blitz'
+                            ? `drop-shadow(0 0 8px rgba(220, 40, 40, 0.6)) brightness(1.1) ${isSelected ? `drop-shadow(0 4px 16px ${mode.accentColor}80)` : ''}`
+                            : isSelected
+                            ? `drop-shadow(0 4px 16px ${mode.accentColor}80)`
+                            : 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                          opacity: isSelected ? 1 : 0.85,
+                        }}
+                      />
+                    </motion.div>
+
+                    {/* Text below icon */}
+                    <div className="relative z-10 w-full mt-2">
+                      <h6
+                        className="!text-sm md:!text-lg font-bold truncate leading-tight"
+                        style={{ color: isSelected ? mode.accentColor : 'white' }}
+                      >
+                        {mode.title}
+                      </h6>
+                      <p className="text-base md:text-2xl font-semibold text-white truncate leading-tight">{mode.time}</p>
+                    </div>
+
+                    {/* Energy glow when selected */}
+                    {isSelected && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: `radial-gradient(circle at 50% 0%, ${mode.accentColor}20 0%, transparent 70%)`,
+                        }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Opponent Selection */}
+          {/* Opponent Selection - Separate section below grid */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="px-8 mb-6"
+            className="px-4 lg:px-6 mb-6"
           >
-            <h6 className="!text-sm text-gray-400 mb-3">Выбор соперника</h6>
+            <h6 className="!text-base text-gray-400 mb-4">Выбор соперника</h6>
             <div className="space-y-3">
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
+              <button
+                onClick={handlePlay}
+                className="glass-card p-4 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
+                aria-label="Играть против случайного соперника"
+              >
                 <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Shuffle className="w-6 h-6 text-stake-red" />
-                  </div>
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Случайный соперник</h6>
                     <p className="text-body-sm text-gray-400">Рейтинг: 1400 - 1500</p>
                   </div>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>
+                {/* 3D Icon Anchor */}
+                <img
+                  src="/images/icons/кубик.png"
+                  alt=""
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 opacity-35 pointer-events-none"
+                />
               </button>
-              <button className="glass-card p-6 w-full text-left hover:bg-white/10 transition-all shadow-depth">
-                <div className="flex items-center gap-3">
-                  <div className="bg-gradient-to-br from-stake-red/30 to-stake-red/10 p-3 rounded-xl">
-                    <Bot className="w-6 h-6 text-stake-red" />
-                  </div>
+              <button
+                onClick={handlePlayWithAI}
+                className="glass-card p-4 w-full text-left hover:border-stake-red/30 transition-all relative overflow-hidden"
+                aria-label="Играть против AI моделей шахматистов"
+              >
+                {/* 3D Icon Anchor - behind text */}
+                <img
+                  src="/images/icons/играй с ии.png"
+                  alt=""
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 opacity-35 pointer-events-none z-0"
+                />
+                <div className="flex items-center gap-3 relative z-10">
                   <div className="flex-1">
                     <h6 className="!text-base mb-1">Играть с AI</h6>
                     <p className="text-body-sm text-gray-400">Тренировочный режим</p>
@@ -183,39 +261,31 @@ export default function GameMode() {
             </div>
           </motion.div>
 
-          {/* Play Button */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="px-8"
-          >
-            <button onClick={handlePlay} className="btn-primary w-full">
-              Начать игру
-            </button>
-          </motion.div>
-        </>
+        </div>
       ) : (
         /* Tournaments */
         <motion.div
+          role="tabpanel"
+          id="tournament-panel"
+          aria-labelledby="tournament-tab"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="px-8 space-y-6"
+          className="px-4 lg:px-6 space-y-6"
         >
           {tournaments.map((tournament, index) => (
             <motion.div
               key={tournament.id}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1, type: 'spring' }}
-              className="glass-card p-8 shadow-depth-lg relative overflow-hidden hover-lift cursor-pointer"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="glass-card p-8 relative overflow-hidden hover-lift cursor-pointer"
             >
               {/* Background chess piece */}
-              <div className="absolute right-0 top-0 w-40 h-40 opacity-8 pointer-events-none">
+              <div className="absolute -right-4 -top-4 w-48 h-48 opacity-15 pointer-events-none">
                 <img
-                  src="/images/achievements/tournament-cup.png"
+                  src="/images/achievements/0_0__73_.png"
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover scale-110"
                 />
               </div>
 
@@ -246,6 +316,50 @@ export default function GameMode() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+      )}
+
+      {/* Fixed Play Button at bottom */}
+      {activeTab === 'play' && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="fixed bottom-0 left-0 right-0 px-4 pb-4 pt-2 bg-gradient-to-t from-stake-black via-stake-black to-transparent z-50"
+        >
+          <motion.button
+            onClick={handlePlay}
+            disabled={!selectedMode}
+            animate={{
+              boxShadow: selectedMode && selectedModeData
+                ? [
+                    `0 8px 24px ${selectedModeData.accentColor}40`,
+                    `0 12px 32px ${selectedModeData.accentColor}60`,
+                    `0 8px 24px ${selectedModeData.accentColor}40`,
+                  ]
+                : 'none',
+            }}
+            transition={{
+              boxShadow: {
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              },
+            }}
+            className={`w-full py-4 rounded-2xl font-bold text-lg transition-all relative overflow-hidden ${
+              selectedMode
+                ? 'bg-gradient-to-b from-stake-red to-stake-red-dark text-white hover:scale-[1.02] active:scale-[0.98]'
+                : 'bg-white/5 text-gray-500 cursor-not-allowed border border-white/10'
+            }`}
+            style={{
+              boxShadow: selectedMode
+                ? `0 1px 0 inset rgba(255, 255, 255, 0.2), 0 8px 24px ${selectedModeData?.accentColor}40`
+                : undefined,
+            }}
+            aria-label="Начать игру с выбранными настройками"
+          >
+            {selectedMode ? 'Начать игру' : 'Выберите режим игры'}
+          </motion.button>
         </motion.div>
       )}
     </motion.div>

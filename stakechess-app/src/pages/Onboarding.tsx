@@ -1,44 +1,40 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, User } from 'lucide-react';
+import { Send, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slides = [
   {
-    title: 'Играй без границ',
-    description: 'Классические шахматы и быстрые партии с игроками со всего мира',
-    image: '/images/heroes/growth-path.png',
+    title: 'Играй со всем миром',
+    description: 'Более 1 млн игроков онлайн. Предприниматели, звёзды спорта и эксперты — найди достойного соперника!',
+    image: '/images/heroes/world-map.png',
+    stat: '1M+ игроков онлайн',
   },
   {
-    title: 'Следи за прогрессом',
-    description: 'Отслеживай свой рост, зарабатывай достижения и повышай рейтинг',
+    title: 'Играй как легенды',
+    description: 'Уникальные AI-модели стилей Магнуса Карлсена, Каспарова, Фишера и других гроссмейстеров',
+    image: '/images/grandmasters/карлсон.png',
+    stat: '12 легендарных стилей',
+  },
+  {
+    title: 'Выигрывай призы',
+    description: 'Участвуй в турнирах с реальными наградами. До 100K монет за победу!',
+    image: '/images/achievements/trophy-crown.png',
+    stat: '12 турниров',
+  },
+  {
+    title: 'Отслеживай прогресс',
+    description: '52 достижения, рейтинговая система и детальная статистика каждой партии',
     image: '/images/heroes/stats-growth.png',
-  },
-  {
-    title: 'Участвуй в турнирах',
-    description: 'Соревнуйся с лучшими игроками и побеждай в престижных турнирах',
-    image: '/images/achievements/tournament-cup.png',
-  },
-  {
-    title: 'Найди друзей',
-    description: 'Играй с друзьями, общайся и создавай команду для турниров',
-    image: '/images/pieces/pair-classic.png',
-  },
-  {
-    title: 'Тренируйся с AI',
-    description: 'Улучшай навыки с искусственным интеллектом любого уровня',
-    image: '/images/heroes/ai-network.png',
-  },
-  {
-    title: 'Готов начать?',
-    description: 'Присоединяйся к тысячам игроков и начни свой путь к мастерству',
-    image: '/images/heroes/progress-stairs.png',
+    stat: '52 достижения',
   },
 ];
 
 export default function Onboarding() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showAuth, setShowAuth] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [skillLevel, setSkillLevel] = useState<'beginner' | 'intermediate' | 'advanced' | null>(null);
+  const [showSkillSelect, setShowSkillSelect] = useState(false);
   const navigate = useNavigate();
 
   // Preload all images
@@ -52,8 +48,6 @@ export default function Onboarding() {
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
-    } else {
-      setShowAuth(true);
     }
   };
 
@@ -64,74 +58,43 @@ export default function Onboarding() {
   };
 
   const handleAuth = () => {
-    navigate('/home');
+    // Show skill selection before auth
+    if (!skillLevel) {
+      setShowSkillSelect(true);
+      return;
+    }
+
+    setIsAuthenticating(true);
+    // Save skill level to localStorage
+    localStorage.setItem('user_skill_level', skillLevel);
+    // Simulate auth delay
+    setTimeout(() => {
+      navigate('/home');
+    }, 1500);
   };
 
-  if (showAuth) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="min-h-screen bg-gradient-to-br from-stake-black via-stake-black-light to-stake-black chess-pattern flex items-center justify-center p-6"
-      >
-        <motion.div
-          initial={{ scale: 0.9, y: 20 }}
-          animate={{ scale: 1, y: 0 }}
-          className="w-full max-w-md"
-        >
-          <div className="text-center mb-8">
-            <h1 className="mb-2">
-              <span className="text-gradient">StakeChess</span>
-            </h1>
-            <p className="text-body text-gray-400">Начни свой путь в шахматах</p>
-          </div>
+  const handleSkillSelect = (level: 'beginner' | 'intermediate' | 'advanced') => {
+    setSkillLevel(level);
+    setShowSkillSelect(false);
+    // Auto-proceed to auth
+    setTimeout(() => {
+      setIsAuthenticating(true);
+      localStorage.setItem('user_skill_level', level);
+      setTimeout(() => navigate('/home'), 1500);
+    }, 300);
+  };
 
-          <div className="glass-card p-8 space-y-4 shadow-depth-lg">
-            <input
-              type="tel"
-              placeholder="Номер телефона"
-              className="glass-input w-full text-white placeholder-gray-500"
-            />
-
-            <button onClick={handleAuth} className="btn-primary w-full">
-              Продолжить
-            </button>
-
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-stake-black-light text-gray-500">или</span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <Send size={18} />
-                <span>Telegram</span>
-              </button>
-              <button className="btn-secondary w-full flex items-center justify-center gap-3">
-                <User size={18} />
-                <span>VK ID</span>
-              </button>
-            </div>
-
-            <p className="text-xs text-gray-500 text-center mt-6">
-              Продолжая, вы соглашаетесь с условиями использования и политикой конфиденциальности
-            </p>
-          </div>
-
-          <button
-            onClick={() => setShowAuth(false)}
-            className="mt-6 text-gray-500 hover:text-white transition-colors w-full text-center"
-          >
-            Назад
-          </button>
-        </motion.div>
-      </motion.div>
-    );
-  }
+  // Swipe handler
+  const handleDragEnd = (_event: any, info: any) => {
+    const swipeThreshold = 50;
+    if (info.offset.x > swipeThreshold && currentSlide > 0) {
+      // Swipe right - previous slide
+      prevSlide();
+    } else if (info.offset.x < -swipeThreshold && currentSlide < slides.length - 1) {
+      // Swipe left - next slide
+      nextSlide();
+    }
+  };
 
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden">
@@ -152,9 +115,13 @@ export default function Onboarding() {
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
-          {/* Red accent gradient */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/20 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          {/* Bottom scrim for text readability */}
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent 60%)'
+          }} />
+          {/* Red accent gradient - reduced opacity */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-stake-red/10 via-transparent to-transparent" />
 
           {/* Animated particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -185,13 +152,19 @@ export default function Onboarding() {
       </AnimatePresence>
 
       {/* Content Overlay */}
-      <div className="relative z-10 h-screen flex flex-col">
+      <motion.div
+        className="relative z-10 h-screen flex flex-col"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
+      >
         {/* Header */}
-        <div className="px-8 pt-2 pb-4 flex justify-between items-center">
+        <div className="px-4 md:px-8 pt-2 pb-4 flex justify-between items-center gap-2">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-3xl font-bold"
+            className="text-2xl md:text-3xl font-bold flex-shrink-0"
           >
             <span className="text-gradient">StakeChess</span>
           </motion.h1>
@@ -199,14 +172,15 @@ export default function Onboarding() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => navigate('/home')}
-            className="glass-button !px-6 !py-3 text-white/80 hover:text-white font-medium"
+            className="glass-button !px-3 !py-2 md:!px-6 md:!py-3 text-white/80 hover:text-white font-medium text-sm md:text-base flex-shrink-0"
+            aria-label="Пропустить онбординг и перейти на главную"
           >
             Пропустить
           </motion.button>
         </div>
 
         {/* Main Content - Text Overlay */}
-        <div className="flex-1 flex flex-col justify-end p-8 pb-32">
+        <div className="flex-1 flex flex-col justify-end p-4 md:p-8 pb-4 md:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -216,11 +190,35 @@ export default function Onboarding() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="max-w-2xl"
             >
+              {/* Swipe indicator - показываем на первом слайде */}
+              {currentSlide === 0 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  className="flex items-center justify-center gap-2 mb-4 text-white/50"
+                >
+                  <motion.div
+                    animate={{ x: [-5, 5, -5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </motion.div>
+                  <span className="text-xs">свайп</span>
+                  <motion.div
+                    animate={{ x: [5, -5, 5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </motion.div>
+                </motion.div>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mb-4"
+                className="mb-3"
               >
                 <span className="inline-block glass-button !px-4 !py-2 text-sm font-semibold text-stake-red">
                   {currentSlide + 1} / {slides.length}
@@ -230,7 +228,7 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="!text-display md:!text-6xl mb-6 leading-tight"
+                className="!text-3xl md:!text-display mb-4 md:mb-6 leading-tight"
               >
                 {slides[currentSlide].title}
               </motion.h2>
@@ -238,10 +236,19 @@ export default function Onboarding() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-body-lg md:text-2xl text-gray-300"
+                className="text-base md:text-lg text-gray-300 mb-4 md:mb-6 leading-relaxed"
               >
                 {slides[currentSlide].description}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 }}
+                className="inline-flex items-center gap-2 glass-card !px-4 !py-2 md:!px-6 md:!py-3 border border-stake-red/30"
+              >
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-stake-red animate-pulse" />
+                <span className="text-stake-red font-bold text-sm md:text-lg">{slides[currentSlide].stat}</span>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -251,39 +258,173 @@ export default function Onboarding() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="p-8 space-y-6"
+          className="p-4 md:p-8 space-y-4 md:space-y-6 pb-6 md:pb-8"
         >
           {/* Progress Dots */}
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-3 mb-4" role="tablist" aria-label="Слайды онбординга">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 bg-stake-red shadow-[0_0_16px_rgba(255,23,68,0.6),0_4px_12px_rgba(255,23,68,0.4)]'
-                    : 'w-2 bg-white/30 hover:bg-white/50 hover:shadow-[0_0_8px_rgba(255,255,255,0.3)]'
+                    ? 'w-8 bg-stake-red shadow-md'
+                    : 'w-2 bg-white/40 hover:bg-white/60'
                 }`}
+                role="tab"
+                aria-selected={index === currentSlide}
+                aria-label={`Слайд ${index + 1} из ${slides.length}`}
               />
             ))}
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex gap-4">
-            {currentSlide > 0 && (
-              <button onClick={prevSlide} className="btn-secondary flex-1 !py-5 hover:shadow-[0_0_16px_rgba(255,255,255,0.1)] transition-all duration-300">
-                Назад
+          {currentSlide < slides.length - 1 ? (
+            <div className="flex gap-3">
+              {currentSlide > 0 && (
+                <button onClick={prevSlide} className="flex-1 !py-3 md:!py-4 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all">
+                  Назад
+                </button>
+              )}
+              <button
+                onClick={nextSlide}
+                className="btn-primary flex-1 !py-3 md:!py-4 text-base md:text-lg font-bold shadow-lg transition-all duration-300"
+              >
+                Далее
               </button>
-            )}
-            <button
-              onClick={nextSlide}
-              className="btn-primary flex-1 !py-5 text-lg font-bold shadow-[0_8px_24px_rgba(255,23,68,0.4)] hover:shadow-[0_8px_32px_rgba(255,23,68,0.6)] transition-all duration-300"
-            >
-              {currentSlide === slides.length - 1 ? 'Начать' : 'Далее'}
-            </button>
-          </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="text-center mb-4">
+                <h3 className="!text-xl mb-2 text-gradient">Начни прямо сейчас</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">Регистрация за 30 секунд. Первая партия — бесплатно!</p>
+              </div>
+              <button
+                onClick={handleAuth}
+                disabled={isAuthenticating}
+                className="btn-primary w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Войти через Telegram"
+              >
+                {isAuthenticating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Подключение...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} />
+                    <span>Telegram</span>
+                  </>
+                )}
+              </button>
+              <button
+                onClick={handleAuth}
+                disabled={isAuthenticating}
+                className="btn-white w-full !py-4 text-base font-bold flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Войти через Alfa ID"
+              >
+                {isAuthenticating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-stake-red/30 border-t-stake-red rounded-full animate-spin" />
+                    <span>Подключение...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-bold text-stake-red text-xl">А</span>
+                    <span>Alfa ID</span>
+                  </>
+                )}
+              </button>
+              {currentSlide > 0 && (
+                <button onClick={prevSlide} className="w-full !py-3 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all">
+                  Назад
+                </button>
+              )}
+            </div>
+          )}
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Skill Level Selection Modal */}
+      {showSkillSelect && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="skill-level-title"
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            className="glass-card p-6 w-full max-w-md"
+          >
+            <h3 id="skill-level-title" className="!text-2xl mb-2 text-center">Ваш уровень игры?</h3>
+            <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed">
+              Это поможет подобрать подходящих соперников
+            </p>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => handleSkillSelect('beginner')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
+                aria-label="Выбрать уровень: Новичок"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">🌱</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Новичок</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Только начинаю изучать шахматы
+                    </p>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => handleSkillSelect('intermediate')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
+                aria-label="Выбрать уровень: Средний"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">⚡</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Средний</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Знаю основы, играю регулярно
+                    </p>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => handleSkillSelect('advanced')}
+                className="glass-card p-6 w-full text-left hover-lift border-2 border-transparent hover:border-stake-red/50 transition-all min-h-[100px]"
+                aria-label="Выбрать уровень: Продвинутый"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">👑</span>
+                  <div>
+                    <h4 className="!text-lg mb-1">Продвинутый</h4>
+                    <p className="text-sm text-white/60 leading-relaxed">
+                      Опытный игрок с высоким рейтингом
+                    </p>
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowSkillSelect(false)}
+              className="w-full mt-4 py-3 bg-white/[0.08] hover:bg-white/[0.12] rounded-2xl text-white font-medium transition-all"
+              aria-label="Вернуться назад без выбора уровня"
+            >
+              Назад
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
