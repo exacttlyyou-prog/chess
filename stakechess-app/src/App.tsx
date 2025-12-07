@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const Home = lazy(() => import('./pages/Home'));
 const GameMode = lazy(() => import('./pages/GameMode'));
+const Matchmaking = lazy(() => import('./pages/Matchmaking'));
 const GamePlay = lazy(() => import('./pages/GamePlay'));
 const Profile = lazy(() => import('./pages/Profile'));
 
@@ -18,6 +19,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
         <Route path="/game-mode" element={<GameMode />} />
+        <Route path="/matchmaking" element={<Matchmaking />} />
         <Route path="/play" element={<GamePlay />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
